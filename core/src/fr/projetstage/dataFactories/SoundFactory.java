@@ -10,14 +10,14 @@ import com.badlogic.gdx.audio.Sound;
 public class SoundFactory {
 
     private static SoundFactory instance;
-    private static Sound soundAlerte;
+    private static Sound soundDeath;
 
     /**
      * Met en place les sons dans la banque de sons
      */
     private SoundFactory() {
         instance = this;
-        soundAlerte = Gdx.audio.newSound(Gdx.files.internal("sounds/alerte.mp3"));
+        soundDeath = Gdx.audio.newSound(Gdx.files.internal("sounds/death.mp3"));
     }
 
     /**
@@ -32,14 +32,14 @@ public class SoundFactory {
     }
 
     /**
-     * Joue le son de l'alerte avec le volume donné
+     * Joue le son de mort avec le volume donné
      * @param volume volume du son joué
      */
-    public void playSoundAlerte(float volume) {
-        soundAlerte.play(volume);
+    public void playsoundDeath(float volume) {
+        soundDeath.play(volume);
     }
 
     public void dispose(){
-        soundAlerte.dispose();
+        soundDeath.dispose();
     }
 }
