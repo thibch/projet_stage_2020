@@ -2,6 +2,7 @@ package fr.projetstage.view;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.projetstage.dataFactories.SoundFactory;
@@ -43,6 +44,8 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         super.render(delta);
+        Gdx.gl.glClearColor(54/255f, 57/255f, 63/255f, 1); //background color
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         listeAffImg.setProjectionMatrix(cameraEnv.combined);
         listeAffImg.begin();
         world.draw(listeAffImg);
