@@ -83,7 +83,6 @@ public class Joueur extends EntiteMouvante {
     public void draw(SpriteBatch listeAffImg) {
 
         if(body.getLinearVelocity().isZero(0.1f)){
-        //if(body.getLinearVelocity().isZero()){
             idleAnimation.update();
             listeAffImg.draw(idleAnimation.getFrame(facingLeft), getX(), getY(), hauteur, largeur);
         }
