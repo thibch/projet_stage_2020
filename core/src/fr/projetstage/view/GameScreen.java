@@ -1,10 +1,14 @@
 package fr.projetstage.view;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.input.GestureDetector;
+import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import fr.projetstage.controllers.KeyboardListener;
 import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
@@ -14,15 +18,29 @@ import fr.projetstage.models.monde.GameWorld;
  */
 public class GameScreen extends ScreenAdapter {
 
-    private SpriteBatch listeAffImg;
     private OrthographicCamera cameraEnv;
+    private Box2DDebugRenderer box2DDebugRenderer;
+
+    private SpriteBatch listeAffImg;
     private GameWorld gameWorld;
 
+    private KeyboardListener keyboardListener;
     /**
      * initialise une partie de jeu
      */
     public GameScreen(){
         listeAffImg = new SpriteBatch();
+
+        box2DDebugRenderer = new Box2DDebugRenderer();
+
+        keyboardListener = new KeyboardListener();
+
+        InputMultiplexer inputMultiplexer = new InputMultiplexer();
+        inputMultiplexer.addProcessor(keyboardListener);
+        Gdx.input.setInputProcessor(inputMultiplexer);
+
+
+
         gameWorld = new GameWorld();
     }
 
@@ -32,8 +50,8 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        cameraEnv = new OrthographicCamera(GameWorld.getLargeur(), GameWorld.getHauteur());
-        cameraEnv.position.set(GameWorld.getLargeur()/2f, GameWorld.getHauteur()/2f,0);
+        cameraEnv = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
+        cameraEnv.position.set(gameWorld.getLargeur()/2f, gameWorld.getHauteur()/2f,0);
         cameraEnv.update();
     }
 
@@ -48,7 +66,13 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         listeAffImg.setProjectionMatrix(cameraEnv.combined);
         listeAffImg.begin();
-        gameWorld.draw(listeAffImg);
+        if(keyboardListener.isAfficheDebug()){
+            box2DDebugRenderer.render(gameWorld.getWorld(), cameraEnv.combined); //On affiche le Debug si on a appuyé sur la touche du clavier
+        }else{
+            gameWorld.draw(listeAffImg);
+
+        }
+
         update();
         listeAffImg.end();
     }

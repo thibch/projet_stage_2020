@@ -17,9 +17,12 @@ public class Salle {
     private Entite[][] contenuSalle;
     private ArrayList<ObjetAuSol> objetAuSols;
 
-    public Salle(){
+    private GameWorld world;
+
+    public Salle(GameWorld world){
         hauteur = 10;
-        largeur = 10;
+        largeur = 16; //TODO: faire la génération de la carte en fonction du sol
+        this.world = world;
     }
 
     public void draw(SpriteBatch listeAffImg) {
@@ -30,62 +33,67 @@ public class Salle {
         TextureRegion tmpWallBorder = new TextureRegion(TextureFactory.getInstance().getBordureMur());
         TextureRegion tmpWallBorderCorner = new TextureRegion(TextureFactory.getInstance().getBordureMurAngle());
 
-        float ratioHauteur = (float) GameWorld.getHauteur()/hauteur;
-        float ratioLargeur = (float) GameWorld.getLargeur()/largeur;
-
         for(int x = 2; x < largeur-2; x++){
             for(int y = 2; y < hauteur-2; y++){
-                listeAffImg.draw(TextureFactory.getInstance().getSol2(),x*ratioLargeur,y*ratioHauteur,ratioLargeur,ratioHauteur);
+                listeAffImg.draw(TextureFactory.getInstance().getSol2(),x,y,1,1);
             }
         }
 
         //genere le mur de gauche (sur x == 1)
         for(int y = 2; y < hauteur-2;y++){
-            listeAffImg.draw(tmpWallBorder, ratioLargeur, y*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
-            listeAffImg.draw(tmpWall, 2*ratioLargeur, y*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+            listeAffImg.draw(tmpWallBorder, 1, y, 0, 0, 1, 1, 1, 1, 90);
+            listeAffImg.draw(tmpWall, 2, y, 0, 0, 1, 1, 1, 1, 90);
         }
 
         //genere le mur de droite (sur x == largeur - 2)
         for(int y = 2; y < hauteur-2;y++) {
-            listeAffImg.draw(tmpWallBorder, (largeur - 1)*ratioLargeur, (1 + y)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
-            listeAffImg.draw(tmpWall, (largeur - 2)*ratioLargeur, (1 + y)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+            listeAffImg.draw(tmpWallBorder, (largeur - 1), (1 + y), 0, 0, 1, 1, 1, 1, -90);
+            listeAffImg.draw(tmpWall, (largeur - 2), (1 + y), 0, 0, 1, 1, 1, 1, -90);
         }
 
         //genere le mur du haut (sur y == hauteur-2)
         for (int x = 2; x < largeur-2; x++) {
-            listeAffImg.draw(tmpWallBorder,x*ratioLargeur,(hauteur-2+1)*ratioHauteur, ratioLargeur, ratioHauteur);
-            listeAffImg.draw(tmpWall,x*ratioLargeur, (hauteur-2)*ratioHauteur, ratioLargeur, ratioHauteur);
+            listeAffImg.draw(tmpWallBorder,x,(hauteur-2+1), 1, 1);
+            listeAffImg.draw(tmpWall,x, (hauteur-2), 1, 1);
         }
 
         //genere le mur du bas (sur y == 1)
         for (int x = 2; x < largeur-2; x++) {
-            listeAffImg.draw(tmpWallBorder,(1+x)*ratioLargeur, ratioHauteur,0,0, ratioLargeur, ratioHauteur,1,1,180);
-            listeAffImg.draw(tmpWall,(1+x)*ratioLargeur,2*ratioHauteur,0,0, ratioLargeur, ratioHauteur,1,1,180);
+            listeAffImg.draw(tmpWallBorder,(1+x), 1,0,0, 1, 1,1,1,180);
+            listeAffImg.draw(tmpWall,(1+x),2,0,0, 1, 1,1,1,180);
         }
 
 
         //coin haut gauche
-        listeAffImg.draw(tmpWallBorderCorner, 0,(hauteur-1)*ratioHauteur, ratioLargeur, ratioHauteur);
-        listeAffImg.draw(tmpWallBorder, ratioLargeur, (hauteur-2)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
-        listeAffImg.draw(tmpWallBorder, ratioLargeur,(hauteur-1)*ratioHauteur, ratioLargeur, ratioHauteur);
-        listeAffImg.draw(tmpWallCorner, ratioLargeur,(hauteur-2)*ratioHauteur, ratioLargeur, ratioHauteur);
+        listeAffImg.draw(tmpWallBorderCorner, 0,(hauteur-1), 1, 1);
+        listeAffImg.draw(tmpWallBorder, 1, (hauteur-2), 0, 0, 1, 1, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorder, 1,(hauteur-1), 1, 1);
+        listeAffImg.draw(tmpWallCorner, 1,(hauteur-2), 1, 1);
 
         //coin haut droite
-        listeAffImg.draw(tmpWallBorderCorner, (largeur-1)*ratioLargeur, hauteur*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
-        listeAffImg.draw(tmpWallBorder, (largeur-1)*ratioLargeur, (hauteur-1)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
-        listeAffImg.draw(tmpWallBorder,(largeur-2)*ratioLargeur,(hauteur-1)*ratioHauteur, ratioLargeur, ratioHauteur);
-        listeAffImg.draw(tmpWallCorner, (largeur-2)*ratioLargeur, (hauteur-1)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorderCorner, (largeur-1), hauteur, 0, 0, 1, 1, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorder, (largeur-1), (hauteur-1), 0, 0, 1, 1, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorder,(largeur-2),(hauteur-1), 1, 1);
+        listeAffImg.draw(tmpWallCorner, (largeur-2), (hauteur-1), 0, 0, 1, 1, 1, 1, -90);
 
         //coin bas droite
-        listeAffImg.draw(tmpWallBorderCorner, largeur*ratioLargeur, ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
-        listeAffImg.draw(tmpWallBorder, (largeur-1)*ratioLargeur, 2*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
-        listeAffImg.draw(tmpWallBorder, (largeur-1)*ratioLargeur, ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
-        listeAffImg.draw(tmpWallCorner, (largeur-1)*ratioLargeur, 2*ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
+        listeAffImg.draw(tmpWallBorderCorner, largeur, 1, 0, 0, 1, 1, 1, 1, 180);
+        listeAffImg.draw(tmpWallBorder, (largeur-1), 2, 0, 0, 1, 1, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorder, (largeur-1), 1, 0, 0, 1, 1, 1, 1, 180);
+        listeAffImg.draw(tmpWallCorner, (largeur-1), 2, 0, 0, 1, 1, 1, 1, 180);
 
         //coin bas gauche
-        listeAffImg.draw(tmpWallBorderCorner, ratioLargeur, 0, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
-        listeAffImg.draw(tmpWallBorder, ratioLargeur, ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
-        listeAffImg.draw(tmpWallBorder, 2*ratioLargeur, ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
-        listeAffImg.draw(tmpWallCorner, 2*ratioLargeur, ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorderCorner, 1, 0, 0, 0, 1, 1, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorder, 1, 1, 0, 0, 1, 1, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorder, 2, 1, 0, 0, 1, 1, 1, 1, 180);
+        listeAffImg.draw(tmpWallCorner, 2, 1, 0, 0, 1, 1, 1, 1, 90);
     }
+
+    public int getLargeur() {
+        return largeur;
+    }
+    public int getHauteur() {
+        return hauteur;
+    }
+
 }
