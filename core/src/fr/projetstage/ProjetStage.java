@@ -2,7 +2,6 @@ package fr.projetstage;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
 import fr.projetstage.view.GameScreen;
 
 public class ProjetStage extends Game implements ApplicationListener {
@@ -14,7 +13,6 @@ public class ProjetStage extends Game implements ApplicationListener {
 		gameScreen = new GameScreen();
 		setScreen(gameScreen);
 	}
-
 
 	@Override
 	public void dispose() {

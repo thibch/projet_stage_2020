@@ -86,7 +86,6 @@ public class GameScreen extends ScreenAdapter {
 
         Vector2 force =  new Vector2(0, 0);
         force.add(keyboardListener.getAcceleration());
-
         gameWorld.getJoueur().applyForce(force);
         gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
     }

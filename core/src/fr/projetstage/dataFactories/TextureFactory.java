@@ -2,6 +2,7 @@ package fr.projetstage.dataFactories;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 /**
  * @author Thibault Choné
@@ -15,7 +16,8 @@ public class TextureFactory {
     private static Texture bordureMur;
     private static Texture bordureMurAngle;
     private static Texture sol2;
-    private static Texture joueur;
+    private static TextureRegion joueurIdleSpriteSheet;
+    private static TextureRegion joueurRunningSpriteSheet;
 
     /**
      * Met en place les textures dans la banque de texures
@@ -27,7 +29,9 @@ public class TextureFactory {
         sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
         bordureMur = new Texture(Gdx.files.internal("tiles/wall/wall_top_1.png"));
         bordureMurAngle = new Texture(Gdx.files.internal("tiles/wall/wall_top_corner.png"));
-        joueur = new Texture(Gdx.files.internal("heroes/knight/knight_idle_anim_f0.png"));
+
+        joueurIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_idle_spritesheet.png")));
+        joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
     }
 
     /**
@@ -82,11 +86,19 @@ public class TextureFactory {
     }
 
     /**
-     * Getter pour l'image du joueur
-     * @return image de l'angle du joueur
+     * Getter pour la sprite sheet du joueur inactif
+     * @return une TextureRegion idle spritesheet
      */
-    public Texture getJoueur() {
-        return joueur;
+    public TextureRegion getJoueurIdleSpriteSheet() {
+        return joueurIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du joueur qui cours
+     * @return une TextureRegion running spritesheet
+     */
+    public TextureRegion getJoueurRunningSpriteSheet() {
+        return joueurRunningSpriteSheet;
     }
 
     public void dispose(){

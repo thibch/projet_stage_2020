@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.objets.Objet;
 import fr.projetstage.models.monde.GameWorld;
 
@@ -18,6 +19,9 @@ public class Joueur extends EntiteMouvante {
     private static float largeur;
 
     private Body body;
+    private Animation idleAnimation;
+    private Animation runningAnimation;
+    private boolean facingLeft;
 
     public Joueur(Vector2 position, GameWorld world){
         hauteur = 1;
@@ -58,6 +62,11 @@ public class Joueur extends EntiteMouvante {
         body.createFixture(fixtureDef1); // Association à l’objet
 
         rectangle.dispose();
+
+        //creer les animations
+        facingLeft = false;
+        idleAnimation = new Animation(TextureFactory.getInstance().getJoueurIdleSpriteSheet(),6,0.8f);
+        runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
     }
 
     public float getX(){
@@ -72,6 +81,17 @@ public class Joueur extends EntiteMouvante {
     }
 
     public void draw(SpriteBatch listeAffImg) {
-        listeAffImg.draw(TextureFactory.getInstance().getJoueur(), getX(), getY(), hauteur, largeur);
+
+        if(body.getLinearVelocity().isZero()){
+            idleAnimation.update();
+            listeAffImg.draw(idleAnimation.getFrame(facingLeft), getX(), getY(), hauteur, largeur);
+        }
+        else{
+            if(body.getLinearVelocity().x != 0f){
+                facingLeft = (body.getLinearVelocity().x < 0f);
+            }
+            runningAnimation.update();
+            listeAffImg.draw(runningAnimation.getFrame(facingLeft), getX(), getY(), hauteur, largeur);
+        }
     }
 }

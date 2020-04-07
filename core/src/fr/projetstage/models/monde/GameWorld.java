@@ -19,7 +19,6 @@ public class GameWorld {
     public GameWorld(){
         //monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
-        world.setGravity(new Vector2(0,0));
 
         salleCourante = new Salle(this);
         joueur = new Joueur(new Vector2(2, 2),this);

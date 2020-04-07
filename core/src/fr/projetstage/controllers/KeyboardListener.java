@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
+import fr.projetstage.dataFactories.SoundFactory;
 
 public class KeyboardListener implements InputProcessor {
 
@@ -36,6 +37,8 @@ public class KeyboardListener implements InputProcessor {
     public boolean keyDown(int keycode) {
         switch (keycode){
             case Input.Keys.SPACE:
+                SoundFactory.getInstance().playsoundDeath(100);
+                break;
             case Input.Keys.Q:
                 quit = true;
                 break;
