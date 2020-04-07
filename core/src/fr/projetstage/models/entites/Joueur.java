@@ -48,12 +48,13 @@ public class Joueur extends EntiteMouvante {
         //FixtureDef
         FixtureDef fixtureDef1 = new FixtureDef();
         fixtureDef1.shape = rectangle;
-        fixtureDef1.density = 10f; // Densité de l’objet
-        fixtureDef1.restitution = 1f; // Restitution de  l’objet
-        fixtureDef1.friction = 1; // Friction de  l’objet
+        fixtureDef1.density = 1f; // Densité de l’objet
+        fixtureDef1.restitution = 0f; // Restitution de  l’objet
+        fixtureDef1.friction = 0f; // Friction de  l’objet
         //
 
         //Met en place la fixture sur le body
+        body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
 
         rectangle.dispose();
@@ -67,7 +68,7 @@ public class Joueur extends EntiteMouvante {
     }
 
     public void applyForce(Vector2 force){
-        body.applyForceToCenter(force, true);
+        body.setLinearVelocity(new Vector2(force.x + 0.8f * body.getLinearVelocity().x,force.y + 0.8f * body.getLinearVelocity().y));
     }
 
     public void draw(SpriteBatch listeAffImg) {

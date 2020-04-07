@@ -22,7 +22,7 @@ public class GameWorld {
         world.setGravity(new Vector2(0,0));
 
         salleCourante = new Salle(this);
-        joueur = new Joueur(new Vector2(5, 5),this);
+        joueur = new Joueur(new Vector2(2, 2),this);
     }
 
     /**

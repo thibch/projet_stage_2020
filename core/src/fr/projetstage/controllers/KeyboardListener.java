@@ -1,5 +1,6 @@
 package fr.projetstage.controllers;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
@@ -14,7 +15,6 @@ public class KeyboardListener implements InputProcessor {
     public void remiseAZeroAccel(){
         acceleration.set(0f, 0f);
     }
-
 
     public static int getCoefKeyboard() {
         return coefKeyboard;
@@ -57,18 +57,22 @@ public class KeyboardListener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        switch (keycode){
-            case Input.Keys.D:
-                afficheDebug = !afficheDebug;
-                break;
-            case Input.Keys.LEFT:
-            case Input.Keys.RIGHT:
-                acceleration.set(0, acceleration.y);
-                break;
-            case Input.Keys.UP:
-            case Input.Keys.DOWN:
-                acceleration.set(acceleration.x, 0);
-                break;
+        if (keycode == Input.Keys.D) {
+            afficheDebug = !afficheDebug;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            acceleration.set(1, acceleration.y);
+        }else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            acceleration.set(-1, acceleration.y);
+        }else{
+            acceleration.set(0, acceleration.y);
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            acceleration.set(acceleration.x, 1);
+        }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            acceleration.set(acceleration.x, -1);
+        }else{
+            acceleration.set(acceleration.x, 0);
         }
         return false;
     }
