@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.monde.World;
+import fr.projetstage.models.monde.GameWorld;
 
 /**
  * Classe s'occupant de l'affichage du jeu
@@ -16,14 +16,14 @@ public class GameScreen extends ScreenAdapter {
 
     private SpriteBatch listeAffImg;
     private OrthographicCamera cameraEnv;
-    private World world;
+    private GameWorld gameWorld;
 
     /**
      * initialise une partie de jeu
      */
     public GameScreen(){
         listeAffImg = new SpriteBatch();
-        world = new World();
+        gameWorld = new GameWorld();
     }
 
     /**
@@ -32,8 +32,8 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        cameraEnv = new OrthographicCamera(World.getLargeur(),World.getHauteur());
-        cameraEnv.position.set(World.getLargeur()/2f, World.getHauteur()/2f,0);
+        cameraEnv = new OrthographicCamera(GameWorld.getLargeur(), GameWorld.getHauteur());
+        cameraEnv.position.set(GameWorld.getLargeur()/2f, GameWorld.getHauteur()/2f,0);
         cameraEnv.update();
     }
 
@@ -48,7 +48,7 @@ public class GameScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         listeAffImg.setProjectionMatrix(cameraEnv.combined);
         listeAffImg.begin();
-        world.draw(listeAffImg);
+        gameWorld.draw(listeAffImg);
         update();
         listeAffImg.end();
     }
@@ -57,7 +57,7 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      */
     public void update(){
-        world.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
+        gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
     }
 
     /**

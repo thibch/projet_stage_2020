@@ -1,13 +1,11 @@
 package fr.projetstage.models.monde.salle;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.entites.Entite;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
-import fr.projetstage.models.monde.World;
+import fr.projetstage.models.monde.GameWorld;
 
 import java.util.ArrayList;
 
@@ -21,60 +19,73 @@ public class Salle {
 
     public Salle(){
         hauteur = 10;
-        largeur = 14;
+        largeur = 10;
     }
 
     public void draw(SpriteBatch listeAffImg) {
+
+        //https://libgdx.badlogicgames.com/ci/nightlies/docs/api/com/badlogic/gdx/graphics/g2d/SpriteBatch.html#draw-com.badlogic.gdx.graphics.Texture-float-float-float-float-float-float-float-float-float-int-int-int-int-boolean-boolean-
         TextureRegion tmpWall = new TextureRegion(TextureFactory.getInstance().getMur1());
         TextureRegion tmpWallCorner = new TextureRegion(TextureFactory.getInstance().getMurAngle());
         TextureRegion tmpWallBorder = new TextureRegion(TextureFactory.getInstance().getBordureMur());
         TextureRegion tmpWallBorderCorner = new TextureRegion(TextureFactory.getInstance().getBordureMurAngle());
-        for(int x = 1; x < largeur-1; x++){
-            for(int y = 1; y < hauteur-1; y++){
-                if(x == 1 && y == hauteur-2){ //coin haut gauche
-                    listeAffImg.draw(tmpWallBorderCorner,(x-1)*(float)(World.getLargeur()/largeur),(1+y)*(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur));
-                    listeAffImg.draw(tmpWallBorder, (x)*(float)(World.getLargeur()/largeur), y*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, 90);
-                    listeAffImg.draw(tmpWallBorder,x*(float)(World.getLargeur()/largeur),(1+y)*(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur));
-                    listeAffImg.draw(tmpWallCorner,x*(float)(World.getLargeur()/largeur),y*(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur));
-                }
-                else if( x == largeur-2 && y == hauteur-2){ //coin haut droite
-                    listeAffImg.draw(tmpWallBorderCorner, (1+x)*(float)(World.getLargeur()/largeur), (2+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, -90);
-                    listeAffImg.draw(tmpWallBorder, (1+x)*(float)(World.getLargeur()/largeur), (1+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, -90);
-                    listeAffImg.draw(tmpWallBorder,x*(float)(World.getLargeur()/largeur),(1+y)*(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur));
-                    listeAffImg.draw(tmpWallCorner, x*(float)(World.getLargeur()/largeur), (1+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, -90);
-                }
-                else if( x == largeur-2 && y == 1){ //coin bas droite
-                    listeAffImg.draw(tmpWallBorderCorner, (2+x)*(float)(World.getLargeur()/largeur), (y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur), 1, 1, 180);
-                    listeAffImg.draw(tmpWallBorder, (1+x)*(float)(World.getLargeur()/largeur), (1+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, -90);
-                    listeAffImg.draw(tmpWallBorder, (1+x)*(float)(World.getLargeur()/largeur), (y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur), 1, 1, 180);
-                    listeAffImg.draw(tmpWallCorner, (1+x)*(float)(World.getLargeur()/largeur), (1+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur), 1, 1, 180);
-                }
-                else if( x == 1 && y == 1){ //coin bas gauche
-                    listeAffImg.draw(tmpWallBorderCorner, (x)*(float)(World.getLargeur()/largeur), (y-1)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, 90);
-                    listeAffImg.draw(tmpWallBorder, (x)*(float)(World.getLargeur()/largeur), y*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, 90);
-                    listeAffImg.draw(tmpWallBorder, (1+x)*(float)(World.getLargeur()/largeur), (y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur), 1, 1, 180);
-                    listeAffImg.draw(tmpWallCorner, (1+x)*(float)(World.getLargeur()/largeur), y*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, 90);
-                }
-                else if( x == 1){ //genere le mur de gauche
-                    listeAffImg.draw(tmpWallBorder, (x)*(float)(World.getLargeur()/largeur), y*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, 90);
-                    listeAffImg.draw(tmpWall, (1+x)*(float)(World.getLargeur()/largeur), y*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, 90);
-                }
-                else if(x == largeur-2){ //genere le mur de droite
-                    listeAffImg.draw(tmpWallBorder, (1+x)*(float)(World.getLargeur()/largeur), (1+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, -90);
-                    listeAffImg.draw(tmpWall, x*(float)(World.getLargeur()/largeur), (1+y)*(float)(World.getHauteur()/hauteur), 0, 0,(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur), 1, 1, -90);
-                }
-                else if(y == hauteur-2){ //genere le mur du haut
-                    listeAffImg.draw(tmpWallBorder,x*(float)(World.getLargeur()/largeur),(y+1)*(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur));
-                    listeAffImg.draw(tmpWall,x*(float)(World.getLargeur()/largeur),y*(float)(World.getHauteur()/hauteur),(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur));
-                }
-                else if(y == 1){ //genere le mur du bas
-                    listeAffImg.draw(tmpWallBorder,(1+x)*(float)(World.getLargeur()/largeur),(y)*(float)(World.getHauteur()/hauteur),0,0,(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur),1,1,180);
-                    listeAffImg.draw(tmpWall,(1+x)*(float)(World.getLargeur()/largeur),(1+y)*(float)(World.getHauteur()/hauteur),0,0,(float)(World.getLargeur()/largeur),(float)(World.getHauteur()/hauteur),1,1,180);
-                }
-                else{ //genere le sol
-                    listeAffImg.draw(TextureFactory.getInstance().getSol2(),x*(float)(World.getLargeur()/largeur),y*(float)(World.getHauteur()/hauteur),(float)(World.getHauteur()/largeur),(float)(World.getHauteur()/hauteur));
-                }
+
+        float ratioHauteur = (float) GameWorld.getHauteur()/hauteur;
+        float ratioLargeur = (float) GameWorld.getLargeur()/largeur;
+
+        for(int x = 2; x < largeur-2; x++){
+            for(int y = 2; y < hauteur-2; y++){
+                listeAffImg.draw(TextureFactory.getInstance().getSol2(),x*ratioLargeur,y*ratioHauteur,ratioLargeur,ratioHauteur);
             }
         }
+
+        //genere le mur de gauche (sur x == 1)
+        for(int y = 2; y < hauteur-2;y++){
+            listeAffImg.draw(tmpWallBorder, ratioLargeur, y*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+            listeAffImg.draw(tmpWall, 2*ratioLargeur, y*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+        }
+
+        //genere le mur de droite (sur x == largeur - 2)
+        for(int y = 2; y < hauteur-2;y++) {
+            listeAffImg.draw(tmpWallBorder, (largeur - 1)*ratioLargeur, (1 + y)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+            listeAffImg.draw(tmpWall, (largeur - 2)*ratioLargeur, (1 + y)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+        }
+
+        //genere le mur du haut (sur y == hauteur-2)
+        for (int x = 2; x < largeur-2; x++) {
+            listeAffImg.draw(tmpWallBorder,x*ratioLargeur,(hauteur-2+1)*ratioHauteur, ratioLargeur, ratioHauteur);
+            listeAffImg.draw(tmpWall,x*ratioLargeur, (hauteur-2)*ratioHauteur, ratioLargeur, ratioHauteur);
+        }
+
+        //genere le mur du bas (sur y == 1)
+        for (int x = 2; x < largeur-2; x++) {
+            listeAffImg.draw(tmpWallBorder,(1+x)*ratioLargeur, ratioHauteur,0,0, ratioLargeur, ratioHauteur,1,1,180);
+            listeAffImg.draw(tmpWall,(1+x)*ratioLargeur,2*ratioHauteur,0,0, ratioLargeur, ratioHauteur,1,1,180);
+        }
+
+
+        //coin haut gauche
+        listeAffImg.draw(tmpWallBorderCorner, 0,(hauteur-1)*ratioHauteur, ratioLargeur, ratioHauteur);
+        listeAffImg.draw(tmpWallBorder, ratioLargeur, (hauteur-2)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorder, ratioLargeur,(hauteur-1)*ratioHauteur, ratioLargeur, ratioHauteur);
+        listeAffImg.draw(tmpWallCorner, ratioLargeur,(hauteur-2)*ratioHauteur, ratioLargeur, ratioHauteur);
+
+        //coin haut droite
+        listeAffImg.draw(tmpWallBorderCorner, (largeur-1)*ratioLargeur, hauteur*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorder, (largeur-1)*ratioLargeur, (hauteur-1)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorder,(largeur-2)*ratioLargeur,(hauteur-1)*ratioHauteur, ratioLargeur, ratioHauteur);
+        listeAffImg.draw(tmpWallCorner, (largeur-2)*ratioLargeur, (hauteur-1)*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+
+        //coin bas droite
+        listeAffImg.draw(tmpWallBorderCorner, largeur*ratioLargeur, ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
+        listeAffImg.draw(tmpWallBorder, (largeur-1)*ratioLargeur, 2*ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, -90);
+        listeAffImg.draw(tmpWallBorder, (largeur-1)*ratioLargeur, ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
+        listeAffImg.draw(tmpWallCorner, (largeur-1)*ratioLargeur, 2*ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
+
+        //coin bas gauche
+        listeAffImg.draw(tmpWallBorderCorner, ratioLargeur, 0, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorder, ratioLargeur, ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
+        listeAffImg.draw(tmpWallBorder, 2*ratioLargeur, ratioHauteur, 0, 0, ratioLargeur, ratioHauteur, 1, 1, 180);
+        listeAffImg.draw(tmpWallCorner, 2*ratioLargeur, ratioHauteur, 0, 0, ratioHauteur, ratioLargeur, 1, 1, 90);
     }
 }

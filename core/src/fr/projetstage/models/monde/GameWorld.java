@@ -1,24 +1,24 @@
 package fr.projetstage.models.monde;
 
-import com.badlogic.gdx.ai.btree.BehaviorTree;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.World;
 import fr.projetstage.models.monde.salle.Salle;
 
-public class World {
+public class GameWorld {
     private static int largeur = 100;
     private static int hauteur = 100;
 
-    private com.badlogic.gdx.physics.box2d.World world;
+    private World world;
 
     private Salle laSalle; //temporaire definit une salle statique
 
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
      */
-    public World(){
+    public GameWorld(){
         //monde physique qui va gerer les collisions
-        world = new com.badlogic.gdx.physics.box2d.World(new Vector2(0,0),true);
+        world = new World(new Vector2(0,0),true);
 
         laSalle = new Salle();
     }
@@ -49,9 +49,9 @@ public class World {
 
     /**
      * Permet de recuperer le monde physique
-     * @return un World de libgdx
+     * @return un GameWorld de libgdx
      */
-    public com.badlogic.gdx.physics.box2d.World getWorld() {
+    public World getWorld() {
         return world;
     }
 }
