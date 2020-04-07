@@ -6,7 +6,6 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import fr.projetstage.controllers.KeyboardListener;
@@ -86,7 +85,7 @@ public class GameScreen extends ScreenAdapter {
 
         Vector2 force =  new Vector2(0, 0);
         force.add(keyboardListener.getAcceleration());
-        gameWorld.getJoueur().applyForce(force);
+        gameWorld.getJoueur().move(force);
         gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
     }
 

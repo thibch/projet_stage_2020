@@ -107,6 +107,8 @@ public class TextureFactory {
         murAngle.dispose();
         bordureMur.dispose();
         bordureMurAngle.dispose();
+        joueurIdleSpriteSheet.getTexture().dispose();
+        joueurRunningSpriteSheet.getTexture().dispose();
     }
 }
 

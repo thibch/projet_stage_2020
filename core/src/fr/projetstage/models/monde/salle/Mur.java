@@ -53,7 +53,7 @@ public class Mur implements Entite{
         rectangle.dispose();
     }
 
-
+    @Override
     public void draw(SpriteBatch batch){
         //batch.draw(TextureFactory.getInstance().getBordureMur(), body.getPosition().x, body.getPosition().y, 0, 0, 1, 1, 1, 1, orientation.getRotation(),0,0,0,0, false, false);
         batch.draw(TextureFactory.getInstance().getMur1(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);

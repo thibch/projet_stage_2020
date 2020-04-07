@@ -57,6 +57,10 @@ public class GameWorld {
         return world;
     }
 
+    /**
+     * Permet de récupérer le joueur dans le monde
+     * @return le joueur
+     */
     public Joueur getJoueur() {
         return joueur;
     }

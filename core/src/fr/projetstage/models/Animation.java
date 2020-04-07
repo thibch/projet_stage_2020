@@ -23,6 +23,7 @@ public class Animation {
         }
         //definit le temps d'une image
         maxFrameTime = cycleTime / frameCount;
+
     }
 
     public void update(){

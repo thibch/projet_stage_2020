@@ -1,6 +1,11 @@
 package fr.projetstage.models.entites;
 
-public class EntiteMouvante implements Entite {
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+
+public abstract class EntiteMouvante implements Entite {
 
     private Attaque attaque;
+
+    @Override
+    public abstract void draw(SpriteBatch batch);
 }
