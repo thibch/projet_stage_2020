@@ -23,8 +23,6 @@ public class Joueur extends EntiteMouvante {
         hauteur = 1;
         largeur = 1;
 
-        //Vector2 posEcran = new Vector2(position.x, position.y - hauteur/2); //On place correctement le joueur
-
         //BodyDef
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
@@ -34,25 +32,25 @@ public class Joueur extends EntiteMouvante {
         //Récupération du body dans le world
         body = world.getWorld().createBody(bodyDef);
 
+        //TODO: faire en fonction de l'image
 
-        Vector2 posShape = new Vector2(0, 0); //La position du shape est en fonction de la position du body
+        //Création de la shape pour le héros
+        Vector2 posShape = new Vector2(5f/16f, 2f/16f); //La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
-        vertices[1] = new Vector2(posShape.x+1, posShape.y);
-        vertices[2] = new Vector2(posShape.x+1, posShape.y+1);
-        vertices[3] = new Vector2(posShape.x, posShape.y+1);
+        vertices[1] = new Vector2(posShape.x + (8f/16f), posShape.y);
+        vertices[2] = new Vector2(posShape.x + (8f/16f), posShape.y + (6f/16f));
+        vertices[3] = new Vector2(posShape.x, posShape.y + (6f/16f));
 
-
-        //Création du circle pour la boule
         PolygonShape rectangle = new PolygonShape();
         rectangle.set(vertices);
 
         //FixtureDef
         FixtureDef fixtureDef1 = new FixtureDef();
         fixtureDef1.shape = rectangle;
-        fixtureDef1.density = 1f; // Densité de l’objet
-        fixtureDef1.restitution = 0.25f; // Restitution de  l’objet
-        fixtureDef1.friction = 0f; // Friction de  l’objet
+        fixtureDef1.density = 10f; // Densité de l’objet
+        fixtureDef1.restitution = 1f; // Restitution de  l’objet
+        fixtureDef1.friction = 1; // Friction de  l’objet
         //
 
         //Met en place la fixture sur le body
@@ -66,6 +64,10 @@ public class Joueur extends EntiteMouvante {
     }
     public float getY(){
         return body.getPosition().y;
+    }
+
+    public void applyForce(Vector2 force){
+        body.applyForceToCenter(force, true);
     }
 
     public void draw(SpriteBatch listeAffImg) {

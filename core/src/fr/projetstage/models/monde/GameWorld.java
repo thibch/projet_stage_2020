@@ -2,6 +2,7 @@ package fr.projetstage.models.monde;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import fr.projetstage.models.entites.Joueur;
 import fr.projetstage.models.monde.salle.Salle;
@@ -18,6 +19,7 @@ public class GameWorld {
     public GameWorld(){
         //monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
+        world.setGravity(new Vector2(0,0));
 
         salleCourante = new Salle(this);
         joueur = new Joueur(new Vector2(5, 5),this);
@@ -30,10 +32,6 @@ public class GameWorld {
     public void draw(SpriteBatch listeAffImg){
         salleCourante.draw(listeAffImg);
         joueur.draw(listeAffImg);
-    }
-
-    public Salle getSalleCourante(){
-        return salleCourante;
     }
 
     /**
@@ -58,5 +56,9 @@ public class GameWorld {
      */
     public World getWorld() {
         return world;
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
     }
 }

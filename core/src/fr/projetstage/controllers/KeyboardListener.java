@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class KeyboardListener implements InputProcessor {
 
-    private static int coefKeyboard = 200;
+    private static int coefKeyboard = 20;
     private boolean quit = false;
     private boolean afficheDebug = false;
     private Vector2 acceleration = new Vector2(0f, 0f);
