@@ -46,7 +46,7 @@ public class Joueur extends EntiteMouvante {
         //TODO: faire en fonction de l'image
 
         //Création de la shape pour le héros
-        Vector2 posShape = new Vector2(5f/16f, 2f/16f); //La position du shape est en fonction de la position du body
+        Vector2 posShape = new Vector2(5f/16f, 1f/16f); //La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + (8f/16f), posShape.y);

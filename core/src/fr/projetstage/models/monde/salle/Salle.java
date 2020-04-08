@@ -10,14 +10,15 @@ import fr.projetstage.models.entites.Entite;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
 import fr.projetstage.models.monde.GameWorld;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Salle {
 
     private int largeur;
     private int hauteur;
 
-    private ArrayList<Mur> contenuSalle;
+    private Obstacle[][] contenuSalle;
+    private ArrayList<Body> obstacles;
     private ArrayList<ObjetAuSol> objetAuSols;
 
     private GameWorld world;
@@ -29,10 +30,13 @@ public class Salle {
      */
     public Salle(GameWorld world){
         hauteur = 10;
-        largeur = 16; //TODO: faire la génération de la carte en fonction du sol
+        largeur = 16;
         this.world = world;
 
-        contenuSalle = new ArrayList<>(50);
+        contenuSalle = new Obstacle[largeur][hauteur];
+
+        obstacles = new ArrayList<>();
+
 
         //Mur Gauche et Droite
         /*for(int y = 2; y < hauteur-2;y++){
@@ -45,6 +49,17 @@ public class Salle {
             contenuSalle.add(new Mur(new Vector2(x, (hauteur-2)), world, Orientation.HAUT));
             contenuSalle.add(new Mur(new Vector2(x, 1), world, Orientation.BAS));
         }*/
+
+
+        Random random = new Random();
+        //On affiche le sol
+        for (int x = 2; x < largeur-2; x++) {
+            for (int y = 2; y < hauteur-2; y++) {
+                if(random.nextInt()%5 == 0){
+                    contenuSalle[x][y] = new NonDestructible(world, new Vector2(x, y));
+                }
+            }
+        }
 
 
         //BodyDef
@@ -99,11 +114,14 @@ public class Salle {
             }
         }
 
-/*
-        for(Mur mur : contenuSalle){
-            mur.draw(listeAffImg);
+        for (int x = 0; x < largeur; x++) {
+            for (int y = 0; y < hauteur; y++) {
+                if(contenuSalle[x][y] != null){
+                    contenuSalle[x][y].draw(listeAffImg);
+                }
+            }
         }
-*/
+
 
 
         for(int y = 2; y < hauteur-2;y++){
