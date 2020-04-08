@@ -33,9 +33,13 @@ public class TextureFactory {
     private static Texture sol9;
     private static Texture sol10;
     private static Texture bibliotheque;
+    private static Texture drapeauVert;
+    private static Texture drapeauRouge;
+    private static Texture prisoner;
 
     private static TextureRegion joueurIdleSpriteSheet;
     private static TextureRegion joueurRunningSpriteSheet;
+    private static TextureRegion torcheSpriteSheet;
 
     /**
      * Met en place les textures dans la banque de texures
@@ -50,9 +54,13 @@ public class TextureFactory {
         murAngle = new Texture(Gdx.files.internal("tiles/wall/wall_bottom_corner.png"));
         bordureMur = new Texture(Gdx.files.internal("tiles/wall/wall_top_1.png"));
         bordureMurAngle = new Texture(Gdx.files.internal("tiles/wall/wall_top_corner.png"));
+
         bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
         petiteTable = new Texture(Gdx.files.internal("props_items/table.png"));
         grandeTable = new Texture(Gdx.files.internal("props_items/table.png"));
+        drapeauVert = new Texture(Gdx.files.internal("props_items/flag_green.png"));
+        drapeauRouge = new Texture(Gdx.files.internal("props_items/flag_red.png"));
+        prisoner = new Texture(Gdx.files.internal("props_items/prisoner.png"));
 
         sol1 = new Texture(Gdx.files.internal("tiles/floor/floor_1.png"));
         sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
@@ -67,6 +75,8 @@ public class TextureFactory {
 
         joueurIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_idle_spritesheet.png")));
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
+        torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
+
     }
 
     /**
@@ -217,6 +227,30 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de prisonnier
+     * @return image de de prisonnier
+     */
+    public Texture getPrisoner() {
+        return prisoner;
+    }
+
+    /**
+     * Getter pour l'image du drapeau vert
+     * @return image de drapeau vert
+     */
+    public Texture getDrapeauVert() {
+        return drapeauVert;
+    }
+
+    /**
+     * Getter pour l'image de drapeau rouge
+     * @return image de drapeau rouge
+     */
+    public Texture getDrapeauRouge() {
+        return drapeauRouge;
+    }
+
+    /**
      * Getter pour l'image de l'angle de bordure de mur
      * @return image de l'angle de bordure de mur
      */
@@ -254,6 +288,14 @@ public class TextureFactory {
      */
     public TextureRegion getJoueurRunningSpriteSheet() {
         return joueurRunningSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de la torche
+     * @return une TextureRegion torch spritesheet
+     */
+    public TextureRegion getTorcheSpriteSheet() {
+        return torcheSpriteSheet;
     }
 
     public void dispose(){

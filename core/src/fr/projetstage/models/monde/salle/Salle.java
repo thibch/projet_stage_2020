@@ -2,6 +2,7 @@ package fr.projetstage.models.monde.salle;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
@@ -13,6 +14,7 @@ import fr.projetstage.models.monde.salle.meubles.NonDestructible;
 import fr.projetstage.models.monde.salle.meubles.Table;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Salle {
 
@@ -20,6 +22,7 @@ public class Salle {
     private int hauteur;
 
     private ArrayList<Entite> tileMap;
+    private ArrayList<Prop> props;
     private ArrayList<Entite> meubles;
     private ArrayList<ObjetAuSol> objetAuSols;
 
@@ -44,8 +47,13 @@ public class Salle {
         Texture tmpWallBorder = TextureFactory.getInstance().getBordureMur();
         Texture tmpWallBorderCorner = TextureFactory.getInstance().getBordureMurAngle();
 
+        //dessine mur et sol
         for(Entite tile : tileMap){
             tile.draw(listeAffImg);
+        }
+        //objets sur les murs
+        for(Prop prop : props){
+            prop.draw(listeAffImg);
         }
 
         for(Entite meuble : meubles){
@@ -95,6 +103,7 @@ public class Salle {
 
     public void genererSalle(){
         tileMap = new ArrayList<>();
+        props = new ArrayList<>();
 
         //Mur Gauche et Droite
         for(int y = 0; y < hauteur;y++){
@@ -107,6 +116,20 @@ public class Salle {
             tileMap.add(new Mur(world, new Vector2(x, (hauteur)), Orientation.HAUT,getRandomWall()));
             tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS,getRandomWall()));
         }
+        //parcours tout les murs et ajoute aléatoirement des props si le mur est de type 1
+        Mur tmp;
+        int tmpAlea;
+        for(Entite mur : tileMap){
+            tmp = (Mur) mur;
+            if(tmp.getNumMur() == 1){
+                tmpAlea = getRandomProps();
+                if(tmpAlea > 0){
+                    props.add(new Prop(tmp.getPos(),tmp.getOrientation(),tmpAlea));
+                }
+            }
+        }
+
+
         //le sol
         for(int x = 0; x < largeur; x++){
             for(int y = 0; y < hauteur; y++){
@@ -137,15 +160,15 @@ public class Salle {
      * @return un entier entre 1 et 4
      */
     public int getRandomWall(){
-        int rand = world.getNextRandom()%100;
+        int rand = Math.abs(world.getNextRandom()%100);
         int tmp;
-        if(rand <= 52){
+        if(rand <= 62){
             tmp = 1;
         }
-        else if(rand <= 68){
+        else if(rand <= 78){
             tmp = 2;
         }
-        else if(rand <= 84){
+        else if(rand <= 94){
             tmp = 3;
         }
         else{
@@ -155,11 +178,33 @@ public class Salle {
     }
 
     /**
+     * renvoie un numero de props aleatoire basé avec des probabilités
+     * @return un entier entre 0 et 3
+     */
+    public int getRandomProps(){
+        int rand = Math.abs(world.getNextRandom()%100);
+        int tmp;
+        if(rand <= 85){
+            tmp = 0;
+        }
+        else if(rand <= 90){
+            tmp = 1;
+        }
+        else if(rand <= 95){
+            tmp = 2;
+        }
+        else{
+            tmp = 3;
+        }
+        return tmp;
+    }
+
+    /**
      * renvoie un numero de sol aleatoire basé avec des probabilités
      * @return un entier entre 1 et 10
      */
     public int getRandomGround(){
-        int rand = world.getNextRandom()%100;
+        int rand = Math.abs(world.getNextRandom()%100);
         int tmp;
         if(rand <= 55){
             tmp = 2;

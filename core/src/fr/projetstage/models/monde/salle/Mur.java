@@ -73,4 +73,16 @@ public class Mur implements Entite{
                 break;
         }
     }
+
+    public int getNumMur() {
+        return numMur;
+    }
+
+    public Vector2 getPos() {
+        return body.getPosition();
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
+    }
 }
