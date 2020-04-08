@@ -57,7 +57,7 @@ public class TextureFactory {
 
         bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
         petiteTable = new Texture(Gdx.files.internal("props_items/table.png"));
-        grandeTable = new Texture(Gdx.files.internal("props_items/table.png"));
+        grandeTable = new Texture(Gdx.files.internal("props_items/table_2.png"));
         drapeauVert = new Texture(Gdx.files.internal("props_items/flag_green.png"));
         drapeauRouge = new Texture(Gdx.files.internal("props_items/flag_red.png"));
         prisoner = new Texture(Gdx.files.internal("props_items/prisoner.png"));

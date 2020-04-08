@@ -13,11 +13,13 @@ import fr.projetstage.models.monde.salle.Obstacle;
 public abstract class NonDestructible extends Obstacle {
 
 
-    protected float taille;
+    protected float tailleX;
+    protected float tailleY;
 
-    public NonDestructible(GameWorld world, Vector2 position, float taille){
+    public NonDestructible(GameWorld world, Vector2 position, float tailleX, float tailleY){
 
-        this.taille = taille;
+        this.tailleX = tailleX;
+        this.tailleY = tailleY;
 
         //BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -32,9 +34,9 @@ public abstract class NonDestructible extends Obstacle {
         Vector2 posShape = new Vector2(0, 0); //La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[5];
         vertices[0] = posShape;
-        vertices[1] = new Vector2(posShape.x + taille, posShape.y);
-        vertices[2] = new Vector2(posShape.x + taille, posShape.y + taille);
-        vertices[3] = new Vector2(posShape.x, posShape.y + taille);
+        vertices[1] = new Vector2(posShape.x + tailleX, posShape.y);
+        vertices[2] = new Vector2(posShape.x + tailleX, posShape.y + tailleY);
+        vertices[3] = new Vector2(posShape.x, posShape.y + tailleY);
         vertices[4] = posShape;
 
         ChainShape rectangle = new ChainShape();
