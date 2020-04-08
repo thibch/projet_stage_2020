@@ -8,6 +8,7 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.objets.Objet;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.Orientation;
 
 import java.util.ArrayList;
 
@@ -21,8 +22,7 @@ public class Joueur extends EntiteMouvante {
     private Body body;
     private Animation idleAnimation;
     private Animation runningAnimation;
-    private boolean facingLeft;
-
+    private Orientation direction;
 
     /**
      * Constructeur du joueur,
@@ -71,7 +71,7 @@ public class Joueur extends EntiteMouvante {
         rectangle.dispose();
 
         //creer les animations
-        facingLeft = false;
+        direction = Orientation.DROITE;
         idleAnimation = new Animation(TextureFactory.getInstance().getJoueurIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
     }
@@ -109,14 +109,16 @@ public class Joueur extends EntiteMouvante {
         //Alors on met à jour l'animation et on l'affiche
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
-            listeAffImg.draw(idleAnimation.getFrame(facingLeft), getX(), getY(), hauteur, largeur);
+            listeAffImg.draw(idleAnimation.getFrame(direction == Orientation.GAUCHE), getX(), getY(), hauteur, largeur);
         }//Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
-            if(body.getLinearVelocity().x > 0.1f || body.getLinearVelocity().x < -0.1f){
-                facingLeft = (body.getLinearVelocity().x < 0f);
-            }
             runningAnimation.update();
-            listeAffImg.draw(runningAnimation.getFrame(facingLeft), getX(), getY(), hauteur, largeur);
+            listeAffImg.draw(runningAnimation.getFrame(direction == Orientation.GAUCHE), getX(), getY(), hauteur, largeur);
         }
+    }
+
+    @Override
+    public void setDirection(Orientation direction) {
+        this.direction = direction;
     }
 }

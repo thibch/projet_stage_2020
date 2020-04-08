@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.SoundFactory;
+import fr.projetstage.models.monde.salle.Orientation;
 
 public class KeyboardListener implements InputProcessor {
 
@@ -12,6 +13,7 @@ public class KeyboardListener implements InputProcessor {
     private boolean quit = false;
     private boolean afficheDebug = false;
     private Vector2 acceleration = new Vector2(0f, 0f);
+    private Orientation direction;
 
     public void remiseAZeroAccel(){
         acceleration.set(0f, 0f);
@@ -33,25 +35,41 @@ public class KeyboardListener implements InputProcessor {
         return acceleration;
     }
 
+    public Orientation getDirection(){
+        return direction;
+    }
+
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode){
             case Input.Keys.SPACE:
                 SoundFactory.getInstance().playsoundDeath(100);
                 break;
-            case Input.Keys.Q:
+            case Input.Keys.ESCAPE:
                 quit = true;
                 break;
             case Input.Keys.LEFT:
-                acceleration.set(-1, acceleration.y);
+                direction = Orientation.GAUCHE;
                 break;
             case Input.Keys.RIGHT:
-                acceleration.set(1, acceleration.y);
+                direction = Orientation.DROITE;
                 break;
             case Input.Keys.UP:
-                acceleration.set(acceleration.x, 1);
+                direction = Orientation.HAUT;
                 break;
             case Input.Keys.DOWN:
+                direction = Orientation.BAS;
+                break;
+            case Input.Keys.Q:
+                acceleration.set(-1, acceleration.y);
+                break;
+            case Input.Keys.D:
+                acceleration.set(1, acceleration.y);
+                break;
+            case Input.Keys.Z:
+                acceleration.set(acceleration.x, 1);
+                break;
+            case Input.Keys.S:
                 acceleration.set(acceleration.x, -1);
                 break;
         }
@@ -60,19 +78,19 @@ public class KeyboardListener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        if (keycode == Input.Keys.D) {
+        if (keycode == Input.Keys.J) {
             afficheDebug = !afficheDebug;
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+        if(Gdx.input.isKeyPressed(Input.Keys.D)){
             acceleration.set(1, acceleration.y);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+        }else if(Gdx.input.isKeyPressed(Input.Keys.Q)){
             acceleration.set(-1, acceleration.y);
         }else{
             acceleration.set(0, acceleration.y);
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+        if(Gdx.input.isKeyPressed(Input.Keys.Z)){
             acceleration.set(acceleration.x, 1);
-        }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+        }else if(Gdx.input.isKeyPressed(Input.Keys.S)){
             acceleration.set(acceleration.x, -1);
         }else{
             acceleration.set(acceleration.x, 0);
