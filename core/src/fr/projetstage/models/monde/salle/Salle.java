@@ -2,19 +2,16 @@ package fr.projetstage.models.monde.salle;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.entites.Entite;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
-import fr.projetstage.models.monde.salle.meubles.NonDestructible;
-import fr.projetstage.models.monde.salle.meubles.Table;
+import fr.projetstage.models.monde.salle.meubles.GrandeTable;
+import fr.projetstage.models.monde.salle.meubles.PetiteTable;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Salle {
 
@@ -140,11 +137,10 @@ public class Salle {
 
         meubles = new ArrayList<>();
 
-        //On affiche le sol
-        for (int x = 0; x < largeur-1; x++) {
-            meubles.add(new Biblio(world, new Vector2(x, 1)));
-            meubles.add(new Table(world, new Vector2(x, 3)));
-        }
+        meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));
+        meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
+        meubles.add(new PetiteTable(world, new Vector2(5, 3)));
+        meubles.add(new GrandeTable(world, new Vector2(5, 5)));
 
     }
 
@@ -162,10 +158,10 @@ public class Salle {
     public int getRandomWall(){
         int rand = Math.abs(world.getNextRandom()%100);
         int tmp;
-        if(rand <= 62){
+        if(rand <= 70){
             tmp = 1;
         }
-        else if(rand <= 78){
+        else if(rand <= 90){
             tmp = 2;
         }
         else if(rand <= 94){
