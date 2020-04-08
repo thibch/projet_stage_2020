@@ -112,7 +112,7 @@ public class Joueur extends EntiteMouvante {
             listeAffImg.draw(idleAnimation.getFrame(facingLeft), getX(), getY(), hauteur, largeur);
         }//Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
-            if(body.getLinearVelocity().x != 0f){
+            if(body.getLinearVelocity().x > 0.1f || body.getLinearVelocity().x < -0.1f){
                 facingLeft = (body.getLinearVelocity().x < 0f);
             }
             runningAnimation.update();

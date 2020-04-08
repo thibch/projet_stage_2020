@@ -51,7 +51,7 @@ public class GameScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         cameraEnv = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
-        cameraEnv.position.set(gameWorld.getLargeur()/2f, gameWorld.getHauteur()/2f,0);
+        cameraEnv.position.set(gameWorld.getLargeur()/2f -2, gameWorld.getHauteur()/2f -2,0); //-2 est le decalage pour les murs
         cameraEnv.update();
     }
 

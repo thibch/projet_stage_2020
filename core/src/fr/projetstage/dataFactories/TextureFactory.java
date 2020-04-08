@@ -11,12 +11,27 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 public class TextureFactory {
 
     private static TextureFactory instance;
+
     private static Texture mur1;
+    private static Texture mur2;
+    private static Texture mur3;
+    private static Texture mur4;
     private static Texture murAngle;
     private static Texture bordureMur;
     private static Texture bordureMurAngle;
+
+    private static Texture sol1;
     private static Texture sol2;
+    private static Texture sol3;
+    private static Texture sol4;
+    private static Texture sol5;
+    private static Texture sol6;
+    private static Texture sol7;
+    private static Texture sol8;
+    private static Texture sol9;
+    private static Texture sol10;
     private static Texture bibliotheque;
+
     private static TextureRegion joueurIdleSpriteSheet;
     private static TextureRegion joueurRunningSpriteSheet;
 
@@ -25,12 +40,26 @@ public class TextureFactory {
      */
     private TextureFactory(){
         instance = this;
+
         mur1 = new Texture(Gdx.files.internal("tiles/wall/wall_1.png"));
+        mur2 = new Texture(Gdx.files.internal("tiles/wall/wall_2.png"));
+        mur3 = new Texture(Gdx.files.internal("tiles/wall/wall_3.png"));
+        mur4 = new Texture(Gdx.files.internal("tiles/wall/wall_crack.png"));
         murAngle = new Texture(Gdx.files.internal("tiles/wall/wall_bottom_corner.png"));
-        sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
         bordureMur = new Texture(Gdx.files.internal("tiles/wall/wall_top_1.png"));
         bordureMurAngle = new Texture(Gdx.files.internal("tiles/wall/wall_top_corner.png"));
         bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
+
+        sol1 = new Texture(Gdx.files.internal("tiles/floor/floor_1.png"));
+        sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
+        sol3 = new Texture(Gdx.files.internal("tiles/floor/floor_3.png"));
+        sol4 = new Texture(Gdx.files.internal("tiles/floor/floor_4.png"));
+        sol5 = new Texture(Gdx.files.internal("tiles/floor/floor_5.png"));
+        sol6 = new Texture(Gdx.files.internal("tiles/floor/floor_6.png"));
+        sol7 = new Texture(Gdx.files.internal("tiles/floor/floor_7.png"));
+        sol8 = new Texture(Gdx.files.internal("tiles/floor/floor_8.png"));
+        sol9 = new Texture(Gdx.files.internal("tiles/floor/floor_9.png"));
+        sol10 = new Texture(Gdx.files.internal("tiles/floor/floor_10.png"));
 
         joueurIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_idle_spritesheet.png")));
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
@@ -56,11 +85,107 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de wall_2
+     * @return image du mur 2
+     */
+    public Texture getMur2() {
+        return mur2;
+    }
+
+    /**
+     * Getter pour l'image de wall_3
+     * @return image du mur 3
+     */
+    public Texture getMur3() {
+        return mur3;
+    }
+
+    /**
+     * Getter pour l'image de wall_crack
+     * @return image du mur fissuré
+     */
+    public Texture getMur4() {
+        return mur4;
+    }
+
+    /**
+     * Getter pour l'image de floor_1
+     * @return image du sol 1
+     */
+    public Texture getSol1() {
+        return sol1;
+    }
+
+    /**
      * Getter pour l'image de floor_2
      * @return image du sol 2
      */
     public Texture getSol2() {
         return sol2;
+    }
+
+    /**
+     * Getter pour l'image de floor_3
+     * @return image du sol 3
+     */
+    public Texture getSol3() {
+        return sol3;
+    }
+
+    /**
+     * Getter pour l'image de floor_4
+     * @return image du sol 4
+     */
+    public Texture getSol4() {
+        return sol4;
+    }
+
+    /**
+     * Getter pour l'image de floor_5
+     * @return image du sol 5
+     */
+    public Texture getSol5() {
+        return sol5;
+    }
+
+    /**
+     * Getter pour l'image de floor_6
+     * @return image du sol 6
+     */
+    public Texture getSol6() {
+        return sol6;
+    }
+
+    /**
+     * Getter pour l'image de floor_7
+     * @return image du sol 7
+     */
+    public Texture getSol7() {
+        return sol7;
+    }
+
+    /**
+     * Getter pour l'image de floor_8
+     * @return image du sol 8
+     */
+    public Texture getSol8() {
+        return sol8;
+    }
+
+    /**
+     * Getter pour l'image de floor_9
+     * @return image du sol 9
+     */
+    public Texture getSol9() {
+        return sol9;
+    }
+
+    /**
+     * Getter pour l'image de floor_10
+     * @return image du sol 10
+     */
+    public Texture getSol10() {
+        return sol10;
     }
 
     /**

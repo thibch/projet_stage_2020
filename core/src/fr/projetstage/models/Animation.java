@@ -13,6 +13,12 @@ public class Animation {
 
     private TextureRegion tmp;
 
+    /**
+     * Classe animation qui s'occupe d'animer des éléments à partir d'une spritesheet
+     * @param textureRegion la spritesheet à animer
+     * @param frameCount le nombre d'images dans la spritesheet
+     * @param cycleTime le temps d'un cycle d'animation
+     */
     public Animation(TextureRegion textureRegion, int frameCount, float cycleTime){
         currentFrame = 0;
         //cree un tableau d'images à partir de la spritesheet
@@ -26,6 +32,9 @@ public class Animation {
 
     }
 
+    /**
+     * met à jour l'image d'animation à renvoyer
+     */
     public void update(){
         currentFrameTime += Gdx.graphics.getDeltaTime();
         if(currentFrameTime > maxFrameTime){
@@ -34,6 +43,11 @@ public class Animation {
         }
     }
 
+    /**
+     * Renvoie l'image actuelle de l'animation
+     * @param flipX un booleen qui si une symetrie horizontale doit être appliquée
+     * @return une texture region de l'image actuelle
+     */
     public TextureRegion getFrame(boolean flipX){
         tmp = new TextureRegion(frames.get(currentFrame));
         tmp.flip(flipX,false);

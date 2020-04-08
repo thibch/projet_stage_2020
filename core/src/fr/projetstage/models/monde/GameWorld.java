@@ -7,11 +7,14 @@ import com.badlogic.gdx.physics.box2d.World;
 import fr.projetstage.models.entites.Joueur;
 import fr.projetstage.models.monde.salle.Salle;
 
+import java.util.Random;
+
 public class GameWorld {
     private World world;
 
     private Salle salleCourante; //temporaire definit une salle statique
     private Joueur joueur;
+    private Random random;
 
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
@@ -19,9 +22,11 @@ public class GameWorld {
     public GameWorld(){
         //monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
-
-        salleCourante = new Salle(this);
-        joueur = new Joueur(new Vector2(2, 2),this);
+        //seed
+        random = new Random();
+        //in game elements
+        salleCourante = new Salle(this,16,10);
+        joueur = new Joueur(new Vector2(0, 0),this);
     }
 
     /**
@@ -38,7 +43,7 @@ public class GameWorld {
      * @return un entier de la largeur du monde
      */
     public int getLargeur() {
-        return salleCourante.getLargeur();
+        return salleCourante.getLargeur() + 4;
     }
 
     /**
@@ -46,7 +51,7 @@ public class GameWorld {
      * @return un entier de la hauteur du monde
      */
     public int getHauteur() {
-        return salleCourante.getHauteur();
+        return salleCourante.getHauteur() + 4;
     }
 
     /**
@@ -63,5 +68,13 @@ public class GameWorld {
      */
     public Joueur getJoueur() {
         return joueur;
+    }
+
+    /**
+     * Fonction qui retourne le prochain entier aléatoire selon la seed du monde
+     * @return un entier aléatoire.
+     */
+    public int getNextRandom(){
+        return random.nextInt();
     }
 }
