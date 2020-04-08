@@ -11,6 +11,7 @@ import fr.projetstage.models.entites.objets.ObjetAuSol;
 import fr.projetstage.models.monde.GameWorld;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Salle {
 
@@ -80,14 +81,6 @@ public class Salle {
             tile.draw(listeAffImg);
         }
 
-        for (int x = 0; x < largeur; x++) {
-            for (int y = 0; y < hauteur; y++) {
-                if(contenuSalle[x][y] != null){
-                    contenuSalle[x][y].draw(listeAffImg);
-                }
-            }
-        }
-
         for(int y = 0; y < hauteur;y++){
             //genere le mur de gauche (sur x == 1)
             listeAffImg.draw(tmpWallBorder, -1, y, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
@@ -147,6 +140,16 @@ public class Salle {
         for(int x = 0; x < largeur; x++){
             for(int y = 0; y < hauteur; y++){
                 tileMap.add(new Sol(new Vector2(x,y),getRandomGround()));
+            }
+        }
+
+        
+        //On affiche le sol
+        for (int x = 2; x < largeur-2; x++) {
+            for (int y = 2; y < hauteur-2; y++) {
+                if(world.getNextRandom()%5 == 0){
+                    tileMap.add(new NonDestructible(world, new Vector2(x, y)));
+                }
             }
         }
 
