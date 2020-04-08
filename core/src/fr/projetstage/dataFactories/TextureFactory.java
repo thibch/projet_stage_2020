@@ -19,6 +19,8 @@ public class TextureFactory {
     private static Texture murAngle;
     private static Texture bordureMur;
     private static Texture bordureMurAngle;
+    private static Texture petiteTable;
+    private static Texture grandeTable;
 
     private static Texture sol1;
     private static Texture sol2;
@@ -49,6 +51,8 @@ public class TextureFactory {
         bordureMur = new Texture(Gdx.files.internal("tiles/wall/wall_top_1.png"));
         bordureMurAngle = new Texture(Gdx.files.internal("tiles/wall/wall_top_corner.png"));
         bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
+        petiteTable = new Texture(Gdx.files.internal("props_items/table.png"));
+        grandeTable = new Texture(Gdx.files.internal("props_items/table.png"));
 
         sol1 = new Texture(Gdx.files.internal("tiles/floor/floor_1.png"));
         sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
@@ -218,6 +222,22 @@ public class TextureFactory {
      */
     public Texture getBibliotheque() {
         return bibliotheque;
+    }
+
+    /**
+     * Getter pour l'image de la petite table
+     * @return Getter pour l'image de la petite table
+     */
+    public Texture getPetiteTable() {
+        return petiteTable;
+    }
+
+    /**
+     * Getter pour l'image de la grande table
+     * @return Getter pour l'image de la grande table
+     */
+    public Texture getGrandeTable() {
+        return grandeTable;
     }
 
     /**

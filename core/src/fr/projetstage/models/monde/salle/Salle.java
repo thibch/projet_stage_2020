@@ -2,16 +2,17 @@ package fr.projetstage.models.monde.salle;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.entites.Entite;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.meubles.Biblio;
+import fr.projetstage.models.monde.salle.meubles.NonDestructible;
+import fr.projetstage.models.monde.salle.meubles.Table;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Salle {
 
@@ -19,6 +20,7 @@ public class Salle {
     private int hauteur;
 
     private ArrayList<Entite> tileMap;
+    private ArrayList<Entite> meubles;
     private ArrayList<ObjetAuSol> objetAuSols;
 
     private GameWorld world;
@@ -33,41 +35,6 @@ public class Salle {
         this.largeur = largeur;
         this.world = world;
 
-        //BodyDef
-        BodyDef bodyDef = new BodyDef();
-        bodyDef.type = BodyDef.BodyType.StaticBody;
-        bodyDef.position.set(new Vector2(0, 0));
-        //
-
-        Body body;
-
-        //Récupération du body dans le world
-        body = world.getWorld().createBody(bodyDef);
-
-        //Création de la shape pour la salle
-        Vector2 posShape = new Vector2(0, 0); //La position du shape est en fonction de la position du body
-        Vector2[] vertices = new Vector2[5];
-        vertices[0] = posShape; //Bas-Gauche
-        vertices[1] = new Vector2(posShape.x + this.largeur, posShape.y); //Bas-Droite
-        vertices[2] = new Vector2(posShape.x + this.largeur, posShape.y + this.hauteur); //Haut-Droite
-        vertices[3] = new Vector2(posShape.x, posShape.y + this.hauteur); //Haut-Gauche
-        vertices[4] = posShape; //Bas-Gauche
-
-        ChainShape rectangle = new ChainShape();
-        rectangle.createChain(vertices);
-
-        //FixtureDef
-        FixtureDef fixtureDef1 = new FixtureDef();
-        fixtureDef1.shape = rectangle;
-        fixtureDef1.density = 1f; // Densité de l’objet
-        fixtureDef1.restitution = 0f; // Restitution de  l’objet
-        fixtureDef1.friction = 0f; // Friction de  l’objet
-        //
-
-        //Met en place la fixture sur le body
-        body.createFixture(fixtureDef1); // Association à l’objet
-
-        rectangle.dispose();
         genererSalle();
     }
 
@@ -79,6 +46,10 @@ public class Salle {
 
         for(Entite tile : tileMap){
             tile.draw(listeAffImg);
+        }
+
+        for(Entite meuble : meubles){
+            meuble.draw(listeAffImg);
         }
 
         for(int y = 0; y < hauteur;y++){
@@ -127,14 +98,14 @@ public class Salle {
 
         //Mur Gauche et Droite
         for(int y = 0; y < hauteur;y++){
-            tileMap.add(new Mur(new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
-            tileMap.add(new Mur(new Vector2((largeur), y), Orientation.DROITE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2((largeur), y), Orientation.DROITE,getRandomWall()));
         }
 
         //Mur Haut et Bas
         for (int x = 0; x < largeur; x++) {
-            tileMap.add(new Mur(new Vector2(x, (hauteur)), Orientation.HAUT,getRandomWall()));
-            tileMap.add(new Mur(new Vector2(x, -1), Orientation.BAS,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, (hauteur)), Orientation.HAUT,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS,getRandomWall()));
         }
         //le sol
         for(int x = 0; x < largeur; x++){
@@ -143,14 +114,13 @@ public class Salle {
             }
         }
 
-        
+
+        meubles = new ArrayList<>();
+
         //On affiche le sol
-        for (int x = 2; x < largeur-2; x++) {
-            for (int y = 2; y < hauteur-2; y++) {
-                if(world.getNextRandom()%5 == 0){
-                    tileMap.add(new NonDestructible(world, new Vector2(x, y)));
-                }
-            }
+        for (int x = 0; x < largeur-1; x++) {
+            meubles.add(new Biblio(world, new Vector2(x, 1)));
+            meubles.add(new Table(world, new Vector2(x, 3)));
         }
 
     }

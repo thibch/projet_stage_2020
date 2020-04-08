@@ -1,16 +1,23 @@
-package fr.projetstage.models.monde.salle;
+package fr.projetstage.models.monde.salle.meubles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.Obstacle;
 
-public class NonDestructible extends Obstacle {
+public abstract class NonDestructible extends Obstacle {
 
-    public NonDestructible(GameWorld world, Vector2 position){
+
+    protected float taille;
+
+    public NonDestructible(GameWorld world, Vector2 position, float taille){
+
+        this.taille = taille;
 
         //BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -23,14 +30,15 @@ public class NonDestructible extends Obstacle {
 
         //Création de la shape pour le héros
         Vector2 posShape = new Vector2(0, 0); //La position du shape est en fonction de la position du body
-        Vector2[] vertices = new Vector2[4];
+        Vector2[] vertices = new Vector2[5];
         vertices[0] = posShape;
-        vertices[1] = new Vector2(posShape.x + 1f, posShape.y);
-        vertices[2] = new Vector2(posShape.x + 1f, posShape.y + 1f);
-        vertices[3] = new Vector2(posShape.x, posShape.y + 1f);
+        vertices[1] = new Vector2(posShape.x + taille, posShape.y);
+        vertices[2] = new Vector2(posShape.x + taille, posShape.y + taille);
+        vertices[3] = new Vector2(posShape.x, posShape.y + taille);
+        vertices[4] = posShape;
 
-        PolygonShape rectangle = new PolygonShape();
-        rectangle.set(vertices);
+        ChainShape rectangle = new ChainShape();
+        rectangle.createChain(vertices);
 
         //FixtureDef
         FixtureDef fixtureDef1 = new FixtureDef();
@@ -51,10 +59,4 @@ public class NonDestructible extends Obstacle {
     public boolean estNonDestructible() {
         return true;
     }
-
-    @Override
-    public void draw(SpriteBatch batch) {
-        batch.draw(TextureFactory.getInstance().getBibliotheque(), body.getPosition().x, body.getPosition().y,1,1);
-    }
-
 }
