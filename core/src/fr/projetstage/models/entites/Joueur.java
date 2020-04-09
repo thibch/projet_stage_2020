@@ -100,7 +100,8 @@ public class Joueur extends EntiteMouvante {
         coolDownTime = 0.8f;
 
         //creer les animations
-        direction = Orientation.DROITE;
+        direction = Orientation.NO_ORIENTATION;
+        lastDirection = Orientation.NO_ORIENTATION;
         idleAnimation = new Animation(TextureFactory.getInstance().getJoueurIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
     }
@@ -112,7 +113,7 @@ public class Joueur extends EntiteMouvante {
             currentTime = 0;
             onCoolDown = false;
         }
-        if(attaqueMaintenant && currentTime > attaqueJoueur[this.lastDirection.getIndice()].getAttaqueTime()){
+        if(attaqueMaintenant && currentTime > attaqueJoueur[this.lastDirection.getIndice()].getAttaqueTime()-0.1f){
             attaqueMaintenant = false;
             for(Attaque attaque : attaqueJoueur){
                 attaque.reset();

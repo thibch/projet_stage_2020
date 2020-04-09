@@ -16,12 +16,12 @@ public class KeyboardListener implements InputProcessor {
     private Orientation direction;
 
     public KeyboardListener(){
-        direction = Orientation.DROITE;
+        reset();
     }
 
-    public void remiseAZeroAccel(){
+    public void reset(){
         acceleration.set(0f, 0f);
-        direction = Orientation.DROITE;
+        direction = Orientation.NO_ORIENTATION;
     }
 
     public static int getCoefKeyboard() {
