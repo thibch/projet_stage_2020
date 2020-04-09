@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -15,10 +16,10 @@ public class Attaque {
     private Animation animation;
     private Body body;
 
+    private float attaqueTime;
+
 
     public Attaque(GameWorld world, Vector2 position, float largeur, float hauteur){
-
-
 
         //BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -56,9 +57,9 @@ public class Attaque {
 
         rectangle.dispose();
 
-        float vitesse = 100f;
+        attaqueTime = 0.5f;
 
-        animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, vitesse);
+        animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, attaqueTime);
     }
 
 
@@ -74,7 +75,6 @@ public class Attaque {
     public float getY(){
         return body.getPosition().y;
     }
-
 
     public void drawAnimation(SpriteBatch batch, boolean flipX, boolean rotateY) {
         //Si on est proche de l'arret (0 déplacement du joueur)
@@ -93,5 +93,13 @@ public class Attaque {
                 batch.draw(animation.getFrameFlipX(false), getX(), getY()-2f/16f, 1, 1);
             }
         }
+    }
+
+    public float getAttaqueTime() {
+        return attaqueTime;
+    }
+
+    public void reset() {
+        animation.reset();
     }
 }

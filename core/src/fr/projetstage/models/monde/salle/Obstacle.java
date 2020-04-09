@@ -1,7 +1,7 @@
 package fr.projetstage.models.monde.salle;
 
 import com.badlogic.gdx.physics.box2d.Body;
-import fr.projetstage.models.entites.Entite;
+import fr.projetstage.models.Entite;
 
 public abstract class Obstacle implements Entite {
 

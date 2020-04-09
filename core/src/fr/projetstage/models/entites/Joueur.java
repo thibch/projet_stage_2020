@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -19,10 +20,16 @@ public class Joueur extends EntiteMouvante {
     private Body body;
     private Animation idleAnimation;
     private Animation runningAnimation;
+    private Orientation lastDirection;
     private Orientation direction;
 
     private Attaque[] attaqueJoueur;
 
+    private boolean attaqueMaintenant;
+    private boolean onCoolDown;
+    private float coolDownTime;
+
+    private float currentTime;
 
     /**
      * Constructeur du joueur,
@@ -81,21 +88,42 @@ public class Joueur extends EntiteMouvante {
             world.getWorld().createJoint(rjd);
         }
 
+        onCoolDown = false;
+        attaqueMaintenant = false;
+        currentTime = 0f;
+        coolDownTime = 0.8f;
+
         //creer les animations
         direction = Orientation.DROITE;
         idleAnimation = new Animation(TextureFactory.getInstance().getJoueurIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
     }
 
-
-    public void attaquer(Orientation orientation){
-    }
-
-
     @Override
     public void setDirection(Orientation direction) {
+        currentTime += Gdx.graphics.getDeltaTime();
+        if(onCoolDown && currentTime > coolDownTime) {
+            currentTime = 0;
+            onCoolDown = false;
+        }
+        if(attaqueMaintenant && currentTime > attaqueJoueur[this.lastDirection.getIndice()].getAttaqueTime()){
+            attaqueMaintenant = false;
+            for(Attaque attaque : attaqueJoueur){
+                attaque.reset();
+            }
+        }
+
+        this.direction = direction;
+
         if(direction != Orientation.NO_ORIENTATION){
-            this.direction = direction;
+            if(!attaqueMaintenant){
+                lastDirection = direction;
+            }
+            if(!onCoolDown){
+                currentTime = 0;
+                attaqueMaintenant = true;
+                onCoolDown = true;
+            }
         }
     }
 
@@ -128,19 +156,19 @@ public class Joueur extends EntiteMouvante {
     @Override
     public void draw(SpriteBatch listeAffImg) {
 
-        if(direction != Orientation.NO_ORIENTATION && direction != null){
-            attaqueJoueur[direction.getIndice()].drawAnimation(listeAffImg, direction == Orientation.GAUCHE || direction == Orientation.BAS, direction == Orientation.BAS || direction == Orientation.HAUT);
+        if(attaqueMaintenant){
+            attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
         }
 
         //Si on est proche de l'arret (0 déplacement du joueur)
         //Alors on met à jour l'animation et on l'affiche
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
-            listeAffImg.draw(idleAnimation.getFrameFlipX(direction == Orientation.GAUCHE), getX(), getY(), 1, 1);
+            listeAffImg.draw(idleAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }//Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
             runningAnimation.update();
-            listeAffImg.draw(runningAnimation.getFrameFlipX(direction == Orientation.GAUCHE), getX(), getY(), 1, 1);
+            listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
     }
 }

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.entites.Entite;
+import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;

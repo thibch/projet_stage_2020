@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites;
+package fr.projetstage.models;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 

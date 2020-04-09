@@ -3,7 +3,7 @@ package fr.projetstage.models.monde.salle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.entites.Entite;
+import fr.projetstage.models.Entite;
 
 public class Prop implements Entite{
 

@@ -56,4 +56,8 @@ public class Animation {
         return tmp;
     }
 
+    public void reset() {
+        currentFrameTime = 0;
+        currentFrame = 0;
+    }
 }
