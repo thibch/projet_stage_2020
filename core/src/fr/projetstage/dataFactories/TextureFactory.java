@@ -37,6 +37,9 @@ public class TextureFactory {
     private static Texture drapeauRouge;
     private static Texture prisoner;
 
+    private static Texture pauseBtn;
+    private static Texture pauseBtnPressed;
+
     private static TextureRegion joueurIdleSpriteSheet;
     private static TextureRegion joueurRunningSpriteSheet;
     private static TextureRegion torcheSpriteSheet;
@@ -73,6 +76,9 @@ public class TextureFactory {
         sol8 = new Texture(Gdx.files.internal("tiles/floor/floor_8.png"));
         sol9 = new Texture(Gdx.files.internal("tiles/floor/floor_9.png"));
         sol10 = new Texture(Gdx.files.internal("tiles/floor/floor_10.png"));
+
+        pauseBtn = new Texture(Gdx.files.internal("ui/pause_button.png"));
+        pauseBtnPressed = new Texture(Gdx.files.internal("ui/pause_button_press.png"));
 
         joueurIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_idle_spritesheet.png")));
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
@@ -298,6 +304,22 @@ public class TextureFactory {
      */
     public Texture getGrandeTable() {
         return grandeTable;
+    }
+
+    /**
+     * Getter pour l'image de menu pause
+     * @return Getter pour l'image du menu pause
+     */
+    public Texture getPauseBtn() {
+        return pauseBtn;
+    }
+
+    /**
+     * Getter pour l'image de menu pause enfoncé
+     * @return Getter pour l'image du menu pause enfoncé
+     */
+    public Texture getPauseBtnPressed() {
+        return pauseBtnPressed;
     }
 
     /**
