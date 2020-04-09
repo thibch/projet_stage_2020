@@ -40,11 +40,12 @@ public class TextureFactory {
     private static TextureRegion joueurIdleSpriteSheet;
     private static TextureRegion joueurRunningSpriteSheet;
     private static TextureRegion torcheSpriteSheet;
+    private static TextureRegion attaqueSpriteSheet;
 
     /**
      * Met en place les textures dans la banque de texures
      */
-    private TextureFactory(){
+    private TextureFactory() {
         instance = this;
 
         mur1 = new Texture(Gdx.files.internal("tiles/wall/wall_1.png"));
@@ -77,14 +78,16 @@ public class TextureFactory {
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
 
+        attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
     }
 
     /**
      * Méthode de singleton
+     *
      * @return instance du singleton
      */
-    public static TextureFactory getInstance(){
-        if(instance == null){
+    public static TextureFactory getInstance() {
+        if (instance == null) {
             instance = new TextureFactory();
         }
         return instance;
@@ -92,6 +95,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de wall_1
+     *
      * @return image du mur 1
      */
     public Texture getMur1() {
@@ -100,6 +104,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de wall_2
+     *
      * @return image du mur 2
      */
     public Texture getMur2() {
@@ -108,6 +113,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de wall_3
+     *
      * @return image du mur 3
      */
     public Texture getMur3() {
@@ -116,6 +122,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de wall_crack
+     *
      * @return image du mur fissuré
      */
     public Texture getMur4() {
@@ -124,6 +131,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_1
+     *
      * @return image du sol 1
      */
     public Texture getSol1() {
@@ -132,6 +140,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_2
+     *
      * @return image du sol 2
      */
     public Texture getSol2() {
@@ -140,6 +149,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_3
+     *
      * @return image du sol 3
      */
     public Texture getSol3() {
@@ -148,6 +158,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_4
+     *
      * @return image du sol 4
      */
     public Texture getSol4() {
@@ -156,6 +167,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_5
+     *
      * @return image du sol 5
      */
     public Texture getSol5() {
@@ -164,6 +176,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_6
+     *
      * @return image du sol 6
      */
     public Texture getSol6() {
@@ -172,6 +185,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_7
+     *
      * @return image du sol 7
      */
     public Texture getSol7() {
@@ -180,6 +194,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_8
+     *
      * @return image du sol 8
      */
     public Texture getSol8() {
@@ -188,6 +203,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_9
+     *
      * @return image du sol 9
      */
     public Texture getSol9() {
@@ -196,6 +212,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de floor_10
+     *
      * @return image du sol 10
      */
     public Texture getSol10() {
@@ -204,6 +221,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image d'angle d'un mur
+     *
      * @return image de l'angle de mur
      */
     public Texture getMurAngle() {
@@ -212,6 +230,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de bordure de mur
+     *
      * @return image de la bordure de mur
      */
     public Texture getBordureMur() {
@@ -220,6 +239,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de l'angle de bordure de mur
+     *
      * @return image de l'angle de bordure de mur
      */
     public Texture getBordureMurAngle() {
@@ -228,6 +248,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de prisonnier
+     *
      * @return image de de prisonnier
      */
     public Texture getPrisoner() {
@@ -236,6 +257,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image du drapeau vert
+     *
      * @return image de drapeau vert
      */
     public Texture getDrapeauVert() {
@@ -244,6 +266,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de drapeau rouge
+     *
      * @return image de drapeau rouge
      */
     public Texture getDrapeauRouge() {
@@ -252,6 +275,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de l'angle de bordure de mur
+     *
      * @return image de l'angle de bordure de mur
      */
     public Texture getBibliotheque() {
@@ -260,6 +284,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de la petite table
+     *
      * @return Getter pour l'image de la petite table
      */
     public Texture getPetiteTable() {
@@ -268,6 +293,7 @@ public class TextureFactory {
 
     /**
      * Getter pour l'image de la grande table
+     *
      * @return Getter pour l'image de la grande table
      */
     public Texture getGrandeTable() {
@@ -276,6 +302,7 @@ public class TextureFactory {
 
     /**
      * Getter pour la sprite sheet du joueur inactif
+     *
      * @return une TextureRegion idle spritesheet
      */
     public TextureRegion getJoueurIdleSpriteSheet() {
@@ -284,6 +311,7 @@ public class TextureFactory {
 
     /**
      * Getter pour la sprite sheet du joueur qui cours
+     *
      * @return une TextureRegion running spritesheet
      */
     public TextureRegion getJoueurRunningSpriteSheet() {
@@ -292,20 +320,42 @@ public class TextureFactory {
 
     /**
      * Getter pour la sprite sheet de la torche
+     *
      * @return une TextureRegion torch spritesheet
      */
     public TextureRegion getTorcheSpriteSheet() {
         return torcheSpriteSheet;
     }
 
-    public void dispose(){
-        mur1.dispose();
-        sol2.dispose();
-        murAngle.dispose();
-        bordureMur.dispose();
-        bordureMurAngle.dispose();
-        joueurIdleSpriteSheet.getTexture().dispose();
-        joueurRunningSpriteSheet.getTexture().dispose();
+
+    /**
+     * Getter pour la sprite sheet de la torche
+     *
+     * @return une TextureRegion torch spritesheet
+     */
+    public TextureRegion getAttaqueSpriteSheet() {
+        return attaqueSpriteSheet;
     }
+
+    public void dispose() {
+        dispose(mur1, mur2, mur3, mur4, murAngle,
+                bordureMur, bordureMurAngle,
+                petiteTable, grandeTable,
+                bibliotheque,
+                sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
+                drapeauVert, drapeauRouge, prisoner,
+                joueurIdleSpriteSheet.getTexture(),
+                joueurRunningSpriteSheet.getTexture(),
+                torcheSpriteSheet.getTexture(),
+                attaqueSpriteSheet.getTexture());
+    }
+
+
+    private void dispose(Texture... textures) {
+        for (Texture text : textures) {
+            text.dispose();
+        }
+    }
+
 }
 

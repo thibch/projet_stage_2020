@@ -1,9 +1,9 @@
 package fr.projetstage.models.entites;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.objets.Objet;
@@ -16,13 +16,13 @@ public class Joueur extends EntiteMouvante {
 
     private ArrayList<Objet> inventaire;
 
-    private static float hauteur;
-    private static float largeur;
-
     private Body body;
     private Animation idleAnimation;
     private Animation runningAnimation;
     private Orientation direction;
+
+    private Attaque[] attaqueJoueur;
+
 
     /**
      * Constructeur du joueur,
@@ -31,8 +31,8 @@ public class Joueur extends EntiteMouvante {
      * @param world le monde où il se trouve
      */
     public Joueur(Vector2 position, GameWorld world){
-        hauteur = 1;
-        largeur = 1;
+        float hauteur = (6f/16f);
+        float largeur = (8f/16f);
 
         //BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -43,15 +43,13 @@ public class Joueur extends EntiteMouvante {
         //Récupération du body dans le world
         body = world.getWorld().createBody(bodyDef);
 
-        //TODO: faire en fonction de l'image
-
         //Création de la shape pour le héros
         Vector2 posShape = new Vector2(5f/16f, 1f/16f); //La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
-        vertices[1] = new Vector2(posShape.x + (8f/16f), posShape.y);
-        vertices[2] = new Vector2(posShape.x + (8f/16f), posShape.y + (6f/16f));
-        vertices[3] = new Vector2(posShape.x, posShape.y + (6f/16f));
+        vertices[1] = new Vector2(posShape.x + largeur, posShape.y);
+        vertices[2] = new Vector2(posShape.x + largeur, posShape.y + hauteur);
+        vertices[3] = new Vector2(posShape.x, posShape.y + hauteur);
 
         PolygonShape rectangle = new PolygonShape();
         rectangle.set(vertices);
@@ -70,10 +68,35 @@ public class Joueur extends EntiteMouvante {
 
         rectangle.dispose();
 
+        attaqueJoueur = new Attaque[4]; //GAUCHE, DROITE, HAUT, BAS
+        attaqueJoueur[Orientation.GAUCHE.getIndice()] = new Attaque(world, new Vector2(-1f/16f, 0), 6f/16f, 8f/16f);
+        attaqueJoueur[Orientation.DROITE.getIndice()] = new Attaque(world, new Vector2(13f/16f, 0), 6f/16f, 8f/16f);
+        attaqueJoueur[Orientation.HAUT.getIndice()] = new Attaque(world, new Vector2(5f/16f, 7f/16f), 8f/16f, 6f/16f);
+        attaqueJoueur[Orientation.BAS.getIndice()] = new Attaque(world, new Vector2(5f/16f, -5f/16f), 8f/16f, 6f/16f);
+
+        for (Attaque attaque : attaqueJoueur) {
+            RevoluteJointDef rjd = new RevoluteJointDef();
+            rjd.initialize(body, attaque.getBody(), new Vector2(9f / 16f, 4f / 16f));
+
+            world.getWorld().createJoint(rjd);
+        }
+
         //creer les animations
         direction = Orientation.DROITE;
         idleAnimation = new Animation(TextureFactory.getInstance().getJoueurIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
+    }
+
+
+    public void attaquer(Orientation orientation){
+    }
+
+
+    @Override
+    public void setDirection(Orientation direction) {
+        if(direction != Orientation.NO_ORIENTATION){
+            this.direction = direction;
+        }
     }
 
     /**
@@ -98,27 +121,26 @@ public class Joueur extends EntiteMouvante {
      * @param deplacement vecteur de déplacement du joueur
      */
     public void move(Vector2 deplacement){
-        body.setLinearVelocity(new Vector2(deplacement.x + 0.8f * body.getLinearVelocity().x,deplacement.y + 0.8f * body.getLinearVelocity().y));
+        body.setLinearVelocity(new Vector2(deplacement.x + 0.65f * body.getLinearVelocity().x,deplacement.y + 0.65f * body.getLinearVelocity().y));
     }
 
 
     @Override
     public void draw(SpriteBatch listeAffImg) {
 
+        if(direction != Orientation.NO_ORIENTATION && direction != null){
+            attaqueJoueur[direction.getIndice()].drawAnimation(listeAffImg, direction == Orientation.GAUCHE || direction == Orientation.BAS, direction == Orientation.BAS || direction == Orientation.HAUT);
+        }
+
         //Si on est proche de l'arret (0 déplacement du joueur)
         //Alors on met à jour l'animation et on l'affiche
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
-            listeAffImg.draw(idleAnimation.getFrame(direction == Orientation.GAUCHE), getX(), getY(), hauteur, largeur);
+            listeAffImg.draw(idleAnimation.getFrameFlipX(direction == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }//Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
             runningAnimation.update();
-            listeAffImg.draw(runningAnimation.getFrame(direction == Orientation.GAUCHE), getX(), getY(), hauteur, largeur);
+            listeAffImg.draw(runningAnimation.getFrameFlipX(direction == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
-    }
-
-    @Override
-    public void setDirection(Orientation direction) {
-        this.direction = direction;
     }
 }

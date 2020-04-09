@@ -2,16 +2,13 @@ package fr.projetstage.models;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.utils.Array;
 
 public class Animation {
 
-    private Array<TextureRegion> frames;
+    private TextureRegion[][] frames;
     private float maxFrameTime;
     private float currentFrameTime;
     private int currentFrame;
-
-    private TextureRegion tmp;
 
     /**
      * Classe animation qui s'occupe d'animer des éléments à partir d'une spritesheet
@@ -22,14 +19,11 @@ public class Animation {
     public Animation(TextureRegion textureRegion, int frameCount, float cycleTime){
         currentFrame = 0;
         //cree un tableau d'images à partir de la spritesheet
-        frames = new Array<>();
         int frameWidth = textureRegion.getRegionWidth()/frameCount;
-        for(int i = 0; i < frameCount; i++){
-            frames.add(new TextureRegion(textureRegion,i*frameWidth,0,frameWidth, textureRegion.getRegionHeight()));
-        }
+        frames = textureRegion.split(frameWidth,textureRegion.getRegionHeight());
+
         //definit le temps d'une image
         maxFrameTime = cycleTime / frameCount;
-
     }
 
     /**
@@ -38,7 +32,7 @@ public class Animation {
     public void update(){
         currentFrameTime += Gdx.graphics.getDeltaTime();
         if(currentFrameTime > maxFrameTime){
-            currentFrame= (currentFrame+1)%(frames.size-1);
+            currentFrame = (currentFrame+1)%(frames[0].length);
             currentFrameTime = 0;
         }
     }
@@ -48,9 +42,18 @@ public class Animation {
      * @param flipX un booleen qui si une symetrie horizontale doit être appliquée
      * @return une texture region de l'image actuelle
      */
-    public TextureRegion getFrame(boolean flipX){
-        tmp = new TextureRegion(frames.get(currentFrame));
-        tmp.flip(flipX,false);
+    public TextureRegion getFrameFlipX(boolean flipX){
+        return getFrame(flipX, false);
+    }
+
+    public TextureRegion getFrameFlipY(boolean flipY){
+        return getFrame(false, flipY);
+    }
+
+    public TextureRegion getFrame(boolean flipX, boolean flipY){
+        TextureRegion tmp = new TextureRegion(frames[0][currentFrame]);
+        tmp.flip(flipX, flipY);
         return tmp;
     }
+
 }

@@ -27,6 +27,7 @@ public class GameWorld {
         //in game elements
         salleCourante = new Salle(this,16,10);
         joueur = new Joueur(new Vector2(0, 0),this);
+        this.world.setContactListener(new EcouteurContact(this));
     }
 
     /**

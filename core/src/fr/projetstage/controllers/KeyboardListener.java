@@ -15,8 +15,13 @@ public class KeyboardListener implements InputProcessor {
     private Vector2 acceleration = new Vector2(0f, 0f);
     private Orientation direction;
 
+    public KeyboardListener(){
+        direction = Orientation.DROITE;
+    }
+
     public void remiseAZeroAccel(){
         acceleration.set(0f, 0f);
+        direction = Orientation.DROITE;
     }
 
     public static int getCoefKeyboard() {
@@ -95,6 +100,19 @@ public class KeyboardListener implements InputProcessor {
         }else{
             acceleration.set(acceleration.x, 0);
         }
+
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
+            direction = Orientation.GAUCHE;
+        }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){
+            direction = Orientation.DROITE;
+        }else if(Gdx.input.isKeyPressed(Input.Keys.DOWN)){
+            direction = Orientation.BAS;
+        }else if(Gdx.input.isKeyPressed(Input.Keys.UP)){
+            direction = Orientation.HAUT;
+        }else{
+            direction = Orientation.NO_ORIENTATION;
+        }
+
         return false;
     }
 
