@@ -3,6 +3,7 @@ package fr.projetstage.models.ui;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
 public class UserInterface {
@@ -22,7 +23,6 @@ public class UserInterface {
         this.gameWorld = gameWorld;
         float scaleX = stage.getWidth()/gameWorld.getLargeur();
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
-        System.out.println(scaleX);
         pauseBtn = new PauseButton(stage,new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY);
     }
 
@@ -33,6 +33,28 @@ public class UserInterface {
     public void draw(SpriteBatch batch){
         stage.act();
         stage.draw();
+
+        batch.begin();
+        //affiche l'arme selectionnée
+        batch.draw(TextureFactory.getInstance().getEpee(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
+
+
+        //affiche les PV du joueur
+        int cpt = 1;
+        for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
+            batch.draw(TextureFactory.getInstance().getCoeurPlein(),i+1,gameWorld.getHauteur()-3-screenOffset,1,1);
+            cpt++;
+        }
+        if(gameWorld.getJoueur().getPointDeVie()%2 == 1){
+            batch.draw(TextureFactory.getInstance().getCoeurMoitie(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
+            cpt++;
+        }
+        for(int i = 0; i < (gameWorld.getJoueur().getPointdeVieMax()-gameWorld.getJoueur().getPointDeVie())/2; i++){
+            batch.draw(TextureFactory.getInstance().getCoeurVide(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
+            cpt++;
+        }
+
+        batch.end();
     }
 
     public Stage getStage() {

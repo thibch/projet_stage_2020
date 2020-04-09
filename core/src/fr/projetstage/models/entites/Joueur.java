@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -15,6 +16,8 @@ import java.util.ArrayList;
 public class Joueur extends EntiteMouvante {
 
     private ArrayList<Objet> inventaire;
+    private int pointDeVie;
+    private int pointdeVieMax;
 
     private Body body;
     private Animation idleAnimation;
@@ -31,6 +34,10 @@ public class Joueur extends EntiteMouvante {
      * @param world le monde où il se trouve
      */
     public Joueur(Vector2 position, GameWorld world){
+        //stats:
+        pointDeVie = 6;
+        pointdeVieMax = 6;
+
         float hauteur = (6f/16f);
         float largeur = (8f/16f);
 
@@ -142,5 +149,13 @@ public class Joueur extends EntiteMouvante {
             runningAnimation.update();
             listeAffImg.draw(runningAnimation.getFrameFlipX(direction == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
+    }
+
+    public int getPointDeVie() {
+        return pointDeVie;
+    }
+
+    public int getPointdeVieMax() {
+        return pointdeVieMax;
     }
 }
