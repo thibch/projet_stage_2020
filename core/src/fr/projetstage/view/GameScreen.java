@@ -96,12 +96,13 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      */
     public void update(){
-        Vector2 force =  new Vector2(0, 0);
+        Vector2 force = new Vector2(0, 0);
         force.add(keyboardListener.getAcceleration());
         gameWorld.getJoueur().move(force);
         gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
 
         gameWorld.getJoueur().setDirection(keyboardListener.getDirection());
+        gameWorld.update();
     }
 
     /**

@@ -78,6 +78,7 @@ public class Joueur extends EntiteMouvante {
         //Met en place la fixture sur le body
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
+        body.setUserData(TypeAttaque.JOUEUR);
 
         rectangle.dispose();
 
@@ -185,5 +186,9 @@ public class Joueur extends EntiteMouvante {
 
     public int getPointdeVieMax() {
         return pointdeVieMax;
+    }
+
+    public boolean isAttacking() {
+        return attaqueMaintenant;
     }
 }

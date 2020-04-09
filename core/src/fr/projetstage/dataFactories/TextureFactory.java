@@ -50,6 +50,9 @@ public class TextureFactory {
     private static TextureRegion torcheSpriteSheet;
     private static TextureRegion attaqueSpriteSheet;
 
+    private static TextureRegion slimeIdleSpriteSheet;
+    private static TextureRegion slimeRunSpriteSheet;
+
     /**
      * Met en place les textures dans la banque de texures
      */
@@ -95,6 +98,9 @@ public class TextureFactory {
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
 
         attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
+
+        slimeIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/slime/slime_idle_spritesheet.png")));
+        slimeRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/slime/slime_run_spritesheet.png")));
     }
 
     /**
@@ -375,6 +381,15 @@ public class TextureFactory {
         return attaqueSpriteSheet;
     }
 
+
+    public TextureRegion getSlimeIdleSpriteSheet(){
+        return slimeIdleSpriteSheet;
+    }
+
+    public TextureRegion getSlimeRunSpriteSheet(){
+        return slimeRunSpriteSheet;
+    }
+
     public void dispose() {
         dispose(mur1, mur2, mur3, mur4, murAngle,
                 bordureMur, bordureMurAngle,
@@ -387,7 +402,9 @@ public class TextureFactory {
                 joueurIdleSpriteSheet.getTexture(),
                 joueurRunningSpriteSheet.getTexture(),
                 torcheSpriteSheet.getTexture(),
-                attaqueSpriteSheet.getTexture());
+                attaqueSpriteSheet.getTexture(),
+                slimeIdleSpriteSheet.getTexture(),
+                slimeRunSpriteSheet.getTexture());
     }
 
 

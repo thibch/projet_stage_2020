@@ -5,8 +5,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
 import fr.projetstage.models.entites.Joueur;
+import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.monde.salle.Salle;
 
+import java.util.Iterator;
 import java.util.Random;
 
 public class GameWorld {
@@ -77,5 +79,14 @@ public class GameWorld {
      */
     public int getNextRandom(){
         return random.nextInt();
+    }
+
+
+    public Iterator<Ennemi> iteratorEnnemi(){
+        return salleCourante.iterator();
+    }
+
+    public void update() {
+        salleCourante.update();
     }
 }

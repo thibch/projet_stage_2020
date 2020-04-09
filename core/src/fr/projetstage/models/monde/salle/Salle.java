@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
+import fr.projetstage.models.entites.ennemis.Ennemi;
+import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
@@ -12,6 +14,7 @@ import fr.projetstage.models.monde.salle.meubles.GrandeTable;
 import fr.projetstage.models.monde.salle.meubles.PetiteTable;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class Salle {
 
@@ -21,6 +24,7 @@ public class Salle {
     private ArrayList<Entite> tileMap;
     private ArrayList<Prop> props;
     private ArrayList<Entite> meubles;
+    private ArrayList<Ennemi> ennemis;
     private ArrayList<ObjetAuSol> objetAuSols;
 
     private GameWorld world;
@@ -36,6 +40,17 @@ public class Salle {
         this.world = world;
 
         genererSalle();
+    }
+
+    public void update(){
+        int i = 0;
+        while(i < ennemis.size()){
+            if(ennemis.get(i).getTouche()){
+                world.getWorld().destroyBody(ennemis.get(i).getBody());
+                ennemis.remove(i);
+            }
+            i++;
+        }
     }
 
     public void draw(SpriteBatch listeAffImg) {
@@ -55,6 +70,10 @@ public class Salle {
 
         for(Entite meuble : meubles){
             meuble.draw(listeAffImg);
+        }
+
+        for(Entite monstre : ennemis){
+            monstre.draw(listeAffImg);
         }
 
         for(int y = 0; y < hauteur;y++){
@@ -141,6 +160,11 @@ public class Salle {
         meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
         meubles.add(new PetiteTable(world, new Vector2(5, 3)));
         meubles.add(new GrandeTable(world, new Vector2(5, 5)));
+
+        ennemis = new ArrayList<>();
+
+        ennemis.add(new Slime(world, new Vector2(7, 7)));
+
 
     }
 
@@ -235,4 +259,7 @@ public class Salle {
         return tmp;
     }
 
+    public Iterator<Ennemi> iterator() {
+        return ennemis.iterator();
+    }
 }
