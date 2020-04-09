@@ -62,7 +62,7 @@ public class GameScreen extends ScreenAdapter {
         cameraEnv.update();
 
         cameraUI = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
-        cameraUI.position.set(gameWorld.getLargeur()/2f -2, gameWorld.getHauteur()/2f -2,0); //-2 est le decalage pour les murs
+        cameraUI.position.set(gameWorld.getLargeur()/2f-2, gameWorld.getHauteur()/2f-2,0); //-2 est le decalage pour les murs
         cameraUI.update();
     }
 
@@ -73,25 +73,23 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void render(float delta) {
         super.render(delta);
-        Gdx.gl.glClearColor(54/255f, 57/255f, 63/255f, 1); //background color
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         listeAffEnv.setProjectionMatrix(cameraEnv.combined);
         listeAffUI.setProjectionMatrix(cameraUI.combined);
+
+        Gdx.gl.glClearColor(54/255f, 57/255f, 63/255f, 1); //background color
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         //affichage environnement de jeu
         listeAffEnv.begin();
         if(keyboardListener.isAfficheDebug()){
             box2DDebugRenderer.render(gameWorld.getWorld(), cameraEnv.combined); //On affiche le Debug si on a appuyé sur la touche du clavier
         }else{
             gameWorld.draw(listeAffEnv);
-
         }
-
         update();
         listeAffEnv.end();
-        //affichage de l'UI
-        listeAffUI.begin();
+
+        //affichage de l'interface
         userInterface.draw(listeAffUI);
-        listeAffUI.end();
     }
 
     /**

@@ -46,7 +46,7 @@ public class Attaque {
         FixtureDef fixtureDef1 = new FixtureDef();
         fixtureDef1.shape = rectangle;
         fixtureDef1.isSensor = true;
-        fixtureDef1.density = 1f; // Densité de l’objet
+        fixtureDef1.density = 0.00001f; // Densité de l’objet
         fixtureDef1.restitution = 0f; // Restitution de  l’objet
         fixtureDef1.friction = 0f; // Friction de  l’objet
         //
