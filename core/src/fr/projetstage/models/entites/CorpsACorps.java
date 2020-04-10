@@ -62,7 +62,7 @@ public class CorpsACorps extends Attaque{
         //Met en place la fixture sur le body
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
-        body.setUserData(TypeEntite.CORPS_A_CORPS);
+        body.setUserData(new Type(TypeEntite.CORPS_A_CORPS));
 
         rectangle.dispose();
 
