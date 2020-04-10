@@ -86,28 +86,12 @@ public class Joueur extends EntiteMouvante {
 
         rectangle.dispose();
 
-
-        //TODO: a changer
-        //On met en place les 4 direction pour le CaC
-
-        /*attaqueJoueur = new Attaque[4]; //GAUCHE, DROITE, HAUT, BAS
-        attaqueJoueur[Orientation.GAUCHE.getIndice()] = new Attaque(world, new Vector2(-1f/16f, 0), 6f/16f, 8f/16f);
-        attaqueJoueur[Orientation.DROITE.getIndice()] = new Attaque(world, new Vector2(13f/16f, 0), 6f/16f, 8f/16f);
-        attaqueJoueur[Orientation.HAUT.getIndice()] = new Attaque(world, new Vector2(5f/16f, 7f/16f), 8f/16f, 6f/16f);
-        attaqueJoueur[Orientation.BAS.getIndice()] = new Attaque(world, new Vector2(5f/16f, -5f/16f), 8f/16f, 6f/16f);
-        */
-
-        //On met en place les jointures entre les attaques au CaC et le joueur
-        /*for (Attaque attaque : attaqueJoueur) {
-            RevoluteJointDef rjd = new RevoluteJointDef();
-            rjd.initialize(body, attaque.getBody(), new Vector2(9f / 16f, 4f / 16f));
-
-            world.getWorld().createJoint(rjd);
-        }*/
-
         //On met en place l'attaque à distance
         attaqueDistance = new AttaqueDistance(world, 3f/16f, 3f/16f);
         attaquesLances = new ArrayList<>();
+
+        //On met en place l'attaque au corps à corps
+        attaqueCaC = new CorpsACorps(world,body);
 
 
         onCoolDown = false;
@@ -159,11 +143,15 @@ public class Joueur extends EntiteMouvante {
 
                 //On lance une attaque
                 attaquesLances.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction));
+                attaqueCaC.initAttack(1, 0.1f,1,0.5f,direction);
 
                 //On met en place le cooldown
                 attaqueMaintenant = true;
                 onCoolDown = true;
             }
+        }
+        if(attaqueCaC.isRunning()){
+            attaqueCaC.slash();
         }
     }
 
@@ -199,6 +187,11 @@ public class Joueur extends EntiteMouvante {
         //Si le joueur est en train d'attaquer on affiche son animation d'attaque
         if(attaqueMaintenant){
             //attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
+        }
+
+        //demande l'animation de l'épée
+        if(attaqueCaC.isRunning()){
+            attaqueCaC.drawAnimation(listeAffImg);
         }
 
         //On affiche toute les flèches

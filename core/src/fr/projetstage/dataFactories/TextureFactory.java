@@ -313,7 +313,8 @@ public class TextureFactory {
      * Getter pour l'image de menu pause enfoncé
      * @return Getter pour l'image du menu pause enfoncé
      */
-    public Texture getPauseBtnPressed() {
+    public Texture getPauseBtnPressed()
+    {
         return pauseBtnPressed;
     }
 

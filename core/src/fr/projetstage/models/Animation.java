@@ -23,8 +23,9 @@ public class Animation {
         frames = textureRegion.split(frameWidth,textureRegion.getRegionHeight());
 
         //definit le temps d'une image
-        maxFrameTime = cycleTime / frameCount;
+        maxFrameTime = (cycleTime / frameCount);
     }
+
 
     /**
      * met à jour l'image d'animation à renvoyer
@@ -44,10 +45,6 @@ public class Animation {
      */
     public TextureRegion getFrameFlipX(boolean flipX){
         return getFrame(flipX, false);
-    }
-
-    public TextureRegion getFrameFlipY(boolean flipY){
-        return getFrame(false, flipY);
     }
 
     public TextureRegion getFrame(boolean flipX, boolean flipY){
