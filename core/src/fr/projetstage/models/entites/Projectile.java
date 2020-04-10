@@ -13,7 +13,7 @@ public class Projectile extends EntiteMouvante{
     }
 
     @Override
-    public void setDirection(Orientation direction) {
+    public void update(Orientation direction) {
 
     }
 }

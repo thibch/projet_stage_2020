@@ -44,6 +44,7 @@ public class TextureFactory {
     private static Texture coeurVide;
 
     private static Texture epee;
+    private static Texture fleche;
 
     private static TextureRegion joueurIdleSpriteSheet;
     private static TextureRegion joueurRunningSpriteSheet;
@@ -92,6 +93,7 @@ public class TextureFactory {
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
 
         epee = new Texture(Gdx.files.internal("heroes/knight/weapon_sword_1.png"));
+        fleche = new Texture(Gdx.files.internal("heroes/knight/weapon_arrow_1.png"));
 
         joueurIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_idle_spritesheet.png")));
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
@@ -348,6 +350,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de la flèche
+     * @return Getter pour l'image de la flèche
+     */
+    public Texture getFleche() {
+        return fleche;
+    }
+
+    /**
      * Getter pour la sprite sheet du joueur inactif
      * @return une TextureRegion idle spritesheet
      */
@@ -374,7 +384,6 @@ public class TextureFactory {
 
     /**
      * Getter pour la sprite sheet de la torche
-     *
      * @return une TextureRegion torch spritesheet
      */
     public TextureRegion getAttaqueSpriteSheet() {
@@ -382,14 +391,25 @@ public class TextureFactory {
     }
 
 
+    /**
+     * Getter pour la sprite sheet du slime inactif
+     * @return une TextureRegion Idle slime spritesheet
+     */
     public TextureRegion getSlimeIdleSpriteSheet(){
         return slimeIdleSpriteSheet;
     }
 
+    /**
+     * Getter pour la sprite sheet du slime qui marche
+     * @return une TextureRegion running slime spritesheet
+     */
     public TextureRegion getSlimeRunSpriteSheet(){
         return slimeRunSpriteSheet;
     }
 
+    /**
+     * Efface toute les Textures de la Factory
+     */
     public void dispose() {
         dispose(mur1, mur2, mur3, mur4, murAngle,
                 bordureMur, bordureMurAngle,
@@ -407,12 +427,14 @@ public class TextureFactory {
                 slimeRunSpriteSheet.getTexture());
     }
 
-
+    /**
+     * Efface toute les Textures en paramètre
+     * @param textures Tableau de toute les textures à effacer
+     */
     private void dispose(Texture... textures) {
         for (Texture text : textures) {
             text.dispose();
         }
     }
-
 }
 

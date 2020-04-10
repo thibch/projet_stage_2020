@@ -101,7 +101,7 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.getJoueur().move(force);
         gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
 
-        gameWorld.getJoueur().setDirection(keyboardListener.getDirection());
+        gameWorld.getJoueur().update(keyboardListener.getDirection());
         gameWorld.update();
     }
 

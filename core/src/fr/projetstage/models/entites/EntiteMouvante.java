@@ -11,5 +11,5 @@ public abstract class EntiteMouvante implements Entite {
     @Override
     public abstract void draw(SpriteBatch batch);
 
-    public abstract void setDirection(Orientation direction);
+    public abstract void update(Orientation direction);
 }

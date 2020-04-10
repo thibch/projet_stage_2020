@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.objets.Objet;
@@ -26,6 +25,11 @@ public class Joueur extends EntiteMouvante {
     private Orientation direction;
 
     private Attaque[] attaqueJoueur;
+    private CorpsACorps attaqueCaC;
+    private AttaqueDistance attaqueDistance;
+
+    ArrayList<Fleches> attaquesLances;
+
 
     private boolean attaqueMaintenant;
     private boolean onCoolDown;
@@ -82,18 +86,29 @@ public class Joueur extends EntiteMouvante {
 
         rectangle.dispose();
 
-        attaqueJoueur = new Attaque[4]; //GAUCHE, DROITE, HAUT, BAS
+
+        //TODO: a changer
+        //On met en place les 4 direction pour le CaC
+
+        /*attaqueJoueur = new Attaque[4]; //GAUCHE, DROITE, HAUT, BAS
         attaqueJoueur[Orientation.GAUCHE.getIndice()] = new Attaque(world, new Vector2(-1f/16f, 0), 6f/16f, 8f/16f);
         attaqueJoueur[Orientation.DROITE.getIndice()] = new Attaque(world, new Vector2(13f/16f, 0), 6f/16f, 8f/16f);
         attaqueJoueur[Orientation.HAUT.getIndice()] = new Attaque(world, new Vector2(5f/16f, 7f/16f), 8f/16f, 6f/16f);
         attaqueJoueur[Orientation.BAS.getIndice()] = new Attaque(world, new Vector2(5f/16f, -5f/16f), 8f/16f, 6f/16f);
+        */
 
-        for (Attaque attaque : attaqueJoueur) {
+        //On met en place les jointures entre les attaques au CaC et le joueur
+        /*for (Attaque attaque : attaqueJoueur) {
             RevoluteJointDef rjd = new RevoluteJointDef();
             rjd.initialize(body, attaque.getBody(), new Vector2(9f / 16f, 4f / 16f));
 
             world.getWorld().createJoint(rjd);
-        }
+        }*/
+
+        //On met en place l'attaque à distance
+        attaqueDistance = new AttaqueDistance(world, 3f/16f, 3f/16f);
+        attaquesLances = new ArrayList<>();
+
 
         onCoolDown = false;
         attaqueMaintenant = false;
@@ -107,28 +122,45 @@ public class Joueur extends EntiteMouvante {
         runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
     }
 
+    /**
+     * On met a jour la direction du joueur, donc de l'attaque
+     * @param direction direction de l'attaque
+     */
     @Override
-    public void setDirection(Orientation direction) {
+    public void update(Orientation direction) {
         currentTime += Gdx.graphics.getDeltaTime();
+
+        //Si on est en coolDown mais que le temps est dépassé alors nous ne sommes plus en cooldown
         if(onCoolDown && currentTime > coolDownTime) {
             currentTime = 0;
             onCoolDown = false;
         }
-        if(attaqueMaintenant && currentTime > attaqueJoueur[this.lastDirection.getIndice()].getAttaqueTime()-0.1f){
+
+        //Si il est en train d'attaquer et qu'on a dépassé l'animation alors on remet les animations à zéros et on arrête d'attaquer
+/*        if(attaqueMaintenant && currentTime > attaqueCaC.getDuration()){//attaqueJoueur[this.lastDirection.getIndice()].getAttaqueTime()){
             attaqueMaintenant = false;
             for(Attaque attaque : attaqueJoueur){
                 attaque.reset();
             }
         }
+        */
 
         this.direction = direction;
 
+        //Si on veut aller dans une direction
         if(direction != Orientation.NO_ORIENTATION){
+            //Si on a finit d'attaquer on change la direction
             if(!attaqueMaintenant){
                 lastDirection = direction;
             }
+            //Si on est plus en cooldown ça veut dire que le joueur veut attaquer
             if(!onCoolDown){
                 currentTime = 0;
+
+                //On lance une attaque
+                attaquesLances.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction));
+
+                //On met en place le cooldown
                 attaqueMaintenant = true;
                 onCoolDown = true;
             }
@@ -164,9 +196,16 @@ public class Joueur extends EntiteMouvante {
     @Override
     public void draw(SpriteBatch listeAffImg) {
 
+        //Si le joueur est en train d'attaquer on affiche son animation d'attaque
         if(attaqueMaintenant){
-            attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
+            //attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
         }
+
+        //On affiche toute les flèches
+        for(Fleches fleche: attaquesLances){
+            fleche.draw(listeAffImg);
+        }
+
 
         //Si on est proche de l'arret (0 déplacement du joueur)
         //Alors on met à jour l'animation et on l'affiche
