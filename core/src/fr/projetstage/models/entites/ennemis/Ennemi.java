@@ -3,7 +3,9 @@ package fr.projetstage.models.entites.ennemis;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.EntiteMouvante;
-import fr.projetstage.models.entites.TypeAttaque;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
+import fr.projetstage.models.monde.GameWorld;
 
 public abstract class Ennemi extends EntiteMouvante {
 
@@ -15,11 +17,18 @@ public abstract class Ennemi extends EntiteMouvante {
 
     private boolean touche;
 
+    protected GameWorld world;
+    protected Type type;
 
-    public TypeAttaque getTypeAttaque(){
-        return (TypeAttaque)body.getUserData();
+    public Ennemi(GameWorld world, Type type){
+        this.world = world;
+        this.type = type;
     }
 
+
+    public Type getType(){
+        return type;
+    }
 
     public void setTouche(boolean b) {
         touche = b;

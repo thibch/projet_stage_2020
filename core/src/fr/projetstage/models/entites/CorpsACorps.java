@@ -53,7 +53,7 @@ public class CorpsACorps extends Attaque{
         //Met en place la fixture sur le body
         body.setFixedRotation(false);
         body.createFixture(fixtureDef1); // Association à l’objet
-        body.setUserData(TypeAttaque.CORPS_A_CORPS);
+        body.setUserData(TypeEntite.CORPS_A_CORPS);
 
         rectangle.dispose();
 
@@ -83,8 +83,7 @@ public class CorpsACorps extends Attaque{
     }
 
     public void drawAnimation(SpriteBatch batch, boolean flipX, boolean rotateY) {
-        //Si on est proche de l'arret (0 déplacement du joueur)
-        //Alors on met à jour l'animation et on l'affiche
+
         animation.update();
         if(flipX){
             if(rotateY){ // Bas
@@ -108,7 +107,7 @@ public class CorpsACorps extends Attaque{
     }
 
     @Override
-    public Fleches attaqueDistance(Vector2 positionJoueur, Orientation direction) {
+    public Fleches attaqueDistance(Vector2 positionJoueur, Orientation direction, int id) {
         return null;
     }
 }

@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
@@ -132,6 +134,7 @@ public class Salle {
             tileMap.add(new Mur(world, new Vector2(x, (hauteur)), Orientation.HAUT,getRandomWall()));
             tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS,getRandomWall()));
         }
+
         //parcours tout les murs et ajoute aléatoirement des props si le mur est de type 1
         Mur tmp;
         int tmpAlea;
@@ -163,7 +166,7 @@ public class Salle {
 
         ennemis = new ArrayList<>();
 
-        ennemis.add(new Slime(world, new Vector2(7, 7)));
+        ennemis.add(new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI,ennemis.size())));
 
 
     }
@@ -261,5 +264,9 @@ public class Salle {
 
     public Iterator<Ennemi> iterator() {
         return ennemis.iterator();
+    }
+
+    public void setEnnemiTouche(boolean touche, int id) {
+        ennemis.get(id).setTouche(true);
     }
 }

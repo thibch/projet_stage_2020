@@ -30,10 +30,10 @@ public class AttaqueDistance extends Attaque {
     }
 
     @Override
-    public Fleches attaqueDistance(Vector2 positionJoueur, Orientation direction) {
+    public Fleches attaqueDistance(Vector2 positionJoueur, Orientation direction, int id) {
         //Spawn de body
 
-        Fleches fleche = new Fleches(world, positionJoueur,largeur, hauteur);
+        Fleches fleche = new Fleches(world, positionJoueur, largeur, hauteur, id, direction);
 
         switch (direction){
             case BAS:

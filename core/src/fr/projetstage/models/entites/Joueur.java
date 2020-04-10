@@ -28,7 +28,7 @@ public class Joueur extends EntiteMouvante {
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
 
-    ArrayList<Fleches> attaquesLances;
+    private ArrayList<Fleches> projectiles;
 
 
     private boolean attaqueMaintenant;
@@ -82,7 +82,7 @@ public class Joueur extends EntiteMouvante {
         //Met en place la fixture sur le body
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
-        body.setUserData(TypeAttaque.JOUEUR);
+        body.setUserData(new Type(TypeEntite.JOUEUR, 0));
 
         rectangle.dispose();
 
@@ -106,8 +106,8 @@ public class Joueur extends EntiteMouvante {
         }*/
 
         //On met en place l'attaque à distance
-        attaqueDistance = new AttaqueDistance(world, 3f/16f, 3f/16f);
-        attaquesLances = new ArrayList<>();
+        attaqueDistance = new AttaqueDistance(world, 12f/16f, 5f/16f);
+        projectiles = new ArrayList<>();
 
 
         onCoolDown = false;
@@ -158,7 +158,8 @@ public class Joueur extends EntiteMouvante {
                 currentTime = 0;
 
                 //On lance une attaque
-                attaquesLances.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction));
+
+                projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction, projectiles.size()));
 
                 //On met en place le cooldown
                 attaqueMaintenant = true;
@@ -202,7 +203,7 @@ public class Joueur extends EntiteMouvante {
         }
 
         //On affiche toute les flèches
-        for(Fleches fleche: attaquesLances){
+        for(Fleches fleche: projectiles){
             fleche.draw(listeAffImg);
         }
 

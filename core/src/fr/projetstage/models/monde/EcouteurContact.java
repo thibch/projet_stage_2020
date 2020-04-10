@@ -1,10 +1,9 @@
 package fr.projetstage.models.monde;
 
 import com.badlogic.gdx.physics.box2d.*;
-import fr.projetstage.models.entites.TypeAttaque;
-import fr.projetstage.models.entites.ennemis.Ennemi;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 
-import java.util.Iterator;
 
 public class EcouteurContact implements ContactListener {
 
@@ -16,43 +15,44 @@ public class EcouteurContact implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        Fixture fixtureMonstre = contact.getFixtureA();
-        Fixture fixtureCaC = contact.getFixtureB();
 
-        //TODO: modifier l'accès au monstre pour faire avec son ID dans un tableau (au lieu d'un iterator)
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
 
-        if(contact.getFixtureA().getBody().getUserData() != null && contact.getFixtureB().getBody().getUserData() != null){
-            if(world.getJoueur().isAttacking()){
-                if(contact.getFixtureA().getBody().getUserData().equals(TypeAttaque.CORPS_A_CORPS)){
-                    fixtureCaC = contact.getFixtureA();
-                    if(contact.getFixtureB().getBody().getUserData().equals(TypeAttaque.ENNEMI)){
-                        fixtureMonstre = contact.getFixtureB();
-                        System.out.println(((TypeAttaque)fixtureMonstre.getBody().getUserData()).getId());
+        if (fixtureA.getBody().getUserData() != null && fixtureB.getBody().getUserData() != null) {
 
-                        for (Iterator<Ennemi> it = world.iteratorEnnemi(); it.hasNext(); ) {
-                            Ennemi en = it.next();
-                            if(((TypeAttaque)fixtureMonstre.getBody().getUserData()).getId() == en.getTypeAttaque().getId()){
-                                en.setTouche(true);
-                            }
-                        }
-                    }
-                }else if (contact.getFixtureB().getBody().getUserData().equals(TypeAttaque.CORPS_A_CORPS)){
-                    fixtureCaC = contact.getFixtureB();
-                    if(contact.getFixtureA().getBody().getUserData().equals(TypeAttaque.ENNEMI)) {
-                        fixtureMonstre = contact.getFixtureA();
-                        System.out.println(((TypeAttaque)fixtureMonstre.getBody().getUserData()).getId());
+            Fixture fixtureCaC = check(fixtureA, fixtureB, TypeEntite.CORPS_A_CORPS);
 
-                        for (Iterator<Ennemi> it = world.iteratorEnnemi(); it.hasNext(); ) {
-                            Ennemi en = it.next();
-                            if(((TypeAttaque)fixtureMonstre.getBody().getUserData()).getId() == en.getTypeAttaque().getId()){
-                                en.setTouche(true);
-                            }
-                        }
+            if(fixtureCaC != null){
+                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                if(fixtureEnnemi != null){
+                    world.setEnnemiTouche(true, ((Type)fixtureEnnemi.getBody().getUserData()).getId());
+                }
+            }
 
-                    }
+            Fixture fixtureFleche = check(fixtureA, fixtureB, TypeEntite.DISTANCE);
+
+            if(fixtureFleche != null){
+                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                if(fixtureEnnemi != null){
+                    world.setEnnemiTouche(true, ((Type)fixtureEnnemi.getBody().getUserData()).getId());
+                    //Destroy fixtureFleche
+                }
+            }
+        }else{
+            //Fleches et Mur/Tables
+            Fixture fixtureFleche = check(fixtureA, fixtureB, TypeEntite.DISTANCE);
+            if(fixtureFleche != null){
+                Fixture fixtureMur = fixtureA == fixtureFleche?fixtureB:fixtureA;
+                if(fixtureMur != null){
+                    //On plante la flèche dans le mur
                 }
             }
         }
+    }
+
+    public Fixture check(Fixture fixtureA, Fixture fixtureB, TypeEntite entite){
+        return (new Type(entite)).equals(fixtureA.getBody().getUserData())?fixtureA:(new Type(entite)).equals(fixtureB.getBody().getUserData())?fixtureB:null;
     }
 
     @Override

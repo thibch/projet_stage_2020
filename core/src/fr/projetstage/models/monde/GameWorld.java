@@ -89,4 +89,8 @@ public class GameWorld {
     public void update() {
         salleCourante.update();
     }
+
+    public void setEnnemiTouche(boolean touche, int id) {
+        salleCourante.setEnnemiTouche(touche, id);
+    }
 }

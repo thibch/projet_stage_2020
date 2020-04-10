@@ -1,21 +1,21 @@
 package fr.projetstage.models.entites.ennemis;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
-import fr.projetstage.dataFactories.IdFactory;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
-import fr.projetstage.models.entites.TypeAttaque;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Orientation;
 
 public class Slime extends Ennemi {
 
-    public Slime( GameWorld world, Vector2 position) {
+    public Slime(GameWorld world, Vector2 position, Type type) {
+        super(world, type);
         //stats:
         pointDeVie = 6;
 
@@ -54,7 +54,7 @@ public class Slime extends Ennemi {
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
 
-        body.setUserData(TypeAttaque.ENNEMI);
+        body.setUserData(type);
 
 
 
