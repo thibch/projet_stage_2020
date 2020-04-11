@@ -91,7 +91,7 @@ public class Joueur extends EntiteMouvante {
         projectiles = new ArrayList<>();
 
         //On met en place l'attaque au corps à corps
-        attaqueCaC = new CorpsACorps(world,body);
+        attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,0.5f);
 
 
         onCoolDown = false;
@@ -143,7 +143,7 @@ public class Joueur extends EntiteMouvante {
 
                 //On lance une attaque
                 projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction, projectiles.size()));
-                attaqueCaC.initAttack(1, 0.1f,1,0.5f,direction);
+                attaqueCaC.attaque(body.getPosition(), direction);
 
                 //On met en place le cooldown
                 attaqueMaintenant = true;
