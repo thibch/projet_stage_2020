@@ -63,13 +63,13 @@ public class Mur implements Entite{
                 batch.draw(TextureFactory.getInstance().getMur1(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
                 break;
             case 2:
-                batch.draw(TextureFactory.getInstance().getMur2(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
+                batch.draw(TextureFactory.getInstance().getMur2(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur2().getWidth(), TextureFactory.getInstance().getMur2().getHeight(), false, false);
                 break;
             case 3:
-                batch.draw(TextureFactory.getInstance().getMur3(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
+                batch.draw(TextureFactory.getInstance().getMur3(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur3().getWidth(), TextureFactory.getInstance().getMur3().getHeight(), false, false);
                 break;
             default:
-                batch.draw(TextureFactory.getInstance().getMur4(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
+                batch.draw(TextureFactory.getInstance().getMur4(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur4().getWidth(), TextureFactory.getInstance().getMur4().getHeight(), false, false);
                 break;
         }
     }

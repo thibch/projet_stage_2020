@@ -82,7 +82,7 @@ public class Slime extends Ennemi {
 
     @Override
     public void draw(SpriteBatch batch) {
-
+        //TODO : prendre en compte l'orientation
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
             batch.draw(idleAnimation.getFrame(false, false), getX(), getY(), 1, 1);
@@ -95,6 +95,6 @@ public class Slime extends Ennemi {
 
     @Override
     public void update(Orientation direction) {
-
+        //TODO : mettre a jour l'orientation du slime selon la position du joueur par rapport à lui.
     }
 }
