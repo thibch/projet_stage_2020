@@ -20,21 +20,77 @@ public class CorpsACorps extends Attaque{
     private Body body;
 
     private float duration;
+    private float longueur;
+    private float largeur;
+    private int degats;
+    private float vitesse;
+
     private float totalAngle = 1.570796f; //90 degres clockwise
     private float currentAngle;
+
     private boolean isRunning = false;
 
-    public CorpsACorps(GameWorld world, Body bodyEntite){
+    public CorpsACorps(GameWorld world, Body bodyEntite, float longueur, float largeur, int degats, float vitesse){
         this.gameWorld = world;
         bodyParent = bodyEntite;
+        this.longueur = longueur;
+        this.largeur = largeur;
+        this.degats = degats;
+        this.vitesse = vitesse;
     }
 
-    public void initAttack(float longueur, float largeur, int degats,float vitesse ,Orientation orientation){
+    public void slash(){
+        currentAngle -= (totalAngle/duration)/(vitesse*50) ; //TODO: trouver un calcul plus correct
+        body.setTransform(body.getPosition(), currentAngle);
+        if(currentAngle <= -0.785398f){
+            isRunning = false;
+            gameWorld.getWorld().destroyBody(body);
+        }
+        //body.setTransform(body.getPosition(),-0.785398f); //pos finale
+    }
 
+    public Body getBody() {
+        return body;
+    }
+
+    public boolean isRunning(){
+        return isRunning;
+    }
+
+    public float getDuration() {
+        return duration;
+    }
+
+
+    public void drawAnimation(SpriteBatch batch) {
+        animation.update();
+        batch.draw(TextureFactory.getInstance().getEpee(), body.getPosition().x, body.getPosition().y, 0, 0.15f, 0.9f, 0.9f, 1, 1, (body.getAngle()*(180/3.1415926f))-30,0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
+        //batch.draw(animation.getFrame(false,false),body.getPosition().x,body.getPosition().y,1,1);
+        /*
+        if(flipX){
+            if(rotateY){ // Bas
+                batch.draw(animation.getFrameFlipX(true), getX()+11f/16f + 0.5f/16f, getY()-9f/16f, 0, 0, 1, 1, 1, 1, 90);
+            }else{ // Gauche
+                batch.draw(animation.getFrameFlipX(true), getX()-12f/16f, getY()-2f/16f, 1, 1);
+            }
+        }else{
+            if(rotateY){ // Haut
+                batch.draw(animation.getFrameFlipX(false), getX()+11f/16f + 0.5f/16f, getY(), 0, 0, 1, 1, 1, 1, 90);
+            }else{ // Droite
+                batch.draw(animation.getFrameFlipX(false), getX(), getY()-2f/16f, 1, 1);
+            }
+        }
+        */
+    }
+
+
+    @Override
+    public void attaque(Vector2 positionJoueur, Orientation direction) {
+        //Make the body spawn at orientation dans rotate
         //BodyDef
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
-        bodyDef.position.set(new Vector2(bodyParent.getPosition().x+(9f / 16f), bodyParent.getPosition().y+ (4f / 16f)));
+        bodyDef.position.set(new Vector2(bodyParent.getPosition().x + (9f / 16f), bodyParent.getPosition().y + (4f / 16f)));
 
         //Récupération du body dans le world
         body = gameWorld.getWorld().createBody(bodyDef);
@@ -68,7 +124,7 @@ public class CorpsACorps extends Attaque{
 
         //On met en place les jointures entre les attaques au CaC et le joueur
         RevoluteJointDef rjd = new RevoluteJointDef();
-        rjd.initialize(bodyParent, body, new Vector2(bodyParent.getPosition().x +(9f / 16f), bodyParent.getPosition().y + (4f / 16f)));
+        rjd.initialize(bodyParent, body, new Vector2(bodyParent.getPosition().x + (9f / 16f), bodyParent.getPosition().y + (4f / 16f)));
 
         gameWorld.getWorld().createJoint(rjd);
 
@@ -77,67 +133,6 @@ public class CorpsACorps extends Attaque{
         animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, duration+0.2f);
         isRunning = true;
         currentAngle = 0.785398f;
-    }
-
-    public void slash(){
-        currentAngle -= (totalAngle/duration)/80 ; //TODO: trouver un calcul plus correct
-        body.setTransform(body.getPosition(),currentAngle);
-        if(currentAngle <= -0.785398f){
-            isRunning = false;
-            gameWorld.getWorld().destroyBody(body);
-        }
-        //body.setTransform(body.getPosition(),-0.785398f); //pos finale
-    }
-
-    public Body getBody() {
-        return body;
-    }
-
-    public boolean isRunning(){
-        return isRunning;
-    }
-
-    private float getX(){
-        return body.getPosition().x;
-    }
-
-    private float getY(){
-        return body.getPosition().y;
-    }
-
-    public float getDuration() {
-        return duration;
-    }
-
-    public void reset() {
-        animation.reset();
-    }
-
-    public void drawAnimation(SpriteBatch batch) {
-        animation.update();
-        batch.draw(TextureFactory.getInstance().getEpee(), body.getPosition().x, body.getPosition().y, 0, 0.15f, 0.9f, 0.9f, 1, 1, (body.getAngle()*(180/3.1415926f))-30,0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
-        //batch.draw(animation.getFrame(false,false),body.getPosition().x,body.getPosition().y,1,1);
-        /*
-        if(flipX){
-            if(rotateY){ // Bas
-                batch.draw(animation.getFrameFlipX(true), getX()+11f/16f + 0.5f/16f, getY()-9f/16f, 0, 0, 1, 1, 1, 1, 90);
-            }else{ // Gauche
-                batch.draw(animation.getFrameFlipX(true), getX()-12f/16f, getY()-2f/16f, 1, 1);
-            }
-        }else{
-            if(rotateY){ // Haut
-                batch.draw(animation.getFrameFlipX(false), getX()+11f/16f + 0.5f/16f, getY(), 0, 0, 1, 1, 1, 1, 90);
-            }else{ // Droite
-                batch.draw(animation.getFrameFlipX(false), getX(), getY()-2f/16f, 1, 1);
-            }
-        }
-        */
-    }
-
-
-    @Override
-    public void attaque(Vector2 positionJoueur, Orientation direction) {
-        //Make the body spawn at orientation dans rotate
     }
 
     @Override
