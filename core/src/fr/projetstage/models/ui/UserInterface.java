@@ -35,11 +35,11 @@ public class UserInterface {
         stage.draw();
 
         batch.begin();
-        //affiche l'arme selectionnée
+        // affiche l'arme selectionnée
         batch.draw(TextureFactory.getInstance().getEpee(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
 
 
-        //affiche les PV du joueur
+        // affiche les PV du joueur
         int cpt = 1;
         for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
             batch.draw(TextureFactory.getInstance().getCoeurPlein(),i+1,gameWorld.getHauteur()-3-screenOffset,1,1);

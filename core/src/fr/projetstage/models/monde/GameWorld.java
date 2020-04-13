@@ -14,7 +14,7 @@ import java.util.Random;
 public class GameWorld {
     private World world;
 
-    private Salle salleCourante; //temporaire definit une salle statique
+    private Salle salleCourante; // temporaire definit une salle statique
     private Joueur joueur;
     private Random random;
 
@@ -22,11 +22,11 @@ public class GameWorld {
      * Classe qui s'occupe de l'affichage de l'environnement
      */
     public GameWorld(){
-        //monde physique qui va gerer les collisions
+        // monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
-        //seed
+        // seed
         random = new Random();
-        //in game elements
+        // in game elements
         salleCourante = new Salle(this,16,10);
         joueur = new Joueur(new Vector2(0, 0),this);
         this.world.setContactListener(new EcouteurContact(this));

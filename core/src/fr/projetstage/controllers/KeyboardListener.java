@@ -9,7 +9,6 @@ import fr.projetstage.models.monde.salle.Orientation;
 
 public class KeyboardListener implements InputProcessor {
 
-    private static int coefKeyboard = 20;
     private boolean quit = false;
     private boolean afficheDebug = false;
     private Vector2 acceleration = new Vector2(0f, 0f);
@@ -22,10 +21,6 @@ public class KeyboardListener implements InputProcessor {
     public void reset(){
         acceleration.set(0f, 0f);
         direction = Orientation.NO_ORIENTATION;
-    }
-
-    public static int getCoefKeyboard() {
-        return coefKeyboard;
     }
 
     public boolean isQuit() {
@@ -86,6 +81,9 @@ public class KeyboardListener implements InputProcessor {
         if (keycode == Input.Keys.J) {
             afficheDebug = !afficheDebug;
         }
+
+        // Si des touches sont encore appuyés on ne les ignore pas
+        // (Exemple quand on appuit sur gauche puis droite et qu'on lache droite)
         if(Gdx.input.isKeyPressed(Input.Keys.D)){
             acceleration.set(1, acceleration.y);
         }else if(Gdx.input.isKeyPressed(Input.Keys.Q)){
@@ -101,6 +99,7 @@ public class KeyboardListener implements InputProcessor {
             acceleration.set(acceleration.x, 0);
         }
 
+        // Idem mais pour les flèches
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)){
             direction = Orientation.GAUCHE;
         }else if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)){

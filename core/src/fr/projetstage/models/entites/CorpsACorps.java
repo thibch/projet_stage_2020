@@ -25,7 +25,7 @@ public class CorpsACorps extends Attaque{
     private int degats;
     private float vitesse;
 
-    private float totalAngle = 1.570796f; //90 degres clockwise
+    private float totalAngle = 1.570796f; // 90 degres clockwise
     private float currentAngle;
 
     private boolean isRunning = false;
@@ -40,13 +40,13 @@ public class CorpsACorps extends Attaque{
     }
 
     public void slash(){
-        currentAngle -= (totalAngle/duration)/(vitesse*50) ; //TODO: trouver un calcul plus correct
+        currentAngle -= (totalAngle/duration)/(vitesse*50) ; // TODO: trouver un calcul plus correct
         body.setTransform(body.getPosition(), currentAngle);
         if(currentAngle <= -0.785398f){
             isRunning = false;
             gameWorld.getWorld().destroyBody(body);
         }
-        //body.setTransform(body.getPosition(),-0.785398f); //pos finale
+        // body.setTransform(body.getPosition(),-0.785398f); // pos finale
     }
 
     public Body getBody() {
@@ -65,7 +65,7 @@ public class CorpsACorps extends Attaque{
     public void drawAnimation(SpriteBatch batch) {
         animation.update();
         batch.draw(TextureFactory.getInstance().getEpee(), body.getPosition().x, body.getPosition().y, 0, 0.15f, 0.9f, 0.9f, 1, 1, (body.getAngle()*(180/3.1415926f))-30,0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
-        //batch.draw(animation.getFrame(false,false),body.getPosition().x,body.getPosition().y,1,1);
+        // batch.draw(animation.getFrame(false,false),body.getPosition().x,body.getPosition().y,1,1);
         /*
         if(flipX){
             if(rotateY){ // Bas
@@ -86,17 +86,17 @@ public class CorpsACorps extends Attaque{
 
     @Override
     public void attaque(Vector2 positionJoueur, Orientation direction) {
-        //Make the body spawn at orientation dans rotate
-        //BodyDef
+        // Make the body spawn at orientation dans rotate
+        // BodyDef
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(new Vector2(bodyParent.getPosition().x + (9f / 16f), bodyParent.getPosition().y + (4f / 16f)));
 
-        //Récupération du body dans le world
+        // Récupération du body dans le world
         body = gameWorld.getWorld().createBody(bodyDef);
 
-        //Création de la shape pour l'epée
-        Vector2 posShape = new Vector2(0, 0); //La position du shape est en fonction de la position du body
+        // Création de la shape pour l'epée
+        Vector2 posShape = new Vector2(0, 0); // La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + longueur, posShape.y);
@@ -106,23 +106,23 @@ public class CorpsACorps extends Attaque{
         PolygonShape rectangle = new PolygonShape();
         rectangle.set(vertices);
 
-        //FixtureDef
+        // FixtureDef
         FixtureDef fixtureDef1 = new FixtureDef();
         fixtureDef1.shape = rectangle;
         fixtureDef1.isSensor = true;
-        fixtureDef1.density = 0.00001f; // Densité de l’objet
-        fixtureDef1.restitution = 0f; // Restitution de  l’objet
-        fixtureDef1.friction = 0f; // Friction de  l’objet
+        fixtureDef1.density = 0.00001f;
+        fixtureDef1.restitution = 0f;
+        fixtureDef1.friction = 0f;
         //
 
-        //Met en place la fixture sur le body
+        // Met en place la fixture sur le body
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
         body.setUserData(new Type(TypeEntite.CORPS_A_CORPS));
 
         rectangle.dispose();
 
-        //On met en place les jointures entre les attaques au CaC et le joueur
+        // On met en place les jointures entre les attaques au CaC et le joueur
         RevoluteJointDef rjd = new RevoluteJointDef();
         rjd.initialize(bodyParent, body, new Vector2(bodyParent.getPosition().x + (9f / 16f), bodyParent.getPosition().y + (4f / 16f)));
 

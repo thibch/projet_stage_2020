@@ -36,16 +36,16 @@ public class EcouteurContact implements ContactListener {
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
                     world.setEnnemiTouche(true, ((Type)fixtureEnnemi.getBody().getUserData()).getId());
-                    //Destroy fixtureFleche
+                    // Destroy fixtureFleche
                 }
             }
         }else{
-            //Fleches et Mur/Tables
+            // Fleches et Mur/Tables
             Fixture fixtureFleche = check(fixtureA, fixtureB, TypeEntite.DISTANCE);
             if(fixtureFleche != null){
                 Fixture fixtureMur = fixtureA == fixtureFleche?fixtureB:fixtureA;
                 if(fixtureMur != null){
-                    //On plante la flèche dans le mur
+                    // On plante la flèche dans le mur
                 }
             }
         }

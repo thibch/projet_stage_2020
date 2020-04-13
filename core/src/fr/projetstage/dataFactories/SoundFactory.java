@@ -2,6 +2,7 @@ package fr.projetstage.dataFactories;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Texture;
 
 /**
  * @author Thibault Choné
@@ -39,7 +40,20 @@ public class SoundFactory {
         soundDeath.play(volume);
     }
 
+    /**
+     * Vide la mémoire de tout les sons du jeu
+     */
     public void dispose(){
-        soundDeath.dispose();
+        dispose(soundDeath);
+    }
+
+    /**
+     * Efface tout les sons en paramètre
+     * @param sounds tableau des sons à effacer
+     */
+    private void dispose(Sound... sounds) {
+        for (Sound sound : sounds) {
+            sound.dispose();
+        }
     }
 }

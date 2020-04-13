@@ -12,6 +12,8 @@ public class TextureFactory {
 
     private static TextureFactory instance;
 
+    // Textures
+    // Murs d'une salle
     private static Texture mur1;
     private static Texture mur2;
     private static Texture mur3;
@@ -19,9 +21,18 @@ public class TextureFactory {
     private static Texture murAngle;
     private static Texture bordureMur;
     private static Texture bordureMurAngle;
+
+    // Décors Murs
+    private static Texture drapeauVert;
+    private static Texture drapeauRouge;
+    private static Texture prisoner;
+
+    // Meubles
     private static Texture petiteTable;
     private static Texture grandeTable;
+    private static Texture bibliotheque;
 
+    // Sols
     private static Texture sol1;
     private static Texture sol2;
     private static Texture sol3;
@@ -32,27 +43,33 @@ public class TextureFactory {
     private static Texture sol8;
     private static Texture sol9;
     private static Texture sol10;
-    private static Texture bibliotheque;
-    private static Texture drapeauVert;
-    private static Texture drapeauRouge;
-    private static Texture prisoner;
 
+    // Interface/Boutons
     private static Texture pauseBtn;
     private static Texture pauseBtnPressed;
     private static Texture coeurPlein;
     private static Texture coeurMoitie;
     private static Texture coeurVide;
 
+    // Armes
     private static Texture epee;
     private static Texture fleche;
 
+    // SpriteSheets
+    // Joueur
     private static TextureRegion joueurIdleSpriteSheet;
     private static TextureRegion joueurRunningSpriteSheet;
-    private static TextureRegion torcheSpriteSheet;
-    private static TextureRegion attaqueSpriteSheet;
 
+    // Slimes
     private static TextureRegion slimeIdleSpriteSheet;
     private static TextureRegion slimeRunSpriteSheet;
+
+    // Décors
+    private static TextureRegion torcheSpriteSheet;
+
+    // Animation Armes
+    private static TextureRegion attaqueSpriteSheet;
+
 
     /**
      * Met en place les textures dans la banque de texures
@@ -60,6 +77,8 @@ public class TextureFactory {
     private TextureFactory(){
         instance = this;
 
+        // Textures
+        // Murs d'une salle
         mur1 = new Texture(Gdx.files.internal("tiles/wall/wall_1.png"));
         mur2 = new Texture(Gdx.files.internal("tiles/wall/wall_2.png"));
         mur3 = new Texture(Gdx.files.internal("tiles/wall/wall_3.png"));
@@ -68,13 +87,17 @@ public class TextureFactory {
         bordureMur = new Texture(Gdx.files.internal("tiles/wall/wall_top_1.png"));
         bordureMurAngle = new Texture(Gdx.files.internal("tiles/wall/wall_top_corner.png"));
 
-        bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
-        petiteTable = new Texture(Gdx.files.internal("props_items/table.png"));
-        grandeTable = new Texture(Gdx.files.internal("props_items/table_2.png"));
+        // Décors Murs
         drapeauVert = new Texture(Gdx.files.internal("props_items/flag_green.png"));
         drapeauRouge = new Texture(Gdx.files.internal("props_items/flag_red.png"));
         prisoner = new Texture(Gdx.files.internal("props_items/prisoner.png"));
 
+        // Meubles
+        petiteTable = new Texture(Gdx.files.internal("props_items/table.png"));
+        grandeTable = new Texture(Gdx.files.internal("props_items/table_2.png"));
+        bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
+
+        // Sols
         sol1 = new Texture(Gdx.files.internal("tiles/floor/floor_1.png"));
         sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
         sol3 = new Texture(Gdx.files.internal("tiles/floor/floor_3.png"));
@@ -86,23 +109,32 @@ public class TextureFactory {
         sol9 = new Texture(Gdx.files.internal("tiles/floor/floor_9.png"));
         sol10 = new Texture(Gdx.files.internal("tiles/floor/floor_10.png"));
 
+        // Interface/Boutons
         pauseBtn = new Texture(Gdx.files.internal("ui/pause_button.png"));
         pauseBtnPressed = new Texture(Gdx.files.internal("ui/pause_button_press.png"));
         coeurPlein = new Texture(Gdx.files.internal("ui/filled_heart.png"));
         coeurMoitie = new Texture(Gdx.files.internal("ui/half_heart.png"));
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
 
+        // Armes
         epee = new Texture(Gdx.files.internal("heroes/knight/weapon_sword_1.png"));
         fleche = new Texture(Gdx.files.internal("heroes/knight/weapon_arrow_1.png"));
 
+        // SpriteSheets
+        // Joueur
         joueurIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_idle_spritesheet.png")));
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
-        torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
 
-        attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
-
+        // Slimes
         slimeIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/slime/slime_idle_spritesheet.png")));
         slimeRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/slime/slime_run_spritesheet.png")));
+
+        // Décors
+        torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
+
+        // Animation Armes
+        attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
+
     }
 
     /**

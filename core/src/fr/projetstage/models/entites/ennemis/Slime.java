@@ -14,25 +14,31 @@ import fr.projetstage.models.monde.salle.Orientation;
 
 public class Slime extends Ennemi {
 
+    /**
+     * Constructeur d'un Slime
+     * @param world Le monde dans lequel se trouve le slime
+     * @param position Sa position dans la salle
+     * @param type Le type de monstre
+     */
     public Slime(GameWorld world, Vector2 position, Type type) {
         super(world, type);
-        //stats:
+        // Stats
         pointDeVie = 6;
 
-        float hauteur = (6f / 16f);
-        float largeur = (8f / 16f);
+        float hauteur = (12f / 16f);
+        float largeur = (16f / 16f);
 
-        //BodyDef
+        // BodyDef
         BodyDef bodyDef = new BodyDef();
         bodyDef.type = BodyDef.BodyType.DynamicBody;
         bodyDef.position.set(position);
         //
 
-        //Récupération du body dans le world
+        // Récupération du body dans le world
         body = world.getWorld().createBody(bodyDef);
 
-        //Création de la shape pour le héros
-        Vector2 posShape = new Vector2(5f / 16f, 1f / 16f); //La position du shape est en fonction de la position du body
+        // Création de la shape pour le slime
+        Vector2 posShape = new Vector2(0f / 16f, 1f / 16f); // La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + largeur, posShape.y);
@@ -42,21 +48,19 @@ public class Slime extends Ennemi {
         PolygonShape rectangle = new PolygonShape();
         rectangle.set(vertices);
 
-        //FixtureDef
+        // FixtureDef
         FixtureDef fixtureDef1 = new FixtureDef();
         fixtureDef1.shape = rectangle;
-        fixtureDef1.density = 1f; // Densité de l’objet
-        fixtureDef1.restitution = 0f; // Restitution de  l’objet
-        fixtureDef1.friction = 0f; // Friction de  l’objet
+        fixtureDef1.density = 1f;
+        fixtureDef1.restitution = 0f;
+        fixtureDef1.friction = 0f;
         //
 
-        //Met en place la fixture sur le body
+        // Met en place la fixture sur le body
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
 
         body.setUserData(type);
-
-
 
         rectangle.dispose();
 
@@ -86,7 +90,7 @@ public class Slime extends Ennemi {
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
             batch.draw(idleAnimation.getFrame(false, false), getX(), getY(), 1, 1);
-        }//Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
+        }// Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
             runningAnimation.update();
             batch.draw(runningAnimation.getFrame(false, false), getX(), getY(), 1, 1);

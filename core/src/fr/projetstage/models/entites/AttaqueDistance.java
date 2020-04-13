@@ -31,7 +31,7 @@ public class AttaqueDistance extends Attaque {
 
     @Override
     public Fleches attaqueDistance(Vector2 positionJoueur, Orientation direction, int id) {
-        //Spawn de body
+        // Spawn de body
 
         Fleches fleche = new Fleches(world, positionJoueur, largeur, hauteur, id, direction);
 

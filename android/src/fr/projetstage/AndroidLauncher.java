@@ -11,7 +11,7 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		config.a = 8; //Met en place le canal alpha à 8 bits
+		config.a = 8; // Met en place le canal alpha à 8 bits
 		initialize(new ProjetStage(), config);
 	}
 }

@@ -5,7 +5,7 @@ import fr.projetstage.models.monde.salle.Orientation;
 
 public class Projectile extends EntiteMouvante{
 
-    private double dureeVie; //A détermnier en fonction de la portée et vitesse d'attaque (Classe Attaque)
+    private double dureeVie; // A détermnier en fonction de la portée et vitesse d'attaque (Classe Attaque)
 
     @Override
     public void draw(SpriteBatch batch) {
