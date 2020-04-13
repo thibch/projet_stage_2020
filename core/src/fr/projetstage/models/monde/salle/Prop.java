@@ -21,13 +21,13 @@ public class Prop implements Entite{
     public void draw(SpriteBatch batch){
         switch (numProp){
             case 1:
-                batch.draw(TextureFactory.getInstance().getDrapeauVert(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
+                batch.draw(TextureFactory.getInstance().getDrapeauVert(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getDrapeauVert().getWidth(), TextureFactory.getInstance().getDrapeauVert().getHeight(), false, false);
                 break;
             case 2:
-                batch.draw(TextureFactory.getInstance().getDrapeauRouge(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
+                batch.draw(TextureFactory.getInstance().getDrapeauRouge(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getDrapeauRouge().getWidth(), TextureFactory.getInstance().getDrapeauRouge().getHeight(), false, false);
                 break;
             default:
-                batch.draw(TextureFactory.getInstance().getPrisoner(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
+                batch.draw(TextureFactory.getInstance().getPrisoner(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getPrisoner().getWidth(), TextureFactory.getInstance().getPrisoner().getHeight(), false, false);
                 break;
         }
     }
