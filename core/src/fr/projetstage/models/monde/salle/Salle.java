@@ -14,6 +14,7 @@ import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
 import fr.projetstage.models.monde.salle.meubles.GrandeTable;
 import fr.projetstage.models.monde.salle.meubles.PetiteTable;
+import fr.projetstage.models.monde.salle.solEtMurs.*;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -137,12 +138,12 @@ public class Salle {
 
         // parcours tout les murs et ajoute aléatoirement des props si le mur est de type 1
         Mur tmp;
-        int tmpAlea;
+        TypeProp tmpAlea;
         for(Entite mur : tileMap){
             tmp = (Mur) mur;
-            if(tmp.getNumMur() == 1){
+            if(tmp.getNumMur() == TypeMur.MUR1){
                 tmpAlea = getRandomProps();
-                if(tmpAlea > 0){
+                if(tmpAlea != null){
                     props.add(new Prop(tmp.getPos(),tmp.getOrientation(),tmpAlea));
                 }
             }
@@ -182,20 +183,20 @@ public class Salle {
      * renvoie un numero de mur aleatoire basé avec des probabilités
      * @return un entier entre 1 et 4
      */
-    public int getRandomWall(){
+    public TypeMur getRandomWall(){
         int rand = Math.abs(world.getNextRandom()%100);
-        int tmp;
+        TypeMur tmp;
         if(rand <= 70){
-            tmp = 1;
+            tmp = TypeMur.MUR1;
         }
         else if(rand <= 90){
-            tmp = 2;
+            tmp = TypeMur.MUR2;
         }
         else if(rand <= 94){
-            tmp = 3;
+            tmp = TypeMur.MUR3;
         }
         else{
-            tmp = 4;
+            tmp = TypeMur.MUR4;
         }
         return tmp;
     }
@@ -204,20 +205,20 @@ public class Salle {
      * renvoie un numero de props aleatoire basé avec des probabilités
      * @return un entier entre 0 et 3
      */
-    public int getRandomProps(){
+    public TypeProp getRandomProps(){
         int rand = Math.abs(world.getNextRandom()%100);
-        int tmp;
+        TypeProp tmp;
         if(rand <= 85){
-            tmp = 0;
+            tmp = null;
         }
         else if(rand <= 90){
-            tmp = 1;
+            tmp = TypeProp.PROP_DRAPEAU_ROUGE;
         }
         else if(rand <= 95){
-            tmp = 2;
+            tmp = TypeProp.PROP_DRAPEAU_VERT;
         }
         else{
-            tmp = 3;
+            tmp = TypeProp.PROP_PRISONNIER;
         }
         return tmp;
     }
@@ -226,38 +227,38 @@ public class Salle {
      * renvoie un numero de sol aleatoire basé avec des probabilités
      * @return un entier entre 1 et 10
      */
-    public int getRandomGround(){
+    public TypeSol getRandomGround(){
         int rand = Math.abs(world.getNextRandom()%100);
-        int tmp;
+        TypeSol tmp;
         if(rand <= 55){
-            tmp = 2;
+            tmp = TypeSol.SOL2;
         }
         else if(rand <= 60){
-            tmp = 1;
+            tmp = TypeSol.SOL1;
         }
         else if(rand <= 65){
-            tmp = 3;
+            tmp = TypeSol.SOL3;
         }
         else if(rand <= 70){
-            tmp = 4;
+            tmp = TypeSol.SOL4;
         }
         else if(rand <= 75){
-            tmp = 5;
+            tmp = TypeSol.SOL5;
         }
         else if(rand <= 80){
-            tmp = 6;
+            tmp = TypeSol.SOL6;
         }
         else if(rand <= 85){
-            tmp = 7;
+            tmp = TypeSol.SOL7;
         }
         else if(rand <= 90){
-            tmp = 8;
+            tmp = TypeSol.SOL8;
         }
         else if(rand <= 95){
-            tmp = 9;
+            tmp = TypeSol.SOL9;
         }
         else{
-            tmp = 10;
+            tmp = TypeSol.SOL10;
         }
         return tmp;
     }
@@ -267,6 +268,6 @@ public class Salle {
     }
 
     public void setEnnemiTouche(boolean touche, int id) {
-        ennemis.get(id).setTouche(true);
+        ennemis.get(id).setTouche(touche);
     }
 }

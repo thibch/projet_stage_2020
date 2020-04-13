@@ -1,7 +1,5 @@
 package fr.projetstage.models.entites;
 
-import java.util.Objects;
-
 public class Type {
 
     private TypeEntite type;
@@ -28,10 +26,6 @@ public class Type {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

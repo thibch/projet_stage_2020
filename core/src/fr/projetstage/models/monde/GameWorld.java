@@ -12,11 +12,11 @@ import java.util.Iterator;
 import java.util.Random;
 
 public class GameWorld {
-    private World world;
+    private final World world;
 
-    private Salle salleCourante; // temporaire definit une salle statique
-    private Joueur joueur;
-    private Random random;
+    private final Salle salleCourante; // temporaire definit une salle statique
+    private final Joueur joueur;
+    private final Random random;
 
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
@@ -28,7 +28,7 @@ public class GameWorld {
         random = new Random();
         // in game elements
         salleCourante = new Salle(this,16,10);
-        joueur = new Joueur(new Vector2(0, 0),this);
+        joueur = new Joueur(this, new Vector2(0, 0));
         this.world.setContactListener(new EcouteurContact(this));
     }
 

@@ -1,14 +1,10 @@
 package fr.projetstage.models.monde.salle.meubles;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.Obstacle;
 
 public abstract class NonDestructible extends Obstacle {
 

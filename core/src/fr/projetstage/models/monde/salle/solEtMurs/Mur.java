@@ -1,4 +1,4 @@
-package fr.projetstage.models.monde.salle;
+package fr.projetstage.models.monde.salle.solEtMurs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -6,15 +6,16 @@ import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.Orientation;
 
 public class Mur implements Entite{
 
     private Orientation orientation;
-    private int numMur;
+    private TypeMur numMur;
 
     private Body body;
 
-    public Mur(GameWorld world, Vector2 position, Orientation orientationMur, int wallNumberTexture){
+    public Mur(GameWorld world, Vector2 position, Orientation orientationMur, TypeMur wallNumberTexture){
         this.orientation = orientationMur;
         numMur = wallNumberTexture;
 
@@ -51,30 +52,13 @@ public class Mur implements Entite{
         body.createFixture(fixtureDef1); // Association à l’objet
 
         rectangle.dispose();
-
-
-
     }
 
-    // TODO: A optimiser
     public void draw(SpriteBatch batch){
-        switch (numMur){
-            case 1:
-                batch.draw(TextureFactory.getInstance().getMur1(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur1().getWidth(), TextureFactory.getInstance().getMur1().getHeight(), false, false);
-                break;
-            case 2:
-                batch.draw(TextureFactory.getInstance().getMur2(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur2().getWidth(), TextureFactory.getInstance().getMur2().getHeight(), false, false);
-                break;
-            case 3:
-                batch.draw(TextureFactory.getInstance().getMur3(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur3().getWidth(), TextureFactory.getInstance().getMur3().getHeight(), false, false);
-                break;
-            default:
-                batch.draw(TextureFactory.getInstance().getMur4(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0,TextureFactory.getInstance().getMur4().getWidth(), TextureFactory.getInstance().getMur4().getHeight(), false, false);
-                break;
-        }
+        batch.draw(numMur.getTexture(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numMur.getTexture().getWidth(), numMur.getTexture().getHeight(), false, false);
     }
 
-    public int getNumMur() {
+    public TypeMur getNumMur() {
         return numMur;
     }
 

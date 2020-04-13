@@ -16,14 +16,14 @@ public class UserInterface {
     private PauseButton pauseBtn;
 
     /**
-     * Classe qui genere l'UI du jeu
+     * Classe qui génère l'UI du jeu
      */
     public UserInterface(GameWorld gameWorld){
         stage = new Stage();
         this.gameWorld = gameWorld;
         float scaleX = stage.getWidth()/gameWorld.getLargeur();
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
-        pauseBtn = new PauseButton(stage,new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY);
+        pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY);
     }
 
     /**
@@ -35,20 +35,23 @@ public class UserInterface {
         stage.draw();
 
         batch.begin();
-        // affiche l'arme selectionnée
+        // Affiche l'arme selectionnée
         batch.draw(TextureFactory.getInstance().getEpee(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
 
 
-        // affiche les PV du joueur
+        // Affiche les PV du joueur
         int cpt = 1;
+        //Coeurs plein
         for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
             batch.draw(TextureFactory.getInstance().getCoeurPlein(),i+1,gameWorld.getHauteur()-3-screenOffset,1,1);
             cpt++;
         }
+        //Coeur à moitié plein
         if(gameWorld.getJoueur().getPointDeVie()%2 == 1){
             batch.draw(TextureFactory.getInstance().getCoeurMoitie(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
             cpt++;
         }
+        //Coeurs vide
         for(int i = 0; i < (gameWorld.getJoueur().getPointdeVieMax()-gameWorld.getJoueur().getPointDeVie())/2; i++){
             batch.draw(TextureFactory.getInstance().getCoeurVide(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
             cpt++;

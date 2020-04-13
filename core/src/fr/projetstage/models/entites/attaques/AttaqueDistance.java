@@ -1,10 +1,6 @@
-package fr.projetstage.models.entites;
+package fr.projetstage.models.entites.attaques;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Orientation;
 
@@ -23,17 +19,11 @@ public class AttaqueDistance extends Attaque {
         this.speed = 10.f;
     }
 
-
     @Override
-    public void attaque(Vector2 positionJoueur, Orientation direction) {
-
-    }
-
-    @Override
-    public Fleches attaqueDistance(Vector2 positionJoueur, Orientation direction, int id) {
+    public Fleche attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
         // Spawn de body
 
-        Fleches fleche = new Fleches(world, positionJoueur, largeur, hauteur, id, direction);
+        Fleche fleche = new Fleche(world, positionLanceur, largeur, hauteur, id, direction);
 
         switch (direction){
             case BAS:

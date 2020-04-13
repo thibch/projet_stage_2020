@@ -7,7 +7,7 @@ import fr.projetstage.models.entites.TypeEntite;
 
 public class EcouteurContact implements ContactListener {
 
-    private GameWorld world;
+    private final GameWorld world;
 
     public EcouteurContact(GameWorld world) {
         this.world = world;
@@ -40,7 +40,7 @@ public class EcouteurContact implements ContactListener {
                 }
             }
         }else{
-            // Fleches et Mur/Tables
+            // Fleche et Mur/Tables
             Fixture fixtureFleche = check(fixtureA, fixtureB, TypeEntite.DISTANCE);
             if(fixtureFleche != null){
                 Fixture fixtureMur = fixtureA == fixtureFleche?fixtureB:fixtureA;

@@ -1,12 +1,13 @@
-package fr.projetstage.models.monde.salle;
+package fr.projetstage.models.monde.salle.solEtMurs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.projetstage.models.monde.salle.meubles.Obstacle;
 
-public class Piege extends Obstacle {
+public class Trou extends Obstacle {
 
     @Override
     public boolean estNonDestructible() {
-        return false;
+        return true;
     }
 
     @Override

@@ -11,12 +11,12 @@ import fr.projetstage.dataFactories.TextureFactory;
 
 public class PauseButton {
 
-    private ImageButton imageButton;
+    private final ImageButton imageButton;
 
     public PauseButton(Stage stage, Vector2 position, float width, float height){
-        imageButton = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getPauseBtn()),new TextureRegionDrawable(TextureFactory.getInstance().getPauseBtnPressed()));
+        imageButton = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getPauseBtn()), new TextureRegionDrawable(TextureFactory.getInstance().getPauseBtnPressed()));
         imageButton.getImage().setFillParent(true);
-        imageButton.setPosition(position.x,position.y);
+        imageButton.setPosition(position.x, position.y);
         imageButton.setSize(width,height);
         imageButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){

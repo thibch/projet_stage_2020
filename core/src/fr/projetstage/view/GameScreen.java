@@ -20,17 +20,18 @@ import fr.projetstage.models.ui.UserInterface;
 public class GameScreen extends ScreenAdapter {
 
     private OrthographicCamera cameraEnv;
-    private SpriteBatch listeAffEnv;
+    private final SpriteBatch listeAffEnv;
 
     private OrthographicCamera cameraUI;
-    private SpriteBatch listeAffUI;
+    private final SpriteBatch listeAffUI;
 
-    private Box2DDebugRenderer box2DDebugRenderer;
+    private final Box2DDebugRenderer box2DDebugRenderer;
 
-    private GameWorld gameWorld;
-    private UserInterface userInterface;
+    private final GameWorld gameWorld;
+    private final UserInterface userInterface;
 
-    private KeyboardListener keyboardListener;
+    private final KeyboardListener keyboardListener;
+
     /**
      * initialise une partie de jeu
      */
@@ -58,11 +59,11 @@ public class GameScreen extends ScreenAdapter {
     public void resize(int width, int height) {
         super.resize(width, height);
         cameraEnv = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
-        cameraEnv.position.set(gameWorld.getLargeur()/2f -2, gameWorld.getHauteur()/2f -2,0); // -2 est le decalage pour les murs
+        cameraEnv.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0); // -2 est le decalage pour les murs
         cameraEnv.update();
 
         cameraUI = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
-        cameraUI.position.set(gameWorld.getLargeur()/2f-2, gameWorld.getHauteur()/2f-2,0); // -2 est le decalage pour les murs
+        cameraUI.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0); // -2 est le decalage pour les murs
         cameraUI.update();
     }
 
@@ -78,17 +79,19 @@ public class GameScreen extends ScreenAdapter {
 
         Gdx.gl.glClearColor(54/255f, 57/255f, 63/255f, 1); // background color
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        // affichage environnement de jeu
+        // Affichage environnement de jeu
         listeAffEnv.begin();
         if(keyboardListener.isAfficheDebug()){
-            box2DDebugRenderer.render(gameWorld.getWorld(), cameraEnv.combined); // On affiche le Debug si on a appuyé sur la touche du clavier
+            box2DDebugRenderer.render(gameWorld.getWorld(), cameraEnv.combined); // On affiche le Debug si on a appuyé sur la touche du debug
         }else{
             gameWorld.draw(listeAffEnv);
         }
-        update();
+
+        update(); //On met à jour la physique du monde
+
         listeAffEnv.end();
 
-        // affichage de l'interface
+        // Affichage de l'interface
         userInterface.draw(listeAffUI);
     }
 
@@ -96,8 +99,8 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      */
     public void update(){
-        Vector2 force = new Vector2(0, 0);
-        force.add(keyboardListener.getAcceleration());
+        Vector2 force = keyboardListener.getAcceleration();
+
         gameWorld.getJoueur().move(force);
         gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
 

@@ -1,9 +1,10 @@
-package fr.projetstage.models.entites;
+package fr.projetstage.models.entites.attaques;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.monde.salle.Orientation;
 
-public class Projectile extends EntiteMouvante{
+public abstract class Projectile extends EntiteMouvante {
 
     private double dureeVie; // A détermnier en fonction de la portée et vitesse d'attaque (Classe Attaque)
 

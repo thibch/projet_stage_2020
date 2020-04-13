@@ -1,13 +1,12 @@
-package fr.projetstage.models.monde.salle;
+package fr.projetstage.models.monde.salle.meubles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Trou extends Obstacle {
-
+public class Tonneau extends Obstacle {
 
     @Override
     public boolean estNonDestructible() {
-        return true;
+        return false;
     }
 
     @Override

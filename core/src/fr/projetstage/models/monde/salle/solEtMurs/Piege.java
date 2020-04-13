@@ -1,8 +1,9 @@
-package fr.projetstage.models.monde.salle;
+package fr.projetstage.models.monde.salle.solEtMurs;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import fr.projetstage.models.monde.salle.meubles.Obstacle;
 
-public class Tonneau extends Obstacle {
+public class Piege extends Obstacle {
 
     @Override
     public boolean estNonDestructible() {

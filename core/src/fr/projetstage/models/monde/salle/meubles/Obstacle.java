@@ -1,4 +1,4 @@
-package fr.projetstage.models.monde.salle;
+package fr.projetstage.models.monde.salle.meubles;
 
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.models.Entite;

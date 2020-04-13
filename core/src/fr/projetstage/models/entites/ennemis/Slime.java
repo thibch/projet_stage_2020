@@ -89,11 +89,11 @@ public class Slime extends Ennemi {
         //TODO : prendre en compte l'orientation
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
-            batch.draw(idleAnimation.getFrame(false, false), getX(), getY(), 1, 1);
+            batch.draw(idleAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
         }// Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
             runningAnimation.update();
-            batch.draw(runningAnimation.getFrame(false, false), getX(), getY(), 1, 1);
+            batch.draw(runningAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
         }
     }
 

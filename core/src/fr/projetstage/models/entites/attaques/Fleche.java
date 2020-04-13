@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites;
+package fr.projetstage.models.entites.attaques;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -7,10 +7,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Orientation;
 
-public class Fleches {
+public class Fleche extends Projectile{
 
     private Body body;
     private float largeur;
@@ -18,7 +20,16 @@ public class Fleches {
 
     private Orientation direction;
 
-    public Fleches(GameWorld world, Vector2 position, float largeur, float hauteur, int id, Orientation direction){
+    /**
+     * Constructeur d'une flèche
+     * @param world le gameWorld
+     * @param position la position de la nouvelle flèche
+     * @param largeur la largeur de la flèche
+     * @param hauteur la hauteur de la flèche
+     * @param id l'id de la flèche (Utile pour déterminer quelle flèche correspond dans une liste)
+     * @param direction la direction de la flèche
+     */
+    public Fleche(GameWorld world, Vector2 position, float largeur, float hauteur, int id, Orientation direction){
         this.direction = direction;
         this.largeur = largeur;
         this.hauteur = hauteur;
@@ -70,11 +81,15 @@ public class Fleches {
         rectangle.dispose();
     }
 
+    /**
+     * On lance la flèche
+     * @param direction direction voulu
+     */
     public void lancee(Vector2 direction){
         body.setLinearVelocity(direction);
     }
 
-
+    @Override
     public void draw(SpriteBatch spriteBatch) {
         spriteBatch.draw(TextureFactory.getInstance().getFleche(), body.getPosition().x, body.getPosition().y, largeur/2f, hauteur/2f, largeur, hauteur, 1, 1, 90+direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, false);
     }

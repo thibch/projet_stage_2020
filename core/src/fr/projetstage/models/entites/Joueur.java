@@ -6,6 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.entites.attaques.Attaque;
+import fr.projetstage.models.entites.attaques.AttaqueDistance;
+import fr.projetstage.models.entites.attaques.CorpsACorps;
+import fr.projetstage.models.entites.attaques.Fleche;
 import fr.projetstage.models.entites.objets.Objet;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Orientation;
@@ -28,7 +32,7 @@ public class Joueur extends EntiteMouvante {
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
 
-    private ArrayList<Fleches> projectiles;
+    private ArrayList<Fleche> projectiles;
 
 
     private boolean attaqueMaintenant;
@@ -43,7 +47,7 @@ public class Joueur extends EntiteMouvante {
      * @param position position au départ
      * @param world le monde où il se trouve
      */
-    public Joueur(Vector2 position, GameWorld world){
+    public Joueur(GameWorld world, Vector2 position){
         // stats:
         pointDeVie = 6;
         pointdeVieMax = 6;
@@ -143,13 +147,14 @@ public class Joueur extends EntiteMouvante {
 
                 // On lance une attaque
                 projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction, projectiles.size()));
-                attaqueCaC.attaque(body.getPosition(), direction);
+                attaqueCaC.attaque(body, direction);
 
                 // On met en place le cooldown
                 attaqueMaintenant = true;
                 onCoolDown = true;
             }
         }
+
         if(attaqueCaC.isRunning()){
             attaqueCaC.slash();
         }
@@ -191,11 +196,11 @@ public class Joueur extends EntiteMouvante {
 
         // demande l'animation de l'épée
         if(attaqueCaC.isRunning()){
-            attaqueCaC.drawAnimation(listeAffImg);
+            attaqueCaC.draw(listeAffImg);
         }
 
         // On affiche toute les flèches
-        for(Fleches fleche: projectiles){
+        for(Fleche fleche: projectiles){
             fleche.draw(listeAffImg);
         }
 
@@ -222,5 +227,9 @@ public class Joueur extends EntiteMouvante {
 
     public boolean isAttacking() {
         return attaqueMaintenant;
+    }
+
+    public Orientation getOrientation() {
+        return lastDirection;
     }
 }
