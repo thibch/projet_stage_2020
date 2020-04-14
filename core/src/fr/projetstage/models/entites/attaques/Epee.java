@@ -8,10 +8,10 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.Orientation;
 
 public class Epee extends Projectile{
 
