@@ -28,7 +28,6 @@ public class Joueur extends EntiteMouvante {
     private Orientation lastDirection;
     private Orientation direction;
 
-    private Attaque[] attaqueJoueur;
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
 
@@ -188,22 +187,10 @@ public class Joueur extends EntiteMouvante {
 
     @Override
     public void draw(SpriteBatch listeAffImg) {
-
-        // Si le joueur est en train d'attaquer on affiche son animation d'attaque
-        if(attaqueMaintenant){
-            // attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
-        }
-
-        // demande l'animation de l'épée
-        if(attaqueCaC.isRunning()){
-            attaqueCaC.draw(listeAffImg);
-        }
-
         // On affiche toute les flèches
         for(Fleche fleche: projectiles){
             fleche.draw(listeAffImg);
         }
-
 
         // Si on est proche de l'arret (0 déplacement du joueur)
         // Alors on met à jour l'animation et on l'affiche
@@ -215,6 +202,12 @@ public class Joueur extends EntiteMouvante {
             runningAnimation.update();
             listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
+
+        // demande l'animation de l'épée
+        if(attaqueCaC.isRunning()){
+            attaqueCaC.draw(listeAffImg);
+        }
+
     }
 
     public int getPointDeVie() {
