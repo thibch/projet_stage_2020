@@ -36,7 +36,7 @@ public class UserInterface {
 
         batch.begin();
         // Affiche l'arme selectionnée
-        batch.draw(TextureFactory.getInstance().getEpee(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
+        batch.draw(TextureFactory.getInstance().getSwordUI(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
 
 
         // Affiche les PV du joueur

@@ -19,7 +19,9 @@ public class CorpsACorps extends Attaque{
     private final int degats;
 
     private final float totalAngle = 1.570796f; // 90 degres clockwise
+    private float startAngle;
     private float currentAngle;
+    private float[] tabAngles = {-0.785398f - totalAngle, 0.785398f, 0.785398f + totalAngle, -0.785398f};
 
     private boolean isRunning = false;
 
@@ -37,7 +39,7 @@ public class CorpsACorps extends Attaque{
     public void slash(){
         currentAngle -= (totalAngle/100);
         epee.setAngle(currentAngle);
-        if(currentAngle <= -0.785398f){
+        if(currentAngle <= startAngle-totalAngle){
             isRunning = false;
             epee.stop();
             epee = null;
@@ -78,10 +80,11 @@ public class CorpsACorps extends Attaque{
     @Override
     public void attaque(Body bodyParent, Orientation direction) {
 
-        epee = new Epee(gameWorld, bodyParent, longueur, largeur);
+        epee = new Epee(gameWorld, bodyParent, longueur, largeur, direction);
 
         animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, duration+0.2f);
         isRunning = true;
-        currentAngle = 0.785398f;
+        startAngle = tabAngles[direction.getIndice()];
+        currentAngle = startAngle;
     }
 }

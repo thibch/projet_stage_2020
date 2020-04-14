@@ -11,11 +11,16 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.Orientation;
 
 public class Epee extends Projectile{
 
     private final Body body;
+    private final Body bodyParent;
     private final GameWorld gameWorld;
+
+    private Orientation direction;
+    private float[] angle = {-180, 20, -90, 90};
 
     /**
      * On génère le corps de l'épée
@@ -24,8 +29,10 @@ public class Epee extends Projectile{
      * @param longueur la longeur de l'épée
      * @param largeur la largeur de l'épée
      */
-    public Epee(GameWorld gameWorld, Body bodyParent, float longueur, float largeur){
+    public Epee(GameWorld gameWorld, Body bodyParent, float longueur, float largeur, Orientation orientation){
         this.gameWorld = gameWorld;
+        this.direction = orientation;
+        this.bodyParent = bodyParent;
         // Make the body spawn at orientation dans rotate
         // BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -87,6 +94,6 @@ public class Epee extends Projectile{
     @Override
     public void draw(SpriteBatch batch) {
         super.draw(batch);
-        batch.draw(TextureFactory.getInstance().getEpee(), body.getPosition().x, body.getPosition().y, 0, 0.15f, 0.9f, 0.9f, 1, 1, (body.getAngle()*(180/3.1415926f))-30,0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
+        batch.draw(TextureFactory.getInstance().getEpee(), bodyParent.getPosition().x+0.3f, body.getPosition().y+0.1f, 0.25f, 0, 0.5f, 1, 1, 1, (body.getAngle()*(180/3.1415926f))+(angle[direction.getIndice()]+direction.getRotation()),0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
     }
 }

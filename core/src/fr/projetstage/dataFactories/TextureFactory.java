@@ -50,6 +50,7 @@ public class TextureFactory {
     private static Texture coeurPlein;
     private static Texture coeurMoitie;
     private static Texture coeurVide;
+    private static Texture swordUI;
 
     // Armes
     private static Texture epee;
@@ -116,9 +117,10 @@ public class TextureFactory {
         coeurPlein = new Texture(Gdx.files.internal("ui/filled_heart.png"));
         coeurMoitie = new Texture(Gdx.files.internal("ui/half_heart.png"));
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
+        swordUI =  new Texture(Gdx.files.internal("ui/weapon_sword_1.png"));
 
         // Armes
-        epee = new Texture(Gdx.files.internal("weapons/weapon_sword_1.png"));
+        epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
         fleche = new Texture(Gdx.files.internal("weapons/arrow.png"));
 
         // SpriteSheets
@@ -373,6 +375,14 @@ public class TextureFactory {
      */
     public Texture getCoeurVide() {
         return coeurVide;
+    }
+
+    /**
+     * Getter pour l'image d'epee pour UI
+     * @return Getter pour l'image d'epee pour UI
+     */
+    public Texture getSwordUI() {
+        return swordUI;
     }
 
     /**

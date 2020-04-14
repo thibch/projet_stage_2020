@@ -28,7 +28,6 @@ public class Joueur extends EntiteMouvante {
     private Orientation lastDirection;
     private Orientation direction;
 
-    private Attaque[] attaqueJoueur;
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
 
@@ -221,6 +220,12 @@ public class Joueur extends EntiteMouvante {
             runningAnimation.update();
             listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
+
+        // demande l'animation de l'épée
+        if(attaqueCaC.isRunning()){
+            attaqueCaC.draw(listeAffImg);
+        }
+
     }
 
     public int getPointDeVie() {
