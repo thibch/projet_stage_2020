@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites.attaques;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.dataFactories.TextureFactory;
@@ -37,7 +38,8 @@ public class CorpsACorps extends Attaque{
     }
 
     public void slash(){
-        currentAngle -= (totalAngle/100);
+        float currentTime = Gdx.graphics.getDeltaTime();
+        currentAngle -= ((totalAngle)*((currentTime/duration)));
         epee.setAngle(currentAngle);
         if(currentAngle <= startAngle-totalAngle){
             isRunning = false;

@@ -96,7 +96,6 @@ public class Joueur extends EntiteMouvante {
         // On met en place l'attaque au corps à corps
         attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,1f);
         setWeapon(false);
-        System.out.println(coolDownTime);
 
         onCoolDown = false;
         attaqueMaintenant = false;

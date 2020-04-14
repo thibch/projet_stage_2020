@@ -57,7 +57,6 @@ public class EcouteurContact implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-
     }
 
     @Override

@@ -18,6 +18,7 @@ import fr.projetstage.models.monde.salle.meubles.PetiteTable;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 public class Salle {
@@ -28,7 +29,8 @@ public class Salle {
     private ArrayList<Entite> tileMap;
     private ArrayList<Prop> props;
     private ArrayList<Entite> meubles;
-    private ArrayList<Ennemi> ennemis;
+    private HashMap<Integer, Ennemi> ennemis;
+    private int nbEnnemis;
     private ArrayList<ObjetAuSol> objetAuSols;
 
     private GameWorld world;
@@ -47,14 +49,23 @@ public class Salle {
     }
 
     public void update(){
-        int i = 0;
-        while(i < ennemis.size()){
-            if(ennemis.get(i).getTouche()){
+        Iterator<Integer> it = ennemis.keySet().iterator();
+        int courant;
+        while(it.hasNext()){
+            courant = it.next();
+            if(ennemis.get(courant).getTouche()){
+                world.getWorld().destroyBody(ennemis.get(courant).getBody());
+                it.remove();
+                ennemis.remove(courant);
+            }
+        }
+        /*for(Integer ennemi : ennemis.keySet()){
+            if(ennemis.get(ennemi).getTouche()){
                 world.getWorld().destroyBody(ennemis.get(i).getBody());
                 ennemis.remove(i);
             }
             i++;
-        }
+        }*/
     }
 
     public void draw(SpriteBatch listeAffImg) {
@@ -76,7 +87,7 @@ public class Salle {
             meuble.draw(listeAffImg);
         }
 
-        for(Entite monstre : ennemis){
+        for(Entite monstre : ennemis.values()){
             monstre.draw(listeAffImg);
         }
 
@@ -166,9 +177,11 @@ public class Salle {
         meubles.add(new PetiteTable(world, new Vector2(5, 3)));
         meubles.add(new GrandeTable(world, new Vector2(5, 5)));
 
-        ennemis = new ArrayList<>();
+        ennemis = new HashMap<>();
+        nbEnnemis = 0;
 
-        ennemis.add(new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, ennemis.size())));
+        ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
 
     }
@@ -265,7 +278,7 @@ public class Salle {
     }
 
     public Iterator<Ennemi> iterator() {
-        return ennemis.iterator();
+        return ennemis.values().iterator();
     }
 
     public void setEnnemiTouche(boolean touche, int id) {
