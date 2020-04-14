@@ -79,13 +79,13 @@ public class TextureFactory {
 
         // Textures
         // Murs d'une salle
-        mur1 = new Texture(Gdx.files.internal("tiles/wall/wall_1.png"));
-        mur2 = new Texture(Gdx.files.internal("tiles/wall/wall_2.png"));
-        mur3 = new Texture(Gdx.files.internal("tiles/wall/wall_3.png"));
-        mur4 = new Texture(Gdx.files.internal("tiles/wall/wall_crack.png"));
-        murAngle = new Texture(Gdx.files.internal("tiles/wall/wall_bottom_corner.png"));
-        bordureMur = new Texture(Gdx.files.internal("tiles/wall/wall_top_1.png"));
-        bordureMurAngle = new Texture(Gdx.files.internal("tiles/wall/wall_top_corner.png"));
+        mur1 = new Texture(Gdx.files.internal("tiles/level1/wall/wall_1.png"));
+        mur2 = new Texture(Gdx.files.internal("tiles/level1/wall/wall_2.png"));
+        mur3 = new Texture(Gdx.files.internal("tiles/level1/wall/wall_3.png"));
+        mur4 = new Texture(Gdx.files.internal("tiles/level1/wall/wall_crack.png"));
+        murAngle = new Texture(Gdx.files.internal("tiles/level1/wall/wall_bottom_corner.png"));
+        bordureMur = new Texture(Gdx.files.internal("tiles/level1/wall/wall_top_1.png"));
+        bordureMurAngle = new Texture(Gdx.files.internal("tiles/level1/wall/wall_top_corner.png"));
 
         // Décors Murs
         drapeauVert = new Texture(Gdx.files.internal("props_items/flag_green.png"));
@@ -98,16 +98,16 @@ public class TextureFactory {
         bibliotheque = new Texture(Gdx.files.internal("props_items/bookshelf.png"));
 
         // Sols
-        sol1 = new Texture(Gdx.files.internal("tiles/floor/floor_1.png"));
-        sol2 = new Texture(Gdx.files.internal("tiles/floor/floor_2.png"));
-        sol3 = new Texture(Gdx.files.internal("tiles/floor/floor_3.png"));
-        sol4 = new Texture(Gdx.files.internal("tiles/floor/floor_4.png"));
-        sol5 = new Texture(Gdx.files.internal("tiles/floor/floor_5.png"));
-        sol6 = new Texture(Gdx.files.internal("tiles/floor/floor_6.png"));
-        sol7 = new Texture(Gdx.files.internal("tiles/floor/floor_7.png"));
-        sol8 = new Texture(Gdx.files.internal("tiles/floor/floor_8.png"));
-        sol9 = new Texture(Gdx.files.internal("tiles/floor/floor_9.png"));
-        sol10 = new Texture(Gdx.files.internal("tiles/floor/floor_10.png"));
+        sol1 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_1.png"));
+        sol2 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_2.png"));
+        sol3 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_3.png"));
+        sol4 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_4.png"));
+        sol5 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_5.png"));
+        sol6 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_6.png"));
+        sol7 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_7.png"));
+        sol8 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_8.png"));
+        sol9 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_9.png"));
+        sol10 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_10.png"));
 
         // Interface/Boutons
         pauseBtn = new Texture(Gdx.files.internal("ui/pause_button.png"));
@@ -117,8 +117,8 @@ public class TextureFactory {
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
 
         // Armes
-        epee = new Texture(Gdx.files.internal("heroes/knight/weapon_sword_1.png"));
-        fleche = new Texture(Gdx.files.internal("heroes/knight/weapon_arrow_1.png"));
+        epee = new Texture(Gdx.files.internal("weapons/weapon_sword_1.png"));
+        fleche = new Texture(Gdx.files.internal("weapons/arrow.png"));
 
         // SpriteSheets
         // Joueur
@@ -126,8 +126,8 @@ public class TextureFactory {
         joueurRunningSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("heroes/knight/knight_run_spritesheet.png")));
 
         // Slimes
-        slimeIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/slime/slime_idle_spritesheet.png")));
-        slimeRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/slime/slime_run_spritesheet.png")));
+        slimeIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/slime/slime_idle_spritesheet.png")));
+        slimeRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/slime/slime_run_spritesheet.png")));
 
         // Décors
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
