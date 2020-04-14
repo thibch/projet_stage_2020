@@ -26,7 +26,6 @@ public class Fleche extends Projectile{
      * @param position la position de la nouvelle flèche
      * @param largeur la largeur de la flèche
      * @param hauteur la hauteur de la flèche
-     * @param id l'id de la flèche (Utile pour déterminer quelle flèche correspond dans une liste)
      * @param direction la direction de la flèche
      */
     public Fleche(GameWorld world, Vector2 position, float largeur, float hauteur, Orientation direction){
@@ -52,10 +51,17 @@ public class Fleche extends Projectile{
 
         // Récupération du body dans le world
         body = world.getWorld().createBody(bodyDef);
+        body.setFixedRotation(false);
+    }
 
+    /**
+     * On lance la flèche
+     * @param direction direction voulu
+     */
+    public void lancee(Vector2 direction, int id){
 
         // Création de la shape pour la flèche
-        Vector2 posShape = new Vector2((direction == Orientation.BAS || direction == Orientation.HAUT? 6f/16f : 2f/16f), (direction == Orientation.GAUCHE || direction == Orientation.DROITE? 5f/16f : 2f/16f));
+        Vector2 posShape = new Vector2((this.direction == Orientation.BAS || this.direction == Orientation.HAUT? 6f/16f : 2f/16f), (this.direction == Orientation.GAUCHE || this.direction == Orientation.DROITE? 5f/16f : 2f/16f));
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + largeurBody, posShape.y);
@@ -75,17 +81,9 @@ public class Fleche extends Projectile{
         //
 
         // Met en place la fixture sur le body
-        body.setFixedRotation(false);
         body.createFixture(fixtureDef1); // Association à l’objet
 
         rectangle.dispose();
-    }
-
-    /**
-     * On lance la flèche
-     * @param direction direction voulu
-     */
-    public void lancee(Vector2 direction, int id){
         body.setLinearVelocity(direction);
         body.setUserData(new Type(TypeEntite.DISTANCE, id));
         estLancee = true;
@@ -93,30 +91,16 @@ public class Fleche extends Projectile{
 
     @Override
     public void draw(SpriteBatch spriteBatch) {
-        //TODO: a changer pour faire en fonction de l'angle
-       /*switch (direction){
-            case BAS:
-                spriteBatch.draw(TextureFactory.getInstance().getFleche(), body.getPosition().x, body.getPosition().y + hauteurBody, 0.5f, 0.5f, 1, 1,
-                        1, 1, 90+direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, false);
-                break;
-            case HAUT:
-                spriteBatch.draw(TextureFactory.getInstance().getFleche(), body.getPosition().x + largeurBody, body.getPosition().y, 0.5f, 0.5f, 1, 1,
-                        1, 1, 90+direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, false);
-                break;
-            case GAUCHE:
-                spriteBatch.draw(TextureFactory.getInstance().getFleche(), body.getPosition().x + largeurBody, body.getPosition().y + hauteurBody, 0.5f, 0.5f, 1, 1,
-                        1, 1, 90+direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, false);
-                break;
-            case DROITE:
-                spriteBatch.draw(TextureFactory.getInstance().getFleche(), body.getPosition().x, body.getPosition().y, 0.5f, 0.5f, 1, 1,
-                        1, 1, 90+direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, false);
-                break;
-        }*/
         spriteBatch.draw(TextureFactory.getInstance().getFleche(), body.getPosition().x, body.getPosition().y, 1/2f, 1/2f, 1, 1,
                 1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
    }
 
     public boolean estLancee() {
         return estLancee;
+    }
+
+    public void update(Vector2 position, Orientation direction) {
+        body.setTransform(position, 0);
+        this.direction = direction;
     }
 }

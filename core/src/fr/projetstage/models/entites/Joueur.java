@@ -95,12 +95,12 @@ public class Joueur extends EntiteMouvante {
 
         // On met en place l'attaque au corps à corps
         attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,1f);
-        utiliseEpee = true;
+        setWeapon(false);
+        System.out.println(coolDownTime);
 
         onCoolDown = false;
         attaqueMaintenant = false;
         currentTime = 0f;
-        coolDownTime = 1.2f;
 
         // creer les animations
         direction = Orientation.NO_ORIENTATION;
@@ -141,7 +141,7 @@ public class Joueur extends EntiteMouvante {
 
                 // On lance une attaque
                 if(utiliseEpee){
-                    attaqueCaC.attaque(body, direction); //TODO: Laisser une seule attaque à la fois !
+                    attaqueCaC.attaque(body, direction);
                 }
                 else{
                     attaqueDistance.charge(body.getPosition(), direction);
@@ -154,6 +154,7 @@ public class Joueur extends EntiteMouvante {
                 }
             }
         }else{
+            //Qaund on lache la direction on lache la flèche de l'arc
             if(attaqueDistance.isCharging()){
                 projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), lastDirection, projectiles.size()));
                 attaqueMaintenant = true;
@@ -194,20 +195,7 @@ public class Joueur extends EntiteMouvante {
 
     @Override
     public void draw(SpriteBatch listeAffImg) {
-        
-        if(attaqueDistance.isCharging()){
-            attaqueDistance.draw(listeAffImg);
-        }
 
-        // demande l'animation de l'épée
-        if(attaqueCaC.isRunning()){
-            attaqueCaC.draw(listeAffImg);
-        }
-
-        // On affiche toute les flèches
-        for(Fleche fleche: projectiles){
-            fleche.draw(listeAffImg);
-        }
 
         // Si on est proche de l'arret (0 déplacement du joueur)
         // Alors on met à jour l'animation et on l'affiche
@@ -220,7 +208,16 @@ public class Joueur extends EntiteMouvante {
             listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
 
-        // demande l'animation de l'épée
+        if(attaqueDistance.isCharging()){
+            attaqueDistance.draw(listeAffImg);
+        }
+
+        // On affiche toute les flèches
+        for(Fleche fleche: projectiles){
+            fleche.draw(listeAffImg);
+        }
+
+        // Demande l'animation de l'épée
         if(attaqueCaC.isRunning()){
             attaqueCaC.draw(listeAffImg);
         }
@@ -245,5 +242,10 @@ public class Joueur extends EntiteMouvante {
 
     public void setWeapon(boolean switchWeapon) {
         utiliseEpee = !switchWeapon;
+        if(utiliseEpee){
+            coolDownTime = 3f;
+        }else{
+            coolDownTime = 1.2f;
+        }
     }
 }

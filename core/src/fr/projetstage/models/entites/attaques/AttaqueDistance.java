@@ -15,16 +15,19 @@ public class AttaqueDistance extends Attaque {
     private final float largeur;
     private final float hauteur;
     private final float speed;
+    private final Animation animation;
     private boolean isCharging;
-    private Animation animation;
     private Fleche fleche;
+
+    private Vector2 position;
+    private Orientation direction;
 
 
     public AttaqueDistance(GameWorld world, float largeur, float hauteur, float tempsCharge){
         this.world = world;
         this.largeur = largeur;
         this.hauteur = hauteur;
-        this.speed = .1f;
+        this.speed = 10f;
         animation = new Animation(TextureFactory.getInstance().getArcCharging(), 3, tempsCharge);
         isCharging = false;
     }
@@ -32,7 +35,7 @@ public class AttaqueDistance extends Attaque {
     @Override
     public Fleche attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
         // Spawn de body
-        fleche = new Fleche(world, positionLanceur, largeur, hauteur, direction);
+        //fleche = new Fleche(world, positionLanceur, largeur, hauteur, direction);
         switch (direction){
             case BAS:
                 fleche.lancee(new Vector2(0,-speed), id);
@@ -60,18 +63,21 @@ public class AttaqueDistance extends Attaque {
 
     public void charge(Vector2 position, Orientation direction) {
         isCharging = true;
-        /*if(fleche == null || fleche.estLancee()){
+        if(fleche == null || fleche.estLancee()){
             fleche = new Fleche(world, position, largeur, hauteur, direction);
         }else{
-            fleche.update(direction);
-        }*/
+            fleche.update(position, direction);
+        }
+        this.position = position;
+        this.direction = direction;
         animation.updateLast();
     }
 
     public void draw(SpriteBatch batch){
         TextureRegion text = animation.getFrame(false, false);
-        batch.draw(text,0,0, 9f/16f, 13f/16f);
+        batch.draw(text, position.x, position.y, 0.5f,0.5f,text.getRegionWidth()/16f, text.getRegionHeight()/16f, 1,1,direction.getRotation() + 90);
+        fleche.draw(batch);
     }
 
-
+   // draw(TextureRegion region, float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY, float rotation)
 }
