@@ -12,7 +12,7 @@ import fr.projetstage.models.entites.attaques.CorpsACorps;
 import fr.projetstage.models.entites.attaques.Fleche;
 import fr.projetstage.models.entites.objets.Objet;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.Orientation;
+import fr.projetstage.models.Orientation;
 
 import java.util.ArrayList;
 
@@ -91,17 +91,17 @@ public class Joueur extends EntiteMouvante {
         rectangle.dispose();
 
         // On met en place l'attaque à distance
-        attaqueDistance = new AttaqueDistance(world, 12f/16f, 5f/16f);
+        attaqueDistance = new AttaqueDistance(world, 12f/16f, 5f/16f, 1f);
         projectiles = new ArrayList<>();
 
         // On met en place l'attaque au corps à corps
-        attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,0.5f);
+        attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,1f);
 
 
         onCoolDown = false;
         attaqueMaintenant = false;
         currentTime = 0f;
-        coolDownTime = 0.8f;
+        coolDownTime = 1.2f;
 
         // creer les animations
         direction = Orientation.NO_ORIENTATION;
@@ -118,22 +118,16 @@ public class Joueur extends EntiteMouvante {
     public void update(Orientation direction) {
         currentTime += Gdx.graphics.getDeltaTime();
 
+        // Si il est en train d'attaquer et qu'on a dépassé l'animation alors on remet les animations à zéros et on arrête d'attaquer
+        if(attaqueMaintenant && currentTime > attaqueCaC.getDuration()){
+            attaqueMaintenant = false;
+        }
+
         // Si on est en coolDown mais que le temps est dépassé alors nous ne sommes plus en cooldown
         if(onCoolDown && currentTime > coolDownTime) {
             currentTime = 0;
             onCoolDown = false;
         }
-
-        // Si il est en train d'attaquer et qu'on a dépassé l'animation alors on remet les animations à zéros et on arrête d'attaquer
-/*        if(attaqueMaintenant && currentTime > attaqueCaC.getDuration()){// attaqueJoueur[this.lastDirection.getIndice()].getAttaqueTime()){
-            attaqueMaintenant = false;
-            for(Attaque attaque : attaqueJoueur){
-                attaque.reset();
-            }
-        }
-        */
-
-        this.direction = direction;
 
         // Si on veut aller dans une direction
         if(direction != Orientation.NO_ORIENTATION){
@@ -143,13 +137,22 @@ public class Joueur extends EntiteMouvante {
             }
             // Si on est plus en cooldown ça veut dire que le joueur veut attaquer
             if(!onCoolDown){
+                lastDirection = direction;
                 currentTime = 0;
 
                 // On lance une attaque
-                projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), direction, projectiles.size()));
-                attaqueCaC.attaque(body, direction);
+                attaqueCaC.attaque(body, direction); //TODO: Laisser une seule attaque à la fois !
+                attaqueDistance.charge(body.getPosition(), direction);
 
                 // On met en place le cooldown
+                if(!attaqueDistance.isCharging()){
+                    attaqueMaintenant = true;
+                    onCoolDown = true;
+                }
+            }
+        }else{
+            if(attaqueDistance.isCharging()){
+                projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), lastDirection, projectiles.size()));
                 attaqueMaintenant = true;
                 onCoolDown = true;
             }
@@ -194,6 +197,10 @@ public class Joueur extends EntiteMouvante {
             // attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
         }
 
+        if(attaqueDistance.isCharging()){
+            attaqueDistance.draw(listeAffImg);
+        }
+
         // demande l'animation de l'épée
         if(attaqueCaC.isRunning()){
             attaqueCaC.draw(listeAffImg);
@@ -203,7 +210,6 @@ public class Joueur extends EntiteMouvante {
         for(Fleche fleche: projectiles){
             fleche.draw(listeAffImg);
         }
-
 
         // Si on est proche de l'arret (0 déplacement du joueur)
         // Alors on met à jour l'animation et on l'affiche

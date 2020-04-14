@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
+import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
@@ -126,13 +127,13 @@ public class Salle {
 
         // Mur Gauche et Droite
         for(int y = 0; y < hauteur;y++){
-            tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
-            tileMap.add(new Mur(world, new Vector2((largeur), y), Orientation.DROITE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(-1, y), fr.projetstage.models.Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2((largeur), y), fr.projetstage.models.Orientation.DROITE,getRandomWall()));
         }
 
         // Mur Haut et Bas
         for (int x = 0; x < largeur; x++) {
-            tileMap.add(new Mur(world, new Vector2(x, (hauteur)), Orientation.HAUT,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, (hauteur)), fr.projetstage.models.Orientation.HAUT,getRandomWall()));
             tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS,getRandomWall()));
         }
 

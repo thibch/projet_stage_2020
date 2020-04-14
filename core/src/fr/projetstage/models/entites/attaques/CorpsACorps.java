@@ -1,12 +1,11 @@
 package fr.projetstage.models.entites.attaques;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.Orientation;
+import fr.projetstage.models.Orientation;
 
 public class CorpsACorps extends Attaque{
 
@@ -32,11 +31,11 @@ public class CorpsACorps extends Attaque{
         this.longueur = longueur;
         this.largeur = largeur;
         this.degats = degats;
-        duration = vitesse * 50;
+        this.duration = vitesse;
     }
 
     public void slash(){
-        currentAngle -= (totalAngle/duration);
+        currentAngle -= (totalAngle/100);
         epee.setAngle(currentAngle);
         if(currentAngle <= -0.785398f){
             isRunning = false;

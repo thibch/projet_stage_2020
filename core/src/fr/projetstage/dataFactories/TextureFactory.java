@@ -69,6 +69,7 @@ public class TextureFactory {
 
     // Animation Armes
     private static TextureRegion attaqueSpriteSheet;
+    private static TextureRegion arcCharging;
 
 
     /**
@@ -134,7 +135,7 @@ public class TextureFactory {
 
         // Animation Armes
         attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
-
+        arcCharging = new TextureRegion(new Texture(Gdx.files.internal("weapons/weapon_bow.png")));
     }
 
     /**
@@ -421,6 +422,14 @@ public class TextureFactory {
      */
     public TextureRegion getAttaqueSpriteSheet() {
         return attaqueSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'arc qui charge
+     * @return une TextureRegion charging bow spritesheet
+     */
+    public TextureRegion getArcCharging(){
+        return arcCharging;
     }
 
 

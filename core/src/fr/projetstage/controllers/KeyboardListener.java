@@ -5,7 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.SoundFactory;
-import fr.projetstage.models.monde.salle.Orientation;
+import fr.projetstage.models.Orientation;
 
 public class KeyboardListener implements InputProcessor {
 

@@ -3,7 +3,7 @@ package fr.projetstage.models.entites;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.attaques.Attaque;
-import fr.projetstage.models.monde.salle.Orientation;
+import fr.projetstage.models.Orientation;
 
 public abstract class EntiteMouvante implements Entite {
 

@@ -8,9 +8,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.Orientation;
+import fr.projetstage.models.Orientation;
 
 public class Slime extends Ennemi {
 

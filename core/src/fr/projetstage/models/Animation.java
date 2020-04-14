@@ -21,7 +21,7 @@ public class Animation {
 
         // Créé un tableau d'images à partir de la spritesheet
         int frameWidth = textureRegion.getRegionWidth()/frameCount;
-        frames = textureRegion.split(frameWidth,textureRegion.getRegionHeight());
+        frames = textureRegion.split(frameWidth, textureRegion.getRegionHeight());
 
         // Définit le temps d'une image (temps linéaire)
         maxFrameTime = (cycleTime / frameCount);
@@ -38,6 +38,18 @@ public class Animation {
         if(currentFrameTime > maxFrameTime){
             currentFrame = (currentFrame+1)%(frames[0].length);
             currentFrameTime = 0;
+        }
+    }
+
+    public void updateLast(){
+        if(currentFrame < frames[0].length-1){
+            currentFrameTime += Gdx.graphics.getDeltaTime(); // On regarde le temps
+
+            //Si on a dépassé le temps d'une frame alors on passe à la suivante
+            if(currentFrameTime > maxFrameTime){
+                currentFrame = (currentFrame+1);
+                currentFrameTime = 0;
+            }
         }
     }
 
