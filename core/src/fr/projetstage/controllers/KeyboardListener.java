@@ -11,6 +11,7 @@ public class KeyboardListener implements InputProcessor {
 
     private boolean quit = false;
     private boolean afficheDebug = false;
+    private boolean switchWeapon = false;
     private Vector2 acceleration = new Vector2(0f, 0f);
     private Orientation direction;
 
@@ -29,6 +30,10 @@ public class KeyboardListener implements InputProcessor {
 
     public boolean isAfficheDebug() {
         return afficheDebug;
+    }
+
+    public boolean isSwitchWeapon() {
+        return switchWeapon;
     }
 
     public Vector2 getAcceleration() {
@@ -80,6 +85,9 @@ public class KeyboardListener implements InputProcessor {
     public boolean keyUp(int keycode) {
         if (keycode == Input.Keys.J) {
             afficheDebug = !afficheDebug;
+        }
+        if(keycode == Input.Keys.CONTROL_LEFT){
+            switchWeapon = !switchWeapon;
         }
 
         // Si des touches sont encore appuyés on ne les ignore pas

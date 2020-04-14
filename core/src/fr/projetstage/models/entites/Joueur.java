@@ -33,7 +33,7 @@ public class Joueur extends EntiteMouvante {
 
     private ArrayList<Fleche> projectiles;
 
-
+    private boolean utiliseEpee;
     private boolean attaqueMaintenant;
     private boolean onCoolDown;
     private float coolDownTime;
@@ -95,7 +95,7 @@ public class Joueur extends EntiteMouvante {
 
         // On met en place l'attaque au corps à corps
         attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,1f);
-
+        utiliseEpee = true;
 
         onCoolDown = false;
         attaqueMaintenant = false;
@@ -140,8 +140,12 @@ public class Joueur extends EntiteMouvante {
                 currentTime = 0;
 
                 // On lance une attaque
-                attaqueCaC.attaque(body, direction); //TODO: Laisser une seule attaque à la fois !
-                attaqueDistance.charge(body.getPosition(), direction);
+                if(utiliseEpee){
+                    attaqueCaC.attaque(body, direction); //TODO: Laisser une seule attaque à la fois !
+                }
+                else{
+                    attaqueDistance.charge(body.getPosition(), direction);
+                }
 
                 // On met en place le cooldown
                 if(!attaqueDistance.isCharging()){
@@ -190,12 +194,7 @@ public class Joueur extends EntiteMouvante {
 
     @Override
     public void draw(SpriteBatch listeAffImg) {
-
-        // Si le joueur est en train d'attaquer on affiche son animation d'attaque
-        if(attaqueMaintenant){
-            // attaqueJoueur[lastDirection.getIndice()].drawAnimation(listeAffImg, lastDirection == Orientation.GAUCHE || lastDirection == Orientation.BAS, lastDirection == Orientation.BAS || lastDirection == Orientation.HAUT);
-        }
-
+        
         if(attaqueDistance.isCharging()){
             attaqueDistance.draw(listeAffImg);
         }
@@ -242,5 +241,9 @@ public class Joueur extends EntiteMouvante {
 
     public Orientation getOrientation() {
         return lastDirection;
+    }
+
+    public void setWeapon(boolean switchWeapon) {
+        utiliseEpee = !switchWeapon;
     }
 }

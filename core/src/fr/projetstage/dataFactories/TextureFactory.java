@@ -51,6 +51,7 @@ public class TextureFactory {
     private static Texture coeurMoitie;
     private static Texture coeurVide;
     private static Texture swordUI;
+    private static Texture bowUI;
 
     // Armes
     private static Texture epee;
@@ -118,6 +119,7 @@ public class TextureFactory {
         coeurMoitie = new Texture(Gdx.files.internal("ui/half_heart.png"));
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
         swordUI =  new Texture(Gdx.files.internal("ui/weapon_sword_1.png"));
+        bowUI = new Texture(Gdx.files.internal("ui/bowUI.png"));
 
         // Armes
         epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
@@ -386,6 +388,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image d'arc pour UI
+     * @return Getter pour l'image d'arc pour UI
+     */
+    public Texture getBowUI() {
+        return bowUI;
+    }
+
+    /**
      * Getter pour l'image de l'epee
      * @return Getter pour l'image de l'epee
      */
@@ -469,7 +479,7 @@ public class TextureFactory {
                 bibliotheque,
                 sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
                 drapeauVert, drapeauRouge, prisoner,
-                pauseBtn, pauseBtnPressed, coeurPlein, coeurMoitie, coeurVide,
+                pauseBtn, pauseBtnPressed, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 epee,
                 joueurIdleSpriteSheet.getTexture(),
                 joueurRunningSpriteSheet.getTexture(),

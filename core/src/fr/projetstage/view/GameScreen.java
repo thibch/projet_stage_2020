@@ -92,7 +92,7 @@ public class GameScreen extends ScreenAdapter {
         listeAffEnv.end();
 
         // Affichage de l'interface
-        userInterface.draw(listeAffUI);
+        userInterface.draw(listeAffUI, keyboardListener.isSwitchWeapon());
     }
 
     /**
@@ -105,6 +105,7 @@ public class GameScreen extends ScreenAdapter {
         gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
 
         gameWorld.getJoueur().update(keyboardListener.getDirection());
+        gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
         gameWorld.update();
     }
 

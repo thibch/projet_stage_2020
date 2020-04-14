@@ -30,13 +30,18 @@ public class UserInterface {
      * Indique ce qu'il faut dessiner dans le monde
      * @param batch la liste d'affichage
      */
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch, boolean switchedWeapon){
         stage.act();
         stage.draw();
 
         batch.begin();
         // Affiche l'arme selectionnée
-        batch.draw(TextureFactory.getInstance().getSwordUI(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
+        if(switchedWeapon){ //arc
+            batch.draw(TextureFactory.getInstance().getBowUI(), 0, gameWorld.getHauteur()-3-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
+        }
+        else{ //epee
+            batch.draw(TextureFactory.getInstance().getSwordUI(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
+        }
 
 
         // Affiche les PV du joueur
