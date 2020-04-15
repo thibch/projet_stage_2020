@@ -8,15 +8,10 @@ import fr.projetstage.models.monde.GameWorld;
 
 public abstract class Ennemi extends EntiteMouvante {
 
-    protected int pointDeVie;
-    private boolean touche;
     protected Type type;
 
     protected Animation idleAnimation;
     protected Animation runningAnimation;
-
-    protected Body body;
-    protected GameWorld world;
 
     public Ennemi(GameWorld world, Type type){
         this.world = world;
@@ -25,14 +20,6 @@ public abstract class Ennemi extends EntiteMouvante {
 
     public Type getType(){
         return type;
-    }
-
-    public void setTouche(boolean b) {
-        touche = b;
-    }
-
-    public boolean getTouche(){
-        return touche;
     }
 
     public Body getBody() {

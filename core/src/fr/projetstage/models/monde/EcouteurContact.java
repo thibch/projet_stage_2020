@@ -26,7 +26,7 @@ public class EcouteurContact implements ContactListener {
             if(fixtureCaC != null){
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
-                    world.setEnnemiTouche(true, ((Type)fixtureEnnemi.getBody().getUserData()).getId());
+                    world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(), world.getJoueur());
                 }
             }
 
@@ -35,10 +35,20 @@ public class EcouteurContact implements ContactListener {
             if(fixtureFleche != null){
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
-                    world.setEnnemiTouche(true, ((Type)fixtureEnnemi.getBody().getUserData()).getId());
+                    world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(), world.getJoueur());
                     // Destroy fixtureFleche
                 }
             }
+
+            Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+
+            if(fixtureJoueur != null){
+                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                if(fixtureEnnemi != null){
+                    world.setJoueurTouche(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
+                }
+            }
+
         }else{
             // Fleche et Mur/Tables
             Fixture fixtureFleche = check(fixtureA, fixtureB, TypeEntite.DISTANCE);

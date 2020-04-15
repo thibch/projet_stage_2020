@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
-import fr.projetstage.models.entites.attaques.Attaque;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
 import fr.projetstage.models.entites.attaques.CorpsACorps;
 import fr.projetstage.models.entites.attaques.Fleche;
@@ -19,10 +18,7 @@ import java.util.ArrayList;
 public class Joueur extends EntiteMouvante {
 
     private ArrayList<Objet> inventaire;
-    private int pointDeVie;
-    private int pointdeVieMax;
 
-    private Body body;
     private Animation idleAnimation;
     private Animation runningAnimation;
     private Orientation lastDirection;
@@ -48,8 +44,9 @@ public class Joueur extends EntiteMouvante {
      */
     public Joueur(GameWorld world, Vector2 position){
         // stats:
-        pointDeVie = 6;
-        pointdeVieMax = 6;
+        setPointDeVie(6);
+        setPointdeVieMax(6);
+        setDegats(1);
 
         float hauteur = (6f/16f);
         float largeur = (8f/16f);
@@ -94,7 +91,7 @@ public class Joueur extends EntiteMouvante {
         projectiles = new ArrayList<>();
 
         // On met en place l'attaque au corps à corps
-        attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,1f);
+        attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,0.25f);
         setWeapon(false);
 
         onCoolDown = false;
@@ -223,14 +220,6 @@ public class Joueur extends EntiteMouvante {
 
     }
 
-    public int getPointDeVie() {
-        return pointDeVie;
-    }
-
-    public int getPointdeVieMax() {
-        return pointdeVieMax;
-    }
-
     public boolean isAttacking() {
         return attaqueMaintenant;
     }
@@ -242,7 +231,7 @@ public class Joueur extends EntiteMouvante {
     public void setWeapon(boolean switchWeapon) {
         utiliseEpee = !switchWeapon;
         if(utiliseEpee){
-            coolDownTime = 3f;
+            coolDownTime = 1f;
         }else{
             coolDownTime = 1.2f;
         }

@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.World;
+import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.Joueur;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.monde.salle.Salle;
@@ -82,15 +83,19 @@ public class GameWorld {
     }
 
 
-    public Iterator<Ennemi> iteratorEnnemi(){
-        return salleCourante.iterator();
-    }
-
     public void update() {
         salleCourante.update();
     }
 
-    public void setEnnemiTouche(boolean touche, int id) {
-        salleCourante.setEnnemiTouche(touche, id);
+    public void setEnnemiTouche(int idMonstre, Entite source) {
+        salleCourante.setEnnemiTouche(idMonstre, source);
+    }
+
+    public Ennemi getEnnemi(int id){
+        return salleCourante.getEnnemi(id);
+    }
+
+    public void setJoueurTouche(Entite source){
+        joueur.setTouche(source);
     }
 }

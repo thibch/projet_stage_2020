@@ -59,13 +59,6 @@ public class Salle {
                 ennemis.remove(courant);
             }
         }
-        /*for(Integer ennemi : ennemis.keySet()){
-            if(ennemis.get(ennemi).getTouche()){
-                world.getWorld().destroyBody(ennemis.get(i).getBody());
-                ennemis.remove(i);
-            }
-            i++;
-        }*/
     }
 
     public void draw(SpriteBatch listeAffImg) {
@@ -277,11 +270,11 @@ public class Salle {
         return tmp;
     }
 
-    public Iterator<Ennemi> iterator() {
-        return ennemis.values().iterator();
+    public Ennemi getEnnemi(int id){
+        return ennemis.get(id);
     }
 
-    public void setEnnemiTouche(boolean touche, int id) {
-        ennemis.get(id).setTouche(touche);
+    public void setEnnemiTouche(int id, Entite source) {
+        ennemis.get(id).setTouche(source);
     }
 }
