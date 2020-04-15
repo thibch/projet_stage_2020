@@ -87,7 +87,7 @@ public class Slime extends Ennemi {
 
     @Override
     public void draw(SpriteBatch batch) {
-        //TODO : prendre en compte l'orientation
+        body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glode à l'infini
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
             batch.draw(idleAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
