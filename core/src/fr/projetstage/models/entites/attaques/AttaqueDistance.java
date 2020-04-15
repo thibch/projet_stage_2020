@@ -74,10 +74,9 @@ public class AttaqueDistance extends Attaque {
     }
 
     public void draw(SpriteBatch batch){
-        TextureRegion text = animation.getFrame(false, false);
+        TextureRegion text = animation.getFrame(false, direction == Orientation.HAUT || direction == Orientation.DROITE);
         batch.draw(text, position.x, position.y, 0.5f,0.5f,text.getRegionWidth()/16f, text.getRegionHeight()/16f, 1,1,direction.getRotation() + 90);
         fleche.draw(batch);
     }
 
-   // draw(TextureRegion region, float x, float y, float originX, float originY, float width, float height, float scaleX, float scaleY, float rotation)
 }
