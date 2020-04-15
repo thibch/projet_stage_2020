@@ -22,7 +22,6 @@ public class Joueur extends EntiteMouvante {
     private Animation idleAnimation;
     private Animation runningAnimation;
     private Orientation lastDirection;
-    private Orientation direction;
 
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
@@ -98,9 +97,8 @@ public class Joueur extends EntiteMouvante {
         attaqueMaintenant = false;
         currentTime = 0f;
 
-        // creer les animations
-        direction = Orientation.NO_ORIENTATION;
         lastDirection = Orientation.NO_ORIENTATION;
+        // creer les animations
         idleAnimation = new Animation(TextureFactory.getInstance().getJoueurIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getJoueurRunningSpriteSheet(),6,0.8f);
     }

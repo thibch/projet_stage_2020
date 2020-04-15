@@ -13,6 +13,7 @@ import fr.projetstage.models.Orientation;
 
 public class Slime extends Ennemi {
 
+
     /**
      * Constructeur d'un Slime
      * @param world Le monde dans lequel se trouve le slime
@@ -67,6 +68,8 @@ public class Slime extends Ennemi {
 
         idleAnimation = new Animation(TextureFactory.getInstance().getSlimeIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getSlimeRunSpriteSheet(),6,0.8f);
+
+        this.comportement = new Comportement(body, 1f);
     }
 
     /**
@@ -100,6 +103,7 @@ public class Slime extends Ennemi {
 
     @Override
     public void update(Orientation direction) {
+        comportement.update();
         //TODO : mettre a jour l'orientation du slime selon la position du joueur par rapport à lui.
     }
 }

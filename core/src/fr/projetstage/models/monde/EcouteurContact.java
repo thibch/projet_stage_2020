@@ -61,6 +61,14 @@ public class EcouteurContact implements ContactListener {
         }
     }
 
+    /**
+     * Vérifie si la fixtureA correspond à entite, sinon vérifie si la fixtureB correspond à entite, sinon renvoie null
+     * (Tout les vérifications sont faites dans le UserData du body de la fixture)
+     * @param fixtureA première ficture vérifié
+     * @param fixtureB seconde ficture vérifié
+     * @param entite le typeEntité vérifié
+     * @return la fixture qui correspond à entite
+     */
     public Fixture check(Fixture fixtureA, Fixture fixtureB, TypeEntite entite){
         return (new Type(entite)).equals(fixtureA.getBody().getUserData())?fixtureA:(new Type(entite)).equals(fixtureB.getBody().getUserData())?fixtureB:null;
     }

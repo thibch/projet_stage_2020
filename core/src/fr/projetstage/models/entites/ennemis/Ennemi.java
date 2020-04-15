@@ -13,6 +13,8 @@ public abstract class Ennemi extends EntiteMouvante {
     protected Animation idleAnimation;
     protected Animation runningAnimation;
 
+    protected Comportement comportement;
+
     public Ennemi(GameWorld world, Type type){
         this.world = world;
         this.type = type;
