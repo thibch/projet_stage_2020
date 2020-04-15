@@ -73,6 +73,9 @@ public class TextureFactory {
     private static TextureRegion attaqueSpriteSheet;
     private static TextureRegion arcCharging;
 
+    //effets
+    private static TextureRegion deathSpriteSheet;
+
 
     /**
      * Met en place les textures dans la banque de texures
@@ -140,6 +143,9 @@ public class TextureFactory {
         // Animation Armes
         attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
         arcCharging = new TextureRegion(new Texture(Gdx.files.internal("weapons/weapon_bow.png")));
+
+        //effets
+        deathSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/enemy_afterdead_explosion_anim_spritesheet.png")));
     }
 
     /**
@@ -470,6 +476,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour la sprite sheet de mort
+     * @return une TextureRegion de mort spritesheet
+     */
+    public TextureRegion getDeathSpriteSheet(){
+        return deathSpriteSheet;
+    }
+
+    /**
      * Efface toute les Textures de la Factory
      */
     public void dispose() {
@@ -486,7 +500,9 @@ public class TextureFactory {
                 torcheSpriteSheet.getTexture(),
                 attaqueSpriteSheet.getTexture(),
                 slimeIdleSpriteSheet.getTexture(),
-                slimeRunSpriteSheet.getTexture());
+                slimeRunSpriteSheet.getTexture(),
+                deathSpriteSheet.getTexture()
+        );
     }
 
     /**

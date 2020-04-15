@@ -10,6 +10,8 @@ public class Animation {
     private float currentFrameTime;
     private int currentFrame;
 
+    private boolean cycleDone = false;
+
     /**
      * Classe animation qui s'occupe d'animer des éléments à partir d'une spritesheet
      * @param textureRegion la spritesheet à animer
@@ -38,6 +40,7 @@ public class Animation {
         if(currentFrameTime > maxFrameTime){
             currentFrame = (currentFrame+1)%(frames[0].length);
             currentFrameTime = 0;
+            cycleDone = cycleDone || currentFrame == frames[0].length -1;
         }
     }
 
@@ -49,6 +52,7 @@ public class Animation {
             if(currentFrameTime > maxFrameTime){
                 currentFrame = (currentFrame+1);
                 currentFrameTime = 0;
+                cycleDone = cycleDone || currentFrame == frames[0].length -1;
             }
         }
     }
@@ -74,11 +78,16 @@ public class Animation {
         return tmp;
     }
 
+    public boolean isLastFrame(){
+        return cycleDone && (currentFrame == 0);
+    }
+
     /**
      * Remet à zéro l'animation
      */
     public void reset() {
         currentFrameTime = 0;
         currentFrame = 0;
+        cycleDone = false;
     }
 }
