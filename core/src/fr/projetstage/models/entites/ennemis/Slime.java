@@ -113,8 +113,8 @@ public class Slime extends Ennemi {
         super.update();
         comportement.update();
         body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glode à l'infini
-        if(!mort){
-            //TODO : mettre a jour l'orientation du slime selon la position du joueur par rapport à lui. et lu ifaire faire des choses
+        if(mort){
+            comportement.getBehavior().setEnabled(false);
         }
     }
 }

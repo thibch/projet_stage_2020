@@ -174,6 +174,7 @@ public class Salle {
         meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
         meubles.add(new PetiteTable(world, new Vector2(5, 3)));
         meubles.add(new GrandeTable(world, new Vector2(5, 5)));
+        meubles.add(new Piege(world,new Vector2(7,3)));
 
         ennemis = new HashMap<>();
         nbEnnemis = 0;

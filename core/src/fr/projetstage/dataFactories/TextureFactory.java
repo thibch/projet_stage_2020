@@ -68,6 +68,7 @@ public class TextureFactory {
 
     // Décors
     private static TextureRegion torcheSpriteSheet;
+    private static TextureRegion piegeSpriteSheet;
 
     // Animation Armes
     private static TextureRegion attaqueSpriteSheet;
@@ -139,6 +140,7 @@ public class TextureFactory {
 
         // Décors
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
+        piegeSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("tiles/level1/floor/spikes_spritesheet.png")));
 
         // Animation Armes
         attaqueSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/slash_effect_anim_spritesheet.png")));
@@ -477,10 +479,18 @@ public class TextureFactory {
 
     /**
      * Getter pour la sprite sheet de mort
-     * @return une TextureRegion de mort spritesheet
+     * @return une TextureRegion de spritesheet de mort
      */
     public TextureRegion getDeathSpriteSheet(){
         return deathSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du piege
+     * @return une TextureRegion de la spritesheet du piege
+     */
+    public TextureRegion getPiegeSpriteSheet(){
+        return piegeSpriteSheet;
     }
 
     /**
@@ -501,7 +511,8 @@ public class TextureFactory {
                 attaqueSpriteSheet.getTexture(),
                 slimeIdleSpriteSheet.getTexture(),
                 slimeRunSpriteSheet.getTexture(),
-                deathSpriteSheet.getTexture()
+                deathSpriteSheet.getTexture(),
+                piegeSpriteSheet.getTexture()
         );
     }
 

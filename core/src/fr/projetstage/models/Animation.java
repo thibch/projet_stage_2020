@@ -82,6 +82,10 @@ public class Animation {
         return cycleDone && (currentFrame == 0);
     }
 
+    public int getCurrentFrameCount(){
+        return currentFrame;
+    }
+
     /**
      * Remet à zéro l'animation
      */
