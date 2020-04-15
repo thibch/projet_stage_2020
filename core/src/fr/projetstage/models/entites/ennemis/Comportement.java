@@ -23,8 +23,8 @@ public class Comportement implements Steerable<Vector2> {
         this.body = body;
         this.boundingRadius = boundingRadius;
 
-        this.maxLinearSpeed = 500;
-        this.maxLinearAcceleration = 5000;
+        this.maxLinearSpeed = 100;
+        this.maxLinearAcceleration = 500;
         this.maxAngularSpeed = 30;
         this.maxAngularAcceleration = 5;
 
@@ -49,10 +49,12 @@ public class Comportement implements Steerable<Vector2> {
             body.applyForceToCenter(force, true);
             anyAccelerations = true;
         }
-        if(steeringOutput.angular != 0){
+
+        // Si l'hitbox doit tourner
+        /*if(steeringOutput.angular != 0){
             body.applyTorque(steeringOutput.angular * deltaTime, true);
             anyAccelerations = true;
-        }
+        }*/
 
         if(anyAccelerations){
             // Linear Capping

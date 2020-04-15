@@ -1,5 +1,10 @@
 package fr.projetstage.models.entites.ennemis;
 
+import com.badlogic.gdx.ai.steer.Steerable;
+import com.badlogic.gdx.ai.steer.SteeringAcceleration;
+import com.badlogic.gdx.ai.steer.SteeringBehavior;
+import com.badlogic.gdx.ai.steer.behaviors.Arrive;
+import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -7,6 +12,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.entites.LocationJoueur;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
@@ -68,7 +74,8 @@ public class Slime extends Ennemi {
         idleAnimation = new Animation(TextureFactory.getInstance().getSlimeIdleSpriteSheet(),6,0.8f);
         runningAnimation = new Animation(TextureFactory.getInstance().getSlimeRunSpriteSheet(),6,0.8f);
 
-        this.comportement = new Comportement(body, 1f);
+        this.comportement = new Comportement(body, 0f);
+        comportement.setBehavior(new Arrive<>(comportement, new LocationJoueur(world)));
     }
 
     /**
