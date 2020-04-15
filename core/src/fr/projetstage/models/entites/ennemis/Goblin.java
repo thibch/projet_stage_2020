@@ -16,7 +16,6 @@ public class Goblin extends Ennemi{
 
     }
 
-    @Override
     public void update(Orientation direction) {
 
     }

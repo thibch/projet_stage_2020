@@ -87,19 +87,24 @@ public class Slime extends Ennemi {
 
     @Override
     public void draw(SpriteBatch batch) {
-        body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glode à l'infini
-        if(body.getLinearVelocity().isZero(0.1f)){
-            idleAnimation.update();
-            batch.draw(idleAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
-        }// Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
-        else{
-            runningAnimation.update();
-            batch.draw(runningAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
+        if(!mort){
+            if(body.getLinearVelocity().isZero(0.1f)){
+                idleAnimation.update();
+                batch.draw(idleAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
+            }// Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
+            else{
+                runningAnimation.update();
+                batch.draw(runningAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
+            }
         }
+        super.draw(batch);
     }
 
-    @Override
-    public void update(Orientation direction) {
-        //TODO : mettre a jour l'orientation du slime selon la position du joueur par rapport à lui.
+    public void update() {
+        super.update();
+        body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glode à l'infini
+        if(!mort){
+            //TODO : mettre a jour l'orientation du slime selon la position du joueur par rapport à lui. et lu ifaire faire des choses
+        }
     }
 }

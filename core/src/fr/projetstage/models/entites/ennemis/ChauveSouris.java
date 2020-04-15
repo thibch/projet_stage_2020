@@ -16,7 +16,6 @@ public class ChauveSouris extends Ennemi{
 
     }
 
-    @Override
     public void update(Orientation direction) {
 
     }

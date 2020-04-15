@@ -109,7 +109,6 @@ public class Joueur extends EntiteMouvante {
      * On met a jour la direction du joueur, donc de l'attaque
      * @param direction direction de l'attaque
      */
-    @Override
     public void update(Orientation direction) {
         currentTime += Gdx.graphics.getDeltaTime();
 

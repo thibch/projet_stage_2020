@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Animation;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
@@ -53,7 +54,11 @@ public class Salle {
         int courant;
         while(it.hasNext()){
             courant = it.next();
-            if(ennemis.get(courant).getTouche()){
+
+            //update des ennemis
+            ennemis.get(courant).update();
+
+            if(ennemis.get(courant).estMort()){
                 world.getWorld().destroyBody(ennemis.get(courant).getBody());
                 it.remove();
                 ennemis.remove(courant);
