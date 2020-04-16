@@ -19,14 +19,18 @@ public abstract class EntiteMouvante implements Entite {
     private int pointdeVieMax;
 
     private int degats; //TODO : a definir par rapport a l'arme plus tard
-    private float knockback = 3f;
+    private final float knockback = 3f;
 
     protected boolean mort = false;
     private boolean mortAnimFinie = false;
-    private Animation animationMort = new Animation(TextureFactory.getInstance().getDeathSpriteSheet(),4,1f);
+    private final Animation animationMort = new Animation(TextureFactory.getInstance().getDeathSpriteSheet(),4,1f);
 
     public void setPointDeVie(int pointDeVie) {
-        this.pointDeVie = pointDeVie;
+        if(pointDeVie <= pointdeVieMax){
+            this.pointDeVie = pointDeVie;
+        }else{
+            this.pointDeVie = pointdeVieMax;
+        }
     }
 
     public void setPointdeVieMax(int pointdeVieMax) {

@@ -45,7 +45,7 @@ public class Animation {
     }
 
     public void updateLast(){
-        if(currentFrame < frames[0].length-1){
+        if(!cycleDone){
             currentFrameTime += Gdx.graphics.getDeltaTime(); // On regarde le temps
 
             //Si on a dépassé le temps d'une frame alors on passe à la suivante

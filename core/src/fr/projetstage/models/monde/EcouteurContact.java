@@ -18,36 +18,53 @@ public class EcouteurContact implements ContactListener {
 
         Fixture fixtureA = contact.getFixtureA();
         Fixture fixtureB = contact.getFixtureB();
+        Fixture fixtureStart;
+        Fixture fixtureRecept;
 
         if (fixtureA.getBody().getUserData() != null && fixtureB.getBody().getUserData() != null) {
 
-            Fixture fixtureCaC = check(fixtureA, fixtureB, TypeEntite.CORPS_A_CORPS);
+            fixtureStart = check(fixtureA, fixtureB, TypeEntite.CORPS_A_CORPS);
 
-            if(fixtureCaC != null){
-                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
-                if(fixtureEnnemi != null){
-                    world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(), world.getJoueur());
+            // Corps à Corps
+            if(fixtureStart != null){
+                fixtureRecept = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                // Ennemi
+                if(fixtureRecept != null){
+                    world.setEnnemiTouche(((Type)fixtureRecept.getBody().getUserData()).getId(), world.getJoueur());
+                }
+            }else{
+
+                fixtureStart = check(fixtureA, fixtureB, TypeEntite.DISTANCE);
+
+                // Flèche
+                if(fixtureStart != null){
+                    fixtureRecept = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                    // Ennemi
+                    if(fixtureRecept != null){
+                        world.setEnnemiTouche(((Type)fixtureRecept.getBody().getUserData()).getId(), world.getJoueur());
+                        // Destroy fixtureFleche
+                    }
+                }else{
+                    fixtureStart = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+
+                    // Joueur
+                    if(fixtureStart != null){
+                        fixtureRecept = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                        // Ennemi
+                        if(fixtureRecept != null){
+                            world.setJoueurTouche(world.getEnnemi((((Type)fixtureRecept.getBody().getUserData()).getId())));
+                        }
+
+                        fixtureRecept = check(fixtureA, fixtureB, TypeEntite.PICKUP);
+
+                        if(fixtureRecept != null){
+                            world.setPickUpTaken(((Type)fixtureRecept.getBody().getUserData()).getId());
+                        }
+
+                    }
                 }
             }
 
-            Fixture fixtureFleche = check(fixtureA, fixtureB, TypeEntite.DISTANCE);
-
-            if(fixtureFleche != null){
-                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
-                if(fixtureEnnemi != null){
-                    world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(), world.getJoueur());
-                    // Destroy fixtureFleche
-                }
-            }
-
-            Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
-
-            if(fixtureJoueur != null){
-                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
-                if(fixtureEnnemi != null){
-                    world.setJoueurTouche(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
-                }
-            }
 
         }else{
             // Fleche et Mur/Tables

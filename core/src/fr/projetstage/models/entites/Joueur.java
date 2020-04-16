@@ -43,8 +43,8 @@ public class Joueur extends EntiteMouvante {
      */
     public Joueur(GameWorld world, Vector2 position){
         // stats:
-        setPointDeVie(6);
         setPointdeVieMax(6);
+        setPointDeVie(6);
         setDegats(1);
 
         float hauteur = (6f/16f);

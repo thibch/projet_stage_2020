@@ -57,6 +57,8 @@ public class TextureFactory {
     private static Texture epee;
     private static Texture fleche;
 
+    // Objets au sol
+    private static Texture potionRouge;
     // SpriteSheets
     // Joueur
     private static TextureRegion joueurIdleSpriteSheet;
@@ -128,6 +130,9 @@ public class TextureFactory {
         // Armes
         epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
         fleche = new Texture(Gdx.files.internal("weapons/arrow.png"));
+
+        // Objets au sol
+        potionRouge = new Texture(Gdx.files.internal("props_items/potion_red.png"));
 
         // SpriteSheets
         // Joueur
@@ -417,6 +422,14 @@ public class TextureFactory {
      */
     public Texture getFleche() {
         return fleche;
+    }
+
+    /**
+     * Getter pour l'image de la potion rouge
+     * @return Getter pour l'image de la potion rouge
+     */
+    public Texture getPotionRouge() {
+        return potionRouge;
     }
 
     /**

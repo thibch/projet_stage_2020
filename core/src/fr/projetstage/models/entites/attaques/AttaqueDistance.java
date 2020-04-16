@@ -35,7 +35,6 @@ public class AttaqueDistance extends Attaque {
     @Override
     public Fleche attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
         // Spawn de body
-        //fleche = new Fleche(world, positionLanceur, largeur, hauteur, direction);
         switch (direction){
             case BAS:
                 fleche.lancee(new Vector2(0,-speed), id);

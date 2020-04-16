@@ -6,7 +6,7 @@ import fr.projetstage.models.monde.GameWorld;
 
 public class LocationJoueur implements Location<Vector2> {
 
-    private GameWorld world;
+    private final GameWorld world;
 
     public LocationJoueur(GameWorld world) {
         this.world = world;

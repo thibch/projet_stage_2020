@@ -99,4 +99,8 @@ public class GameWorld {
     public void setJoueurTouche(Entite source){
         joueur.setTouche(source);
     }
+
+    public void setPickUpTaken(int id) {
+        salleCourante.setPickUpTaken(id);
+    }
 }

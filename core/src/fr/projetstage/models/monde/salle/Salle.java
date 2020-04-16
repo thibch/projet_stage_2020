@@ -12,6 +12,7 @@ import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.ObjetAuSol;
+import fr.projetstage.models.entites.objets.PotionRouge;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
 import fr.projetstage.models.monde.salle.meubles.GrandeTable;
@@ -24,17 +25,18 @@ import java.util.Iterator;
 
 public class Salle {
 
-    private int largeur;
-    private int hauteur;
+    private final int largeur;
+    private final int hauteur;
 
     private ArrayList<Entite> tileMap;
     private ArrayList<Prop> props;
     private ArrayList<Entite> meubles;
     private HashMap<Integer, Ennemi> ennemis;
     private int nbEnnemis;
-    private ArrayList<ObjetAuSol> objetAuSols;
+    private int nbObjetAuSols;
+    private HashMap<Integer, ObjetAuSol> objetAuSols;
 
-    private GameWorld world;
+    private final GameWorld world;
 
     /**
      * Salle généré avec un body Static et des portes pour sortir
@@ -64,6 +66,19 @@ public class Salle {
                 ennemis.remove(courant);
             }
         }
+
+        it = objetAuSols.keySet().iterator();
+        while(it.hasNext()){
+            courant = it.next();
+
+            objetAuSols.get(courant).update();
+
+            if(objetAuSols.get(courant).getTouche()){
+                world.getWorld().destroyBody(objetAuSols.get(courant).getBody());
+                it.remove();
+                objetAuSols.remove(courant);
+            }
+        }
     }
 
     public void draw(SpriteBatch listeAffImg) {
@@ -87,6 +102,10 @@ public class Salle {
 
         for(Entite monstre : ennemis.values()){
             monstre.draw(listeAffImg);
+        }
+
+        for(Entite obj : objetAuSols.values()){
+            obj.draw(listeAffImg);
         }
 
         for(int y = 0; y < hauteur;y++){
@@ -182,6 +201,11 @@ public class Salle {
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
+
+        objetAuSols = new HashMap<>();
+        nbObjetAuSols = 0;
+
+        objetAuSols.put(nbObjetAuSols++, new PotionRouge(world, new Vector2(7,7)));
 
     }
 
@@ -282,5 +306,12 @@ public class Salle {
 
     public void setEnnemiTouche(int id, Entite source) {
         ennemis.get(id).setTouche(source);
+    }
+
+    public void setPickUpTaken(int id) {
+        ObjetAuSol obj = objetAuSols.get(id);
+        obj.applyEffect();
+        obj.setTouche(true);
+
     }
 }
