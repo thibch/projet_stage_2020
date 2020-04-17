@@ -7,11 +7,13 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.monde.GameWorld;
+
+import java.util.Map;
 
 public class Piege extends Ennemi {
 
@@ -69,6 +71,20 @@ public class Piege extends Ennemi {
     }
 
     public void update(){
-        setDegats(animation.getCurrentFrameCount() >= 7 ? 1:0);
+        if(animation.getCurrentFrameCount() >= 7){
+            for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
+                if(!target.getValue()){
+                    target.getKey().setTouche(this);
+                    target.setValue(true);
+                }
+            }
+        }
+        else{
+            for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
+                if(target.getValue()){
+                    target.setValue(false);
+                }
+            }
+        }
     }
 }

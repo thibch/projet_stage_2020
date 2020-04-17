@@ -3,11 +3,15 @@ package fr.projetstage.models.monde;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
+import fr.projetstage.models.monde.salle.solEtMurs.Piege;
 
 
 public class EcouteurContact implements ContactListener {
 
     private final GameWorld world;
+
+    Fixture fixtureA;
+    Fixture fixtureB;
 
     public EcouteurContact(GameWorld world) {
         this.world = world;
@@ -16,8 +20,8 @@ public class EcouteurContact implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
 
-        Fixture fixtureA = contact.getFixtureA();
-        Fixture fixtureB = contact.getFixtureB();
+        fixtureA = contact.getFixtureA();
+        fixtureB = contact.getFixtureB();
 
         if (fixtureA.getBody().getUserData() != null && fixtureB.getBody().getUserData() != null) {
 
@@ -59,13 +63,13 @@ public class EcouteurContact implements ContactListener {
             if(fixturePiege != null) {
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
-                    world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(),world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
+                    world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
                 }
 
                 fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
                 // Joueur
                 if(fixtureJoueur != null){
-                    world.setJoueurTouche(world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
+                    world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getJoueur());
                 }
             }
         }else{
@@ -80,6 +84,26 @@ public class EcouteurContact implements ContactListener {
         }
     }
 
+    @Override
+    public void endContact(Contact contact) {
+        fixtureA = contact.getFixtureA();
+        fixtureB = contact.getFixtureB();
+
+        Fixture fixturePiege = check(fixtureA, fixtureB, TypeEntite.PIEGE);
+
+        if(fixturePiege != null) {
+            Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+            // Joueur
+            if(fixtureJoueur != null){
+                world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getJoueur());
+            }
+            Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+            if(fixtureEnnemi != null){
+                world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
+            }
+        }
+    }
+
     /**
      * Vérifie si la fixtureA correspond à entite, sinon vérifie si la fixtureB correspond à entite, sinon renvoie null
      * (Tout les vérifications sont faites dans le UserData du body de la fixture)
@@ -90,10 +114,6 @@ public class EcouteurContact implements ContactListener {
      */
     public Fixture check(Fixture fixtureA, Fixture fixtureB, TypeEntite entite){
         return (new Type(entite)).equals(fixtureA.getBody().getUserData())?fixtureA:(new Type(entite)).equals(fixtureB.getBody().getUserData())?fixtureB:null;
-    }
-
-    @Override
-    public void endContact(Contact contact) {
     }
 
     @Override
