@@ -28,8 +28,8 @@ public class Slime extends Ennemi {
     public Slime(GameWorld world, Vector2 position, Type type) {
         super(world, type);
         // Stats
-        setPointDeVie(3);
         setPointdeVieMax(3);
+        setPointDeVie(3);
         setDegats(1);
 
         float hauteur = (12f / 16f);

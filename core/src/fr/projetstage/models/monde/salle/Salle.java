@@ -74,9 +74,12 @@ public class Salle {
             objetAuSols.get(courant).update();
 
             if(objetAuSols.get(courant).getTouche()){
-                world.getWorld().destroyBody(objetAuSols.get(courant).getBody());
-                it.remove();
-                objetAuSols.remove(courant);
+                objetAuSols.get(courant).applyEffect();
+                if(objetAuSols.get(courant).estDetruit()){
+                    world.getWorld().destroyBody(objetAuSols.get(courant).getBody());
+                    it.remove();
+                    objetAuSols.remove(courant);
+                }
             }
         }
     }
@@ -198,10 +201,10 @@ public class Salle {
         ennemis = new HashMap<>();
         nbEnnemis = 0;
 
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+       /* ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
-
+*/
         objetAuSols = new HashMap<>();
         nbObjetAuSols = 0;
 
@@ -310,7 +313,6 @@ public class Salle {
 
     public void setPickUpTaken(int id) {
         ObjetAuSol obj = objetAuSols.get(id);
-        obj.applyEffect();
         obj.setTouche(true);
 
     }

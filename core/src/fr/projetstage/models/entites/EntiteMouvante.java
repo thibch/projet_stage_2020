@@ -26,11 +26,7 @@ public abstract class EntiteMouvante implements Entite {
     private final Animation animationMort = new Animation(TextureFactory.getInstance().getDeathSpriteSheet(),4,1f);
 
     public void setPointDeVie(int pointDeVie) {
-        if(pointDeVie <= pointdeVieMax){
-            this.pointDeVie = pointDeVie;
-        }else{
-            this.pointDeVie = pointdeVieMax;
-        }
+        this.pointDeVie = Math.min(pointDeVie, pointdeVieMax);
     }
 
     public void setPointdeVieMax(int pointdeVieMax) {
@@ -85,4 +81,7 @@ public abstract class EntiteMouvante implements Entite {
         }
     }
 
+    public boolean estMaxPointDeVie() {
+        return pointDeVie == pointdeVieMax;
+    }
 }

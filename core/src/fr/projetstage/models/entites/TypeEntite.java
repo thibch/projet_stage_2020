@@ -8,4 +8,9 @@ public enum TypeEntite {
     TypeEntite(){
 
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
 }

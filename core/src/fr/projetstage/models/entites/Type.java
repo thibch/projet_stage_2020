@@ -35,4 +35,12 @@ public class Type {
         Type type1 = (Type) o;
         return type == type1.type;
     }
+
+    @Override
+    public String toString() {
+        return "Type{" +
+                "type=" + type +
+                ", id=" + id +
+                '}';
+    }
 }
