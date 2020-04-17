@@ -1,6 +1,8 @@
 package fr.projetstage.models.entites.ennemis;
 
 import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.Filter;
+import com.badlogic.gdx.physics.box2d.Fixture;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.entites.Type;

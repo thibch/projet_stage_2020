@@ -3,7 +3,6 @@ package fr.projetstage.models.monde;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
-import fr.projetstage.models.monde.salle.solEtMurs.Piege;
 
 
 public class EcouteurContact implements ContactListener {
@@ -49,21 +48,21 @@ public class EcouteurContact implements ContactListener {
             if(fixtureJoueur != null) {
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if (fixtureEnnemi != null) {
-                    world.setJoueurTouche(world.getEnnemi((((Type) fixtureEnnemi.getBody().getUserData()).getId())));
+                    world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())).addTarget(world.getJoueur());
                 }
                 Fixture fixturePickUp = check(fixtureA, fixtureB, TypeEntite.PICKUP);
                 if (fixturePickUp != null) {
-                    System.out.println("Potion.");
                     world.setPickUpTaken(((Type) fixturePickUp.getBody().getUserData()).getId());
                 }
             }
 
+            //debut de contact entre piege et joueur / ennemi
             Fixture fixturePiege = check(fixtureA, fixtureB, TypeEntite.PIEGE);
-
             if(fixturePiege != null) {
+
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
-                    world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
+                    world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
                 }
 
                 fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
@@ -89,17 +88,23 @@ public class EcouteurContact implements ContactListener {
         fixtureA = contact.getFixtureA();
         fixtureB = contact.getFixtureB();
 
+        //fin de contact entre piege et joueur / ennemi
         Fixture fixturePiege = check(fixtureA, fixtureB, TypeEntite.PIEGE);
-
+        Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+        Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
         if(fixturePiege != null) {
-            Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
-            // Joueur
             if(fixtureJoueur != null){
                 world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getJoueur());
             }
-            Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+
             if(fixtureEnnemi != null){
-                world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
+                world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
+            }
+        }
+
+        if(fixtureJoueur != null) {
+            if(fixtureEnnemi != null){
+                world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())).removeTarget(world.getJoueur());
             }
         }
     }
