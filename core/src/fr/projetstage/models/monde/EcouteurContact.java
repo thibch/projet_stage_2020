@@ -42,17 +42,30 @@ public class EcouteurContact implements ContactListener {
 
             Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
 
-            if(fixtureJoueur != null){
+            if(fixtureJoueur != null) {
+                Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                if (fixtureEnnemi != null) {
+                    world.setJoueurTouche(world.getEnnemi((((Type) fixtureEnnemi.getBody().getUserData()).getId())));
+                }
+                Fixture fixturePickUp = check(fixtureA, fixtureB, TypeEntite.PICKUP);
+                if (fixturePickUp != null) {
+                    System.out.println("Potion.");
+                    world.setPickUpTaken(((Type) fixturePickUp.getBody().getUserData()).getId());
+                }
+            }
+
+            Fixture fixturePiege = check(fixtureA, fixtureB, TypeEntite.PIEGE);
+
+            if(fixturePiege != null) {
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
-                    world.setJoueurTouche(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
+                    world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(),world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
                 }
 
-
-                Fixture fixturePickUp = check(fixtureA, fixtureB, TypeEntite.PICKUP);
-                if(fixturePickUp != null){
-                    System.out.println("Potion.");
-                    world.setPickUpTaken(((Type)fixturePickUp.getBody().getUserData()).getId());
+                fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+                // Joueur
+                if(fixtureJoueur != null){
+                    world.setJoueurTouche(world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())));
                 }
             }
         }else{
