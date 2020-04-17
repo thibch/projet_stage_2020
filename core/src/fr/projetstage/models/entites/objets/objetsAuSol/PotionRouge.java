@@ -16,6 +16,8 @@ public class PotionRouge extends ObjetAuSol{
         if(!world.getJoueur().estMaxPointDeVie()){
             world.getJoueur().setPointDeVie(world.getJoueur().getPointDeVie()+2);
             detruit = true;
+        }else{
+            setTouche(false);
         }
     }
 
