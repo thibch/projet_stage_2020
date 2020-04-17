@@ -19,7 +19,7 @@ public abstract class EntiteMouvante implements Entite {
     private int pointdeVieMax;
 
     private int degats; //TODO : a definir par rapport a l'arme plus tard
-    private final float knockback = 3f;
+    private float knockback = 3f;
 
     protected boolean mort = false;
     private boolean mortAnimFinie = false;
@@ -51,6 +51,14 @@ public abstract class EntiteMouvante implements Entite {
         return pointdeVieMax;
     }
 
+    public float getKnockback() {
+        return knockback;
+    }
+
+    public void setKnockback(float knockback) {
+        this.knockback = knockback;
+    }
+
     public void setTouche(Entite source) {
         EntiteMouvante sourceDmg = (EntiteMouvante)source;
         setPointDeVie(getPointDeVie()- sourceDmg.getDegats());
@@ -58,7 +66,7 @@ public abstract class EntiteMouvante implements Entite {
         //knockback
         if(!mort && !((EntiteMouvante) source).mort) {
             Vector2 knockbackVector = new Vector2((body.getPosition().x - sourceDmg.body.getPosition().x), (body.getPosition().y - sourceDmg.body.getPosition().y));
-            knockbackVector.setLength(knockback);
+            knockbackVector.setLength(sourceDmg.getKnockback());
             body.applyLinearImpulse(knockbackVector, body.getPosition(), true);
         }
 

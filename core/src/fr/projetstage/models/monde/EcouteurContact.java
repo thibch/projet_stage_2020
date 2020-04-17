@@ -62,6 +62,23 @@ public class EcouteurContact implements ContactListener {
                         }
 
                     }
+
+                    //PIEGE
+                    fixtureStart = check(fixtureA, fixtureB, TypeEntite.PIEGE);
+
+                    if(fixtureStart != null){
+                        fixtureRecept = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
+                        // Ennemi
+                        if(fixtureRecept != null){
+                            world.setEnnemiTouche(((Type)fixtureRecept.getBody().getUserData()).getId(),world.getEnnemi((((Type)fixtureStart.getBody().getUserData()).getId())));
+                        }
+
+                        fixtureRecept = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+                        // Joueur
+                        if(fixtureRecept != null){
+                            world.setJoueurTouche(world.getEnnemi((((Type)fixtureStart.getBody().getUserData()).getId())));
+                        }
+                    }
                 }
             }
 
