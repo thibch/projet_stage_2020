@@ -30,10 +30,6 @@ public class Joueur extends EntiteMouvante {
 
     private boolean utiliseEpee;
     private boolean attaqueMaintenant;
-    private boolean onCoolDown;
-    private float coolDownTime;
-
-    private float currentTime;
 
     /**
      * Constructeur du joueur,
@@ -76,7 +72,9 @@ public class Joueur extends EntiteMouvante {
         fixtureDef1.density = 1f;
         fixtureDef1.restitution = 0f;
         fixtureDef1.friction = 0f;
-        //
+        //filtre collision
+        fixtureDef1.filter.groupIndex = (short)-1;
+
 
         // Met en place la fixture sur le body
         body.setFixedRotation(true);
@@ -93,9 +91,7 @@ public class Joueur extends EntiteMouvante {
         attaqueCaC = new CorpsACorps(world, body, 1, 0.1f,1,0.25f);
         setWeapon(false);
 
-        onCoolDown = false;
         attaqueMaintenant = false;
-        currentTime = 0f;
 
         lastDirection = Orientation.NO_ORIENTATION;
         // creer les animations

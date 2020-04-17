@@ -61,6 +61,7 @@ public class Piege extends Ennemi {
         body.createFixture(fixtureDef1); // Association à l’objet
 
         body.setUserData(type);
+        body.setBullet(true);
 
         rectangle.dispose();
     }

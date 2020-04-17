@@ -20,6 +20,10 @@ public abstract class EntiteMouvante implements Entite {
 
     private int degats; //TODO : a definir par rapport a l'arme plus tard
     private float knockback = 3f;
+    protected float coolDownTime; //temps entre 2 attaques
+    protected boolean onCoolDown = false;
+    protected float currentTime = 0f;
+
 
     protected boolean mort = false;
     private boolean mortAnimFinie = false;
