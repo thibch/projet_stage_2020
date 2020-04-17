@@ -4,15 +4,16 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.Animation;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.ennemis.Slime;
-import fr.projetstage.models.entites.objets.ObjetAuSol;
-import fr.projetstage.models.entites.objets.PotionRouge;
+import fr.projetstage.models.entites.objets.ObjetsTousTypes;
+import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
+import fr.projetstage.models.entites.objets.objetsPiedestal.ObjetSurPiedestal;
+import fr.projetstage.models.entites.objets.objetsPiedestal.Piedestal;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
 import fr.projetstage.models.monde.salle.meubles.GrandeTable;
@@ -34,7 +35,7 @@ public class Salle {
     private HashMap<Integer, Ennemi> ennemis;
     private int nbEnnemis;
     private int nbObjetAuSols;
-    private HashMap<Integer, ObjetAuSol> objetAuSols;
+    private HashMap<Integer, ObjetsTousTypes> objets;
 
     private final GameWorld world;
 
@@ -67,19 +68,16 @@ public class Salle {
             }
         }
 
-        it = objetAuSols.keySet().iterator();
+        it = objets.keySet().iterator();
         while(it.hasNext()){
             courant = it.next();
 
-            objetAuSols.get(courant).update();
+            objets.get(courant).update();
 
-            if(objetAuSols.get(courant).getTouche()){
-                objetAuSols.get(courant).applyEffect();
-                if(objetAuSols.get(courant).estDetruit()){
-                    world.getWorld().destroyBody(objetAuSols.get(courant).getBody());
-                    it.remove();
-                    objetAuSols.remove(courant);
-                }
+            if(objets.get(courant).estDetruit()){
+                world.getWorld().destroyBody(objets.get(courant).getBody());
+                it.remove();
+                objets.remove(courant);
             }
         }
     }
@@ -107,7 +105,7 @@ public class Salle {
             monstre.draw(listeAffImg);
         }
 
-        for(Entite obj : objetAuSols.values()){
+        for(Entite obj : objets.values()){
             obj.draw(listeAffImg);
         }
 
@@ -207,10 +205,11 @@ public class Salle {
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
 
-        objetAuSols = new HashMap<>();
+        objets = new HashMap<>();
         nbObjetAuSols = 0;
 
-        objetAuSols.put(nbObjetAuSols++, new PotionRouge(world, new Vector2(7,7)));
+        objets.put(nbObjetAuSols, new PotionRouge(world, new Vector2(7,7), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new Piedestal(world, new Vector2(11,3), new ObjetSurPiedestal(), nbObjetAuSols++));
 
     }
 
@@ -314,8 +313,9 @@ public class Salle {
     }
 
     public void setPickUpTaken(int id) {
-        ObjetAuSol obj = objetAuSols.get(id);
-        obj.setTouche(true);
-
+        ObjetsTousTypes obj = objets.get(id);
+        if(obj != null){
+            obj.setTouche(true);
+        }
     }
 }

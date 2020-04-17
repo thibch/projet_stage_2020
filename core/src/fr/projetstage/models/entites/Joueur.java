@@ -9,7 +9,7 @@ import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
 import fr.projetstage.models.entites.attaques.CorpsACorps;
 import fr.projetstage.models.entites.attaques.Fleche;
-import fr.projetstage.models.entites.objets.Objet;
+import fr.projetstage.models.entites.objets.objetsPiedestal.ObjetSurPiedestal;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -17,7 +17,7 @@ import java.util.ArrayList;
 
 public class Joueur extends EntiteMouvante {
 
-    private ArrayList<Objet> inventaire;
+    private ArrayList<ObjetSurPiedestal> inventaire;
 
     private Animation idleAnimation;
     private Animation runningAnimation;

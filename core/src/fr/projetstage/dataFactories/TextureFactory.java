@@ -59,6 +59,9 @@ public class TextureFactory {
 
     // Objets au sol
     private static Texture potionRouge;
+    private static Texture potionJaune;
+    private static Texture coffreOpen;
+
     // SpriteSheets
     // Joueur
     private static TextureRegion joueurIdleSpriteSheet;
@@ -76,9 +79,11 @@ public class TextureFactory {
     private static TextureRegion attaqueSpriteSheet;
     private static TextureRegion arcCharging;
 
-    //effets
+    // Effets
     private static TextureRegion deathSpriteSheet;
 
+    // Objets au sol
+    private static TextureRegion coffreSpriteSheet;
 
     /**
      * Met en place les textures dans la banque de texures
@@ -133,6 +138,8 @@ public class TextureFactory {
 
         // Objets au sol
         potionRouge = new Texture(Gdx.files.internal("props_items/potion_red.png"));
+        potionJaune = new Texture(Gdx.files.internal("props_items/potion_yellow.png"));
+        coffreOpen = new Texture(Gdx.files.internal("props_items/chest_open.png"));
 
         // SpriteSheets
         // Joueur
@@ -153,6 +160,7 @@ public class TextureFactory {
 
         //effets
         deathSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("effects/enemy_afterdead_explosion_anim_spritesheet.png")));
+        coffreSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/chest_spritesheet.png")));
     }
 
     /**
@@ -433,6 +441,22 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de la potion jaune
+     * @return Getter pour l'image de la potion jaune
+     */
+    public Texture getPotionJaune() {
+        return potionJaune;
+    }
+
+    /**
+     * Getter pour l'image du coffre ouvert
+     * @return Getter pour l'image du coffre ouvert
+     */
+    public Texture getCoffreOpen(){
+        return coffreOpen;
+    }
+
+    /**
      * Getter pour la sprite sheet du joueur inactif
      * @return une TextureRegion idle spritesheet
      */
@@ -507,6 +531,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour la sprite sheet du coffre qui scintille
+     * @return une TextureRegion de la spritesheet du coffre
+     */
+    public TextureRegion getCoffreSpriteSheet() {
+        return coffreSpriteSheet;
+    }
+
+    /**
      * Efface toute les Textures de la Factory
      */
     public void dispose() {
@@ -517,7 +549,8 @@ public class TextureFactory {
                 sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
                 drapeauVert, drapeauRouge, prisoner,
                 pauseBtn, pauseBtnPressed, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
-                epee,
+                epee, fleche,
+                potionRouge, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
                 joueurRunningSpriteSheet.getTexture(),
                 torcheSpriteSheet.getTexture(),
@@ -525,7 +558,8 @@ public class TextureFactory {
                 slimeIdleSpriteSheet.getTexture(),
                 slimeRunSpriteSheet.getTexture(),
                 deathSpriteSheet.getTexture(),
-                piegeSpriteSheet.getTexture()
+                piegeSpriteSheet.getTexture(),
+                coffreSpriteSheet.getTexture()
         );
     }
 

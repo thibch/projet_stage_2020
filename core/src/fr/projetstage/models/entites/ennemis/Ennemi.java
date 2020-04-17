@@ -35,7 +35,7 @@ public abstract class Ennemi extends EntiteMouvante {
 
     public void addTarget(EntiteMouvante target){
         if(!targets.containsKey(target)){
-            targets.put(target,false);
+            targets.put(target, false);
         }
     }
 

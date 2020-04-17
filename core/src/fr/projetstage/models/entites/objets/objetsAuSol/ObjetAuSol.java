@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.objets;
+package fr.projetstage.models.entites.objets.objetsAuSol;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Circle;
@@ -8,17 +8,15 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
+import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
 
-public abstract class ObjetAuSol implements Entite {
+public abstract class ObjetAuSol extends ObjetsTousTypes {
 
-    private final Body body;
     protected GameWorld world;
 
-    protected boolean detruit;
-    private boolean touche;
 
-    public ObjetAuSol(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur){
+    public ObjetAuSol(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id){
         this.world = world;
 
         // BodyDef
@@ -59,33 +57,20 @@ public abstract class ObjetAuSol implements Entite {
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
 
-        body.setUserData(new Type(TypeEntite.PICKUP));
+        body.setUserData(new Type(TypeEntite.PICKUP, id));
     }
 
 
     @Override
     public void draw(SpriteBatch batch) {
-        batch.draw(TextureFactory.getInstance().getPotionRouge(), body.getPosition().x, body.getPosition().y, 1, 1);
+
     }
 
-    public abstract void applyEffect();
-
-    public void setTouche(boolean b){
-        this.touche = b;
-    }
-    public boolean getTouche(){
-        return this.touche;
-    }
-
-    public Body getBody(){
-        return body;
-    }
-
+    @Override
     public void update() {
         body.setLinearVelocity(new Vector2(0.80f * body.getLinearVelocity().x,0.80f * body.getLinearVelocity().y));
-    }
-
-    public boolean estDetruit() {
-        return detruit;
+        if(getTouche()){
+            applyEffect();
+        }
     }
 }
