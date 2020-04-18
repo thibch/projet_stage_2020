@@ -18,6 +18,8 @@ public abstract class EntiteMouvante implements Entite {
     private int pointDeVie;
     private int pointdeVieMax;
 
+    private float speed;
+
     private int degats; //TODO : a definir par rapport a l'arme plus tard
     private float knockback = 3f;
     protected float coolDownTime; //temps entre 2 attaques
@@ -29,26 +31,34 @@ public abstract class EntiteMouvante implements Entite {
     private boolean mortAnimFinie = false;
     private final Animation animationMort = new Animation(TextureFactory.getInstance().getDeathSpriteSheet(),4,1f);
 
+    public int getPointDeVie() {
+        return pointDeVie;
+    }
+
     public void setPointDeVie(int pointDeVie) {
         this.pointDeVie = Math.min(pointDeVie, pointdeVieMax);
+    }
+
+    public int getPointdeVieMax() {
+        return pointdeVieMax;
     }
 
     public void setPointdeVieMax(int pointdeVieMax) {
         this.pointdeVieMax = pointdeVieMax;
     }
 
+    public int getDegats() { return degats; }
+
     public void setDegats(int degats) {
         this.degats = degats;
     }
 
-    public int getDegats() { return degats; }
-
-    public int getPointDeVie() {
-        return pointDeVie;
+    public float getSpeed() {
+        return speed;
     }
 
-    public int getPointdeVieMax() {
-        return pointdeVieMax;
+    public void setSpeed(float speed) {
+        this.speed = speed;
     }
 
     public float getKnockback() {
@@ -57,6 +67,14 @@ public abstract class EntiteMouvante implements Entite {
 
     public void setKnockback(float knockback) {
         this.knockback = knockback;
+    }
+
+    public boolean estMort(){
+        return mort && mortAnimFinie;
+    }
+
+    public boolean estMaxPointDeVie() {
+        return pointDeVie == pointdeVieMax;
     }
 
     public void setTouche(Entite source) {
@@ -73,10 +91,6 @@ public abstract class EntiteMouvante implements Entite {
         mort = getPointDeVie() <= 0;
     }
 
-    public boolean estMort(){
-        return mort && mortAnimFinie;
-    }
-
     public void draw(SpriteBatch batch){
         //Animation de la mort
         if(mort && !mortAnimFinie){
@@ -91,9 +105,5 @@ public abstract class EntiteMouvante implements Entite {
             animationMort.update();
             mortAnimFinie = animationMort.isLastFrame();
         }
-    }
-
-    public boolean estMaxPointDeVie() {
-        return pointDeVie == pointdeVieMax;
     }
 }

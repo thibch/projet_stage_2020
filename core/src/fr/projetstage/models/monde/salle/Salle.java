@@ -14,6 +14,7 @@ import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
 import fr.projetstage.models.entites.objets.objetsPiedestal.ObjetSurPiedestal;
 import fr.projetstage.models.entites.objets.objetsPiedestal.Piedestal;
+import fr.projetstage.models.entites.objets.objetsPiedestal.PotionJaune;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
 import fr.projetstage.models.monde.salle.meubles.GrandeTable;
@@ -201,15 +202,15 @@ public class Salle {
         ennemis.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbEnnemis++)));
 
         //monstres
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        //ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        //ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
 
         objets = new HashMap<>();
         nbObjetAuSols = 0;
 
         objets.put(nbObjetAuSols, new PotionRouge(world, new Vector2(7,7), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Piedestal(world, new Vector2(11,3), new ObjetSurPiedestal(), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new Piedestal(world, new Vector2(11,3), new PotionJaune(world), nbObjetAuSols++));
 
     }
 

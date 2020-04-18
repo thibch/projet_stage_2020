@@ -42,6 +42,7 @@ public class Joueur extends EntiteMouvante {
         setPointdeVieMax(6);
         setPointDeVie(6);
         setDegats(1);
+        setSpeed(1f);
 
         float hauteur = (6f/16f);
         float largeur = (8f/16f);
@@ -178,7 +179,7 @@ public class Joueur extends EntiteMouvante {
      * @param deplacement vecteur de déplacement du joueur
      */
     public void move(Vector2 deplacement){
-        body.setLinearVelocity(new Vector2(deplacement.x + 0.65f * body.getLinearVelocity().x,deplacement.y + 0.65f * body.getLinearVelocity().y));
+        body.setLinearVelocity(new Vector2((deplacement.x * getSpeed()) + 0.65f * body.getLinearVelocity().x,(deplacement.y * getSpeed()) + 0.65f * body.getLinearVelocity().y));
     }
 
 

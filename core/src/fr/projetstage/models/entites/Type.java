@@ -2,8 +2,8 @@ package fr.projetstage.models.entites;
 
 public class Type {
 
-    private TypeEntite type;
-    private int id;
+    private final TypeEntite type;
+    private final int id;
 
 
     public Type(TypeEntite type, int id){
@@ -18,10 +18,6 @@ public class Type {
 
     public TypeEntite getType() {
         return type;
-    }
-
-    public void setType(TypeEntite type) {
-        this.type = type;
     }
 
     public int getId() {

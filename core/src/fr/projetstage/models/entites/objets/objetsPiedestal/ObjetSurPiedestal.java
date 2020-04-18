@@ -1,18 +1,19 @@
 package fr.projetstage.models.entites.objets.objetsPiedestal;
 
 import com.badlogic.gdx.graphics.Texture;
-import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.monde.GameWorld;
 
-public class ObjetSurPiedestal{
+public abstract class ObjetSurPiedestal{
 
     private String nom;
     private int rarete;
+    protected GameWorld world;
 
-    public Texture getTexture(){
-        return TextureFactory.getInstance().getPotionJaune();
+    public ObjetSurPiedestal(GameWorld world){
+        this.world = world;
     }
 
-    public void applyEffect() {
+    public abstract Texture getTexture();
 
-    }
+    public abstract void applyEffect();
 }

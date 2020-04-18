@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites.objets.objetsPiedestal;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -17,6 +18,10 @@ public class Piedestal extends ObjetsTousTypes {
     private final GameWorld world;
 
     private boolean open;
+    private boolean openAndTook;
+
+    private final float timeToTook = 0.5f;
+    private float currentTime;
 
     private final Animation animation;
 
@@ -24,6 +29,8 @@ public class Piedestal extends ObjetsTousTypes {
         this.world = world;
         this.objet = objet;
         open = false;
+        openAndTook = false;
+        currentTime = 0f;
 
         float largeur = 5f/16f;
         float hauteur = 5f/16f;
@@ -65,19 +72,26 @@ public class Piedestal extends ObjetsTousTypes {
         animation = new Animation(TextureFactory.getInstance().getCoffreSpriteSheet(), 8, 2f);
     }
 
-
+    @Override
     public void update(){
         animation.update();
         //move objet
+        if(open){
+            currentTime += Gdx.graphics.getDeltaTime();
+        }
         if(getTouche()){
             applyEffect();
+            setTouche(false);
         }
     }
 
     @Override
     public void applyEffect() {
-        objet.applyEffect();
         open = true;
+        if(currentTime >= timeToTook){
+            objet.applyEffect();
+            openAndTook = true;
+        }
     }
 
     @Override
@@ -86,7 +100,9 @@ public class Piedestal extends ObjetsTousTypes {
             batch.draw(animation.getFrame(false, false), body.getPosition().x, body.getPosition().y, 1,1);
         }else{
             batch.draw(TextureFactory.getInstance().getCoffreOpen(), body.getPosition().x, body.getPosition().y, 1,1);
-            batch.draw(objet.getTexture(), body.getPosition().x, body.getPosition().y, 1, 1);
+            if(!openAndTook){
+                batch.draw(objet.getTexture(), body.getPosition().x, body.getPosition().y, 1, 1);
+            }
         }
     }
 }
