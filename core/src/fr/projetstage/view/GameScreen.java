@@ -100,7 +100,7 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      */
     public void update(){
-        if(gameWorld.getJoueur().getPointDeVie() > 0){
+        if(gameWorld.getJoueur().getPointDeVie() > 0 && !userInterface.isPaused()){
             Vector2 force = keyboardListener.getAcceleration();
 
             gameWorld.getJoueur().move(force);

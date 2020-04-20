@@ -2,16 +2,13 @@ package fr.projetstage.models.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.ui.menu.GameOverScreen;
+import fr.projetstage.models.ui.menu.PauseScreen;
 
 public class UserInterface {
 
@@ -20,9 +17,11 @@ public class UserInterface {
     private GameWorld gameWorld;
     private Stage stage;
 
+    private Boolean isPaused = false;
     private PauseButton pauseBtn;
+    private PauseScreen pauseScreen;
 
-    private Text gameOver;
+    private GameOverScreen gameOverScreen;
 
     private Text munitions;
 
@@ -34,10 +33,11 @@ public class UserInterface {
         this.gameWorld = gameWorld;
         float scaleX = stage.getWidth()/gameWorld.getLargeur();
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
-        pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY);
+        pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY,this);
 
-        gameOver = new Text("Disappointing", 160, Color.RED, new Vector2((Gdx.graphics.getWidth())/2f,2*(Gdx.graphics.getHeight()/3f)),true);
-        munitions = new Text("", 65, Color.WHITE, new Vector2(1.7f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), false);
+        gameOverScreen = new GameOverScreen();
+        pauseScreen = new PauseScreen(stage, this);
+        munitions = new Text("", 65, Color.WHITE, new Vector2(1.4f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), true);
     }
 
     /**
@@ -46,12 +46,11 @@ public class UserInterface {
      */
     public void draw(SpriteBatch batch){
         stage.act();
-        stage.draw();
 
         //Affiche le texte
         stage.getBatch().begin();
         if(gameWorld.getJoueur().getPointDeVie() <= 0){
-            gameOver.draw(stage.getBatch());
+            gameOverScreen.draw(stage.getBatch());
         }
         munitions.setTextContent("" + gameWorld.getJoueur().getMunition());
         munitions.draw(stage.getBatch());
@@ -60,10 +59,10 @@ public class UserInterface {
         batch.begin();
         // Affiche l'arme selectionnée
         if(gameWorld.getJoueur().isSwitchedWeapon()){ // Epee
-            batch.draw(TextureFactory.getInstance().getSwordUI(),-1,gameWorld.getHauteur()-4-screenOffset,1,1);
+            batch.draw(TextureFactory.getInstance().getSwordUI(),-1-screenOffset,gameWorld.getHauteur()-4-screenOffset,1,1);
         }
         else{ // Arc
-            batch.draw(TextureFactory.getInstance().getBowUI(), -1, gameWorld.getHauteur()-4-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
+            batch.draw(TextureFactory.getInstance().getBowUI(), -1-screenOffset, gameWorld.getHauteur()-4-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
         }
 
 
@@ -71,7 +70,7 @@ public class UserInterface {
         int cpt = 0;
         //Coeurs plein
         for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
-            batch.draw(TextureFactory.getInstance().getCoeurPlein(), i,gameWorld.getHauteur()-3-screenOffset,1,1);
+            batch.draw(TextureFactory.getInstance().getCoeurPlein(),i,gameWorld.getHauteur()-3-screenOffset,1,1);
             cpt++;
         }
         //Coeur à moitié plein
@@ -86,19 +85,39 @@ public class UserInterface {
         }
 
 
-        batch.draw(TextureFactory.getInstance().getArrowUI(), -1, gameWorld.getHauteur()-5-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
+        batch.draw(TextureFactory.getInstance().getArrowUI(), -1-screenOffset, gameWorld.getHauteur()-5-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
 
 
 
         batch.end();
+
+        //Affiche les menus
+        stage.getBatch().begin();
+        if(gameWorld.getJoueur().getPointDeVie() <= 0){
+            gameOverScreen.draw(stage.getBatch());
+        }
+        else{
+            pauseScreen.draw(stage.getBatch());
+        }
+
+        stage.getBatch().end();
+        stage.draw();
     }
 
     public Stage getStage() {
         return stage;
     }
 
+    public boolean isPaused(){
+        return isPaused;
+    }
+
+    public void setPause(boolean bool){
+        isPaused = bool;
+    }
+
     public void dispose() {
         stage.dispose();
-        gameOver.dispose();
+        gameOverScreen.dispose();
     }
 }

@@ -45,8 +45,11 @@ public class TextureFactory {
     private static Texture sol10;
 
     // Interface/Boutons
+    private static Texture background;
     private static Texture pauseBtn;
     private static Texture pauseBtnPressed;
+    private static Texture btn;
+    private static Texture btnPressed;
     private static Texture coeurPlein;
     private static Texture coeurMoitie;
     private static Texture coeurVide;
@@ -125,8 +128,11 @@ public class TextureFactory {
         sol10 = new Texture(Gdx.files.internal("tiles/level1/floor/floor_10.png"));
 
         // Interface/Boutons
+        background = new Texture(Gdx.files.internal("ui/background.png"));
         pauseBtn = new Texture(Gdx.files.internal("ui/pause_button.png"));
         pauseBtnPressed = new Texture(Gdx.files.internal("ui/pause_button_press.png"));
+        btn = new Texture(Gdx.files.internal("ui/menu_button.png"));
+        btnPressed = new Texture(Gdx.files.internal("ui/menu_button_press.png"));
         coeurPlein = new Texture(Gdx.files.internal("ui/filled_heart.png"));
         coeurMoitie = new Texture(Gdx.files.internal("ui/half_heart.png"));
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
@@ -362,6 +368,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de fond
+     * @return Getter pour l'image de fond
+     */
+    public Texture getBackground() {
+        return background;
+    }
+
+    /**
      * Getter pour l'image de menu pause
      * @return Getter pour l'image du menu pause
      */
@@ -376,6 +390,22 @@ public class TextureFactory {
     public Texture getPauseBtnPressed()
     {
         return pauseBtnPressed;
+    }
+
+    /**
+     * Getter pour l'image de btn de menu
+     * @return Getter pour l'image du bouton de menu
+     */
+    public Texture getBtn() {
+        return btn;
+    }
+
+    /**
+     * Getter pour l'image de bouton de menu enfoncé
+     * @return Getter pour l'image de bouton de menu enfoncé
+     */
+    public Texture getBtnPressed() {
+        return btnPressed;
     }
 
     /**
@@ -557,7 +587,7 @@ public class TextureFactory {
                 bibliotheque,
                 sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
                 drapeauVert, drapeauRouge, prisoner,
-                pauseBtn, pauseBtnPressed, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
+                background, pauseBtn, pauseBtnPressed, btn, btnPressed, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 epee, fleche,
                 potionRouge, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
