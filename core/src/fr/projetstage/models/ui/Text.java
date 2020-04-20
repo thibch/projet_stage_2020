@@ -33,11 +33,14 @@ public class Text{
         if(centerText){
             this.position = new Vector2(position.x-(layout.width/2f),position.y);
         }
+    }
 
+    public void setTextContent(String textContent){
+        this.textContent = textContent;
     }
 
     public void draw(Batch batch){
-        fontText.draw(batch,textContent, position.x, position.y);
+        fontText.draw(batch, textContent, position.x, position.y);
     }
 
     public void setPosition(Vector2 position){

@@ -1,13 +1,12 @@
 package fr.projetstage.models.entites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.Entite;
-import fr.projetstage.models.entites.attaques.Attaque;
-import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.GameWorld;
 
 public abstract class EntiteMouvante implements Entite {
@@ -23,8 +22,10 @@ public abstract class EntiteMouvante implements Entite {
     private int degats; //TODO : a definir par rapport a l'arme plus tard
     private float knockback = 3f;
     protected float coolDownTime; //temps entre 2 attaques
+    protected float coolDownTimeInvincible = 0.5f; //temps entre 2 attaques reçues
     protected boolean onCoolDown = false;
     protected float currentTime = 0f;
+    protected float currentTimeInvincible = 0f;
 
 
     protected boolean mort = false;
@@ -78,17 +79,21 @@ public abstract class EntiteMouvante implements Entite {
     }
 
     public void setTouche(Entite source) {
-        EntiteMouvante sourceDmg = (EntiteMouvante)source;
-        setPointDeVie(getPointDeVie()- sourceDmg.getDegats());
+        if(currentTimeInvincible > coolDownTimeInvincible){
+            currentTimeInvincible = 0f;
+            EntiteMouvante sourceDmg = (EntiteMouvante)source;
+            setPointDeVie(getPointDeVie()- sourceDmg.getDegats());
 
-        //knockback
-        if(!mort && !((EntiteMouvante) source).mort) {
-            Vector2 knockbackVector = new Vector2((body.getPosition().x - sourceDmg.body.getPosition().x), (body.getPosition().y - sourceDmg.body.getPosition().y));
-            knockbackVector.setLength(sourceDmg.getKnockback());
-            body.applyLinearImpulse(knockbackVector, body.getPosition(), true);
+            //knockback
+            if(!mort && !((EntiteMouvante) source).mort) {
+                Vector2 knockbackVector = new Vector2((body.getPosition().x - sourceDmg.body.getPosition().x), (body.getPosition().y - sourceDmg.body.getPosition().y));
+                knockbackVector.setLength(sourceDmg.getKnockback());
+                body.applyLinearImpulse(knockbackVector, body.getPosition(), true);
+            }
+
+            mort = getPointDeVie() <= 0;
         }
 
-        mort = getPointDeVie() <= 0;
     }
 
     public void draw(SpriteBatch batch){
@@ -99,6 +104,8 @@ public abstract class EntiteMouvante implements Entite {
     }
 
     public void update(){
+        currentTime += Gdx.graphics.getDeltaTime();
+        currentTimeInvincible += Gdx.graphics.getDeltaTime();
         if(mort){
             degats = 0;
             body.getFixtureList().first().setSensor(true);

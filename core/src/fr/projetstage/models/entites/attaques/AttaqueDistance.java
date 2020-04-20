@@ -36,7 +36,7 @@ public class AttaqueDistance extends Attaque {
         this.speed = 10f;
         animation = new Animation(TextureFactory.getInstance().getArcCharging(), 3, tempsCharge);
         isCharging = false;
-        munition = 10;
+        munition = 5;
     }
 
     @Override

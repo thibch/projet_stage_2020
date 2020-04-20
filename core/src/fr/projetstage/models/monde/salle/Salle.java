@@ -9,10 +9,11 @@ import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
+import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
-import fr.projetstage.models.entites.objets.objetsPiedestal.Coffre;
-import fr.projetstage.models.entites.objets.objetsPiedestal.PotionJaune;
+import fr.projetstage.models.entites.objets.objetsCoffre.Coffre;
+import fr.projetstage.models.entites.objets.objetsCoffre.PotionJaune;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
 import fr.projetstage.models.monde.salle.meubles.GrandeTable;
@@ -200,8 +201,8 @@ public class Salle {
         ennemis.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbEnnemis++)));
 
         //monstres
-        //ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        //ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
 
         objets = new HashMap<>();

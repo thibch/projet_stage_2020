@@ -1,6 +1,5 @@
 package fr.projetstage.models.entites.ennemis;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -117,7 +116,6 @@ public class Slime extends Ennemi {
             comportement.getBehavior().setEnabled(false);
         }
 
-        currentTime += Gdx.graphics.getDeltaTime();
         // Si on est en coolDown mais que le temps est dépassé alors nous ne sommes plus en cooldown
         if(onCoolDown && currentTime > coolDownTime) {
             currentTime = 0;

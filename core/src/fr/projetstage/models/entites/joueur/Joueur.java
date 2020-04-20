@@ -1,6 +1,5 @@
 package fr.projetstage.models.entites.joueur;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
@@ -45,6 +44,8 @@ public class Joueur extends EntiteMouvante {
         setPointDeVie(6);
         setDegats(1);
         setSpeed(1f);
+
+        coolDownTimeInvincible = 1f;
 
         inventaire = new Inventaire(this);
 
@@ -109,7 +110,7 @@ public class Joueur extends EntiteMouvante {
      * @param direction direction de l'attaque
      */
     public void update(Orientation direction) {
-        currentTime += Gdx.graphics.getDeltaTime();
+        this.update();
 
         // Si il est en train d'attaquer et qu'on a dépassé l'animation alors on remet les animations à zéros et on arrête d'attaquer
         if(attaqueMaintenant && currentTime > attaqueCaC.getDuration()){
@@ -138,7 +139,6 @@ public class Joueur extends EntiteMouvante {
                     attaqueCaC.attaque(body, direction);
                 }
                 else{
-                    System.out.println("Direction Joueur : " + direction);
                     attaqueDistance.charge(body.getPosition(), direction);
                 }
 

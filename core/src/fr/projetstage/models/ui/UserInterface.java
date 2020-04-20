@@ -24,6 +24,8 @@ public class UserInterface {
 
     private Text gameOver;
 
+    private Text munitions;
+
     /**
      * Classe qui génère l'UI du jeu
      */
@@ -34,7 +36,8 @@ public class UserInterface {
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
         pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY);
 
-        gameOver = new Text("Disappointing", 160, Color.RED,new Vector2((Gdx.graphics.getWidth())/2f,2*(Gdx.graphics.getHeight()/3f)),true);
+        gameOver = new Text("Disappointing", 160, Color.RED, new Vector2((Gdx.graphics.getWidth())/2f,2*(Gdx.graphics.getHeight()/3f)),true);
+        munitions = new Text("", 65, Color.WHITE, new Vector2(1.7f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), false);
     }
 
     /**
@@ -50,6 +53,8 @@ public class UserInterface {
         if(gameWorld.getJoueur().getPointDeVie() <= 0){
             gameOver.draw(stage.getBatch());
         }
+        munitions.setTextContent("" + gameWorld.getJoueur().getMunition());
+        munitions.draw(stage.getBatch());
         stage.getBatch().end();
 
         batch.begin();
@@ -83,7 +88,6 @@ public class UserInterface {
 
         batch.draw(TextureFactory.getInstance().getArrowUI(), -1, gameWorld.getHauteur()-5-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
 
-        //Affichage texte
 
 
         batch.end();

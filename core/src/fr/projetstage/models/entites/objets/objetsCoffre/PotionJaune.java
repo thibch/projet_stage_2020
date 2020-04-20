@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.objets.objetsPiedestal;
+package fr.projetstage.models.entites.objets.objetsCoffre;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
