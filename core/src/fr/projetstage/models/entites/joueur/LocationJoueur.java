@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites;
+package fr.projetstage.models.entites.joueur;
 
 import com.badlogic.gdx.ai.utils.Location;
 import com.badlogic.gdx.math.Vector2;

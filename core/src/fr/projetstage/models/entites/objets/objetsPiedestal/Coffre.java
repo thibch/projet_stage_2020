@@ -11,26 +11,33 @@ import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
 
-public class Piedestal extends ObjetsTousTypes {
+public class Coffre extends ObjetsTousTypes {
 
-    private ObjetSurPiedestal objet;
+    private ObjetDansCoffre objet;
     private final Body body;
     private final GameWorld world;
 
     private boolean open;
     private boolean openAndTook;
 
-    private final float timeToTook = 0.5f;
-    private float currentTime;
+    private final float timeToTake = 0.5f;
+    private float openTime;
 
     private final Animation animation;
 
-    public Piedestal(GameWorld world, Vector2 position, ObjetSurPiedestal objet, int id){
+    /**
+     * Créé un Coffre avec une hitbox
+     * @param world le world
+     * @param position la position du piedestal dans le monde
+     * @param objet l'objet qui sera dans le piedestale
+     * @param id l'id du piedestal dans la salle
+     */
+    public Coffre(GameWorld world, Vector2 position, ObjetDansCoffre objet, int id){
         this.world = world;
         this.objet = objet;
         open = false;
         openAndTook = false;
-        currentTime = 0f;
+        openTime = 0f;
 
         float largeur = 5f/16f;
         float hauteur = 5f/16f;
@@ -77,21 +84,23 @@ public class Piedestal extends ObjetsTousTypes {
         animation.update();
         //move objet
         if(open){
-            currentTime += Gdx.graphics.getDeltaTime();
+            openTime += Gdx.graphics.getDeltaTime();
         }
-        if(getTouche()){
-            applyEffect();
-            setTouche(false);
-        }
+        super.update();
     }
 
     @Override
     public void applyEffect() {
         open = true;
-        if(currentTime >= timeToTook){
-            objet.applyEffect();
+        if(openTime >= timeToTake){
+            world.getJoueur().getInventaire().add(objet);
             openAndTook = true;
         }
+    }
+
+    @Override
+    public void reverseEffect() {
+
     }
 
     @Override

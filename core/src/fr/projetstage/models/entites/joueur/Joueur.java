@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites;
+package fr.projetstage.models.entites.joueur;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -6,10 +6,12 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.entites.EntiteMouvante;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
 import fr.projetstage.models.entites.attaques.CorpsACorps;
 import fr.projetstage.models.entites.attaques.Fleche;
-import fr.projetstage.models.entites.objets.objetsPiedestal.ObjetSurPiedestal;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 
 public class Joueur extends EntiteMouvante {
 
-    private ArrayList<ObjetSurPiedestal> inventaire;
+    private Inventaire inventaire;
 
     private Animation idleAnimation;
     private Animation runningAnimation;
@@ -43,6 +45,8 @@ public class Joueur extends EntiteMouvante {
         setPointDeVie(6);
         setDegats(1);
         setSpeed(1f);
+
+        inventaire = new Inventaire(this);
 
         float hauteur = (6f/16f);
         float largeur = (8f/16f);
@@ -229,5 +233,9 @@ public class Joueur extends EntiteMouvante {
         }else{
             coolDownTime = 1.2f;
         }
+    }
+
+    public Inventaire getInventaire() {
+        return inventaire;
     }
 }

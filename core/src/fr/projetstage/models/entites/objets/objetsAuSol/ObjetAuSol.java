@@ -57,12 +57,15 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
     }
 
     @Override
+    public void reverseEffect(){
+
+    }
+
+    @Override
     public void update() {
         if(Math.abs(body.getWorldCenter().x - world.getJoueur().getX()) >= 0.8f || Math.abs(body.getWorldCenter().y - world.getJoueur().getY()) >= 0.8f){
             body.setLinearVelocity(new Vector2(0.80f * body.getLinearVelocity().x,0.80f * body.getLinearVelocity().y));
         }
-        if(getTouche()){
-            applyEffect();
-        }
+        super.update();
     }
 }

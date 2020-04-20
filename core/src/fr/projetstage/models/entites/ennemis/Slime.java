@@ -10,7 +10,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.entites.EntiteMouvante;
-import fr.projetstage.models.entites.LocationJoueur;
+import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.monde.GameWorld;
 

@@ -9,11 +9,9 @@ import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
-import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
-import fr.projetstage.models.entites.objets.objetsPiedestal.ObjetSurPiedestal;
-import fr.projetstage.models.entites.objets.objetsPiedestal.Piedestal;
+import fr.projetstage.models.entites.objets.objetsPiedestal.Coffre;
 import fr.projetstage.models.entites.objets.objetsPiedestal.PotionJaune;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.meubles.Biblio;
@@ -210,7 +208,7 @@ public class Salle {
         nbObjetAuSols = 0;
 
         objets.put(nbObjetAuSols, new PotionRouge(world, new Vector2(7,7), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Piedestal(world, new Vector2(11,3), new PotionJaune(world), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new PotionJaune(world), nbObjetAuSols++));
 
     }
 
