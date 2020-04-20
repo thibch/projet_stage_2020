@@ -1,6 +1,13 @@
 package fr.projetstage.models.ui;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.dataFactories.TextureFactory;
@@ -15,6 +22,8 @@ public class UserInterface {
 
     private PauseButton pauseBtn;
 
+    private Text gameOver;
+
     /**
      * Classe qui génère l'UI du jeu
      */
@@ -24,6 +33,8 @@ public class UserInterface {
         float scaleX = stage.getWidth()/gameWorld.getLargeur();
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
         pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY);
+
+        gameOver = new Text("Disappointing", 160, Color.RED,new Vector2((Gdx.graphics.getWidth())/2f,2*(Gdx.graphics.getHeight()/3f)),true);
     }
 
     /**
@@ -33,6 +44,13 @@ public class UserInterface {
     public void draw(SpriteBatch batch){
         stage.act();
         stage.draw();
+
+        //Affiche le texte
+        stage.getBatch().begin();
+        if(gameWorld.getJoueur().getPointDeVie() <= 0){
+            gameOver.draw(stage.getBatch());
+        }
+        stage.getBatch().end();
 
         batch.begin();
         // Affiche l'arme selectionnée
@@ -73,5 +91,10 @@ public class UserInterface {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public void dispose() {
+        stage.dispose();
+        gameOver.dispose();
     }
 }

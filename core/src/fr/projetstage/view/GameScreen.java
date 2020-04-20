@@ -32,6 +32,7 @@ public class GameScreen extends ScreenAdapter {
 
     private final KeyboardListener keyboardListener;
 
+
     /**
      * initialise une partie de jeu
      */
@@ -99,14 +100,16 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      */
     public void update(){
-        Vector2 force = keyboardListener.getAcceleration();
+        if(gameWorld.getJoueur().getPointDeVie() > 0){
+            Vector2 force = keyboardListener.getAcceleration();
 
-        gameWorld.getJoueur().move(force);
-        gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
+            gameWorld.getJoueur().move(force);
+            gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
 
-        gameWorld.getJoueur().update(keyboardListener.getDirection());
-        gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
-        gameWorld.update();
+            gameWorld.getJoueur().update(keyboardListener.getDirection());
+            gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
+            gameWorld.update();
+        }
     }
 
     /**
@@ -117,6 +120,7 @@ public class GameScreen extends ScreenAdapter {
         super.dispose();
         listeAffEnv.dispose();
         listeAffUI.dispose();
+        userInterface.dispose();
         TextureFactory.getInstance().dispose();
         SoundFactory.getInstance().dispose();
     }
