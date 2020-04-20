@@ -11,11 +11,9 @@ import fr.projetstage.models.Orientation;
 
 public class Fleche extends Projectile{
 
-    private Body body;
-    private float largeur;
-    private float hauteur;
-    private float largeurBody;
-    private float hauteurBody;
+    private final Body body;
+    private final float largeur;
+    private final float hauteur;
 
     private Orientation direction;
     private boolean estLancee;
@@ -33,15 +31,7 @@ public class Fleche extends Projectile{
         this.largeur = largeur;
         this.hauteur = hauteur;
 
-        largeurBody = largeur;
-        hauteurBody = hauteur;
-
         estLancee = false;
-
-        if(direction == Orientation.BAS || direction == Orientation.HAUT){
-            largeurBody = hauteur;
-            hauteurBody = largeur;
-        }
 
         // BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -56,12 +46,23 @@ public class Fleche extends Projectile{
 
     /**
      * On lance la flèche
-     * @param direction direction voulu
+     * @param vecteurDirection direction voulu
      */
-    public void lancee(Vector2 direction, int id){
+    public void lancee(Vector2 vecteurDirection, int id){
+
+        float largeurBody;
+        float hauteurBody;
+        if(direction == Orientation.BAS || direction == Orientation.HAUT){
+            largeurBody = hauteur;
+            hauteurBody = largeur;
+        }else{
+            largeurBody = largeur;
+            hauteurBody = hauteur;
+        }
 
         // Création de la shape pour la flèche
-        Vector2 posShape = new Vector2((this.direction == Orientation.BAS || this.direction == Orientation.HAUT? 6f/16f : 2f/16f), (this.direction == Orientation.GAUCHE || this.direction == Orientation.DROITE? 5f/16f : 2f/16f));
+        Vector2 posShape = new Vector2((this.direction == Orientation.BAS || this.direction == Orientation.HAUT? 6f/16f : 2f/16f),
+                (this.direction == Orientation.GAUCHE || this.direction == Orientation.DROITE? 5f/16f : 2f/16f));
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + largeurBody, posShape.y);
@@ -84,7 +85,8 @@ public class Fleche extends Projectile{
         body.createFixture(fixtureDef1); // Association à l’objet
 
         rectangle.dispose();
-        body.setLinearVelocity(direction);
+
+        body.setLinearVelocity(vecteurDirection);
         body.setUserData(new Type(TypeEntite.DISTANCE, id));
         estLancee = true;
     }

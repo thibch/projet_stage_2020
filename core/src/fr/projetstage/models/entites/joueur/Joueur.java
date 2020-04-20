@@ -138,18 +138,19 @@ public class Joueur extends EntiteMouvante {
                     attaqueCaC.attaque(body, direction);
                 }
                 else{
+                    System.out.println("Direction Joueur : " + direction);
                     attaqueDistance.charge(body.getPosition(), direction);
                 }
 
                 // On met en place le cooldown
-                if(!attaqueDistance.isCharging()){
+                if(!attaqueDistance.isChargingAndHaveMunitions()){
                     attaqueMaintenant = true;
                     onCoolDown = true;
                 }
             }
         }else{
-            //Qaund on lache la direction on lache la flèche de l'arc
-            if(attaqueDistance.isCharging()){
+            //Quand on lache la direction on lache la flèche de l'arc
+            if(attaqueDistance.isChargingAndHaveMunitions()){
                 projectiles.add(attaqueDistance.attaqueDistance(new Vector2(getX(), getY()), lastDirection, projectiles.size()));
                 attaqueMaintenant = true;
                 onCoolDown = true;
@@ -202,7 +203,7 @@ public class Joueur extends EntiteMouvante {
             listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
         }
 
-        if(attaqueDistance.isCharging()){
+        if(attaqueDistance.isChargingAndHaveMunitions()){
             attaqueDistance.draw(listeAffImg);
         }
 
@@ -237,5 +238,18 @@ public class Joueur extends EntiteMouvante {
 
     public Inventaire getInventaire() {
         return inventaire;
+    }
+
+
+    public int getMunition(){
+        return this.attaqueDistance.getMunition();
+    }
+
+    public void addMunition(int i) {
+        this.attaqueDistance.addMunition(i);
+    }
+
+    public boolean isSwitchedWeapon() {
+        return utiliseEpee;
     }
 }

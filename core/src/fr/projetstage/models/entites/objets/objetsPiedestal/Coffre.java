@@ -81,7 +81,6 @@ public class Coffre extends ObjetsTousTypes {
 
     @Override
     public void update(){
-        animation.update();
         //move objet
         if(open){
             openTime += Gdx.graphics.getDeltaTime();
@@ -105,6 +104,7 @@ public class Coffre extends ObjetsTousTypes {
 
     @Override
     public void draw(SpriteBatch batch) {
+        animation.update();
         if(!open){
             batch.draw(animation.getFrame(false, false), body.getPosition().x, body.getPosition().y, 1,1);
         }else{

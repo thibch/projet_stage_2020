@@ -10,26 +10,33 @@ import fr.projetstage.models.Orientation;
 
 public class AttaqueDistance extends Attaque {
 
-
     private final GameWorld world;
-    private final float largeur;
-    private final float hauteur;
-    private final float speed;
-    private final Animation animation;
-    private boolean isCharging;
-    private Fleche fleche;
 
     private Vector2 position;
     private Orientation direction;
+    private final Animation animation;
+
+    private final float largeurFleche;
+    private final float hauteurFleche;
+    private final float speed;
+
+    private boolean isCharging;
+
+    private Fleche fleche;
+
+    private int munition;
 
 
-    public AttaqueDistance(GameWorld world, float largeur, float hauteur, float tempsCharge){
+
+
+    public AttaqueDistance(GameWorld world, float largeurFleche, float hauteurFleche, float tempsCharge){
         this.world = world;
-        this.largeur = largeur;
-        this.hauteur = hauteur;
+        this.largeurFleche = largeurFleche;
+        this.hauteurFleche = hauteurFleche;
         this.speed = 10f;
         animation = new Animation(TextureFactory.getInstance().getArcCharging(), 3, tempsCharge);
         isCharging = false;
+        munition = 10;
     }
 
     @Override
@@ -50,25 +57,34 @@ public class AttaqueDistance extends Attaque {
                 break;
         }
 
+        munition -= 1;
 
         animation.reset();
         isCharging = false;
         return fleche;
     }
 
-    public boolean isCharging() {
-        return isCharging;
+    public boolean isChargingAndHaveMunitions() {
+        return isCharging && munition > 0;
+    }
+
+    public int getMunition() {
+        return munition;
+    }
+
+    public void addMunition(int add) {
+        munition += add;
     }
 
     public void charge(Vector2 position, Orientation direction) {
+        this.position = position;
+        this.direction = direction;
         isCharging = true;
         if(fleche == null || fleche.estLancee()){
-            fleche = new Fleche(world, position, largeur, hauteur, direction);
+            fleche = new Fleche(world, position, largeurFleche, hauteurFleche, direction);
         }else{
             fleche.update(position, direction);
         }
-        this.position = position;
-        this.direction = direction;
         animation.updateLast();
     }
 

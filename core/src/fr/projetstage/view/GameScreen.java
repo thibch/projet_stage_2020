@@ -92,7 +92,7 @@ public class GameScreen extends ScreenAdapter {
         listeAffEnv.end();
 
         // Affichage de l'interface
-        userInterface.draw(listeAffUI, keyboardListener.isSwitchWeapon());
+        userInterface.draw(listeAffUI);
     }
 
     /**

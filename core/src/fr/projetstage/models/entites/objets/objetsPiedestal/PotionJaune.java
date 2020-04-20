@@ -19,12 +19,12 @@ public class PotionJaune extends ObjetDansCoffre {
 
     @Override
     public void applyEffect() {
-        world.getJoueur().setSpeed(world.getJoueur().getSpeed()*2);
+        world.getJoueur().setSpeed(world.getJoueur().getSpeed()*1.5f);
     }
 
     @Override
     public void reverseEffect() {
-        world.getJoueur().setSpeed(world.getJoueur().getSpeed()/2);
+        world.getJoueur().setSpeed(world.getJoueur().getSpeed()/1.5f);
     }
 
     @Override

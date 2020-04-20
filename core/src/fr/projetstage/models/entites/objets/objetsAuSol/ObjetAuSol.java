@@ -52,9 +52,7 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
 
 
     @Override
-    public void draw(SpriteBatch batch) {
-
-    }
+    public abstract void draw(SpriteBatch batch);
 
     @Override
     public void reverseEffect(){

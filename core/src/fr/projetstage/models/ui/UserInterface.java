@@ -30,25 +30,25 @@ public class UserInterface {
      * Indique ce qu'il faut dessiner dans le monde
      * @param batch la liste d'affichage
      */
-    public void draw(SpriteBatch batch, boolean switchedWeapon){
+    public void draw(SpriteBatch batch){
         stage.act();
         stage.draw();
 
         batch.begin();
         // Affiche l'arme selectionnée
-        if(switchedWeapon){ //arc
-            batch.draw(TextureFactory.getInstance().getBowUI(), 0, gameWorld.getHauteur()-3-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
+        if(gameWorld.getJoueur().isSwitchedWeapon()){ // Epee
+            batch.draw(TextureFactory.getInstance().getSwordUI(),-1,gameWorld.getHauteur()-4-screenOffset,1,1);
         }
-        else{ //epee
-            batch.draw(TextureFactory.getInstance().getSwordUI(),0,gameWorld.getHauteur()-3-screenOffset,1,1);
+        else{ // Arc
+            batch.draw(TextureFactory.getInstance().getBowUI(), -1, gameWorld.getHauteur()-4-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
         }
 
 
         // Affiche les PV du joueur
-        int cpt = 1;
+        int cpt = 0;
         //Coeurs plein
         for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
-            batch.draw(TextureFactory.getInstance().getCoeurPlein(),i+1,gameWorld.getHauteur()-3-screenOffset,1,1);
+            batch.draw(TextureFactory.getInstance().getCoeurPlein(), i,gameWorld.getHauteur()-3-screenOffset,1,1);
             cpt++;
         }
         //Coeur à moitié plein
@@ -61,6 +61,12 @@ public class UserInterface {
             batch.draw(TextureFactory.getInstance().getCoeurVide(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
             cpt++;
         }
+
+
+        batch.draw(TextureFactory.getInstance().getArrowUI(), -1, gameWorld.getHauteur()-5-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
+
+        //Affichage texte
+
 
         batch.end();
     }
