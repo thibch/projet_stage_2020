@@ -25,6 +25,9 @@ public class Coffre extends ObjetsTousTypes {
 
     private final Animation animation;
 
+    private float decalageY;
+    private boolean flotteVersLeBas;
+
     /**
      * Créé un Coffre avec une hitbox
      * @param world le world
@@ -38,6 +41,9 @@ public class Coffre extends ObjetsTousTypes {
         open = false;
         openAndTook = false;
         openTime = 0f;
+
+        decalageY = 0f;
+
 
         float largeur = 5f/16f;
         float hauteur = 5f/16f;
@@ -84,6 +90,19 @@ public class Coffre extends ObjetsTousTypes {
         //move objet
         if(open){
             openTime += Gdx.graphics.getDeltaTime();
+
+            //Pour faire floter la potion
+            if(flotteVersLeBas){
+                decalageY -= Gdx.graphics.getDeltaTime()*0.1;
+                if(decalageY <= -0.5f/16f){
+                    flotteVersLeBas = false;
+                }
+            }else{
+                decalageY += Gdx.graphics.getDeltaTime()*0.1;
+                if(decalageY >= 1f/16f){
+                    flotteVersLeBas = true;
+                }
+            }
         }
         super.update();
     }
@@ -110,7 +129,7 @@ public class Coffre extends ObjetsTousTypes {
         }else{
             batch.draw(TextureFactory.getInstance().getCoffreOpen(), body.getPosition().x, body.getPosition().y, 1,1);
             if(!openAndTook){
-                batch.draw(objet.getTexture(), body.getPosition().x, body.getPosition().y, 1, 1);
+                batch.draw(objet.getTexture(), body.getPosition().x, body.getPosition().y + decalageY, 1, 1);
             }
         }
     }
