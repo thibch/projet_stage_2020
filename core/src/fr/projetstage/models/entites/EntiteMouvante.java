@@ -96,10 +96,10 @@ public abstract class EntiteMouvante implements Entite {
 
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch, float x, float y){
         //Animation de la mort
         if(mort && !mortAnimFinie){
-            batch.draw(animationMort.getFrame(false, false), body.getPosition().x, body.getPosition().y, 1, 1);
+            batch.draw(animationMort.getFrame(false, false), x + body.getPosition().x, y + body.getPosition().y, 1, 1);
         }
     }
 

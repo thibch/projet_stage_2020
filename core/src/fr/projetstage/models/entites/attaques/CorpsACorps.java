@@ -57,9 +57,21 @@ public class CorpsACorps extends Attaque{
         return duration;
     }
 
-    public void draw(SpriteBatch batch) {
+    @Override
+    public void attaque(Body bodyParent, Orientation direction) {
+
+        epee = new Epee(gameWorld, bodyParent, longueur, largeur, direction);
+
+        animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, duration+0.2f);
+        isRunning = true;
+        startAngle = tabAngles[direction.getIndice()];
+        currentAngle = startAngle;
+    }
+
+    @Override
+    public void draw(SpriteBatch batch, float x, float y) {
         animation.update();
-        epee.draw(batch);
+        epee.draw(batch, x, y);
         // batch.draw(animation.getFrame(false,false),body.getPosition().x,body.getPosition().y,1,1);
         /*
         if(flipX){
@@ -76,17 +88,5 @@ public class CorpsACorps extends Attaque{
             }
         }
         */
-    }
-
-
-    @Override
-    public void attaque(Body bodyParent, Orientation direction) {
-
-        epee = new Epee(gameWorld, bodyParent, longueur, largeur, direction);
-
-        animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, duration+0.2f);
-        isRunning = true;
-        startAngle = tabAngles[direction.getIndice()];
-        currentAngle = startAngle;
     }
 }

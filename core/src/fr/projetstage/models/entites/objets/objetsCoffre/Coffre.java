@@ -122,14 +122,14 @@ public class Coffre extends ObjetsTousTypes {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float x, float y) {
         animation.update();
         if(!open){
-            batch.draw(animation.getFrame(false, false), body.getPosition().x, body.getPosition().y, 1,1);
+            batch.draw(animation.getFrame(false, false), x + body.getPosition().x, y + body.getPosition().y, 1,1);
         }else{
-            batch.draw(TextureFactory.getInstance().getCoffreOpen(), body.getPosition().x, body.getPosition().y, 1,1);
+            batch.draw(TextureFactory.getInstance().getCoffreOpen(), x + body.getPosition().x, y + body.getPosition().y, 1,1);
             if(!openAndTook){
-                batch.draw(objet.getTexture(), body.getPosition().x, body.getPosition().y + decalageY, 1, 1);
+                batch.draw(objet.getTexture(), x + body.getPosition().x, y + body.getPosition().y + decalageY, 1, 1);
             }
         }
     }

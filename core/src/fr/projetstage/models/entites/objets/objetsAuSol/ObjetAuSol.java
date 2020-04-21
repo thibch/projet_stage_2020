@@ -3,8 +3,6 @@ package fr.projetstage.models.entites.objets.objetsAuSol;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
@@ -52,7 +50,7 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
 
 
     @Override
-    public abstract void draw(SpriteBatch batch);
+    public abstract void draw(SpriteBatch batch, float x, float y);
 
     @Override
     public void reverseEffect(){

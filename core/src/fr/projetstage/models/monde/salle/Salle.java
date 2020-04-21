@@ -2,42 +2,29 @@ package fr.projetstage.models.monde.salle;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
-import fr.projetstage.models.Orientation;
-import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
-import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
-import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
-import fr.projetstage.models.entites.objets.objetsCoffre.Coffre;
-import fr.projetstage.models.entites.objets.objetsCoffre.PotionJaune;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.meubles.Biblio;
-import fr.projetstage.models.monde.salle.meubles.GrandeTable;
-import fr.projetstage.models.monde.salle.meubles.PetiteTable;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class Salle {
+public abstract class Salle {
 
-    private final int largeur;
-    private final int hauteur;
+    protected final int largeur;
+    protected final int hauteur;
 
-    private ArrayList<Entite> tileMap;
-    private ArrayList<Prop> props;
-    private ArrayList<Entite> meubles;
-    private HashMap<Integer, Ennemi> ennemis;
-    private int nbEnnemis;
-    private int nbObjetAuSols;
-    private HashMap<Integer, ObjetsTousTypes> objets;
+    protected ArrayList<Entite> tileMap;
+    protected ArrayList<Prop> props;
+    protected ArrayList<Entite> meubles;
+    protected HashMap<Integer, Ennemi> ennemis;
+    protected HashMap<Integer, ObjetsTousTypes> objets;
 
-    private final GameWorld world;
+    protected final GameWorld world;
 
     /**
      * Salle généré avec un body Static et des portes pour sortir
@@ -48,6 +35,12 @@ public class Salle {
         this.hauteur = hauteur;
         this.largeur = largeur;
         this.world = world;
+
+        tileMap = new ArrayList<>();
+        props = new ArrayList<>();
+        meubles = new ArrayList<>();
+        ennemis = new HashMap<>();
+        objets = new HashMap<>();
 
         genererSalle();
     }
@@ -82,7 +75,7 @@ public class Salle {
         }
     }
 
-    public void draw(SpriteBatch listeAffImg) {
+    public void draw(SpriteBatch listeAffImg, float x, float y) {
 
         Texture tmpWallCorner = TextureFactory.getInstance().getMurAngle();
         Texture tmpWallBorder = TextureFactory.getInstance().getBordureMur();
@@ -90,128 +83,68 @@ public class Salle {
 
         // dessine mur et sol
         for(Entite tile : tileMap){
-            tile.draw(listeAffImg);
+            tile.draw(listeAffImg, x, y);
         }
         // objets sur les murs
         for(Prop prop : props){
-            prop.draw(listeAffImg);
+            prop.draw(listeAffImg, x, y);
         }
 
         for(Entite meuble : meubles){
-            meuble.draw(listeAffImg);
+            meuble.draw(listeAffImg, x, y);
         }
 
         for(Entite monstre : ennemis.values()){
-            monstre.draw(listeAffImg);
+            monstre.draw(listeAffImg, x, y);
         }
 
         for(Entite obj : objets.values()){
-            obj.draw(listeAffImg);
+            obj.draw(listeAffImg, x, y);
         }
 
-        for(int y = 0; y < hauteur;y++){
+        for(int i = 0; i < hauteur; i++){
             // genere le mur de gauche (sur x == 1)
-            listeAffImg.draw(tmpWallBorder, -1, y, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+            listeAffImg.draw(tmpWallBorder, x-1, y + i, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
 
             // genere le mur de droite (sur x == largeur - 2)
-            listeAffImg.draw(tmpWallBorder,largeur+1, (1 + y), 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+            listeAffImg.draw(tmpWallBorder,x + largeur+1, y + (1 + i), 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
         }
 
-        for (int x = 0; x < largeur; x++) {
+        for (int i = 0; i < largeur; i++) {
             // genere le mur du haut (sur y == hauteur-2)
-            listeAffImg.draw(tmpWallBorder, x,hauteur+1, 1, 1);
+            listeAffImg.draw(tmpWallBorder, x + i,y + hauteur+1, 1, 1);
 
             // genere le mur du bas (sur y == 1)
-            listeAffImg.draw(tmpWallBorder,(1+x), -1,0,0, 1, 1,1,1,180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+            listeAffImg.draw(tmpWallBorder, x + (1+i), y - 1,0,0, 1, 1,1,1,180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
         }
 
         // coin haut gauche
-        listeAffImg.draw(tmpWallBorderCorner, -2,(hauteur+1), 1, 1);
-        listeAffImg.draw(tmpWallBorder, -1, (hauteur), 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder, -1,(hauteur+1), 1, 1);
-        listeAffImg.draw(tmpWallCorner, -1,(hauteur), 1, 1);
+        listeAffImg.draw(tmpWallBorderCorner, x - 2, y + (hauteur+1), 1, 1);
+        listeAffImg.draw(tmpWallBorder, x - 1, y + hauteur, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder, x - 1, y + (hauteur+1), 1, 1);
+        listeAffImg.draw(tmpWallCorner, x - 1, y + hauteur, 1, 1);
 
         // coin haut droite
-        listeAffImg.draw(tmpWallBorderCorner, (largeur+1), hauteur+2, 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorderCorner.getWidth(), tmpWallBorderCorner.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder, (largeur+1), (hauteur+1), 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder,(largeur),(hauteur+1), 1, 1);
-        listeAffImg.draw(tmpWallCorner, (largeur), (hauteur+1), 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorderCorner, x + (largeur+1), y + hauteur+2, 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorderCorner.getWidth(), tmpWallBorderCorner.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder, x + (largeur+1), y + (hauteur+1), 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder, x + largeur, y + (hauteur+1), 1, 1);
+        listeAffImg.draw(tmpWallCorner, x + largeur, y + (hauteur+1), 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
 
         // coin bas droite
-        listeAffImg.draw(tmpWallBorderCorner, largeur+2, -1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorderCorner.getWidth(), tmpWallBorderCorner.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder, (largeur+1), 0, 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder, (largeur+1), -1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
-        listeAffImg.draw(tmpWallCorner, (largeur+1), 0, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorderCorner, x + largeur+2, y-1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorderCorner.getWidth(), tmpWallBorderCorner.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder,x +  (largeur+1), y, 0, 0, 1, 1, 1, 1, -90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder,x +  (largeur+1), y-1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallCorner,x +  (largeur+1), y, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
 
         // coin bas gauche
-        listeAffImg.draw(tmpWallBorderCorner, -1, -2, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorderCorner.getWidth(), tmpWallBorderCorner.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder, -1, -1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
-        listeAffImg.draw(tmpWallBorder, 0, -1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
-        listeAffImg.draw(tmpWallCorner, 0, -1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorderCorner, x-1, y-2, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorderCorner.getWidth(), tmpWallBorderCorner.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder, x-1, y-1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallBorder, x, y-1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+        listeAffImg.draw(tmpWallCorner, x, y-1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
     }
 
-    public void genererSalle(){
-        tileMap = new ArrayList<>();
-        props = new ArrayList<>();
 
-        // Mur Gauche et Droite
-        for(int y = 0; y < hauteur;y++){
-            tileMap.add(new Mur(world, new Vector2(-1, y), fr.projetstage.models.Orientation.GAUCHE,getRandomWall()));
-            tileMap.add(new Mur(world, new Vector2((largeur), y), fr.projetstage.models.Orientation.DROITE,getRandomWall()));
-        }
-
-        // Mur Haut et Bas
-        for (int x = 0; x < largeur; x++) {
-            tileMap.add(new Mur(world, new Vector2(x, (hauteur)), fr.projetstage.models.Orientation.HAUT,getRandomWall()));
-            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS,getRandomWall()));
-        }
-
-        // parcours tout les murs et ajoute aléatoirement des props si le mur est de type 1
-        Mur tmp;
-        TypeProp tmpAlea;
-        for(Entite mur : tileMap){
-            tmp = (Mur) mur;
-            if(tmp.getNumMur() == TypeMur.MUR1){
-                tmpAlea = getRandomProps();
-                if(tmpAlea != null){
-                    props.add(new Prop(tmp.getPos(),tmp.getOrientation(),tmpAlea));
-                }
-            }
-        }
-
-
-        // le sol
-        for(int x = 0; x < largeur; x++){
-            for(int y = 0; y < hauteur; y++){
-                tileMap.add(new Sol(new Vector2(x,y),getRandomGround()));
-            }
-        }
-
-
-        meubles = new ArrayList<>();
-
-        meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));
-        meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
-        meubles.add(new PetiteTable(world, new Vector2(5, 3)));
-        meubles.add(new GrandeTable(world, new Vector2(5, 5)));
-
-        ennemis = new HashMap<>();
-        nbEnnemis = 0;
-        //piege
-        ennemis.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbEnnemis++)));
-
-        //monstres
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-
-
-        objets = new HashMap<>();
-        nbObjetAuSols = 0;
-
-        objets.put(nbObjetAuSols, new PotionRouge(world, new Vector2(7,7), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new PotionJaune(world), nbObjetAuSols++));
-
-    }
+    public abstract void genererSalle();
 
     public int getLargeur() {
         return largeur;

@@ -12,7 +12,7 @@ public class ChauveSouris extends Ennemi{
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float x, float y) {
 
     }
 

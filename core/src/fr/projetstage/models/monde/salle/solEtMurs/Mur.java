@@ -53,8 +53,8 @@ public class Mur implements Entite{
         rectangle.dispose();
     }
 
-    public void draw(SpriteBatch batch){
-        batch.draw(numMur.getTexture(), body.getPosition().x, body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numMur.getTexture().getWidth(), numMur.getTexture().getHeight(), false, false);
+    public void draw(SpriteBatch batch, float x, float y){
+        batch.draw(numMur.getTexture(), x + body.getPosition().x, y + body.getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numMur.getTexture().getWidth(), numMur.getTexture().getHeight(), false, false);
     }
 
     public TypeMur getNumMur() {

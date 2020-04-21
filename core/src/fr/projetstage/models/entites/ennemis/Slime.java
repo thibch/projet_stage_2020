@@ -94,20 +94,21 @@ public class Slime extends Ennemi {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float x, float y) {
         if(!mort){
             if(body.getLinearVelocity().isZero(0.1f)){
                 idleAnimation.update();
-                batch.draw(idleAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
+                batch.draw(idleAnimation.getFrame(world.getJoueur().getX() < getX(), false), x + getX(), y + getY(), 1, 1);
             }// Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
             else{
                 runningAnimation.update();
-                batch.draw(runningAnimation.getFrame(world.getJoueur().getX() < getX(), false), getX(), getY(), 1, 1);
+                batch.draw(runningAnimation.getFrame(world.getJoueur().getX() < getX(), false), x + getX(), y + getY(), 1, 1);
             }
         }
-        super.draw(batch);
+        super.draw(batch, x, y);
     }
 
+    @Override
     public void update() {
         super.update();
         comportement.update();

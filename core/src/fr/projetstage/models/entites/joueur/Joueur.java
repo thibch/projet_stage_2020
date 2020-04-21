@@ -189,32 +189,31 @@ public class Joueur extends EntiteMouvante {
 
 
     @Override
-    public void draw(SpriteBatch listeAffImg) {
-
+    public void draw(SpriteBatch listeAffImg, float x, float y) {
 
         // Si on est proche de l'arret (0 déplacement du joueur)
         // Alors on met à jour l'animation et on l'affiche
         if(body.getLinearVelocity().isZero(0.1f)){
             idleAnimation.update();
-            listeAffImg.draw(idleAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
+            listeAffImg.draw(idleAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), x + getX(), y + getY(), 1, 1);
         }// Sinon on met à jour l'animation du run (en faisant attention si on est sur la gauche ou droite)
         else{
             runningAnimation.update();
-            listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), getX(), getY(), 1, 1);
+            listeAffImg.draw(runningAnimation.getFrameFlipX(lastDirection == Orientation.GAUCHE), x + getX(), y + getY(), 1, 1);
         }
 
         if(attaqueDistance.isChargingAndHaveMunitions()){
-            attaqueDistance.draw(listeAffImg);
+            attaqueDistance.draw(listeAffImg, x, y);
         }
 
         // On affiche toute les flèches
         for(Fleche fleche: projectiles){
-            fleche.draw(listeAffImg);
+            fleche.draw(listeAffImg, x, y);
         }
 
         // Demande l'animation de l'épée
         if(attaqueCaC.isRunning()){
-            attaqueCaC.draw(listeAffImg);
+            attaqueCaC.draw(listeAffImg, x, y);
         }
 
     }

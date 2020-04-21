@@ -9,7 +9,7 @@ public abstract class Projectile extends EntiteMouvante {
     private double dureeVie; // A détermnier en fonction de la portée et vitesse d'attaque (Classe Attaque)
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float x, float y) {
 
     }
 

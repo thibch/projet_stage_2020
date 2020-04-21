@@ -18,7 +18,7 @@ public class Prop implements Entite{
         pos = position;
     }
 
-    public void draw(SpriteBatch batch){
-        batch.draw(numProp.getTexture(), pos.x, pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numProp.getTexture().getWidth(), numProp.getTexture().getHeight(), false, false);
+    public void draw(SpriteBatch batch, float x, float y){
+        batch.draw(numProp.getTexture(), x + pos.x, y + pos.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numProp.getTexture().getWidth(), numProp.getTexture().getHeight(), false, false);
     }
 }

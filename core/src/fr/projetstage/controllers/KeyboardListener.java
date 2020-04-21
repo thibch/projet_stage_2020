@@ -9,7 +9,7 @@ import fr.projetstage.models.Orientation;
 
 public class KeyboardListener implements InputProcessor {
 
-    private boolean quit = false;
+    private boolean next = false;
     private boolean afficheDebug = false;
     private boolean switchWeapon = false;
     private Vector2 acceleration = new Vector2(0f, 0f);
@@ -24,8 +24,8 @@ public class KeyboardListener implements InputProcessor {
         direction = Orientation.NO_ORIENTATION;
     }
 
-    public boolean isQuit() {
-        return quit;
+    public boolean isNext() {
+        return next;
     }
 
     public boolean isAfficheDebug() {
@@ -51,7 +51,7 @@ public class KeyboardListener implements InputProcessor {
                 SoundFactory.getInstance().playsoundDeath(100);
                 break;
             case Input.Keys.ESCAPE:
-                quit = true;
+                //next = true;
                 break;
             case Input.Keys.LEFT:
                 direction = Orientation.GAUCHE;
@@ -83,6 +83,8 @@ public class KeyboardListener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
+        next = keycode == Input.Keys.ESCAPE;
+
         if (keycode == Input.Keys.J) {
             afficheDebug = !afficheDebug;
         }

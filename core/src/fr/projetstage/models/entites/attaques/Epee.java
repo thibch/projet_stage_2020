@@ -92,8 +92,8 @@ public class Epee extends Projectile{
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
-        super.draw(batch);
-        batch.draw(TextureFactory.getInstance().getEpee(), bodyParent.getPosition().x+0.3f, body.getPosition().y+0.1f, 0.25f, 0, 0.5f, 1, 1, 1, (body.getAngle()*(180/3.1415926f))+(angle[direction.getIndice()]+direction.getRotation()),0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
+    public void draw(SpriteBatch batch, float x, float y) {
+        super.draw(batch, x, y);
+        batch.draw(TextureFactory.getInstance().getEpee(), x + bodyParent.getPosition().x + 0.3f, y + body.getPosition().y + 0.1f, 0.25f, 0, 0.5f, 1, 1, 1, (body.getAngle()*(180/3.1415926f))+(angle[direction.getIndice()]+direction.getRotation()),0,0,TextureFactory.getInstance().getEpee().getWidth(), TextureFactory.getInstance().getEpee().getHeight(), false, false);
     }
 }

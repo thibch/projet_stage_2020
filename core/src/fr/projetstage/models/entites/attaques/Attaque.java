@@ -2,9 +2,10 @@ package fr.projetstage.models.entites.attaques;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
+import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 
-public abstract class Attaque {
+public abstract class Attaque implements Entite {
 
     /**
      * Lorsque l'on attaque au Corps à Corps

@@ -26,9 +26,6 @@ public class AttaqueDistance extends Attaque {
 
     private int munition;
 
-
-
-
     public AttaqueDistance(GameWorld world, float largeurFleche, float hauteurFleche, float tempsCharge){
         this.world = world;
         this.largeurFleche = largeurFleche;
@@ -88,10 +85,10 @@ public class AttaqueDistance extends Attaque {
         animation.updateLast();
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch, float x, float y){
         TextureRegion text = animation.getFrame(false, direction == Orientation.HAUT || direction == Orientation.DROITE);
-        batch.draw(text, position.x, position.y, 0.5f,0.5f,text.getRegionWidth()/16f, text.getRegionHeight()/16f, 1,1,direction.getRotation() + 90);
-        fleche.draw(batch);
+        batch.draw(text, x + position.x, y + position.y, 0.5f,0.5f,text.getRegionWidth()/16f, text.getRegionHeight()/16f, 1,1,direction.getRotation() + 90);
+        fleche.draw(batch, x, y);
     }
 
 }

@@ -11,7 +11,7 @@ public class Biblio extends NonDestructible {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
-        batch.draw(TextureFactory.getInstance().getBibliotheque(), body.getPosition().x, body.getPosition().y, tailleX, tailleY);
+    public void draw(SpriteBatch batch, float x, float y) {
+        batch.draw(TextureFactory.getInstance().getBibliotheque(), x + body.getPosition().x, y + body.getPosition().y, tailleX, tailleY);
     }
 }

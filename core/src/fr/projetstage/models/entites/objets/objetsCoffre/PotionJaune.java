@@ -28,7 +28,7 @@ public class PotionJaune extends ObjetDansCoffre {
     }
 
     @Override
-    public void draw(SpriteBatch batch) {
+    public void draw(SpriteBatch batch, float x, float y) {
         //Utile pour l'affichage dans l'interface (Et non dans le monde, voir le call de getTexture() pour ça)
     }
 }

@@ -7,7 +7,6 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
-import fr.projetstage.models.Entite;
 import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.ennemis.Ennemi;
@@ -66,8 +65,8 @@ public class Piege extends Ennemi {
         rectangle.dispose();
     }
 
-    public void draw(SpriteBatch batch) {
-        batch.draw(animation.getFrame(false, false), body.getPosition().x, body.getPosition().y, 1, 1);
+    public void draw(SpriteBatch batch, float x, float y) {
+        batch.draw(animation.getFrame(false, false), x + body.getPosition().x, y + body.getPosition().y, 1, 1);
         animation.update();
     }
 
