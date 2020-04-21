@@ -22,11 +22,15 @@ public class UserInterface {
     private PauseScreen pauseScreen;
 
     private GameOverScreen gameOverScreen;
+    private boolean isGameOver = false;
+
+    private boolean goToMainMenu = false;
 
     private Text munitions;
 
     /**
-     * Classe qui génère l'UI du jeu
+     * Constructeur de l'interface en jeu
+     * @param gameWorld avec lequel l'interface communique
      */
     public UserInterface(GameWorld gameWorld){
         stage = new Stage();
@@ -35,7 +39,7 @@ public class UserInterface {
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
         pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY,this);
 
-        gameOverScreen = new GameOverScreen();
+        gameOverScreen = new GameOverScreen(stage,this);
         pauseScreen = new PauseScreen(stage, this);
         munitions = new Text("", 65, Color.WHITE, new Vector2(1.4f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), true);
     }
@@ -93,7 +97,8 @@ public class UserInterface {
 
         //Affiche les menus
         stage.getBatch().begin();
-        if(gameWorld.getJoueur().getPointDeVie() <= 0){
+        isGameOver = gameWorld.getJoueur().getPointDeVie() <= 0;
+        if(isGameOver){
             gameOverScreen.draw(stage.getBatch());
         }
         else{
@@ -104,20 +109,57 @@ public class UserInterface {
         stage.draw();
     }
 
+    /**
+     * methode permettant d'obetnir le stage de l'interface
+     * @return le Stage de l'interface
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Methode permettant de recuperer l'état du jeu en pause
+     * @return un booléen, vrai si le jeu est en pause.
+     */
     public boolean isPaused(){
         return isPaused;
     }
 
+    /**
+     * Methode permettant de recuperer l'état du jeu de gameover
+     * @return un booléen, vrai si le joueur est mort.
+     */
+    public boolean isGameOver() { return isGameOver; }
+
+    /**
+     * Methode permettant de changer l'état de pause du jeu
+     * @param bool le nouvel étatde pause, vrai = en pause
+     */
     public void setPause(boolean bool){
         isPaused = bool;
     }
 
+    /**
+     * Permet au bouton "main menu" d'indiquer que le joueur veut retourner à l'écran titre
+     */
+    public void setGoToMainMenu(){
+        goToMainMenu = true;
+    }
+
+    /**
+     * Methode permettant a l'écran de jeu de savoir si le joueur à cliquer sur un bouton deretour à l'écran titre
+     * @return un booléen, vrai si le joueur désire aller à l'écran titre
+     */
+    public boolean goToMainMenu(){
+        return goToMainMenu;
+    }
+
+    /**
+     * methode permettant de liberer la mémoire à la destruction.
+     */
     public void dispose() {
         stage.dispose();
         gameOverScreen.dispose();
+        pauseScreen.dispose();
     }
 }

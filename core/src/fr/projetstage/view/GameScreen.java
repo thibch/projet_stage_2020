@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
 import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
@@ -15,10 +16,14 @@ import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.ui.UserInterface;
 
+import java.util.Random;
+
 /**
  * Classe s'occupant de l'affichage du jeu
  */
 public class GameScreen extends ScreenAdapter {
+
+    private ProjetStage mainStage;
 
     private OrthographicCamera cameraEnv;
     private final SpriteBatch listeAffEnv;
@@ -45,14 +50,19 @@ public class GameScreen extends ScreenAdapter {
     /**
      * initialise une partie de jeu
      */
-    public GameScreen(){
+    public GameScreen(ProjetStage mainStage){
+        this(mainStage, "Bob", new Random().nextInt());
+    }
+
+    public GameScreen(ProjetStage mainStage,String name, int seed){
+        this.mainStage = mainStage;
         currentTime = 0;
         listeAffEnv = new SpriteBatch();
         listeAffUI = new SpriteBatch();
 
         box2DDebugRenderer = new Box2DDebugRenderer();
 
-        gameWorld = new GameWorld();
+        gameWorld = new GameWorld(seed);
         userInterface = new UserInterface(gameWorld);
 
         keyboardListener = new KeyboardListener();
@@ -113,7 +123,7 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      * @param delta le temps d'actualisation de l'affichage
      */
-    public void update(float delta){
+    public void update(){
         next = next || keyboardListener.isNext();
 
         if(keyboardListener.isNext()){ // One time Boolean TODO: (A changer)
@@ -144,7 +154,7 @@ public class GameScreen extends ScreenAdapter {
             cameraEnv.update();
         }
 
-        if(gameWorld.getJoueur().getPointDeVie() > 0 && !userInterface.isPaused()){
+        if(!userInterface.isGameOver() && !userInterface.isPaused()){
             Vector2 force = keyboardListener.getAcceleration();
 
             gameWorld.getJoueur().move(force);
@@ -153,6 +163,9 @@ public class GameScreen extends ScreenAdapter {
             gameWorld.getJoueur().update(keyboardListener.getDirection());
             gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
             gameWorld.update();
+        }
+        if(userInterface.goToMainMenu()){
+            mainStage.create();
         }
     }
 

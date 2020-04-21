@@ -1,6 +1,5 @@
 package fr.projetstage.models.monde;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -9,7 +8,6 @@ import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.joueur.Joueur;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.monde.salle.Salle;
-import fr.projetstage.view.GameScreen;
 
 import java.util.Random;
 
@@ -27,12 +25,12 @@ public class GameWorld {
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
      */
-    public GameWorld(){
+    public GameWorld(int seed){
         estEnTransition = false;
         // monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
         // seed
-        random = new Random();
+        random = new Random(seed);
 
         etage = new Etage(this);
 
