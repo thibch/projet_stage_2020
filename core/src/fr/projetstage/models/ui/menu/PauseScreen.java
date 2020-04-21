@@ -18,6 +18,11 @@ public class PauseScreen implements Menu{
     private MenuButton continueBtn;
     private MenuButton mainMenu;
 
+    /**
+     * Conctructeur de l'écran de pause
+     * @param stage le stage dans lequel les boutons sont acteurs
+     * @param userInterface l'UserInterface pour la communication des boutons avec le jeu
+     */
     public PauseScreen(Stage stage, UserInterface userInterface){
         this.userInterface = userInterface;
         pause = new Text("Pause", 160, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/2f,3*(Gdx.graphics.getHeight()/4f)),true);
@@ -28,6 +33,10 @@ public class PauseScreen implements Menu{
         mainMenu.displayBtn(false);
     }
 
+    /**
+     * Méthode permettant d'afficher les éléments du menu
+     * @param batch un Batch pour afficher les éléments
+     */
     public void draw(Batch batch){
         continueBtn.displayBtn(userInterface.isPaused());
         mainMenu.displayBtn(userInterface.isPaused());
@@ -37,11 +46,19 @@ public class PauseScreen implements Menu{
         }
     }
 
+    /**
+     * Methode permettant de libérer la mémoire
+     */
     public void dispose() {
         continueBtn.dispose();
         mainMenu.dispose();
+        pause.dispose();
     }
 
+    /**
+     * Methode permettant a un bouton de signaler qu'il a été cliqué
+     * @param btnText le nom du bouton qui a été cliqué
+     */
     @Override
     public void onClick(String btnText) {
         if(btnText.equals("Continue")){

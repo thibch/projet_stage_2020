@@ -17,6 +17,14 @@ public class Text{
     private BitmapFont fontText;
     private GlyphLayout layout;
 
+    /**
+     * Constructeur de la classe Text permettant d'afficher du texte à l'écran
+     * @param text un String à afficher.
+     * @param size la taille de la police
+     * @param color la couleur de la police
+     * @param position la positon du texte à l'écran
+     * @param centerText un booleen pour centrer le texte ou non
+     */
     public Text(String text, int size, Color color, Vector2 position, boolean centerText){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/BitPotionExt.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
@@ -35,18 +43,25 @@ public class Text{
         }
     }
 
+    /**
+     * Methode pour changer le texte
+     * @param textContent un String du nouveau texte
+     */
     public void setTextContent(String textContent){
         this.textContent = textContent;
     }
 
+    /**
+     * methode permettant de dessiner les différents éléments constituant l'écran de gameover.
+     * @param batch un Batch dans lequel afficher les elements
+     */
     public void draw(Batch batch){
         fontText.draw(batch, textContent, position.x, position.y);
     }
 
-    public void setPosition(Vector2 position){
-        this.position = position;
-    }
-
+    /**
+     * methode permettant de liberer la mémoire à la destruction.
+     */
     public void dispose() {
         fontText.dispose();
     }

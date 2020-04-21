@@ -29,7 +29,8 @@ public class UserInterface {
     private Text munitions;
 
     /**
-     * Classe qui génère l'UI du jeu
+     * Constructeur de l'interface en jeu
+     * @param gameWorld avec lequel l'interface communique
      */
     public UserInterface(GameWorld gameWorld){
         stage = new Stage();
@@ -108,30 +109,57 @@ public class UserInterface {
         stage.draw();
     }
 
+    /**
+     * methode permettant d'obetnir le stage de l'interface
+     * @return le Stage de l'interface
+     */
     public Stage getStage() {
         return stage;
     }
 
+    /**
+     * Methode permettant de recuperer l'état du jeu en pause
+     * @return un booléen, vrai si le jeu est en pause.
+     */
     public boolean isPaused(){
         return isPaused;
     }
 
+    /**
+     * Methode permettant de recuperer l'état du jeu de gameover
+     * @return un booléen, vrai si le joueur est mort.
+     */
     public boolean isGameOver() { return isGameOver; }
 
+    /**
+     * Methode permettant de changer l'état de pause du jeu
+     * @param bool le nouvel étatde pause, vrai = en pause
+     */
     public void setPause(boolean bool){
         isPaused = bool;
     }
 
+    /**
+     * Permet au bouton "main menu" d'indiquer que le joueur veut retourner à l'écran titre
+     */
     public void setGoToMainMenu(){
         goToMainMenu = true;
     }
 
+    /**
+     * Methode permettant a l'écran de jeu de savoir si le joueur à cliquer sur un bouton deretour à l'écran titre
+     * @return un booléen, vrai si le joueur désire aller à l'écran titre
+     */
     public boolean goToMainMenu(){
         return goToMainMenu;
     }
 
+    /**
+     * methode permettant de liberer la mémoire à la destruction.
+     */
     public void dispose() {
         stage.dispose();
         gameOverScreen.dispose();
+        pauseScreen.dispose();
     }
 }

@@ -10,12 +10,17 @@ import fr.projetstage.dataFactories.TextureFactory;
 
 public class PauseButton {
 
-    private UserInterface userInterface;
-
     private final ImageButton imageButton;
 
+    /**
+     * Constructeur du bouton de pause (ce bouton est une exception car il n'appartient à aucun Menu)
+     * @param stage le stage dans lequel le bouton est acteur
+     * @param position un Vector2 de la position du bouton
+     * @param width un float definissant la largeur du bouton
+     * @param height un float definissant la hauteur du bouton
+     * @param userInterface l'UserInterface avec laquelle communique le bouton
+     */
     public PauseButton(Stage stage, Vector2 position, float width, float height, UserInterface userInterface){
-        this.userInterface = userInterface;
         imageButton = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getPauseBtn()), new TextureRegionDrawable(TextureFactory.getInstance().getPauseBtnPressed()));
         imageButton.getImage().setFillParent(true);
         imageButton.setPosition(position.x, position.y);

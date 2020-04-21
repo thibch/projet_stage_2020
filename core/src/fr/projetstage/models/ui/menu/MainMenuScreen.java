@@ -32,6 +32,10 @@ public class MainMenuScreen implements Menu{
 
     private boolean isBeginClicked = false;
 
+    /**
+     * Constructeur du menu principal du jeu
+     * @param stage le stage dans lequel afficher les éléments de l'interface.
+     */
     public MainMenuScreen(Stage stage){
         textList = new ArrayList<>();
         title = new Text("Projet Stage 2020", 160, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/2f,3*(Gdx.graphics.getHeight()/4f)),true);
@@ -58,6 +62,10 @@ public class MainMenuScreen implements Menu{
         startGameBtn.displayBtn(false);
     }
 
+    /**
+     * Méthode permettant d'afficher les éléments du menu
+     * @param batch un Batch pour afficher les éléments
+     */
     public void draw(Batch batch){
         title.draw(batch);
         for (Text text: textList) {
@@ -65,6 +73,9 @@ public class MainMenuScreen implements Menu{
         }
     }
 
+    /**
+     * Methode permettant de libérer la mémoire
+     */
     public void dispose() {
         startBtn.dispose();
         quitBtn.dispose();
@@ -75,6 +86,10 @@ public class MainMenuScreen implements Menu{
 
     }
 
+    /**
+     * Methode permettant a un bouton de signaler qu'il a été cliqué
+     * @param btnText le nom du bouton qui a été cliqué
+     */
     @Override
     public void onClick(String btnText) {
         if(btnText.equals("Start")){
@@ -100,10 +115,18 @@ public class MainMenuScreen implements Menu{
         }
     }
 
+    /**
+     * Methode pour récupérer le nom du joueur
+     * @return un String du nom du joueur
+     */
     public String getName(){
         return nameInput.getText();
     }
 
+    /**
+     * Methode pour récuperer la seed entrée ou non par l'utilisateur
+     * @return un entier servant de seed
+     */
     public int getSeed(){
         if(seedInput.getText().isEmpty()){
             return Math.abs(new Random().nextInt());
@@ -111,6 +134,10 @@ public class MainMenuScreen implements Menu{
         return Integer.parseInt(seedInput.getText());
     }
 
+    /**
+     * Methode qui retourne vrai si le bouton "Begin" a été cliqué
+     * @return un booleen a vrai si le bouton "Begin" a été cliqué
+     */
     public boolean isBeginClicked() {
         return isBeginClicked;
     }

@@ -44,6 +44,9 @@ public class Animation {
         }
     }
 
+    /**
+     * Methode de mise à jour utilisée pour l'arc, permettant de le garder bandé.
+     */
     public void updateLast(){
         if(!cycleDone){
             currentFrameTime += Gdx.graphics.getDeltaTime(); // On regarde le temps
@@ -78,10 +81,18 @@ public class Animation {
         return tmp;
     }
 
+    /**
+     * Methode permettant de savoir si une animation a terminé son cycle
+     * @return un booléen à vrai si une animation à été jouée intégralement
+     */
     public boolean isLastFrame(){
         return cycleDone && (currentFrame == 0);
     }
 
+    /**
+     * methode permettant de savoir à quelle frame en est l'animation.
+     * @return un Entier,l'index de la frame que l'animation retournerait
+     */
     public int getCurrentFrameCount(){
         return currentFrame;
     }
