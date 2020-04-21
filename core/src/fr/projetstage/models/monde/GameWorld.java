@@ -20,11 +20,11 @@ public class GameWorld {
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
      */
-    public GameWorld(){
+    public GameWorld(int seed){
         // monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
         // seed
-        random = new Random();
+        random = new Random(seed);
         // in game elements
         salleCourante = new Salle(this,16,10);
         joueur = new Joueur(this, new Vector2(4, 4));

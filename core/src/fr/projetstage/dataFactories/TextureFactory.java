@@ -3,6 +3,7 @@ package fr.projetstage.dataFactories;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * @author Thibault Choné
@@ -50,6 +51,9 @@ public class TextureFactory {
     private static Texture pauseBtnPressed;
     private static Texture btn;
     private static Texture btnPressed;
+    private static Texture inputText;
+    private static Texture textCursor;
+    private static Texture textSelect;
     private static Texture coeurPlein;
     private static Texture coeurMoitie;
     private static Texture coeurVide;
@@ -133,6 +137,9 @@ public class TextureFactory {
         pauseBtnPressed = new Texture(Gdx.files.internal("ui/pause_button_press.png"));
         btn = new Texture(Gdx.files.internal("ui/menu_button.png"));
         btnPressed = new Texture(Gdx.files.internal("ui/menu_button_press.png"));
+        inputText = new Texture(Gdx.files.internal("ui/text_input.png"));
+        textCursor = new Texture(Gdx.files.internal("ui/text_cursor.png"));
+        textSelect = new Texture(Gdx.files.internal("ui/text_selection.png"));
         coeurPlein = new Texture(Gdx.files.internal("ui/filled_heart.png"));
         coeurMoitie = new Texture(Gdx.files.internal("ui/half_heart.png"));
         coeurVide = new Texture(Gdx.files.internal("ui/empty_heart.png"));
@@ -409,6 +416,30 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de saisie de texte
+     * @return Getter pour l'image de saisie de texte
+     */
+    public Texture getInputText() {
+        return inputText;
+    }
+
+    /**
+     * Getter pour l'image de curseur de saisie de texte
+     * @return Getter pour l'image de curseur de saisie de texte
+     */
+    public Texture getTextCursor() {
+        return textCursor;
+    }
+
+    /**
+     * Getter pour l'image de selection de saisie de texte
+     * @return Getter pour l'image de selection de saisie de texte
+     */
+    public Texture getTextSelect() {
+        return textSelect;
+    }
+
+    /**
      * Getter pour l'image d'un coeur plein
      * @return Getter pour l'image d'un coeur plein
      */
@@ -587,7 +618,7 @@ public class TextureFactory {
                 bibliotheque,
                 sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
                 drapeauVert, drapeauRouge, prisoner,
-                background, pauseBtn, pauseBtnPressed, btn, btnPressed, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
+                background, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 epee, fleche,
                 potionRouge, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),

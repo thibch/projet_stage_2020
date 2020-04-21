@@ -22,6 +22,9 @@ public class UserInterface {
     private PauseScreen pauseScreen;
 
     private GameOverScreen gameOverScreen;
+    private boolean isGameOver = false;
+
+    private boolean goToMainMenu = false;
 
     private Text munitions;
 
@@ -35,7 +38,7 @@ public class UserInterface {
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
         pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY,this);
 
-        gameOverScreen = new GameOverScreen();
+        gameOverScreen = new GameOverScreen(stage,this);
         pauseScreen = new PauseScreen(stage, this);
         munitions = new Text("", 65, Color.WHITE, new Vector2(1.4f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), true);
     }
@@ -93,7 +96,8 @@ public class UserInterface {
 
         //Affiche les menus
         stage.getBatch().begin();
-        if(gameWorld.getJoueur().getPointDeVie() <= 0){
+        isGameOver = gameWorld.getJoueur().getPointDeVie() <= 0;
+        if(isGameOver){
             gameOverScreen.draw(stage.getBatch());
         }
         else{
@@ -112,8 +116,18 @@ public class UserInterface {
         return isPaused;
     }
 
+    public boolean isGameOver() { return isGameOver; }
+
     public void setPause(boolean bool){
         isPaused = bool;
+    }
+
+    public void setGoToMainMenu(){
+        goToMainMenu = true;
+    }
+
+    public boolean goToMainMenu(){
+        return goToMainMenu;
     }
 
     public void dispose() {

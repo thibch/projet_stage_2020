@@ -47,6 +47,7 @@ public class MenuButton {
 
         imageButton.addListener(new ClickListener() {
             public void clicked(InputEvent event, float x, float y){
+                imageButton.setChecked(false);
                 menu.onClick(text);
             }
         });

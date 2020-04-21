@@ -16,6 +16,7 @@ public class PauseScreen implements Menu{
     private UserInterface userInterface;
 
     private MenuButton continueBtn;
+    private MenuButton mainMenu;
 
     public PauseScreen(Stage stage, UserInterface userInterface){
         this.userInterface = userInterface;
@@ -23,10 +24,13 @@ public class PauseScreen implements Menu{
 
         continueBtn = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),4*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Continue");
         continueBtn.displayBtn(false);
+        mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Main Menu");
+        mainMenu.displayBtn(false);
     }
 
     public void draw(Batch batch){
         continueBtn.displayBtn(userInterface.isPaused());
+        mainMenu.displayBtn(userInterface.isPaused());
         if(userInterface.isPaused()) {
             batch.draw(TextureFactory.getInstance().getBackground(), 5, 5, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             pause.draw(batch);
@@ -35,12 +39,16 @@ public class PauseScreen implements Menu{
 
     public void dispose() {
         continueBtn.dispose();
+        mainMenu.dispose();
     }
 
     @Override
     public void onClick(String btnText) {
         if(btnText.equals("Continue")){
             userInterface.setPause(!userInterface.isPaused());
+        }
+        else if(btnText.equals("Main Menu")){
+            userInterface.setGoToMainMenu();
         }
     }
 }
