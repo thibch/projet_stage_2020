@@ -123,7 +123,7 @@ public class GameScreen extends ScreenAdapter {
      * Met à jour le monde physique
      * @param delta le temps d'actualisation de l'affichage
      */
-    public void update(){
+    public void update(float delta){
         next = next || keyboardListener.isNext();
 
         if(keyboardListener.isNext()){ // One time Boolean TODO: (A changer)
