@@ -47,6 +47,7 @@ public class TextureFactory {
 
     // Interface/Boutons
     private static Texture background;
+    private static Texture titleScreen;
     private static Texture pauseBtn;
     private static Texture pauseBtnPressed;
     private static Texture btn;
@@ -133,6 +134,7 @@ public class TextureFactory {
 
         // Interface/Boutons
         background = new Texture(Gdx.files.internal("ui/background.png"));
+        titleScreen = new Texture(Gdx.files.internal("ui/title_screen.png"));
         pauseBtn = new Texture(Gdx.files.internal("ui/pause_button.png"));
         pauseBtnPressed = new Texture(Gdx.files.internal("ui/pause_button_press.png"));
         btn = new Texture(Gdx.files.internal("ui/menu_button.png"));
@@ -383,6 +385,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de fond du MenuScreen
+     * @return Getter pour l'image de fond du MenuScreen
+     */
+    public Texture getTitleScreen() {
+        return titleScreen;
+    }
+
+    /**
      * Getter pour l'image de menu pause
      * @return Getter pour l'image du menu pause
      */
@@ -618,7 +628,7 @@ public class TextureFactory {
                 bibliotheque,
                 sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
                 drapeauVert, drapeauRouge, prisoner,
-                background, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
+                background, titleScreen, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 epee, fleche,
                 potionRouge, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
