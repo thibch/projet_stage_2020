@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
+import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Animation;
 import fr.projetstage.models.ui.menu.MainMenuScreen;
 
 public class MenuScreen extends ScreenAdapter {
@@ -19,6 +21,12 @@ public class MenuScreen extends ScreenAdapter {
 
     private final KeyboardListener keyboardListener;
 
+    private Animation slime;
+
+    /**
+     * Constructeur de l'écran titre du jeu
+     * @param mainStage le stage dans lequel afficher l'écran titre
+     */
     public MenuScreen(ProjetStage mainStage){
         this.mainStage = mainStage;
         stage = new Stage();
@@ -29,8 +37,14 @@ public class MenuScreen extends ScreenAdapter {
         inputMultiplexer.addProcessor(stage);
         inputMultiplexer.addProcessor(keyboardListener);
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        slime = new Animation(TextureFactory.getInstance().getSlimeIdleSpriteSheet(),6,0.8f);
     }
 
+    /**
+     * Methode qui affiche à l'écran les éléments de l'écran titre
+     * @param delta le temps d'actualisation du moteur
+     */
     @Override
     public void render(float delta) {
         super.render(delta);
@@ -38,6 +52,13 @@ public class MenuScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.getBatch().begin();
+        stage.getBatch().draw(TextureFactory.getInstance().getTitleScreen(),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+
+        slime.update();
+        stage.getBatch().draw(slime.getFrame(false,false),6*(Gdx.graphics.getWidth()/20f),11*(Gdx.graphics.getHeight()/14f), Gdx.graphics.getWidth()/20f,Gdx.graphics.getHeight()/14f);
+        stage.getBatch().draw(slime.getFrame(true,false),17*(Gdx.graphics.getWidth()/20f),7*(Gdx.graphics.getHeight()/14f), Gdx.graphics.getWidth()/20f,Gdx.graphics.getHeight()/14f);
+
+
         mainMenuScreen.draw(stage.getBatch());
         stage.getBatch().end();
 
@@ -47,12 +68,18 @@ public class MenuScreen extends ScreenAdapter {
         update();
     }
 
+    /**
+     * Methode permettant de mettre a jour les éléments non graphiques
+     */
     public void update(){
         if(mainMenuScreen.isBeginClicked()){
             mainStage.startGame(mainMenuScreen.getName(),mainMenuScreen.getSeed());
         }
     }
 
+    /**
+     * Methode de libération de la mémoire
+     */
     @Override
     public void dispose() {
         super.dispose();

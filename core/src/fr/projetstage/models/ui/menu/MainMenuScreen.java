@@ -46,12 +46,12 @@ public class MainMenuScreen implements Menu{
 
         Random rand = new Random();
 
-        name = new Text("Name: ", 80, Color.WHITE,new Vector2(1.75f*(Gdx.graphics.getWidth()/10f),4.85f*(Gdx.graphics.getHeight()/10f)),false);
-        nameInput = new TextInputField(stage,this, new Vector2(3.25f*(Gdx.graphics.getWidth()/10f),4*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/8f,"Reynold");
+        name = new Text("Name: ", 80, Color.WHITE,new Vector2(1.75f*(Gdx.graphics.getWidth()/10f),5f*(Gdx.graphics.getHeight()/10f)),false);
+        nameInput = new TextInputField(stage,this, new Vector2(3.25f*(Gdx.graphics.getWidth()/10f),4.25f*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/8f,"Reynold");
         nameInput.setMaxLength(19);
         nameInput.display(false);
-        seed = new Text("Seed: ", 80, Color.WHITE,new Vector2(1.75f*(Gdx.graphics.getWidth()/10f),2.85f*(Gdx.graphics.getHeight()/10f)),false);
-        seedInput = new TextInputField(stage,this, new Vector2(3.25f*(Gdx.graphics.getWidth()/10f),2*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/8f,Integer.toString(Math.abs(rand.nextInt())));
+        seed = new Text("Seed: ", 80, Color.WHITE,new Vector2(1.75f*(Gdx.graphics.getWidth()/10f),3f*(Gdx.graphics.getHeight()/10f)),false);
+        seedInput = new TextInputField(stage,this, new Vector2(3.25f*(Gdx.graphics.getWidth()/10f),2.25f*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/8f,Integer.toString(Math.abs(rand.nextInt())));
         seedInput.setFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
         seedInput.setMaxLength(10);
         seedInput.display(false);
