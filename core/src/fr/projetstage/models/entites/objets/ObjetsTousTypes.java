@@ -1,19 +1,32 @@
 package fr.projetstage.models.entites.objets;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.models.Entite;
+import fr.projetstage.models.monde.GameWorld;
 
 public abstract class ObjetsTousTypes implements Entite {
 
+    protected GameWorld world;
     protected Body body;
-    protected boolean detruit;
+    protected Vector2 position;
+    protected final int id;
+
     private boolean touche;
+    protected boolean detruit;
+
+    public ObjetsTousTypes(GameWorld world, Vector2 position, int id) {
+        this.world = world;
+        this.position = position;
+        this.id = id;
+    }
 
     public void update(){
         if(getTouche()){
             applyEffect();
             setTouche(false);
         }
+        position = body.getPosition();
     }
 
     /**
@@ -56,5 +69,17 @@ public abstract class ObjetsTousTypes implements Entite {
      */
     public boolean getTouche(){
         return this.touche;
+    }
+
+    @Override
+    public void destroyBody(){
+        world.getWorld().destroyBody(body);
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        /*if(body != null) return body.getPosition();
+        System.out.println("after bodyPos");*/
+        return position;
     }
 }

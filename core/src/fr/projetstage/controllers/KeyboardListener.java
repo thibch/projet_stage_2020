@@ -51,7 +51,7 @@ public class KeyboardListener implements InputProcessor {
                 SoundFactory.getInstance().playsoundDeath(100);
                 break;
             case Input.Keys.ESCAPE:
-                //next = true;
+                next = true;
                 break;
             case Input.Keys.LEFT:
                 direction = Orientation.GAUCHE;
@@ -83,7 +83,7 @@ public class KeyboardListener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        next = keycode == Input.Keys.ESCAPE;
+        next = keycode == Input.Keys.ESCAPE && !next;
 
         if (keycode == Input.Keys.J) {
             afficheDebug = !afficheDebug;

@@ -14,7 +14,7 @@ public class LocationJoueur implements Location<Vector2> {
 
     @Override
     public Vector2 getPosition() {
-        return new Vector2(world.getJoueur().getX(), world.getJoueur().getY());
+        return world.getJoueur().getPosition();
     }
 
     @Override

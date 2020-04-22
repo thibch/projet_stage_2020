@@ -8,7 +8,7 @@ import fr.projetstage.models.Orientation;
 
 public class ChauveSouris extends Ennemi{
     public ChauveSouris(GameWorld world, Vector2 position, Type type) {
-        super(world, type);
+        super(world, position,type);
     }
 
     @Override

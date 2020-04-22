@@ -54,7 +54,7 @@ public class GameScreen extends ScreenAdapter {
         this(mainStage, "Bob", new Random().nextInt());
     }
 
-    public GameScreen(ProjetStage mainStage,String name, int seed){
+    public GameScreen(ProjetStage mainStage, String name, int seed){
         this.mainStage = mainStage;
         currentTime = 0;
         listeAffEnv = new SpriteBatch();
@@ -124,15 +124,15 @@ public class GameScreen extends ScreenAdapter {
      * @param delta le temps d'actualisation de l'affichage
      */
     public void update(float delta){
-        next = next || keyboardListener.isNext();
 
-        if(keyboardListener.isNext()){ // One time Boolean TODO: (A changer)
-            xSalle = -20;
+        if(keyboardListener.isNext() && currentTime < 0.1){ // One time Boolean TODO: (A changer)
+            xSalle = -20; //Position à faire en fonction de l'orientation
             ySalle = 0;
             gameWorld.debutTransition(Orientation.GAUCHE); // On dit au monde de mettre à jour la salle suivante en fonction de l'orientation
+            next = true;
         }
 
-        if(next){ // Si on décidé de changer
+        if(next){ // Si on a décidé de changer
             currentTime += delta; // On additionne le delta time
 
             if(currentTime < transitionTime){ // Tant que la transition n'est pas terminée
@@ -142,9 +142,10 @@ public class GameScreen extends ScreenAdapter {
                 // On bouge la caméra
                 cameraEnv.position.set(xTransition + gameWorld.getLargeur()/2f - 2, yTransition + gameWorld.getHauteur()/2f - 2,0);
             }else{
-                xSalle = 0;
-                ySalle = 0;
+                xTransition = 0;
+                yTransition = 0;
                 next = false;
+                currentTime = 0;
 
                 gameWorld.finTransition(); // On prévient le monde qu'on a terminé la transition
 
@@ -152,18 +153,19 @@ public class GameScreen extends ScreenAdapter {
                 cameraEnv.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0);
             }
             cameraEnv.update();
+        }else{
+            if(!userInterface.isGameOver() && !userInterface.isPaused()){
+                Vector2 force = keyboardListener.getAcceleration();
+
+                gameWorld.getJoueur().move(force);
+                gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
+
+                gameWorld.getJoueur().update(keyboardListener.getDirection());
+                gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
+                gameWorld.update();
+            }
         }
 
-        if(!userInterface.isGameOver() && !userInterface.isPaused()){
-            Vector2 force = keyboardListener.getAcceleration();
-
-            gameWorld.getJoueur().move(force);
-            gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
-
-            gameWorld.getJoueur().update(keyboardListener.getDirection());
-            gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
-            gameWorld.update();
-        }
         if(userInterface.goToMainMenu()){
             mainStage.create();
         }

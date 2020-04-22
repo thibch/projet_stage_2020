@@ -1,4 +1,4 @@
-package fr.projetstage.models.monde.salle.meubles;
+package fr.projetstage.models.monde.salle.solEtMurs.meubles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +12,6 @@ public class GrandeTable extends NonDestructible {
 
     @Override
     public void draw(SpriteBatch batch, float x, float y) {
-        batch.draw(TextureFactory.getInstance().getGrandeTable(), x + body.getPosition().x, y + body.getPosition().y, tailleX, tailleY);
+        batch.draw(TextureFactory.getInstance().getGrandeTable(), x + getPosition().x, y + getPosition().y, tailleX, tailleY);
     }
 }

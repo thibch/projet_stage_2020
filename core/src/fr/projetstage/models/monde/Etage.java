@@ -24,8 +24,7 @@ public class Etage {
     }
 
     public Salle next(){
-        courant = 1;
-        //courant = courant==0?1:0;
+        courant = courant==0?1:0;
         return salles.get(courant);
     }
 

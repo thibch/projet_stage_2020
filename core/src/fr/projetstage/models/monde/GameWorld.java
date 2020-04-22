@@ -36,6 +36,7 @@ public class GameWorld {
 
         // in game elements
         salleCourante = etage.start();
+        salleCourante.generateBodies();
         joueur = new Joueur(this, new Vector2(4, 4));
         this.world.setContactListener(new EcouteurContact(this));
     }
@@ -59,8 +60,10 @@ public class GameWorld {
      * @param direction direction de la transition (en fonction de la salle courante)
      */
     public void debutTransition(Orientation direction){
-        estEnTransition = true;
-        salleSuivante = etage.next();
+        if(!estEnTransition){
+            salleSuivante = etage.next();
+            estEnTransition = true;
+        }
     }
 
     /**
@@ -68,8 +71,9 @@ public class GameWorld {
      */
     public void finTransition() {
         estEnTransition = false;
+        salleCourante.destroyBodies();
         salleCourante = salleSuivante;
-        salleSuivante = null;
+        salleSuivante.generateBodies();
     }
 
     /**

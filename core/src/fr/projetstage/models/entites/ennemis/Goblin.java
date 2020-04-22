@@ -8,7 +8,7 @@ import fr.projetstage.models.Orientation;
 
 public class Goblin extends Ennemi{
     public Goblin(GameWorld world, Vector2 position, Type type) {
-        super(world, type);
+        super(world, position, type);
     }
 
     @Override

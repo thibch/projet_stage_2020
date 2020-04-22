@@ -2,6 +2,7 @@ package fr.projetstage.models.entites.attaques;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
@@ -46,7 +47,7 @@ public class CorpsACorps extends Attaque{
             epee.stop();
             epee = null;
         }
-        // body.setTransform(body.getPosition(),-0.785398f); // pos finale
+        // body.setTransform(getPosition(),-0.785398f); // pos finale
     }
 
     public boolean isRunning(){
@@ -72,7 +73,7 @@ public class CorpsACorps extends Attaque{
     public void draw(SpriteBatch batch, float x, float y) {
         animation.update();
         epee.draw(batch, x, y);
-        // batch.draw(animation.getFrame(false,false),body.getPosition().x,body.getPosition().y,1,1);
+        // batch.draw(animation.getFrame(false,false),getPosition().x,getPosition().y,1,1);
         /*
         if(flipX){
             if(rotateY){ // Bas
@@ -88,5 +89,10 @@ public class CorpsACorps extends Attaque{
             }
         }
         */
+    }
+
+    @Override
+    public Vector2 getPosition() {
+        return bodyParent.getPosition();
     }
 }

@@ -11,7 +11,6 @@ import fr.projetstage.models.Orientation;
 
 public class Fleche extends Projectile{
 
-    private final Body body;
     private final float largeur;
     private final float hauteur;
 
@@ -27,6 +26,7 @@ public class Fleche extends Projectile{
      * @param direction la direction de la flèche
      */
     public Fleche(GameWorld world, Vector2 position, float largeur, float hauteur, Orientation direction){
+        super(world, position);
         this.direction = direction;
         this.largeur = largeur;
         this.hauteur = hauteur;
@@ -49,7 +49,31 @@ public class Fleche extends Projectile{
      * @param vecteurDirection direction voulu
      */
     public void lancee(Vector2 vecteurDirection, int id){
+        generateBody();
 
+        body.setLinearVelocity(vecteurDirection);
+        body.setUserData(new Type(TypeEntite.DISTANCE, id));
+
+        estLancee = true;
+    }
+
+    @Override
+    public void draw(SpriteBatch spriteBatch, float x, float y) {
+        spriteBatch.draw(TextureFactory.getInstance().getFleche(), x + body.getPosition().x, y + body.getPosition().y, 1/2f, 1/2f, 1, 1,
+                1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
+   }
+
+    public boolean estLancee() {
+        return estLancee;
+    }
+
+    public void update(Vector2 position, Orientation direction) {
+        body.setTransform(position, 0);
+        this.direction = direction;
+    }
+
+    @Override
+    public void generateBody() {
         float largeurBody;
         float hauteurBody;
         if(direction == Orientation.BAS || direction == Orientation.HAUT){
@@ -63,6 +87,7 @@ public class Fleche extends Projectile{
         // Création de la shape pour la flèche
         Vector2 posShape = new Vector2((this.direction == Orientation.BAS || this.direction == Orientation.HAUT? 6f/16f : 2f/16f),
                 (this.direction == Orientation.GAUCHE || this.direction == Orientation.DROITE? 5f/16f : 2f/16f));
+
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + largeurBody, posShape.y);
@@ -85,24 +110,5 @@ public class Fleche extends Projectile{
         body.createFixture(fixtureDef1); // Association à l’objet
 
         rectangle.dispose();
-
-        body.setLinearVelocity(vecteurDirection);
-        body.setUserData(new Type(TypeEntite.DISTANCE, id));
-        estLancee = true;
-    }
-
-    @Override
-    public void draw(SpriteBatch spriteBatch, float x, float y) {
-        spriteBatch.draw(TextureFactory.getInstance().getFleche(), x + body.getPosition().x, y + body.getPosition().y, 1/2f, 1/2f, 1, 1,
-                1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
-   }
-
-    public boolean estLancee() {
-        return estLancee;
-    }
-
-    public void update(Vector2 position, Orientation direction) {
-        body.setTransform(position, 0);
-        this.direction = direction;
     }
 }

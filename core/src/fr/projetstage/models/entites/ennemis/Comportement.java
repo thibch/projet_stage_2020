@@ -38,7 +38,6 @@ public class Comportement implements Steerable<Vector2> {
             behavior.calculateSteering(steeringOutput);
             applySteering(Gdx.graphics.getDeltaTime());
         }
-
     }
 
     private void applySteering(float deltaTime) {
@@ -74,7 +73,9 @@ public class Comportement implements Steerable<Vector2> {
 
     @Override
     public Vector2 getLinearVelocity() {
-        return body.getLinearVelocity();
+        if(body != null) body.getLinearVelocity();
+        System.out.println("after BodyPosition");
+        return new Vector2();
     }
 
     @Override
@@ -149,7 +150,9 @@ public class Comportement implements Steerable<Vector2> {
 
     @Override
     public Vector2 getPosition() {
-        return body.getPosition();
+        if(body != null) return body.getPosition();
+        System.out.println("after BodyPosition");
+        return new Vector2();
     }
 
     @Override

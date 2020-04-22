@@ -5,15 +5,14 @@ import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
-import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
 import fr.projetstage.models.entites.objets.objetsCoffre.Coffre;
 import fr.projetstage.models.entites.objets.objetsCoffre.PotionJaune;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
-import fr.projetstage.models.monde.salle.meubles.Biblio;
-import fr.projetstage.models.monde.salle.meubles.GrandeTable;
-import fr.projetstage.models.monde.salle.meubles.PetiteTable;
+import fr.projetstage.models.monde.salle.solEtMurs.meubles.Biblio;
+import fr.projetstage.models.monde.salle.solEtMurs.meubles.GrandeTable;
+import fr.projetstage.models.monde.salle.solEtMurs.meubles.PetiteTable;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
 
 public class Salle2 extends Salle {
@@ -49,7 +48,7 @@ public class Salle2 extends Salle {
             if(tmp.getNumMur() == TypeMur.MUR1){
                 tmpAlea = getRandomProps();
                 if(tmpAlea != null){
-                    props.add(new Prop(tmp.getPos(),tmp.getOrientation(),tmpAlea));
+                    props.add(new Prop(tmp.getPosition(),tmp.getOrientation(),tmpAlea));
                 }
             }
         }

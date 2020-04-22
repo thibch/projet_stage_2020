@@ -27,10 +27,16 @@ public abstract class EntiteMouvante implements Entite {
     protected float currentTime = 0f;
     protected float currentTimeInvincible = 0f;
 
+    protected Vector2 position;
 
     protected boolean mort = false;
     private boolean mortAnimFinie = false;
     private final Animation animationMort = new Animation(TextureFactory.getInstance().getDeathSpriteSheet(),4,1f);
+
+    public EntiteMouvante(GameWorld world, Vector2 position){
+        this.world = world;
+        this.position = position;
+    }
 
     public int getPointDeVie() {
         return pointDeVie;
@@ -99,7 +105,7 @@ public abstract class EntiteMouvante implements Entite {
     public void draw(SpriteBatch batch, float x, float y){
         //Animation de la mort
         if(mort && !mortAnimFinie){
-            batch.draw(animationMort.getFrame(false, false), x + body.getPosition().x, y + body.getPosition().y, 1, 1);
+            batch.draw(animationMort.getFrame(false, false), x + getPosition().x, y + getPosition().y, 1, 1);
         }
     }
 
@@ -112,5 +118,13 @@ public abstract class EntiteMouvante implements Entite {
             animationMort.update();
             mortAnimFinie = animationMort.isLastFrame();
         }
+        position = body.getPosition();
+    }
+
+    @Override
+    public Vector2 getPosition(){
+        //if(body != null) return body.getPosition();
+        //System.out.println("after BodyPosition");
+        return position;
     }
 }

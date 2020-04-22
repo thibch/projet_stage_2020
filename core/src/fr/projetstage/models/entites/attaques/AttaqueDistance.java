@@ -91,4 +91,9 @@ public class AttaqueDistance extends Attaque {
         fleche.draw(batch, x, y);
     }
 
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+
 }

@@ -10,11 +10,22 @@ import fr.projetstage.models.monde.GameWorld;
 
 public abstract class ObjetAuSol extends ObjetsTousTypes {
 
-    protected GameWorld world;
+    private Vector2 posShape;
+    private float hauteur;
+    private float largeur;
+    private int id;
 
 
     public ObjetAuSol(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id){
-        this.world = world;
+        super(world, position, id);
+        this.posShape = posShape;
+        this.largeur = largeur;
+        this.hauteur = hauteur;
+        this.id = id;
+    }
+
+    @Override
+    public void generateBody() {
 
         // BodyDef
         BodyDef bodyDef = new BodyDef();
@@ -48,7 +59,6 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
         circleShape.dispose();
     }
 
-
     @Override
     public abstract void draw(SpriteBatch batch, float x, float y);
 
@@ -59,7 +69,7 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
 
     @Override
     public void update() {
-        if(Math.abs(body.getWorldCenter().x - world.getJoueur().getX()) >= 0.8f || Math.abs(body.getWorldCenter().y - world.getJoueur().getY()) >= 0.8f){
+        if(Math.abs(body.getWorldCenter().x - world.getJoueur().getPosition().x) >= 0.8f || Math.abs(body.getWorldCenter().y - world.getJoueur().getPosition().y) >= 0.8f){
             body.setLinearVelocity(new Vector2(0.80f * body.getLinearVelocity().x,0.80f * body.getLinearVelocity().y));
         }
         super.update();

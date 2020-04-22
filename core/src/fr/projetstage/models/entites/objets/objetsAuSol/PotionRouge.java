@@ -28,6 +28,6 @@ public class PotionRouge extends ObjetAuSol{
 
     @Override
     public void draw(SpriteBatch batch, float x, float y){
-        batch.draw(TextureFactory.getInstance().getPotionRouge(), x + body.getPosition().x, y + body.getPosition().y, 1, 1);
+        batch.draw(TextureFactory.getInstance().getPotionRouge(), x + getPosition().x, y + getPosition().y, 1, 1);
     }
 }

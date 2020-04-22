@@ -143,6 +143,50 @@ public abstract class Salle {
         listeAffImg.draw(tmpWallCorner, x, y-1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
     }
 
+    public void generateBodies(){
+        for(Entite tile : tileMap){
+            tile.generateBody();
+        }
+        // objets sur les murs
+        for(Prop prop : props){
+            prop.generateBody();
+        }
+
+        for(Entite meuble : meubles){
+            meuble.generateBody();
+        }
+
+        for(Entite monstre : ennemis.values()){
+            monstre.generateBody();
+        }
+
+        for(Entite obj : objets.values()){
+            obj.generateBody();
+        }
+    }
+
+    public void destroyBodies(){
+        for(Entite tile : tileMap){
+            tile.destroyBody();
+        }
+        // objets sur les murs
+        for(Prop prop : props){
+            prop.destroyBody();
+        }
+
+        for(Entite meuble : meubles){
+            meuble.destroyBody();
+        }
+
+        for(Entite monstre : ennemis.values()){
+            monstre.destroyBody();
+        }
+
+        for(Entite obj : objets.values()){
+            obj.destroyBody();
+        }
+    }
+
 
     public abstract void genererSalle();
 
