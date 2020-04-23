@@ -73,7 +73,7 @@ public class Coffre extends ObjetsTousTypes {
     @Override
     public void applyEffect() {
         open = true;
-        if(openTime >= timeToTake){
+        if(openTime >= timeToTake && !openAndTook){
             world.getJoueur().getInventaire().add(objet);
             openAndTook = true;
         }

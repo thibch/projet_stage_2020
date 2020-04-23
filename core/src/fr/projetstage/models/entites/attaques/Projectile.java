@@ -29,7 +29,6 @@ public abstract class Projectile extends EntiteMouvante {
     @Override
     public Vector2 getPosition(){
         if(body != null) return body.getPosition();
-        System.out.println("after BodyPosition");
         return position;
     }
 
@@ -39,6 +38,7 @@ public abstract class Projectile extends EntiteMouvante {
 
     @Override
     public void destroyBody(){
+        world.getWorld().destroyBody(body);
     }
 
 }

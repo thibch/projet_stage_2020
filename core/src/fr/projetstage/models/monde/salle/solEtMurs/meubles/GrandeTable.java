@@ -6,6 +6,10 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
 public class GrandeTable extends NonDestructible {
+    /**
+     * @param world le gameWorld
+     * @param position la position de la grandeTable
+     */
     public GrandeTable(GameWorld world, Vector2 position) {
         super(world, position, 2f, 1f);
     }

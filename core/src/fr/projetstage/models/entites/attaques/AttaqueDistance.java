@@ -26,6 +26,12 @@ public class AttaqueDistance extends Attaque {
 
     private int munition;
 
+    /**
+     * @param world le gameWorld
+     * @param largeurFleche la largeur de la flèche
+     * @param hauteurFleche la hauteur de la flèche
+     * @param tempsCharge le temps de charge de l'attaque à distance
+     */
     public AttaqueDistance(GameWorld world, float largeurFleche, float hauteurFleche, float tempsCharge){
         this.world = world;
         this.largeurFleche = largeurFleche;
@@ -61,18 +67,35 @@ public class AttaqueDistance extends Attaque {
         return fleche;
     }
 
+    /**
+     * Retourne vrai si l'attaque à distance charge et qu'il a des munitions
+     * @return vrai si l'attaque charge et des munitions
+     */
     public boolean isChargingAndHaveMunitions() {
         return isCharging && munition > 0;
     }
 
+    /**
+     * Getter sur le nombre de munitions restantes
+     * @return le nombre de munitions restantes
+     */
     public int getMunition() {
         return munition;
     }
 
+    /**
+     * Permet d'ajouter un certain nombre add aux munitions
+     * @param add le nombre de munition que l'on veut ajouter
+     */
     public void addMunition(int add) {
         munition += add;
     }
 
+    /**
+     * Permet de prévenir la classe de continuer de charger de l'attaque
+     * @param position la position de l'arc
+     * @param direction la direction visée
+     */
     public void charge(Vector2 position, Orientation direction) {
         this.position = position;
         this.direction = direction;
@@ -85,15 +108,16 @@ public class AttaqueDistance extends Attaque {
         animation.updateLast();
     }
 
+    @Override
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    @Override
     public void draw(SpriteBatch batch, float x, float y){
         TextureRegion text = animation.getFrame(false, direction == Orientation.HAUT || direction == Orientation.DROITE);
         batch.draw(text, x + position.x, y + position.y, 0.5f,0.5f,text.getRegionWidth()/16f, text.getRegionHeight()/16f, 1,1,direction.getRotation() + 90);
         fleche.draw(batch, x, y);
-    }
-
-    @Override
-    public Vector2 getPosition() {
-        return position;
     }
 
 }

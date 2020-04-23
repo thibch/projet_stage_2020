@@ -33,6 +33,10 @@ public abstract class EntiteMouvante implements Entite {
     private boolean mortAnimFinie = false;
     private final Animation animationMort = new Animation(TextureFactory.getInstance().getDeathSpriteSheet(),4,1f);
 
+    /**
+     * @param world le gameworld
+     * @param position la position de l'entité
+     */
     public EntiteMouvante(GameWorld world, Vector2 position){
         this.world = world;
         this.position = position;
@@ -76,6 +80,10 @@ public abstract class EntiteMouvante implements Entite {
         this.knockback = knockback;
     }
 
+    /**
+     * Si l'entité est morte et qu'elle a finit de faire son animation
+     * @return vrai si l'entité est morte et qu'elle a finit de faire son animation
+     */
     public boolean estMort(){
         return mort && mortAnimFinie;
     }
@@ -123,8 +131,6 @@ public abstract class EntiteMouvante implements Entite {
 
     @Override
     public Vector2 getPosition(){
-        //if(body != null) return body.getPosition();
-        //System.out.println("after BodyPosition");
         return position;
     }
 }

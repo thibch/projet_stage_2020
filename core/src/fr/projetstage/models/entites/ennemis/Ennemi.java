@@ -23,6 +23,11 @@ public abstract class Ennemi extends EntiteMouvante {
     protected float largeur;
     protected float hauteur;
 
+    /**
+     * @param world le gameworld
+     * @param position la position de l'ennemi
+     * @param type le type de l'ennemi
+     */
     public Ennemi(GameWorld world, Vector2 position, Type type){
         super(world, position);
         this.world = world;
@@ -30,20 +35,36 @@ public abstract class Ennemi extends EntiteMouvante {
         targets = new HashMap<>();
     }
 
+    /**
+     * Le type de l'ennemi
+     * @return le type de l'ennemi
+     */
     public Type getType(){
         return type;
     }
 
+    /**
+     * Le body de l'ennmi
+     * @return le body
+     */
     public Body getBody() {
         return body;
     }
 
+    /**
+     * Ajoute une cible à l'ennemi
+     * @param target la cible de l'ennemi
+     */
     public void addTarget(EntiteMouvante target){
         if(!targets.containsKey(target)){
             targets.put(target, false);
         }
     }
 
+    /**
+     * Supprime une cible de l'ennemi
+     * @param target la cible à supprimer
+     */
     public void removeTarget(EntiteMouvante target){
         targets.remove(target);
     }

@@ -49,6 +49,7 @@ public class GameScreen extends ScreenAdapter {
 
     /**
      * initialise une partie de jeu
+     * @param mainStage
      */
     public GameScreen(ProjetStage mainStage){
         this(mainStage, "Bob", new Random().nextInt());

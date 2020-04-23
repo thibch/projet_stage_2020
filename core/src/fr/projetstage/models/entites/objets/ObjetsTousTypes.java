@@ -78,8 +78,6 @@ public abstract class ObjetsTousTypes implements Entite {
 
     @Override
     public Vector2 getPosition() {
-        /*if(body != null) return body.getPosition();
-        System.out.println("after bodyPos");*/
         return position;
     }
 }

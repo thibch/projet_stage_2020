@@ -8,6 +8,10 @@ public class LocationJoueur implements Location<Vector2> {
 
     private final GameWorld world;
 
+    /**
+     * La localisation du joueur dans la salle
+     * @param world le gameworld
+     */
     public LocationJoueur(GameWorld world) {
         this.world = world;
     }

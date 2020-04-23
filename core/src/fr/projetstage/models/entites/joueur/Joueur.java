@@ -81,8 +81,9 @@ public class Joueur extends EntiteMouvante {
         this.update();
 
         // Si il est en train d'attaquer et qu'on a dépassé l'animation alors on remet les animations à zéros et on arrête d'attaquer
-        if(attaqueMaintenant && currentTime > attaqueCaC.getDuration()){
-            attaqueMaintenant = false;
+        attaqueMaintenant = attaqueCaC.isRunning();
+        if(attaqueCaC.isRunning()){
+            attaqueCaC.slash();
         }
 
         // Si on est en coolDown mais que le temps est dépassé alors nous ne sommes plus en cooldown
@@ -105,13 +106,13 @@ public class Joueur extends EntiteMouvante {
                 // On lance une attaque
                 if(utiliseEpee){
                     attaqueCaC.attaque(body, direction);
-                }
-                else{
+                }else{
                     attaqueDistance.charge(getPosition(), direction);
                 }
 
                 // On met en place le cooldown
                 if(!attaqueDistance.isChargingAndHaveMunitions()){
+                    System.out.println("yes");
                     attaqueMaintenant = true;
                     onCoolDown = true;
                 }
@@ -123,10 +124,6 @@ public class Joueur extends EntiteMouvante {
                 attaqueMaintenant = true;
                 onCoolDown = true;
             }
-        }
-
-        if(attaqueCaC.isRunning()){
-            attaqueCaC.slash();
         }
     }
 
@@ -215,14 +212,10 @@ public class Joueur extends EntiteMouvante {
         world.getWorld().destroyBody(body);
     }
 
-    public boolean isAttacking() {
-        return attaqueMaintenant;
-    }
-
-    public Orientation getOrientation() {
-        return lastDirection;
-    }
-
+    /**
+     * Change d'arme, si le boolean est à vrai alors on passe à l'arc sinon on passe à l'épée
+     * @param switchWeapon le booleen qui permet de passer de l'un à l'autre
+     */
     public void setWeapon(boolean switchWeapon) {
         utiliseEpee = !switchWeapon;
         if(utiliseEpee){
@@ -232,19 +225,34 @@ public class Joueur extends EntiteMouvante {
         }
     }
 
+    /**
+     * Retourne l'inventaire du joueur
+     * @return l'inventaire du joueur
+     */
     public Inventaire getInventaire() {
         return inventaire;
     }
 
-
+    /**
+     * Retourne le nombre de munitions du joueur
+     * @return les munitions du joueur
+     */
     public int getMunition(){
         return this.attaqueDistance.getMunition();
     }
 
-    public void addMunition(int i) {
-        this.attaqueDistance.addMunition(i);
+    /**
+     * Ajoute un certain nombre de munition au joueur
+     * @param nbMun le nombre de munition à ajouter
+     */
+    public void addMunition(int nbMun) {
+        this.attaqueDistance.addMunition(nbMun);
     }
 
+    /**
+     * Permet de connaitre si le joueur utilise l'arc ou l'épée
+     * @return le booleen si le joueur utilise l'arc ou l'épée
+     */
     public boolean isSwitchedWeapon() {
         return utiliseEpee;
     }

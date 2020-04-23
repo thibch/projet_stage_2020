@@ -7,6 +7,11 @@ import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
 public class ChauveSouris extends Ennemi{
+    /**
+     * @param world le gameWorld
+     * @param position la position de la chauve-souris
+     * @param type le type de la chauve-souris
+     */
     public ChauveSouris(GameWorld world, Vector2 position, Type type) {
         super(world, position,type);
     }
@@ -16,7 +21,8 @@ public class ChauveSouris extends Ennemi{
 
     }
 
-    public void update(Orientation direction) {
+    @Override
+    public void update() {
 
     }
 }

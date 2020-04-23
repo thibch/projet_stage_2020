@@ -6,6 +6,10 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
 public class Biblio extends NonDestructible {
+    /**
+     * @param world le gameworld
+     * @param position la position de la bibliothèque dans la salle
+     */
     public Biblio(GameWorld world, Vector2 position) {
         super(world, position, 1f, 1f);
     }

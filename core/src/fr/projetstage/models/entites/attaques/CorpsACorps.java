@@ -16,8 +16,8 @@ public class CorpsACorps extends Attaque{
     private final Body bodyParent;
 
     private final float duration;
-    private final float longueur;
-    private final float largeur;
+    private final float longueurEpee;
+    private final float largeurEpee;
     private final int degats;
 
     private final float totalAngle = 1.570796f; // 90 degres clockwise
@@ -29,39 +29,49 @@ public class CorpsACorps extends Attaque{
 
     private Epee epee;
 
-    public CorpsACorps(GameWorld world, Body bodyEntite, float longueur, float largeur, int degats, float vitesse){
+    /**
+     * @param world le gameworld
+     * @param bodyEntite l'entité qui a lancé l'attaque
+     * @param longueurEpee la longueur de l'épée
+     * @param largeurEpee la largeur de l'épée
+     * @param degats les dégâts de l'épée
+     * @param duree la durée de l'attaque
+     */
+    public CorpsACorps(GameWorld world, Body bodyEntite, float longueurEpee, float largeurEpee, int degats, float duree){
         this.gameWorld = world;
         this.bodyParent = bodyEntite;
-        this.longueur = longueur;
-        this.largeur = largeur;
+        this.longueurEpee = longueurEpee;
+        this.largeurEpee = largeurEpee;
         this.degats = degats;
-        this.duration = vitesse;
+        this.duration = duree;
     }
 
+    /**
+     * Equivalent à charge de AttaqueDistance, prévient la classe que le joueur est en train d'attaque
+     */
     public void slash(){
         float currentTime = Gdx.graphics.getDeltaTime();
         currentAngle -= ((totalAngle)*((currentTime/duration)));
         epee.setAngle(currentAngle);
         if(currentAngle <= startAngle-totalAngle){
             isRunning = false;
-            epee.stop();
+            epee.destroyBody(); //On détruit le body de l'épée car elle a finie son attaque
             epee = null;
         }
-        // body.setTransform(getPosition(),-0.785398f); // pos finale
     }
 
+    /**
+     * Si l'attaque est toujours en cours
+     * @return vrai si l'attaque est toujours en cours
+     */
     public boolean isRunning(){
         return isRunning;
-    }
-
-    public float getDuration() {
-        return duration;
     }
 
     @Override
     public void attaque(Body bodyParent, Orientation direction) {
 
-        epee = new Epee(gameWorld, bodyParent, longueur, largeur, direction);
+        epee = new Epee(gameWorld, bodyParent, longueurEpee, largeurEpee, direction);
 
         animation = new Animation(TextureFactory.getInstance().getAttaqueSpriteSheet(),3, duration+0.2f);
         isRunning = true;

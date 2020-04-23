@@ -47,6 +47,7 @@ public class Fleche extends Projectile{
     /**
      * On lance la flèche
      * @param vecteurDirection direction voulu
+     * @param id l'id de la flèche
      */
     public void lancee(Vector2 vecteurDirection, int id){
         generateBody();
@@ -63,10 +64,19 @@ public class Fleche extends Projectile{
                 1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
    }
 
+    /**
+     * Getter si la flèche est lancée dans le monde ou non
+     * @return vrai si la flèche est lancée
+     */
     public boolean estLancee() {
         return estLancee;
     }
 
+    /**
+     * Met à jour la position de la flèche
+     * @param position nouvelle position de la flèche
+     * @param direction direction à laquelle elle se trouve
+     */
     public void update(Vector2 position, Orientation direction) {
         body.setTransform(position, 0);
         this.direction = direction;

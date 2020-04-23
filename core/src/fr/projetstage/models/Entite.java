@@ -2,9 +2,6 @@ package fr.projetstage.models;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.Shape;
 
 /**
  * Entité du monde avec un draw
@@ -18,9 +15,19 @@ public interface Entite {
      */
     void draw(SpriteBatch batch, float x, float y);
 
+    /**
+     * Permet de récupérer la position de l'entite
+     * @return la position de l'entité
+     */
     Vector2 getPosition();
 
+    /**
+     * Génère le corps de l'entité
+     */
     void generateBody();
 
+    /**
+     * Détruit le corps de l'entité
+     */
     void destroyBody();
 }

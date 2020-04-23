@@ -9,9 +9,10 @@ public class EcouteurContact implements ContactListener {
 
     private final GameWorld world;
 
-    Fixture fixtureA;
-    Fixture fixtureB;
-
+    /**
+     * Ecouteur de contact entre deux body
+     * @param world le gameworld
+     */
     public EcouteurContact(GameWorld world) {
         this.world = world;
     }
@@ -19,8 +20,8 @@ public class EcouteurContact implements ContactListener {
     @Override
     public void beginContact(Contact contact) {
 
-        fixtureA = contact.getFixtureA();
-        fixtureB = contact.getFixtureB();
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
 
         if (fixtureA.getBody().getUserData() != null && fixtureB.getBody().getUserData() != null) {
 
@@ -85,8 +86,8 @@ public class EcouteurContact implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-        fixtureA = contact.getFixtureA();
-        fixtureB = contact.getFixtureB();
+        Fixture fixtureA = contact.getFixtureA();
+        Fixture fixtureB = contact.getFixtureB();
 
         //fin de contact entre piege et joueur / ennemi
         Fixture fixturePiege = check(fixtureA, fixtureB, TypeEntite.PIEGE);

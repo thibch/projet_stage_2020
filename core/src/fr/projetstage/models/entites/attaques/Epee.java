@@ -30,6 +30,7 @@ public class Epee extends Projectile{
      * @param bodyParent le body du lanceur d'attaque
      * @param longueur la longeur de l'épée
      * @param largeur la largeur de l'épée
+     * @param orientation L'orientation de l'épée
      */
     public Epee(GameWorld gameWorld, Body bodyParent, float longueur, float largeur, Orientation orientation){
         super(gameWorld, bodyParent.getPosition());
@@ -48,13 +49,6 @@ public class Epee extends Projectile{
      */
     public void setAngle(float currentAngle) {
         body.setTransform(getPosition(), currentAngle);
-    }
-
-    /**
-     * Lorsque l'attaque est finit on arrête (détruit le body de l'épée, l'objet est inutilisable après cette commande)
-     */
-    public void stop() {
-        gameWorld.getWorld().destroyBody(body);
     }
 
     @Override

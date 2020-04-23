@@ -24,6 +24,7 @@ public class GameWorld {
 
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
+     * @param seed le graine de génération du random
      */
     public GameWorld(int seed){
         estEnTransition = false;

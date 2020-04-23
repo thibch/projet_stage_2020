@@ -19,6 +19,10 @@ public class Comportement implements Steerable<Vector2> {
     private SteeringBehavior<Vector2> behavior;
     private SteeringAcceleration<Vector2> steeringOutput;
 
+    /**
+     * @param body Le body concerné par le comportement
+     * @param boundingRadius La distance entre le centre du body et du body "poursuivit"
+     */
     public Comportement(Body body, float boundingRadius){
         this.body = body;
         this.boundingRadius = boundingRadius;
@@ -33,6 +37,9 @@ public class Comportement implements Steerable<Vector2> {
         this.steeringOutput = new SteeringAcceleration<>(new Vector2());
     }
 
+    /**
+     * Met à jour les forces à appliquer pour suivre le point
+     */
     public void update(){
         if(behavior != null){
             behavior.calculateSteering(steeringOutput);
@@ -73,8 +80,7 @@ public class Comportement implements Steerable<Vector2> {
 
     @Override
     public Vector2 getLinearVelocity() {
-        if(body != null) body.getLinearVelocity();
-        System.out.println("after BodyPosition");
+        if(body != null) return body.getLinearVelocity();
         return new Vector2();
     }
 
@@ -151,7 +157,6 @@ public class Comportement implements Steerable<Vector2> {
     @Override
     public Vector2 getPosition() {
         if(body != null) return body.getPosition();
-        System.out.println("after BodyPosition");
         return new Vector2();
     }
 
@@ -182,15 +187,27 @@ public class Comportement implements Steerable<Vector2> {
         return null;
     }
 
+    /**
+     * Getter sur le body qui est effecté par le comportement
+     * @return le body qui est effecté par le comportement
+     */
     public Body getBody(){
         return body;
     }
 
+    /**
+     * Définit le comportement
+     * @param behavior classe qui contient le comporement
+     */
     public void setBehavior(SteeringBehavior<Vector2> behavior){
         this.behavior = behavior;
 
     }
 
+    /**
+     * Getter sur le comportement
+     * @return le comportement
+     */
     public SteeringBehavior<Vector2> getBehavior(){
        return behavior;
     }
