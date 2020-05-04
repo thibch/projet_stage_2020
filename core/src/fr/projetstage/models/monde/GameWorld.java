@@ -171,10 +171,11 @@ public class GameWorld {
 
     public void setPorteTouched(int id) {
         //TODO : se servir de l'id/Orientation
-        estEnTransition = true;
-
-        salleSuivante = etage.next();
-        directionTransition = Orientation.HAUT;
+        if(!estEnTransition){
+            estEnTransition = true;
+            salleSuivante = etage.next();
+            directionTransition = Orientation.HAUT;
+        }
         //this.debutTransition(Orientation.HAUT);
     }
 
