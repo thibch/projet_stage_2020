@@ -3,6 +3,7 @@ package fr.projetstage.models.entites.objets.objetsAuSol;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
@@ -48,7 +49,9 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
         fixtureDef1.density = 0;
         fixtureDef1.restitution = 0f;
         fixtureDef1.friction = 0f;
-        fixtureDef1.filter.groupIndex = (short)-2;
+        //collision
+        fixtureDef1.filter.categoryBits = CollisionFilter.OBJET.getCategory();
+        fixtureDef1.filter.maskBits = CollisionFilter.JOUEUR.getCategory();
 
         // Met en place la fixture sur le body
         body.setFixedRotation(true);

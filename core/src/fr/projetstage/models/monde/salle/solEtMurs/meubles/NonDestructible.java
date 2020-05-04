@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.monde.GameWorld;
 
 public abstract class NonDestructible extends Obstacle {
@@ -38,6 +39,8 @@ public abstract class NonDestructible extends Obstacle {
         fixtureDef.density = 1f;
         fixtureDef.restitution = 0f;
         fixtureDef.friction = 0f;
+
+        fixtureDef.filter.categoryBits = CollisionFilter.DECOR.getCategory();
 
         super.generateBody();
 

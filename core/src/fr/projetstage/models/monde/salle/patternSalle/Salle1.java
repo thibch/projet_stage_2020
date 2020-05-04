@@ -5,6 +5,7 @@ import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
+import fr.projetstage.models.entites.ennemis.ChauveSouris;
 import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
 import fr.projetstage.models.entites.objets.objetsCoffre.Coffre;
@@ -76,6 +77,7 @@ public class Salle1 extends Salle {
         //monstres
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        ennemis.put(nbEnnemis, new ChauveSouris(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
 
         int nbObjetAuSols = 0;

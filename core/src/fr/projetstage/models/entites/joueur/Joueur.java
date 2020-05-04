@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
@@ -195,7 +196,7 @@ public class Joueur extends EntiteMouvante {
         fixtureDef1.restitution = 0f;
         fixtureDef1.friction = 0f;
         //filtre collision
-        fixtureDef1.filter.groupIndex = (short)-1;
+        fixtureDef1.filter.categoryBits = CollisionFilter.JOUEUR.getCategory();
 
 
         // Met en place la fixture sur le body

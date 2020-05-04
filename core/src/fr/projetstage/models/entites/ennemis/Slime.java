@@ -3,9 +3,10 @@ package fr.projetstage.models.entites.ennemis;
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.Filter;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
-import fr.projetstage.models.entites.EntiteMouvante;
+import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.monde.GameWorld;
@@ -44,6 +45,10 @@ public class Slime extends Ennemi {
 
         this.comportement = new Comportement(body, 0f);
         comportement.setBehavior(new Arrive<>(comportement, new LocationJoueur(world)));
+        Filter tmp = new Filter();
+        tmp.categoryBits = CollisionFilter.MONSTRESOL.getCategory();
+        tmp.maskBits =(short) (CollisionFilter.JOUEUR.getCategory() | CollisionFilter.DECOR.getCategory());
+        body.getFixtureList().first().setFilterData(tmp);
     }
 
     @Override
@@ -64,24 +69,5 @@ public class Slime extends Ennemi {
     @Override
     public void update() {
         super.update();
-        comportement.update();
-        body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glide à l'infini
-        position = body.getPosition();
-        if(mort){
-            comportement.getBehavior().setEnabled(false);
-        }
-
-        // Si on est en coolDown mais que le temps est dépassé alors nous ne sommes plus en cooldown
-        if(onCoolDown && currentTime > coolDownTime) {
-            currentTime = 0;
-            onCoolDown = false;
-        }
-        //attaque CAC
-        if(!onCoolDown){
-            for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
-                target.getKey().setTouche(this);
-            }
-            onCoolDown = true;
-        }
     }
 }
