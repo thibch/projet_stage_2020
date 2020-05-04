@@ -51,7 +51,7 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
         fixtureDef1.friction = 0f;
         //collision
         fixtureDef1.filter.categoryBits = CollisionFilter.OBJET.getCategory();
-        fixtureDef1.filter.maskBits = CollisionFilter.JOUEUR.getCategory();
+        fixtureDef1.filter.maskBits =(short) (CollisionFilter.JOUEUR.getCategory() | CollisionFilter.DECOR.getCategory());
 
         // Met en place la fixture sur le body
         body.setFixedRotation(true);
