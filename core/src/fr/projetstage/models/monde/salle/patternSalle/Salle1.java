@@ -29,17 +29,19 @@ public class Salle1 extends Salle {
 
     @Override
     public void genererSalle() {
+
         // Mur Gauche et Droite
         for(int y = 0; y < hauteur;y++){
-            tileMap.add(new Mur(world, new Vector2(-1, y), fr.projetstage.models.Orientation.GAUCHE,getRandomWall()));
-            tileMap.add(new Mur(world, new Vector2((largeur), y), fr.projetstage.models.Orientation.DROITE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(largeur, y), Orientation.DROITE,getRandomWall()));
         }
 
         // Mur Haut et Bas
         for (int x = 0; x < largeur; x++) {
-            tileMap.add(new Mur(world, new Vector2(x, (hauteur)), fr.projetstage.models.Orientation.HAUT,getRandomWall()));
-            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, hauteur), Orientation.HAUT, getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS, getRandomWall()));
         }
+
 
         // parcours tout les murs et ajoute aléatoirement des props si le mur est de type 1
         Mur tmp;
@@ -54,7 +56,6 @@ public class Salle1 extends Salle {
             }
         }
 
-
         // le sol
         for(int x = 0; x < largeur; x++){
             for(int y = 0; y < hauteur; y++){
@@ -62,6 +63,7 @@ public class Salle1 extends Salle {
             }
         }
 
+        tileMap.add(new Porte(world, new Vector2((float)(largeur/2), hauteur), 2, 2, Orientation.HAUT));
 
 
         meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));

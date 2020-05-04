@@ -23,6 +23,9 @@ public class TextureFactory {
     private static Texture bordureMur;
     private static Texture bordureMurAngle;
 
+    // Porte
+    private static Texture porteOuverte;
+
     // Décors Murs
     private static Texture drapeauVert;
     private static Texture drapeauRouge;
@@ -109,6 +112,9 @@ public class TextureFactory {
         murAngle = new Texture(Gdx.files.internal("tiles/level1/wall/wall_bottom_corner.png"));
         bordureMur = new Texture(Gdx.files.internal("tiles/level1/wall/wall_top_1.png"));
         bordureMurAngle = new Texture(Gdx.files.internal("tiles/level1/wall/wall_top_corner.png"));
+
+        // Porte
+        porteOuverte = new Texture(Gdx.files.internal("tiles/level1/wall/door_open.png"));
 
         // Décors Murs
         drapeauVert = new Texture(Gdx.files.internal("props_items/flag_green.png"));
@@ -222,6 +228,14 @@ public class TextureFactory {
      */
     public Texture getMur4() {
         return mur4;
+    }
+
+    /**
+     * Getter pour l'image de la porte Ouverte
+     * @return image de porte ouverte
+     */
+    public Texture getPorteOuverte() {
+        return porteOuverte;
     }
 
     /**
@@ -559,7 +573,6 @@ public class TextureFactory {
     public TextureRegion getTorcheSpriteSheet() {
         return torcheSpriteSheet;
     }
-
 
     /**
      * Getter pour la sprite sheet de la torche

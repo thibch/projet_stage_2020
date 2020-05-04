@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.solEtMurs.NonDestructible;
 
 public class PetiteTable extends NonDestructible {
     public PetiteTable(GameWorld world, Vector2 position) {

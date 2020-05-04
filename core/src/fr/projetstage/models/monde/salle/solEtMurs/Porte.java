@@ -1,27 +1,28 @@
-package fr.projetstage.models.monde.salle.solEtMurs.meubles;
+package fr.projetstage.models.monde.salle.solEtMurs;
 
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
+import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Orientation;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.solEtMurs.meubles.Obstacle;
 
-public abstract class NonDestructible extends Obstacle {
-
-
+public class Porte extends Obstacle {
     protected float tailleX;
     protected float tailleY;
 
-    public NonDestructible(GameWorld world, Vector2 position, float tailleX, float tailleY){
+    public Porte(GameWorld world, Vector2 position, float tailleX, float tailleY, Orientation direction) {
         super(world, position);
 
         this.tailleX = tailleX;
         this.tailleY = tailleY;
-    }
 
-    @Override
-    public void generateBody(){
-        // Création de la shape pour le héros
+        //Ajout d'une fixture pour la transition
+
         Vector2 posShape = new Vector2(0, 0); // La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[5];
         vertices[0] = posShape;
@@ -41,11 +42,18 @@ public abstract class NonDestructible extends Obstacle {
 
         super.generateBody();
 
+        body.setUserData(new Type(TypeEntite.PORTE, direction.getIndice()));
+
         rectangle.dispose();
     }
 
     @Override
     public boolean estNonDestructible() {
-        return true;
+        return false;
+    }
+
+    @Override
+    public void draw(SpriteBatch batch, float x, float y) {
+        batch.draw(TextureFactory.getInstance().getPorteOuverte(), x + getPosition().x, y + getPosition().y, 1f/2f, 1f/2f, 2, 2, 1, 1, 0,0,0, TextureFactory.getInstance().getPorteOuverte().getWidth(), TextureFactory.getInstance().getPorteOuverte().getHeight(), false, false);
     }
 }

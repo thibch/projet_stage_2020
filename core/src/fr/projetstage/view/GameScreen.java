@@ -126,17 +126,20 @@ public class GameScreen extends ScreenAdapter {
      */
     public void update(float delta){
 
-        if(keyboardListener.isNext() && currentTime < 0.1){ // One time Boolean TODO: (A changer)
-            xSalle = -20; //Position à faire en fonction de l'orientation
-            ySalle = 0;
-            gameWorld.debutTransition(Orientation.GAUCHE); // On dit au monde de mettre à jour la salle suivante en fonction de l'orientation
+        if(gameWorld.estEnTransition() && !next){ // One time Boolean TODO: (A changer)
+            System.out.println("Transition ! ");
+            Vector2 transi = gameWorld.transition(); // On dit au monde de mettre à jour la salle suivante en fonction de l'orientation
+            xSalle = transi.x; //Position à faire en fonction de l'orientation
+            ySalle = transi.y;
             next = true;
+            currentTime = 0;
         }
 
         if(next){ // Si on a décidé de changer
             currentTime += delta; // On additionne le delta time
 
             if(currentTime < transitionTime){ // Tant que la transition n'est pas terminée
+                System.out.println("Transition en cours");
                 xTransition += xSalle*(delta/transitionTime);
                 yTransition += ySalle*(delta/transitionTime);
 
@@ -159,7 +162,7 @@ public class GameScreen extends ScreenAdapter {
                 Vector2 force = keyboardListener.getAcceleration();
 
                 gameWorld.getJoueur().move(force);
-                gameWorld.getWorld().step(Gdx.graphics.getDeltaTime(),6,2);
+                gameWorld.getWorld().step(delta,6,2);
 
                 gameWorld.getJoueur().update(keyboardListener.getDirection());
                 gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());

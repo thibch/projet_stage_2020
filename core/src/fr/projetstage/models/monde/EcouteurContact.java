@@ -55,6 +55,10 @@ public class EcouteurContact implements ContactListener {
                 if (fixturePickUp != null) {
                     world.setPickUpTaken(((Type) fixturePickUp.getBody().getUserData()).getId());
                 }
+                Fixture fixturePorte = check(fixtureA, fixtureB, TypeEntite.PORTE);
+                if (fixturePorte != null) {
+                    world.setPorteTouched(((Type) fixturePorte.getBody().getUserData()).getId());
+                }
             }
 
             //debut de contact entre piege et joueur / ennemi

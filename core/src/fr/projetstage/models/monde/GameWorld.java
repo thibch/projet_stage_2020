@@ -21,6 +21,7 @@ public class GameWorld {
     private final Random random;
 
     private boolean estEnTransition;
+    private Orientation directionTransition;
 
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
@@ -58,13 +59,25 @@ public class GameWorld {
 
     /**
      * Permet de prévenir au monde que l'on vas changer de salle (en fonction de la direciton
-     * @param direction direction de la transition (en fonction de la salle courante)
+     * @return le décalage à faire pour la caméra
      */
-    public void debutTransition(Orientation direction){
-        if(!estEnTransition){
-            salleSuivante = etage.next();
-            estEnTransition = true;
+    public Vector2 transition(){
+        Vector2 decalage = new Vector2();
+        switch(directionTransition){
+            case DROITE:
+                decalage.x = salleCourante.getLargeur() + 4;
+                break;
+            case GAUCHE:
+                decalage.x = - salleSuivante.getLargeur() - 4;
+                break;
+            case HAUT:
+                decalage.y = salleCourante.getHauteur() + 4;
+                break;
+            case BAS:
+                decalage.y = - salleSuivante.getHauteur() - 4 ;
+                break;
         }
+        return decalage;
     }
 
     /**
@@ -156,4 +169,16 @@ public class GameWorld {
     }
 
 
+    public void setPorteTouched(int id) {
+        //TODO : se servir de l'id/Orientation
+        estEnTransition = true;
+
+        salleSuivante = etage.next();
+        directionTransition = Orientation.HAUT;
+        //this.debutTransition(Orientation.HAUT);
+    }
+
+    public boolean estEnTransition() {
+        return estEnTransition;
+    }
 }

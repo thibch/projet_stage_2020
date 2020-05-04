@@ -5,8 +5,8 @@ import fr.projetstage.dataFactories.TextureFactory;
 
 public enum TypeMur {
 
-    MUR1(TextureFactory.getInstance().getMur1()), MUR2(TextureFactory.getInstance().getMur1()),
-    MUR3(TextureFactory.getInstance().getMur1()), MUR4(TextureFactory.getInstance().getMur1());
+    MUR1(TextureFactory.getInstance().getMur1()), MUR2(TextureFactory.getInstance().getMur2()),
+    MUR3(TextureFactory.getInstance().getMur3()), MUR4(TextureFactory.getInstance().getMur4());
 
     private final Texture texture;
 
