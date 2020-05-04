@@ -8,6 +8,7 @@ import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.monde.GameWorld;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Ennemi extends EntiteMouvante {
 
@@ -96,7 +97,6 @@ public abstract class Ennemi extends EntiteMouvante {
         fixtureDef1.density = 1f;
         fixtureDef1.restitution = 0f;
         fixtureDef1.friction = 0f;
-        fixtureDef1.filter.groupIndex = (short)-2;
 
         // Met en place la fixture sur le body
         body.setFixedRotation(true);
@@ -110,5 +110,29 @@ public abstract class Ennemi extends EntiteMouvante {
     @Override
     public void destroyBody(){
         world.getWorld().destroyBody(body);
+    }
+
+    public void update(){
+        super.update();
+
+        comportement.update();
+        body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glide à l'infini
+        position = body.getPosition();
+        if(mort){
+            comportement.getBehavior().setEnabled(false);
+        }
+
+        // Si on est en coolDown mais que le temps est dépassé alors nous ne sommes plus en cooldown
+        if(onCoolDown && currentTime > coolDownTime) {
+            currentTime = 0;
+            onCoolDown = false;
+        }
+        //attaque CAC
+        if(!onCoolDown){
+            for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
+                target.getKey().setTouche(this);
+            }
+            onCoolDown = true;
+        }
     }
 }

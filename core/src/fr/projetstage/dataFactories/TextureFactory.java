@@ -83,6 +83,9 @@ public class TextureFactory {
     private static TextureRegion slimeIdleSpriteSheet;
     private static TextureRegion slimeRunSpriteSheet;
 
+    // EyeBat
+    private static TextureRegion eyeBatSpriteSheet;
+
     // Décors
     private static TextureRegion torcheSpriteSheet;
     private static TextureRegion piegeSpriteSheet;
@@ -172,6 +175,9 @@ public class TextureFactory {
         // Slimes
         slimeIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/slime/slime_idle_spritesheet.png")));
         slimeRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/slime/slime_run_spritesheet.png")));
+
+        // EyeBat
+        eyeBatSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/flying creature/fly_anim_spritesheet.png")));
 
         // Décors
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
@@ -608,6 +614,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour la sprite sheet de l'oeil volant
+     * @return une TextureRegion fly creature spritesheet
+     */
+    public TextureRegion getEyeBatSpriteSheet(){
+        return eyeBatSpriteSheet;
+    }
+
+    /**
      * Getter pour la sprite sheet de mort
      * @return une TextureRegion de spritesheet de mort
      */
@@ -650,6 +664,7 @@ public class TextureFactory {
                 attaqueSpriteSheet.getTexture(),
                 slimeIdleSpriteSheet.getTexture(),
                 slimeRunSpriteSheet.getTexture(),
+                eyeBatSpriteSheet.getTexture(),
                 deathSpriteSheet.getTexture(),
                 piegeSpriteSheet.getTexture(),
                 coffreSpriteSheet.getTexture()

@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
@@ -131,6 +132,7 @@ public class Coffre extends ObjetsTousTypes {
         fixtureDef1.restitution = 0f;
         fixtureDef1.friction = 1f;
         //
+        fixtureDef1.filter.categoryBits = CollisionFilter.DECOR.getCategory();
 
         // Met en place la fixture sur le body
         body.setFixedRotation(true);

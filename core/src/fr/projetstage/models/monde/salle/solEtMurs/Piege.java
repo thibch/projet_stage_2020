@@ -58,7 +58,6 @@ public class Piege extends Ennemi {
         fixtureDef1.restitution = 0f;
         fixtureDef1.friction = 0f;
         fixtureDef1.isSensor = true;
-        fixtureDef1.filter.groupIndex = (short)-2;
 
         // Met en place la fixture sur le body
         body.setFixedRotation(true);
