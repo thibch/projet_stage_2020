@@ -112,7 +112,6 @@ public class Joueur extends EntiteMouvante {
 
                 // On met en place le cooldown
                 if(!attaqueDistance.isChargingAndHaveMunitions()){
-                    System.out.println("yes");
                     attaqueMaintenant = true;
                     onCoolDown = true;
                 }
@@ -217,7 +216,7 @@ public class Joueur extends EntiteMouvante {
      * @param switchWeapon le booleen qui permet de passer de l'un à l'autre
      */
     public void setWeapon(boolean switchWeapon) {
-        utiliseEpee = !switchWeapon;
+        utiliseEpee = !switchWeapon && !attaqueDistance.isChargingAndHaveMunitions();
         if(utiliseEpee){
             coolDownTime = 1f;
         }else{
