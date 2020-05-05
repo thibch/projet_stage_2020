@@ -1,11 +1,12 @@
 package fr.projetstage.models.entites.objets.objetsAuSol;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
-public class PotionRouge extends ObjetAuSol{
+public class PotionRouge extends ObjetAuSol {
 
     public PotionRouge(GameWorld world, Vector2 position, int id) {
         super(world, position, new Vector2(4f/16f,4f/16f), 7f/16f, 10f/16f, id);
@@ -19,6 +20,11 @@ public class PotionRouge extends ObjetAuSol{
         }else{
             setTouche(false);
         }
+    }
+
+    @Override
+    public Texture getTexture() {
+        return TextureFactory.getInstance().getPotionRouge();
     }
 
     @Override

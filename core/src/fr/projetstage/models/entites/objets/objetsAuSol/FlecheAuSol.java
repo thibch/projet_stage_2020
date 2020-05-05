@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites.objets.objetsAuSol;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
@@ -23,7 +24,12 @@ public class FlecheAuSol extends ObjetAuSol{
     }
 
     @Override
+    public Texture getTexture() {
+        return TextureFactory.getInstance().getArrowUI();
+    }
+
+    @Override
     public void draw(SpriteBatch batch, float x, float y){
-        batch.draw(TextureFactory.getInstance().getPotionRouge(), x + getPosition().x, y + getPosition().y, 1, 1);
+        batch.draw(TextureFactory.getInstance().getArrowUI(), x + getPosition().x, y + getPosition().y, 1, 1);
     }
 }

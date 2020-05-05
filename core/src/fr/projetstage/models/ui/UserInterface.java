@@ -40,7 +40,7 @@ public class UserInterface {
         pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY,this);
 
         gameOverScreen = new GameOverScreen(stage,this);
-        pauseScreen = new PauseScreen(stage, this);
+        pauseScreen = new PauseScreen(stage, this, gameWorld);
         munitions = new Text("", 65, Color.WHITE, new Vector2(1.4f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), true);
     }
 

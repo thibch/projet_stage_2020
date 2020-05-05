@@ -7,15 +7,12 @@ import java.util.ArrayList;
 public class Inventaire {
 
     private final ArrayList<ObjetsTousTypes> contenu;
-    private final Joueur joueur;
 
     /**
      * Inventaire
-     * @param joueur le joueur qui a cet inventaire
      */
-    public Inventaire(Joueur joueur){
+    public Inventaire(){
         contenu = new ArrayList<>(50);
-        this.joueur = joueur;
     }
 
 
@@ -37,7 +34,13 @@ public class Inventaire {
         obj.reverseEffect();
     }
 
-
+    /**
+     * Permet de recuperer le contenu de l'inventaire pour l'afficher
+     * @return l'arraylist de l'inventaire
+     */
+    public ArrayList<ObjetsTousTypes> getContenu(){
+        return contenu;
+    }
 
 
 }

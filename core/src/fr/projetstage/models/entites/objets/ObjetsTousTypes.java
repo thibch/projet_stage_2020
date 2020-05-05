@@ -1,5 +1,6 @@
 package fr.projetstage.models.entites.objets;
 
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.models.Entite;
@@ -80,4 +81,10 @@ public abstract class ObjetsTousTypes implements Entite {
     public Vector2 getPosition() {
         return position;
     }
+
+    /**
+     * Permet de récupérer la texture de l'objet
+     * @return la texture de l'objet
+     */
+    public abstract Texture getTexture();
 }
