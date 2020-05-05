@@ -77,6 +77,7 @@ public class CorpsACorps extends Attaque{
         isRunning = true;
         startAngle = tabAngles[direction.getIndice()];
         currentAngle = startAngle;
+        epee.setAngle(currentAngle);
     }
 
     @Override
