@@ -3,7 +3,6 @@ package fr.projetstage.dataFactories;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 /**
  * @author Thibault Choné
@@ -73,6 +72,7 @@ public class TextureFactory {
     private static Texture potionRouge;
     private static Texture potionJaune;
     private static Texture coffreOpen;
+    private static Texture crane;
 
     // SpriteSheets
     // Joueur
@@ -166,6 +166,7 @@ public class TextureFactory {
         potionRouge = new Texture(Gdx.files.internal("props_items/potion_red.png"));
         potionJaune = new Texture(Gdx.files.internal("props_items/potion_yellow.png"));
         coffreOpen = new Texture(Gdx.files.internal("props_items/chest_open.png"));
+        crane = new Texture(Gdx.files.internal("props_items/skull.png"));
 
         // SpriteSheets
         // Joueur
@@ -549,6 +550,14 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image du crane
+     * @return Getter pour l'image du crane
+     */
+    public Texture getCrane() {
+        return crane;
+    }
+
+    /**
      * Getter pour l'image du coffre ouvert
      * @return Getter pour l'image du coffre ouvert
      */
@@ -657,7 +666,7 @@ public class TextureFactory {
                 drapeauVert, drapeauRouge, prisoner,
                 background, titleScreen, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 epee, fleche,
-                potionRouge, coffreOpen,
+                potionRouge, potionJaune, crane, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
                 joueurRunningSpriteSheet.getTexture(),
                 torcheSpriteSheet.getTexture(),

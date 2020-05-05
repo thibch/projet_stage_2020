@@ -9,6 +9,7 @@ import fr.projetstage.models.entites.ennemis.ChauveSouris;
 import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
 import fr.projetstage.models.entites.objets.objetsCoffre.Coffre;
+import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
 import fr.projetstage.models.entites.objets.objetsCoffre.PotionJaune;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
@@ -85,6 +86,6 @@ public class Salle1 extends Salle {
         int nbObjetAuSols = 0;
 
         objets.put(nbObjetAuSols, new PotionRouge(world, new Vector2(7,7), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new PotionJaune(world), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new Crane(world), nbObjetAuSols++));
     }
 }
