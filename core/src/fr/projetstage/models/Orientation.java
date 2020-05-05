@@ -20,4 +20,18 @@ public enum Orientation {
         return indice;
     }
 
+    public static Orientation getFromIndice(int indice){
+        switch (indice){
+            case 0:
+                return GAUCHE;
+            case 1:
+                return DROITE;
+            case 2:
+                return HAUT;
+            case 3:
+                return BAS;
+            default:
+                return NO_ORIENTATION;
+        }
+    }
 }

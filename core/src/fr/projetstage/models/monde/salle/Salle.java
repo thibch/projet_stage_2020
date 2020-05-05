@@ -21,6 +21,9 @@ public abstract class Salle {
     protected ArrayList<Entite> tileMap;
     protected ArrayList<Prop> props;
     protected ArrayList<Entite> meubles;
+
+    protected ArrayList<Porte> portes;
+
     protected HashMap<Integer, Ennemi> ennemis;
     protected HashMap<Integer, ObjetsTousTypes> objets;
 
@@ -30,6 +33,8 @@ public abstract class Salle {
      * Salle généré avec un body Static et des portes pour sortir
      * Les salles sont forcement rectangulaire
      * @param world le monde dans lequel la salle est générée
+     * @param largeur largeur en nombre de case de la salle
+     * @param hauteur hauteur en nombre de case de la salle
      */
     public Salle(GameWorld world, int largeur, int hauteur){
         this.hauteur = hauteur;
@@ -39,6 +44,7 @@ public abstract class Salle {
         tileMap = new ArrayList<>();
         props = new ArrayList<>();
         meubles = new ArrayList<>();
+        portes = new ArrayList<>();
         ennemis = new HashMap<>();
         objets = new HashMap<>();
 
@@ -46,6 +52,8 @@ public abstract class Salle {
     }
 
     public void update(){
+        boolean isVictorious = false;
+
         Iterator<Integer> it = ennemis.keySet().iterator();
         int courant;
         while(it.hasNext()){
@@ -61,6 +69,8 @@ public abstract class Salle {
             }
         }
 
+        isVictorious = ennemis.size() <= 1; // TODO: ne pas compter les pièges
+
         it = objets.keySet().iterator();
         while(it.hasNext()){
             courant = it.next();
@@ -71,6 +81,12 @@ public abstract class Salle {
                 world.getWorld().destroyBody(objets.get(courant).getBody());
                 it.remove();
                 objets.remove(courant);
+            }
+        }
+
+        if(isVictorious){
+            for(Porte porte : portes){
+                porte.ouverturePorte();
             }
         }
     }
@@ -141,6 +157,10 @@ public abstract class Salle {
         listeAffImg.draw(tmpWallBorder, x-1, y-1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
         listeAffImg.draw(tmpWallBorder, x, y-1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
         listeAffImg.draw(tmpWallCorner, x, y-1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
+
+        for(Entite porte : portes){
+            porte.draw(listeAffImg, x, y);
+        }
     }
 
     public void generateBodies(){
@@ -163,30 +183,38 @@ public abstract class Salle {
         for(Entite obj : objets.values()){
             obj.generateBody();
         }
+
+        for (Entite porte : portes) {
+            porte.generateBody();
+        }
     }
 
-    public void destroyBodies(){
-        for(Entite tile : tileMap){
+    public void destroyBodies() {
+
+        for (Entite tile : tileMap) {
             tile.destroyBody();
         }
         // objets sur les murs
-        for(Prop prop : props){
+        for (Prop prop : props) {
             prop.destroyBody();
         }
 
-        for(Entite meuble : meubles){
+        for (Entite meuble : meubles) {
             meuble.destroyBody();
         }
 
-        for(Entite monstre : ennemis.values()){
+        for (Entite monstre : ennemis.values()) {
             monstre.destroyBody();
         }
 
-        for(Entite obj : objets.values()){
+        for (Entite obj : objets.values()) {
             obj.destroyBody();
         }
-    }
 
+        for (Entite porte : portes) {
+            porte.destroyBody();
+        }
+    }
 
     public abstract void genererSalle();
 

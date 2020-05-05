@@ -63,20 +63,30 @@ public class GameWorld {
      */
     public Vector2 transition(){
         Vector2 decalage = new Vector2();
+        Vector2 emplacementJoueur = new Vector2();
         switch(directionTransition){
             case DROITE:
+                emplacementJoueur.x = 0;
+                emplacementJoueur.y = salleCourante.getHauteur()/2f;
                 decalage.x = salleCourante.getLargeur() + 4;
                 break;
             case GAUCHE:
+                emplacementJoueur.x = salleSuivante.getLargeur()-1;
+                emplacementJoueur.y = salleCourante.getHauteur()/2f;
                 decalage.x = - salleSuivante.getLargeur() - 4;
                 break;
             case HAUT:
+                emplacementJoueur.x = salleSuivante.getLargeur()/2f;
+                emplacementJoueur.y = 0;
                 decalage.y = salleCourante.getHauteur() + 4;
                 break;
             case BAS:
+                emplacementJoueur.x = salleSuivante.getLargeur()/2f;
+                emplacementJoueur.y = salleCourante.getHauteur()-1;
                 decalage.y = - salleSuivante.getHauteur() - 4 ;
                 break;
         }
+        joueur.setPosition(emplacementJoueur);
         return decalage;
     }
 
@@ -88,6 +98,7 @@ public class GameWorld {
         salleCourante.destroyBodies();
         salleCourante = salleSuivante;
         salleSuivante.generateBodies();
+        //TODO: faire spawn le joueur à l'opposé de la où il était
     }
 
     /**
@@ -169,12 +180,16 @@ public class GameWorld {
     }
 
 
+    /**
+     * Lorsque le joueur touche une porte
+     * @param id
+     */
     public void setPorteTouched(int id) {
         //TODO : se servir de l'id/Orientation
         if(!estEnTransition){
             estEnTransition = true;
             salleSuivante = etage.next();
-            directionTransition = Orientation.HAUT;
+            directionTransition = Orientation.getFromIndice(id);
         }
         //this.debutTransition(Orientation.HAUT);
     }

@@ -127,7 +127,6 @@ public class GameScreen extends ScreenAdapter {
     public void update(float delta){
 
         if(gameWorld.estEnTransition() && !next){ // One time Boolean TODO: (A changer)
-            System.out.println("Transition ! ");
             Vector2 transi = gameWorld.transition(); // On dit au monde de mettre à jour la salle suivante en fonction de l'orientation
             xSalle = transi.x; //Position à faire en fonction de l'orientation
             ySalle = transi.y;
@@ -139,7 +138,6 @@ public class GameScreen extends ScreenAdapter {
             currentTime += delta; // On additionne le delta time
 
             if(currentTime < transitionTime){ // Tant que la transition n'est pas terminée
-                System.out.println("Transition en cours");
                 xTransition += xSalle*(delta/transitionTime);
                 yTransition += ySalle*(delta/transitionTime);
 

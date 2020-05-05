@@ -256,4 +256,9 @@ public class Joueur extends EntiteMouvante {
     public boolean isSwitchedWeapon() {
         return utiliseEpee;
     }
+
+    public void setPosition(Vector2 newPos) {
+        position = newPos;
+        body.setTransform(newPos, 0);
+    }
 }

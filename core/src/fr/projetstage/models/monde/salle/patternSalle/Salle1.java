@@ -31,14 +31,29 @@ public class Salle1 extends Salle {
     @Override
     public void genererSalle() {
 
+        portes.add(new Porte(world, new Vector2((float)(largeur/2)-1, hauteur), 2, 2, Orientation.HAUT));
+        portes.add(new Porte(world, new Vector2((float)(largeur/2)-1, -2), 2, 2, Orientation.BAS));
+        portes.add(new Porte(world, new Vector2(largeur, (float)(hauteur/2)-1), 2, 2, Orientation.DROITE));
+        portes.add(new Porte(world, new Vector2(-2, (float)(hauteur/2)-1), 2, 2, Orientation.GAUCHE));
+
         // Mur Gauche et Droite
-        for(int y = 0; y < hauteur;y++){
+        for(int y = 0; y < hauteur/2 - 1;y++){
+            tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(largeur, y), Orientation.DROITE,getRandomWall()));
+        }
+
+        for(int y = hauteur/2 + 1; y < hauteur;y++){
             tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
             tileMap.add(new Mur(world, new Vector2(largeur, y), Orientation.DROITE,getRandomWall()));
         }
 
         // Mur Haut et Bas
-        for (int x = 0; x < largeur; x++) {
+        for (int x = 0; x < largeur/2-1; x++) {
+            tileMap.add(new Mur(world, new Vector2(x, hauteur), Orientation.HAUT, getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS, getRandomWall()));
+        }
+
+        for (int x = largeur/2+1; x < largeur; x++) {
             tileMap.add(new Mur(world, new Vector2(x, hauteur), Orientation.HAUT, getRandomWall()));
             tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS, getRandomWall()));
         }
@@ -63,8 +78,6 @@ public class Salle1 extends Salle {
                 tileMap.add(new Sol(new Vector2(x,y),getRandomGround()));
             }
         }
-
-        tileMap.add(new Porte(world, new Vector2((float)(largeur/2), hauteur), 2, 2, Orientation.HAUT));
 
 
         meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));

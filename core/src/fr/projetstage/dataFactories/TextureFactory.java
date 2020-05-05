@@ -25,6 +25,7 @@ public class TextureFactory {
 
     // Porte
     private static Texture porteOuverte;
+    private static Texture porteFerme;
 
     // Décors Murs
     private static Texture drapeauVert;
@@ -118,6 +119,7 @@ public class TextureFactory {
 
         // Porte
         porteOuverte = new Texture(Gdx.files.internal("tiles/level1/wall/door_open.png"));
+        porteFerme = new Texture(Gdx.files.internal("tiles/level1/wall/door_closed_no_lock.png"));
 
         // Décors Murs
         drapeauVert = new Texture(Gdx.files.internal("props_items/flag_green.png"));
@@ -237,11 +239,19 @@ public class TextureFactory {
     }
 
     /**
-     * Getter pour l'image de la porte Ouverte
+     * Getter pour l'image de la porte ouverte
      * @return image de porte ouverte
      */
     public Texture getPorteOuverte() {
         return porteOuverte;
+    }
+
+    /**
+     * Getter pour l'image de la porte fermée
+     * @return image de porte fermée
+     */
+    public Texture getPorteFerme() {
+        return porteFerme;
     }
 
     /**
