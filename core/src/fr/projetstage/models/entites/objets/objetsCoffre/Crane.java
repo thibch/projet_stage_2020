@@ -27,6 +27,11 @@ public class Crane extends ObjetDansCoffre {
     }
 
     @Override
+    public String getDescription() {
+        return "Skully\nYour only friend here.";
+    }
+
+    @Override
     public void draw(SpriteBatch batch, float x, float y) {
         //Utile pour l'affichage dans l'interface (Et non dans le monde, voir le call de getTexture() pour ça)
     }

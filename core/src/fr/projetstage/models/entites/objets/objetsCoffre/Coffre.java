@@ -88,6 +88,11 @@ public class Coffre extends ObjetsTousTypes {
     public Texture getTexture() {return null;}
 
     @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
     public void draw(SpriteBatch batch, float x, float y) {
         animation.update();
         if(!open){

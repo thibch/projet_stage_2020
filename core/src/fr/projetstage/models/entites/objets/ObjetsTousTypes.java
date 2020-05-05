@@ -87,4 +87,6 @@ public abstract class ObjetsTousTypes implements Entite {
      * @return la texture de l'objet
      */
     public abstract Texture getTexture();
+
+    public abstract String getDescription();
 }

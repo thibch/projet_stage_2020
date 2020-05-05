@@ -36,4 +36,7 @@ public abstract class ObjetDansCoffre extends ObjetsTousTypes {
 
     @Override
     public abstract void reverseEffect();
+
+    @Override
+    public abstract String getDescription();
 }

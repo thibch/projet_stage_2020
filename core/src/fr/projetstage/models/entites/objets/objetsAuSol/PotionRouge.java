@@ -28,6 +28,11 @@ public class PotionRouge extends ObjetAuSol {
     }
 
     @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
     public void update(){
         super.update();
     }

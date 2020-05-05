@@ -8,18 +8,19 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.ui.MenuButton;
-import fr.projetstage.models.ui.Text;
-import fr.projetstage.models.ui.UserInterface;
+import fr.projetstage.models.ui.*;
 
 import java.util.ArrayList;
 
 public class PauseScreen implements Menu{
 
     private GameWorld gameWorld;
+    private Stage stage;
 
     private Text pause;
     private Text inventaire;
+    private ArrayList<Item> inventaireUI;
+
     private UserInterface userInterface;
 
     private MenuButton continueBtn;
@@ -34,14 +35,17 @@ public class PauseScreen implements Menu{
     public PauseScreen(Stage stage, UserInterface userInterface, GameWorld gameWorld){
         this.userInterface = userInterface;
         this.gameWorld = gameWorld;
+        this.stage = stage;
         pause = new Text("Pause", 160, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/2f,3*(Gdx.graphics.getHeight()/4f)),true);
-        inventaire = new Text("Inventory", 80, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/5f,2*(Gdx.graphics.getHeight()/3f)),true);
+        inventaire = new Text("Inventory", 80, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/6f,2*(Gdx.graphics.getHeight()/3f)),true);
 
 
         continueBtn = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),4*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Continue");
         continueBtn.displayBtn(false);
         mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Main Menu");
         mainMenu.displayBtn(false);
+
+        inventaireUI = new ArrayList<>();
     }
 
     /**
@@ -49,25 +53,17 @@ public class PauseScreen implements Menu{
      * @param batch un Batch pour afficher les éléments
      */
     public void draw(Batch batch){
-        continueBtn.displayBtn(userInterface.isPaused());
-        mainMenu.displayBtn(userInterface.isPaused());
         if(userInterface.isPaused()) {
+            updateInventoryUI();
             batch.draw(TextureFactory.getInstance().getBackground(), 5, 5, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
             pause.draw(batch);
             inventaire.draw(batch);
+        }
 
-            //affiche le contenu de l'inventaire
-            ArrayList<ObjetsTousTypes> tmp = gameWorld.getJoueur().getInventaire().getContenu();
-            int y = 8;
-            int x = 1;
-            for(ObjetsTousTypes obj : tmp){
-                batch.draw(obj.getTexture(),x*(Gdx.graphics.getWidth()/20f),y*(Gdx.graphics.getHeight()/16f),96,96);
-                x++;
-                if( x > 5){
-                    y--;
-                    x = 1;
-                }
-            }
+        continueBtn.displayBtn(userInterface.isPaused());
+        mainMenu.displayBtn(userInterface.isPaused());
+        for(Item item : inventaireUI){
+            item.display(userInterface.isPaused());
         }
     }
 
@@ -91,6 +87,31 @@ public class PauseScreen implements Menu{
         }
         else if(btnText.equals("Main Menu")){
             userInterface.setGoToMainMenu();
+        }
+    }
+
+    private void updateInventoryUI(){
+        ArrayList<ObjetsTousTypes> tmp = gameWorld.getJoueur().getInventaire().getContenu();
+
+        if(tmp.size() != inventaireUI.size()){
+            for(Item item : inventaireUI){
+                item.dispose();
+            }
+            inventaireUI.clear();
+
+            int y = 6;
+            int x = 1;
+            Item tmpItem;
+            for(ObjetsTousTypes obj : tmp){
+                tmpItem = new Item(obj, stage);
+                tmpItem.setPosition(x*(Gdx.graphics.getWidth()/16f),y*(Gdx.graphics.getHeight()/12f));
+                inventaireUI.add(tmpItem);
+                x++;
+                if( x > 4){
+                    y--;
+                    x = 1;
+                }
+            }
         }
     }
 }

@@ -29,6 +29,11 @@ public class FlecheAuSol extends ObjetAuSol{
     }
 
     @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
     public void draw(SpriteBatch batch, float x, float y){
         batch.draw(TextureFactory.getInstance().getArrowUI(), x + getPosition().x, y + getPosition().y, 1, 1);
     }

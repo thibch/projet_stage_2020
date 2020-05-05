@@ -12,8 +12,6 @@ import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
 import fr.projetstage.models.entites.attaques.CorpsACorps;
 import fr.projetstage.models.entites.attaques.Fleche;
-import fr.projetstage.models.entites.objets.objetsAuSol.PotionRouge;
-import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -55,16 +53,6 @@ public class Joueur extends EntiteMouvante {
         coolDownTimeInvincible = 1f;
 
         inventaire = new Inventaire();
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
-        inventaire.add(new Crane(world));
 
         hauteur = (6f/16f);
         largeur = (8f/16f);
