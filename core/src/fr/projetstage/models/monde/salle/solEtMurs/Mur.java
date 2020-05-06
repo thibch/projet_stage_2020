@@ -17,7 +17,8 @@ public class Mur extends NonDestructible {
     }
 
     public void draw(SpriteBatch batch, float x, float y){
-        batch.draw(numMur.getTexture(), x + getPosition().x, y + getPosition().y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numMur.getTexture().getWidth(), numMur.getTexture().getHeight(), false, false);
+        batch.draw(numMur.getTexture(), x + getPosition().x, y + getPosition().y, tailleX/2f, tailleY/2f,
+                tailleX, tailleY, 1, 1, orientation.getRotation(),0,0, numMur.getTexture().getWidth(), numMur.getTexture().getHeight(), false, false);
     }
 
     public TypeMur getNumMur() {

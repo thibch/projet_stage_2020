@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
-public class PotionJaune extends ObjetDansCoffre {
+public class PotionVitesse extends Equipement {
 
-    public PotionJaune(GameWorld world) {
+    public PotionVitesse(GameWorld world) {
         super(world);
         nom = "Potion Jaune";
     }

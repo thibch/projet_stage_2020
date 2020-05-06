@@ -5,12 +5,12 @@ import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
 
-public abstract class ObjetDansCoffre extends ObjetsTousTypes {
+public abstract class Equipement extends ObjetsTousTypes {
 
     protected String nom;
     private int rarete;
 
-    public ObjetDansCoffre(GameWorld world){
+    public Equipement(GameWorld world){
         super(world, new Vector2(0,0), 0);
     }
 

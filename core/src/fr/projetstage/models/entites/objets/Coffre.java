@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.objets.objetsCoffre;
+package fr.projetstage.models.entites.objets;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,15 +10,15 @@ import fr.projetstage.models.Animation;
 import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
-import fr.projetstage.models.entites.objets.ObjetsTousTypes;
+import fr.projetstage.models.entites.objets.objetsCoffre.Equipement;
 import fr.projetstage.models.monde.GameWorld;
 
 public class Coffre extends ObjetsTousTypes {
 
-    private ObjetDansCoffre objet;
+    private Equipement objet;
 
     private boolean open;
-    private boolean openAndTook;
+    private boolean empty;
 
     private final float timeToTake = 0.5f;
     private float openTime;
@@ -35,12 +35,12 @@ public class Coffre extends ObjetsTousTypes {
      * @param objet l'objet qui sera dans le piedestale
      * @param id l'id du piedestal dans la salle
      */
-    public Coffre(GameWorld world, Vector2 position, ObjetDansCoffre objet, int id){
+    public Coffre(GameWorld world, Vector2 position, Equipement objet, int id){
         super(world, position, id);
         this.world = world;
         this.objet = objet;
         open = false;
-        openAndTook = false;
+        empty = false;
         openTime = 0f;
 
         decalageY = 0f;
@@ -75,9 +75,9 @@ public class Coffre extends ObjetsTousTypes {
     @Override
     public void applyEffect() {
         open = true;
-        if(openTime >= timeToTake && !openAndTook){
+        if(openTime >= timeToTake && !empty){
             world.getJoueur().getInventaire().add(objet);
-            openAndTook = true;
+            empty = true;
         }
     }
 
@@ -99,7 +99,7 @@ public class Coffre extends ObjetsTousTypes {
             batch.draw(animation.getFrame(false, false), x + getPosition().x, y + getPosition().y, 1,1);
         }else{
             batch.draw(TextureFactory.getInstance().getCoffreOpen(), x + getPosition().x, y + getPosition().y, 1,1);
-            if(!openAndTook){
+            if(!empty){
                 batch.draw(objet.getTexture(), x + getPosition().x, y + getPosition().y + decalageY, 1, 1);
             }
         }

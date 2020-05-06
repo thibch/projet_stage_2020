@@ -2,8 +2,10 @@ package fr.projetstage.models.monde.salle;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
+import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
@@ -47,12 +49,27 @@ public abstract class Salle {
         portes = new ArrayList<>();
         ennemis = new HashMap<>();
         objets = new HashMap<>();
+    }
 
-        genererSalle();
+    public void ajouterPorte(Orientation orientationPorte){
+        switch (orientationPorte){
+            case BAS:
+                portes.add(new Porte(world, new Vector2((float)(largeur/2)-1, -2), 2, 2, Orientation.BAS));
+                break;
+            case HAUT:
+                portes.add(new Porte(world, new Vector2((float)(largeur/2)-1, hauteur), 2, 2, Orientation.HAUT));
+                break;
+            case GAUCHE:
+                portes.add(new Porte(world, new Vector2(-2, (float)(hauteur/2)-1), 2, 2, Orientation.GAUCHE));
+                break;
+            case DROITE:
+                portes.add(new Porte(world, new Vector2(largeur, (float)(hauteur/2)-1), 2, 2, Orientation.DROITE));
+                break;
+        }
     }
 
     public void update(){
-        boolean isVictorious = false;
+        boolean isVictorious;
 
         Iterator<Integer> it = ennemis.keySet().iterator();
         int courant;
@@ -217,6 +234,85 @@ public abstract class Salle {
     }
 
     public abstract void genererSalle();
+
+    protected void genererSolsEtMurs(){
+
+        ArrayList<Orientation> mursARajouter = new ArrayList<>();
+        mursARajouter.add(Orientation.HAUT);
+        mursARajouter.add(Orientation.BAS);
+        mursARajouter.add(Orientation.GAUCHE);
+        mursARajouter.add(Orientation.DROITE);
+
+        for (Porte porte : portes){
+            mursARajouter.remove(porte.getOrientation());
+        }
+
+        // Mur Gauche et Droite
+        for(int y = 0; y < hauteur/2 - 1;y++){
+            tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(largeur, y), Orientation.DROITE,getRandomWall()));
+        }
+
+        if(mursARajouter.contains(Orientation.GAUCHE)){
+            tileMap.add(new Mur(world, new Vector2(-1, (float)(hauteur/2) - 1), Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(-1, (float)(hauteur/2)), Orientation.GAUCHE,getRandomWall()));
+        }
+
+        if(mursARajouter.contains(Orientation.DROITE)){
+            tileMap.add(new Mur(world, new Vector2(largeur, (float)(hauteur/2) - 1), Orientation.DROITE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(largeur, (float)(hauteur/2)), Orientation.DROITE,getRandomWall()));
+        }
+
+        for(int y = hauteur/2 + 1; y < hauteur;y++){
+            tileMap.add(new Mur(world, new Vector2(-1, y), Orientation.GAUCHE,getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(largeur, y), Orientation.DROITE,getRandomWall()));
+        }
+
+        // Mur Haut et Bas
+        for (int x = 0; x < largeur/2-1; x++) {
+            tileMap.add(new Mur(world, new Vector2(x, hauteur), Orientation.HAUT, getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS, getRandomWall()));
+        }
+
+        if(mursARajouter.contains(Orientation.HAUT)){
+            tileMap.add(new Mur(world, new Vector2((float)(largeur/2)-1, hauteur), Orientation.HAUT, getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2((float)(largeur/2), hauteur), Orientation.HAUT, getRandomWall()));
+        }
+
+        if(mursARajouter.contains(Orientation.BAS)){
+            tileMap.add(new Mur(world, new Vector2((float)(largeur/2)-1, -1), Orientation.BAS, getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2((float)(largeur/2), -1), Orientation.BAS, getRandomWall()));
+        }
+
+        for (int x = largeur/2+1; x < largeur; x++) {
+            tileMap.add(new Mur(world, new Vector2(x, hauteur), Orientation.HAUT, getRandomWall()));
+            tileMap.add(new Mur(world, new Vector2(x, -1), Orientation.BAS, getRandomWall()));
+        }
+
+
+
+        // parcours tout les murs et ajoute aléatoirement des props si le mur est de type 1
+        Mur tmp;
+        TypeProp tmpAlea;
+        for(Entite mur : tileMap){
+            tmp = (Mur) mur;
+            if(tmp.getNumMur() == TypeMur.MUR1){
+                tmpAlea = getRandomProps();
+                if(tmpAlea != null){
+                    props.add(new Prop(tmp.getPosition(),tmp.getOrientation(),tmpAlea));
+                }
+            }
+        }
+
+
+        // le sol
+        for(int x = 0; x < largeur; x++){
+            for(int y = 0; y < hauteur; y++){
+                tileMap.add(new Sol(new Vector2(x,y),getRandomGround()));
+            }
+        }
+
+    }
 
     public int getLargeur() {
         return largeur;

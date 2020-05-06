@@ -9,7 +9,7 @@ import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
 
-public abstract class ObjetAuSol extends ObjetsTousTypes {
+public abstract class Consommable extends ObjetsTousTypes {
 
     private Vector2 posShape;
     private float hauteur;
@@ -17,7 +17,7 @@ public abstract class ObjetAuSol extends ObjetsTousTypes {
     private int id;
 
 
-    public ObjetAuSol(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id){
+    public Consommable(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id){
         super(world, position, id);
         this.posShape = posShape;
         this.largeur = largeur;

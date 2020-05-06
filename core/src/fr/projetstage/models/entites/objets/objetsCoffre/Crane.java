@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
-public class Crane extends ObjetDansCoffre {
+public class Crane extends Equipement {
 
     public Crane(GameWorld world) {
         super(world);

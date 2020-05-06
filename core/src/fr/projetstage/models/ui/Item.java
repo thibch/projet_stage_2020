@@ -1,5 +1,6 @@
 package fr.projetstage.models.ui;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -7,10 +8,10 @@ import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 
 public class Item {
 
-    private Stage stage;
+    private final Stage stage;
 
-    private Image image;
-    private TooltipItem tooltipItem;
+    private final Image image;
+    private final TooltipItem tooltipItem;
 
     public Item(ObjetsTousTypes obj, Stage stage){
         this.stage = stage;
@@ -18,7 +19,17 @@ public class Item {
         tooltipItem = new TooltipItem(obj.getDescription());
         image = new Image(obj.getTexture());
         image.setSize(80,80);
-        image.addListener(tooltipItem.getTextTooltip());
+        image.addListener(event -> {
+            InputEvent e = (InputEvent)event;
+            switch (e.getType()){
+                case enter:
+                    tooltipItem.getTextTooltip().getManager().instant();
+                    break;
+                case mouseMoved:
+                    return false;
+            }
+            return tooltipItem.getTextTooltip().handle(event); // TODO : Sûrement mieux à faire
+        });
 
     }
 
@@ -29,8 +40,7 @@ public class Item {
     public void display(boolean bool){
         if(bool){
             stage.addActor(image);
-        }
-        else{
+        }else{
             image.addAction(Actions.removeActor());
         }
 

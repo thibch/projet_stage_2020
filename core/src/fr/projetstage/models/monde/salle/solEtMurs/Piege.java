@@ -70,7 +70,7 @@ public class Piege extends Ennemi {
 
 
     public void draw(SpriteBatch batch, float x, float y) {
-        batch.draw(animation.getFrame(false, false), x + getPosition().x, y + getPosition().y, 1, 1);
+        batch.draw(animation.getFrame(false, false), x + getPosition().x, y + getPosition().y, largeur, hauteur);
         animation.update();
     }
 

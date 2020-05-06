@@ -188,8 +188,8 @@ public class GameWorld {
         //TODO : se servir de l'id/Orientation
         if(!estEnTransition){
             estEnTransition = true;
-            salleSuivante = etage.next();
             directionTransition = Orientation.getFromIndice(id);
+            salleSuivante = etage.next(directionTransition);
         }
         //this.debutTransition(Orientation.HAUT);
     }

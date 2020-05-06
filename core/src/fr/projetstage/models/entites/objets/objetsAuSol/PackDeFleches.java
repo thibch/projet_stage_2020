@@ -2,19 +2,18 @@ package fr.projetstage.models.entites.objets.objetsAuSol;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
-public class FlecheAuSol extends ObjetAuSol{
+public class PackDeFleches extends Consommable {
     /**
      * Flèche qui se trouve au sol dans la salle
      * @param world le gameworld
      * @param position la position de l'objet
      * @param id l'id de l'objet
      */
-    public FlecheAuSol(GameWorld world, Vector2 position, int id) {
+    public PackDeFleches(GameWorld world, Vector2 position, int id) {
         super(world, position, new Vector2(0,0), 5f/16f, 5f/16f, id);
     }
 
