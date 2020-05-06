@@ -18,6 +18,8 @@ public class Item {
 
         tooltipItem = new TooltipItem(obj.getDescription());
         image = new Image(obj.getTexture());
+        image.setSize(stage.getWidth()/13,stage.getWidth()/13);
+        image.addListener(tooltipItem.getTextTooltip());
         image.setSize(80,80);
         image.addListener(event -> {
             InputEvent e = (InputEvent)event;

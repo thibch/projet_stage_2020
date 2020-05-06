@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
 import fr.projetstage.dataFactories.SoundFactory;
@@ -90,6 +91,8 @@ public class GameScreen extends ScreenAdapter {
         cameraUI = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
         cameraUI.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0); // -2 est le decalage pour les murs
         cameraUI.update();
+
+        userInterface.getStage().getViewport().update(width,height,true);
     }
 
     /**

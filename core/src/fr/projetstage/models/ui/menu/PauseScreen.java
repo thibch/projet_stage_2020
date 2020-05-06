@@ -36,13 +36,13 @@ public class PauseScreen implements Menu{
         this.userInterface = userInterface;
         this.gameWorld = gameWorld;
         this.stage = stage;
-        pause = new Text("Pause", 160, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/2f,3*(Gdx.graphics.getHeight()/4f)),true);
-        inventaire = new Text("Inventory", 80, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/6f,2*(Gdx.graphics.getHeight()/3f)),true);
+        pause = new Text("Pause", (int)stage.getWidth()/8, Color.WHITE,new Vector2((stage.getWidth())/2f,3*(stage.getHeight()/4f)),true);
+        inventaire = new Text("Inventory", (int)stage.getWidth()/13, Color.WHITE,new Vector2((stage.getWidth())/6f,2*(stage.getHeight()/3f)),true);
 
 
-        continueBtn = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),4*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Continue");
+        continueBtn = new MenuButton(stage,this, new Vector2(3.75f*(stage.getWidth()/10f),4*(stage.getHeight()/10f)),stage.getWidth()/4f,stage.getHeight()/6f,"Continue");
         continueBtn.displayBtn(false);
-        mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Main Menu");
+        mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(stage.getWidth()/10f),(stage.getHeight()/10f)),stage.getWidth()/4f,stage.getHeight()/6f,"Main Menu");
         mainMenu.displayBtn(false);
 
         inventaireUI = new ArrayList<>();
@@ -55,7 +55,7 @@ public class PauseScreen implements Menu{
     public void draw(Batch batch){
         if(userInterface.isPaused()) {
             updateInventoryUI();
-            batch.draw(TextureFactory.getInstance().getBackground(), 5, 5, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+            batch.draw(TextureFactory.getInstance().getBackground(), 5, 5, stage.getWidth(), stage.getHeight());
             pause.draw(batch);
             inventaire.draw(batch);
         }
@@ -104,7 +104,7 @@ public class PauseScreen implements Menu{
             Item tmpItem;
             for(ObjetsTousTypes obj : tmp){
                 tmpItem = new Item(obj, stage);
-                tmpItem.setPosition(x*(Gdx.graphics.getWidth()/16f),y*(Gdx.graphics.getHeight()/12f));
+                tmpItem.setPosition((x*(stage.getWidth()/16f))-(stage.getWidth()/50),y*(stage.getHeight()/12f));
                 inventaireUI.add(tmpItem);
                 x++;
                 if( x > 4){
