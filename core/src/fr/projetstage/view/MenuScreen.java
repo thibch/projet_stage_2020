@@ -4,7 +4,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
@@ -30,6 +29,7 @@ public class MenuScreen extends ScreenAdapter {
     public MenuScreen(ProjetStage mainStage){
         this.mainStage = mainStage;
         stage = new Stage();
+
         mainMenuScreen = new MainMenuScreen(stage);
 
         keyboardListener = new KeyboardListener();
@@ -52,11 +52,11 @@ public class MenuScreen extends ScreenAdapter {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         stage.getBatch().begin();
-        stage.getBatch().draw(TextureFactory.getInstance().getTitleScreen(),0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        stage.getBatch().draw(TextureFactory.getInstance().getTitleScreen(),0,0,stage.getWidth(),stage.getHeight());
 
         slime.update();
-        stage.getBatch().draw(slime.getFrame(false,false),6*(Gdx.graphics.getWidth()/20f),11*(Gdx.graphics.getHeight()/14f), Gdx.graphics.getWidth()/20f,Gdx.graphics.getHeight()/14f);
-        stage.getBatch().draw(slime.getFrame(true,false),17*(Gdx.graphics.getWidth()/20f),7*(Gdx.graphics.getHeight()/14f), Gdx.graphics.getWidth()/20f,Gdx.graphics.getHeight()/14f);
+        stage.getBatch().draw(slime.getFrame(false,false),6*(stage.getWidth()/20f),11*(stage.getHeight()/14f), stage.getWidth()/20f,stage.getHeight()/14f);
+        stage.getBatch().draw(slime.getFrame(true,false),17*(stage.getWidth()/20f),7*(stage.getHeight()/14f), stage.getWidth()/20f,stage.getHeight()/14f);
 
 
         mainMenuScreen.draw(stage.getBatch());
@@ -75,6 +75,15 @@ public class MenuScreen extends ScreenAdapter {
         if(mainMenuScreen.isBeginClicked()){
             mainStage.startGame(mainMenuScreen.getName(),mainMenuScreen.getSeed());
         }
+    }
+
+    /**
+     * Gere le changement de taille de la fenetre
+     */
+    @Override
+    public void resize(int width, int height) {
+        super.resize(width, height);
+        stage.getViewport().update(width,height,true);
     }
 
     /**

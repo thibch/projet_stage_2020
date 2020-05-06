@@ -17,7 +17,7 @@ public class Item {
 
         tooltipItem = new TooltipItem(obj.getDescription());
         image = new Image(obj.getTexture());
-        image.setSize(80,80);
+        image.setSize(stage.getWidth()/13,stage.getWidth()/13);
         image.addListener(tooltipItem.getTextTooltip());
 
     }

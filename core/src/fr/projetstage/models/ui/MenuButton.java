@@ -33,7 +33,7 @@ public class MenuButton {
     public MenuButton(Stage stage, Menu menu, Vector2 position, float width, float height, String text){
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/BitPotionExt.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 160;
+        parameter.size = (int)stage.getWidth()/8;
         fontText = generator.generateFont(parameter);
         fontText.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 

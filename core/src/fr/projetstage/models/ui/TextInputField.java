@@ -35,7 +35,7 @@ public class TextInputField {
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/BitPotionExt.ttf"));
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = 80;
+        parameter.size = (int)stage.getWidth()/13;
         fontText = generator.generateFont(parameter);
         fontText.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
@@ -43,7 +43,7 @@ public class TextInputField {
         textFieldStyle.font = fontText;
         textFieldStyle.fontColor = Color.BLACK;
         textFieldStyle.background = new TextureRegionDrawable(TextureFactory.getInstance().getInputText());
-        textFieldStyle.background.setLeftWidth(textFieldStyle.background.getLeftWidth()+20);
+        textFieldStyle.background.setLeftWidth(textFieldStyle.background.getLeftWidth()+stage.getWidth()/50);
         textFieldStyle.cursor = new TextureRegionDrawable(TextureFactory.getInstance().getTextCursor());
         textFieldStyle.selection = new TextureRegionDrawable(TextureFactory.getInstance().getTextSelect());
 

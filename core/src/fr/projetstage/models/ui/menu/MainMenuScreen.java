@@ -38,27 +38,27 @@ public class MainMenuScreen implements Menu{
      */
     public MainMenuScreen(Stage stage){
         textList = new ArrayList<>();
-        title = new Text("Projet Stage 2020", 160, Color.WHITE,new Vector2((Gdx.graphics.getWidth())/2f,3*(Gdx.graphics.getHeight()/4f)),true);
+        title = new Text("Projet Stage 2020", (int)stage.getWidth()/8, Color.WHITE,new Vector2((stage.getWidth())/2f,3*(stage.getHeight()/4f)),true);
         textList.add(title);
 
-        startBtn = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),4*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Start");
-        quitBtn = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Quit");
+        startBtn = new MenuButton(stage,this, new Vector2(3.75f*(stage.getWidth()/10f),4*(stage.getHeight()/10f)),stage.getWidth()/4f,stage.getHeight()/6f,"Start");
+        quitBtn = new MenuButton(stage,this, new Vector2(3.75f*(stage.getWidth()/10f),(stage.getHeight()/10f)),stage.getWidth()/4f,stage.getHeight()/6f,"Quit");
 
         Random rand = new Random();
 
-        name = new Text("Name: ", 80, Color.WHITE,new Vector2(1.75f*(Gdx.graphics.getWidth()/10f),5f*(Gdx.graphics.getHeight()/10f)),false);
-        nameInput = new TextInputField(stage,this, new Vector2(3.25f*(Gdx.graphics.getWidth()/10f),4.25f*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/8f,"Reynold");
+        name = new Text("Name: ", (int)stage.getWidth()/13, Color.WHITE,new Vector2(1.75f*(stage.getWidth()/10f),5f*(stage.getHeight()/10f)),false);
+        nameInput = new TextInputField(stage,this, new Vector2(3.25f*(stage.getWidth()/10f),4.25f*(stage.getHeight()/10f)),stage.getWidth()/2f,stage.getHeight()/8f,"Reynold");
         nameInput.setMaxLength(19);
         nameInput.display(false);
-        seed = new Text("Seed: ", 80, Color.WHITE,new Vector2(1.75f*(Gdx.graphics.getWidth()/10f),3f*(Gdx.graphics.getHeight()/10f)),false);
-        seedInput = new TextInputField(stage,this, new Vector2(3.25f*(Gdx.graphics.getWidth()/10f),2.25f*(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/2f,Gdx.graphics.getHeight()/8f,Integer.toString(Math.abs(rand.nextInt())));
+        seed = new Text("Seed: ", (int)stage.getWidth()/13, Color.WHITE,new Vector2(1.75f*(stage.getWidth()/10f),3f*(stage.getHeight()/10f)),false);
+        seedInput = new TextInputField(stage,this, new Vector2(3.25f*(stage.getWidth()/10f),2.25f*(stage.getHeight()/10f)),stage.getWidth()/2f,stage.getHeight()/8f,Integer.toString(Math.abs(rand.nextInt())));
         seedInput.setFilter(new TextField.TextFieldFilter.DigitsOnlyFilter());
         seedInput.setMaxLength(10);
         seedInput.display(false);
-        errorText = new Text("Your name should be 3 character minimum.", 48, Color.RED,new Vector2(3.5f*(Gdx.graphics.getWidth()/10f),3.85f*(Gdx.graphics.getHeight()/10f)),false);
+        errorText = new Text("Your name should be 3 character minimum.", 48, Color.RED,new Vector2(3.5f*(stage.getWidth()/10f),3.85f*(stage.getHeight()/10f)),false);
 
 
-        startGameBtn = new MenuButton(stage,this, new Vector2(8.2f*(Gdx.graphics.getWidth()/10f),(Gdx.graphics.getHeight()/64f)),Gdx.graphics.getWidth()/6f,Gdx.graphics.getHeight()/6f,"Begin");
+        startGameBtn = new MenuButton(stage,this, new Vector2(8.2f*(stage.getWidth()/10f),(stage.getHeight()/64f)),stage.getWidth()/6f,stage.getHeight()/6f,"Begin");
         startGameBtn.displayBtn(false);
     }
 
