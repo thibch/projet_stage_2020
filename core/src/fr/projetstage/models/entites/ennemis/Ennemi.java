@@ -81,7 +81,7 @@ public abstract class Ennemi extends EntiteMouvante {
         body = world.getWorld().createBody(bodyDef);
 
         // Création de la shape pour le slime
-        Vector2 posShape = new Vector2(0f / 16f, 1f / 16f); // La position du shape est en fonction de la position du body
+        Vector2 posShape = new Vector2(0f, 1f / 16f); // La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
         vertices[1] = new Vector2(posShape.x + largeur, posShape.y);

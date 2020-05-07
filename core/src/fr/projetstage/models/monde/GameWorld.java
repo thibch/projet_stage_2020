@@ -17,11 +17,13 @@ public class GameWorld {
     private Salle salleSuivante; // temporaire definit une salle statique
     private Salle salleCourante; // temporaire definit une salle statique
     private Etage etage;
+    private Monde monde;
     private final Joueur joueur;
     private final Random random;
 
     private boolean estEnTransition;
     private Orientation directionTransition;
+    private boolean changementEtage;
 
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
@@ -33,8 +35,8 @@ public class GameWorld {
         world = new World(new Vector2(0,0),true);
         // seed
         random = new Random(seed);
-
-        etage = new Etage(this);
+        monde = new Monde(this);
+        etage = monde.getEtageSuivant();
 
         // in game elements
         salleCourante = etage.start();
@@ -86,6 +88,10 @@ public class GameWorld {
                 emplacementJoueur.x = salleSuivante.getLargeur()/2f;
                 emplacementJoueur.y = salleCourante.getHauteur()-1;
                 decalage.y = - salleSuivante.getHauteur() - 4 ;
+                break;
+            case NO_ORIENTATION:
+                emplacementJoueur.x = salleCourante.getLargeur()/2f;
+                emplacementJoueur.y = salleCourante.getHauteur()/2f;
                 break;
         }
         joueur.setPosition(emplacementJoueur);
@@ -147,6 +153,17 @@ public class GameWorld {
      * Met à jour la physique du monde
      */
     public void update() {
+        if(changementEtage){
+            // Changement étage
+            etage = monde.getEtageSuivant();
+            salleCourante.destroyBodies();
+            salleCourante = etage.start();
+            salleCourante.generateBodies();
+            System.out.println(etage.toString());
+            directionTransition = Orientation.NO_ORIENTATION;
+            transition();
+            changementEtage = false;
+        }
         salleCourante.update();
     }
 
@@ -188,10 +205,14 @@ public class GameWorld {
      */
     public void setPorteTouched(int id) {
         //TODO : se servir de l'id/Orientation
-        if(!estEnTransition){
-            estEnTransition = true;
-            directionTransition = Orientation.getFromIndice(id);
-            salleSuivante = etage.next(directionTransition);
+        if(id == Orientation.NO_ORIENTATION.getIndice()){
+            changementEtage = true;
+        }else{
+            if(!estEnTransition){
+                estEnTransition = true;
+                directionTransition = Orientation.getFromIndice(id);
+                salleSuivante = etage.next(directionTransition);
+            }
         }
         //this.debutTransition(Orientation.HAUT);
     }

@@ -6,28 +6,15 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.Animation;
-import fr.projetstage.models.entites.EntiteMouvante;
+import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.ennemis.Ennemi;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
 
-import java.util.Map;
+public class Escalier extends NonDestructible{
 
-public class Piege extends Ennemi {
-
-    private final Animation animation = new Animation(TextureFactory.getInstance().getPiegeSpriteSheet(),10,2);
-
-    public Piege(GameWorld world, Vector2 position, Type type) {
-        super(world, position, type);
-
-        setPointDeVie(0);
-        setPointdeVieMax(0);
-        setDegats(1);
-        setKnockback(0);
-
-        largeur = 1f;
-        hauteur = 1f;
+    public Escalier(GameWorld world, Vector2 position) {
+        super(world, position, 1f, 1f);
     }
 
     @Override
@@ -44,9 +31,9 @@ public class Piege extends Ennemi {
         Vector2 posShape = new Vector2(); // La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];
         vertices[0] = posShape;
-        vertices[1] = new Vector2(posShape.x + largeur, posShape.y);
-        vertices[2] = new Vector2(posShape.x + largeur, posShape.y + hauteur);
-        vertices[3] = new Vector2(posShape.x, posShape.y + hauteur);
+        vertices[1] = new Vector2(posShape.x + tailleX, posShape.y);
+        vertices[2] = new Vector2(posShape.x + tailleX, posShape.y + tailleY);
+        vertices[3] = new Vector2(posShape.x, posShape.y + tailleY);
 
         PolygonShape rectangle = new PolygonShape();
         rectangle.set(vertices);
@@ -63,32 +50,13 @@ public class Piege extends Ennemi {
         body.setFixedRotation(true);
         body.createFixture(fixtureDef1); // Association à l’objet
 
-        body.setUserData(type);
+        body.setUserData(new Type(TypeEntite.PORTE, Orientation.NO_ORIENTATION.getIndice()));
 
         rectangle.dispose();
     }
 
 
     public void draw(SpriteBatch batch, float x, float y) {
-        batch.draw(animation.getFrame(false, false), x + getPosition().x, y + getPosition().y, largeur, hauteur);
-        animation.update();
-    }
-
-    public void update(){
-        if(animation.getCurrentFrameCount() >= 7){
-            for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
-                if(!target.getValue()){
-                    target.getKey().setTouche(this);
-                    target.setValue(true);
-                }
-            }
-        }
-        else{
-            for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
-                if(target.getValue()){
-                    target.setValue(false);
-                }
-            }
-        }
+        batch.draw(TextureFactory.getInstance().getEscalier(), x + getPosition().x, y + getPosition().y, tailleX, tailleY);
     }
 }

@@ -5,7 +5,6 @@ import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.patternSalle.*;
 
-import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Etage {
@@ -39,7 +38,6 @@ public class Etage {
         LinkedList<Vector2> queuePosi = new LinkedList<>();
         queuePosi.add(new Vector2(xCourant, yCourant));
 
-        Salle salleCourante;
         Salle nouvelleSalle;
         Vector2 positionCourante;
         int x;
@@ -59,7 +57,7 @@ public class Etage {
                 }
             }
 
-            // Même chose pour les 4 directions
+            // Même chose pour les 3 autres directions
 
             if(x-1 >= 0 && tabSalles[x-1][y] == null){ // Si on est dans les bornes
                 nouvelleSalle = getRandomSalle(); // On génère une nouvelle salle
