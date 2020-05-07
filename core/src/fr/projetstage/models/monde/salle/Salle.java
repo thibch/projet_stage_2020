@@ -419,4 +419,6 @@ public abstract class Salle {
             obj.setTouche(true);
         }
     }
+
+    public abstract int getNumber();
 }

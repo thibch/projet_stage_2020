@@ -55,4 +55,10 @@ public class Salle2 extends Salle {
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(14,3), new PotionVitesse(world), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(15,3), new PotionVitesse(world), nbObjetAuSols++));
     }
+
+
+    @Override
+    public int getNumber() {
+        return 2;
+    }
 }

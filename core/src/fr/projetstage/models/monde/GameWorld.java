@@ -41,6 +41,7 @@ public class GameWorld {
         salleCourante.generateBodies();
         joueur = new Joueur(this, new Vector2(4, 4));
         this.world.setContactListener(new EcouteurContact(this));
+        System.out.println(etage.toString());
     }
 
     /**
@@ -50,11 +51,12 @@ public class GameWorld {
      * @param y position y de la salle
      */
     public void draw(SpriteBatch listeAffImg, float x, float y){
+        salleCourante.draw(listeAffImg, 0, 0);
         if(estEnTransition){
             salleSuivante.draw(listeAffImg, x, y);
+        }else{
+            joueur.draw(listeAffImg, 0, 0);
         }
-        salleCourante.draw(listeAffImg, 0, 0);
-        joueur.draw(listeAffImg, 0, 0);
     }
 
     /**
