@@ -64,6 +64,9 @@ public class TextureFactory {
     private static Texture swordUI;
     private static Texture bowUI;
     private static Texture arrowUI;
+    private static Texture salleCourante;
+    private static Texture salleVisitee;
+    private static Texture salleNonVisitee;
 
     // Armes
     private static Texture epee;
@@ -160,6 +163,11 @@ public class TextureFactory {
         swordUI =  new Texture(Gdx.files.internal("ui/weapon_sword_1.png"));
         bowUI = new Texture(Gdx.files.internal("ui/bowUI.png"));
         arrowUI = new Texture(Gdx.files.internal("ui/arrow_UI.png"));
+        salleCourante = new Texture(Gdx.files.internal("ui/GPS_salle_courante.png"));
+        salleVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_visitee.png"));
+        salleNonVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_non_visitee.png"));
+
+
 
         // Armes
         epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
@@ -536,6 +544,31 @@ public class TextureFactory {
     public Texture getArrowUI() {
         return arrowUI;
     }
+
+    /**
+     * Getter pour l'image de la salle courante pour UI minimap
+     * @return Getter pour l'image de la salle courante pour UI minimap
+     */
+    public Texture getSalleCourante() {
+        return salleCourante;
+    }
+
+    /**
+     * Getter pour l'image de la salle visitee pour UI minimap
+     * @return Getter pour l'image de la salle visitee pour UI minimap
+     */
+    public Texture getSalleVisitee() {
+        return salleVisitee;
+    }
+
+    /**
+     * Getter pour l'image de la salle non visitee pour UI minimap
+     * @return Getter pour l'image de la salle non visitee pour UI minimap
+     */
+    public Texture getSalleNonVisitee() {
+        return salleNonVisitee;
+    }
+
     /**
      * Getter pour l'image de l'epee
      * @return Getter pour l'image de l'epee
@@ -684,6 +717,7 @@ public class TextureFactory {
                 sol1, sol2, sol3, sol4, sol5, sol6, sol7, sol8, sol9, sol10,
                 drapeauVert, drapeauRouge, prisoner,
                 background, titleScreen, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
+                salleCourante, salleNonVisitee, salleVisitee,
                 epee, fleche,
                 potionRouge, potionJaune, crane, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
