@@ -25,12 +25,15 @@ public class GameWorld {
     private Orientation directionTransition;
     private boolean changementEtage;
 
+    private boolean aFaitlaMiTransi;
+
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
      * @param seed le graine de génération du random
      */
     public GameWorld(int seed){
         estEnTransition = false;
+        aFaitlaMiTransi = false;
         // monde physique qui va gerer les collisions
         world = new World(new Vector2(0,0),true);
         // seed
@@ -54,7 +57,7 @@ public class GameWorld {
      */
     public void draw(SpriteBatch listeAffImg, float x, float y){
         salleCourante.draw(listeAffImg, 0, 0);
-        if(estEnTransition){
+        if(estEnTransition && directionTransition != Orientation.NO_ORIENTATION){
             salleSuivante.draw(listeAffImg, x, y);
         }else{
             joueur.draw(listeAffImg, 0, 0);
@@ -66,7 +69,7 @@ public class GameWorld {
      * @return le décalage à faire pour la caméra
      */
     public Vector2 transition(){
-        Vector2 decalage = new Vector2();
+        Vector2 decalage = new Vector2(0, 0);
         Vector2 emplacementJoueur = new Vector2();
         switch(directionTransition){
             case DROITE:
@@ -90,8 +93,7 @@ public class GameWorld {
                 decalage.y = - salleSuivante.getHauteur() - 4 ;
                 break;
             case NO_ORIENTATION:
-                emplacementJoueur.x = salleCourante.getLargeur()/2f;
-                emplacementJoueur.y = salleCourante.getHauteur()/2f;
+                emplacementJoueur = joueur.getPosition();
                 break;
         }
         joueur.setPosition(emplacementJoueur);
@@ -103,10 +105,26 @@ public class GameWorld {
      */
     public void finTransition() {
         estEnTransition = false;
-        salleCourante.destroyBodies();
-        salleCourante = salleSuivante;
-        salleSuivante.generateBodies();
-        //TODO: faire spawn le joueur à l'opposé de la où il était
+        aFaitlaMiTransi = false;
+        if(directionTransition != Orientation.NO_ORIENTATION){
+            salleCourante.destroyBodies();
+            salleCourante = salleSuivante;
+            salleSuivante.generateBodies();
+        }
+    }
+
+
+    public void miTransition(){
+        // Changement étage
+        if(!aFaitlaMiTransi){
+            etage = monde.getEtageSuivant();
+            System.out.println(etage.toString());
+            salleCourante.destroyBodies();
+            salleCourante = etage.start();
+            salleCourante.generateBodies();
+            joueur.setPosition(new Vector2(salleCourante.getLargeur()/2f, salleCourante.getHauteur()/2f));
+            aFaitlaMiTransi = true;
+        }
     }
 
     /**
@@ -154,15 +172,10 @@ public class GameWorld {
      */
     public void update() {
         if(changementEtage){
-            // Changement étage
-            etage = monde.getEtageSuivant();
-            salleCourante.destroyBodies();
-            salleCourante = etage.start();
-            salleCourante.generateBodies();
-            System.out.println(etage.toString());
             directionTransition = Orientation.NO_ORIENTATION;
-            transition();
+            //transition();
             changementEtage = false;
+            estEnTransition = true;
         }
         salleCourante.update();
     }
@@ -207,6 +220,7 @@ public class GameWorld {
         //TODO : se servir de l'id/Orientation
         if(id == Orientation.NO_ORIENTATION.getIndice()){
             changementEtage = true;
+            directionTransition = Orientation.NO_ORIENTATION;
         }else{
             if(!estEnTransition){
                 estEnTransition = true;

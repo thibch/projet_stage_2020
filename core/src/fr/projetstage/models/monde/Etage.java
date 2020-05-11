@@ -163,7 +163,7 @@ public class Etage {
     @Override
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for (int y = hauteur - 1 ; y > 0 ; y--) {
+        for (int y = hauteur - 1 ; y >= 0 ; y--) {
             for (int x = 0; x < largeur; x++) {
                 if(tabSalles[x][y] != null){
                     str.append(tabSalles[x][y].getNumber() + " ");
