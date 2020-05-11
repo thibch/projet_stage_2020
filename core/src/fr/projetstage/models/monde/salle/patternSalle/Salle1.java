@@ -54,7 +54,7 @@ public class Salle1 extends Salle {
         objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(7,7), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new Crane(world), nbObjetAuSols++));
 
-        meubles.add(new Escalier(world, new Vector2(largeur-1, hauteur-1)));
+        meubles.add(new Escalier(world, new Vector2(largeur-1, 0)));
     }
 
     @Override

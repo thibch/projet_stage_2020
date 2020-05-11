@@ -2,6 +2,7 @@ package fr.projetstage.models.monde;
 
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.Orientation;
+import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.patternSalle.*;
 
@@ -29,6 +30,8 @@ public class Etage {
         xCourant = 2;
         yCourant = 3;
         generationEtage();
+
+        tabSalles[xCourant][yCourant].setEtat(EtatSalle.EN_COURS_DE_VISITE);
     }
 
     public void generationEtage(){
@@ -147,6 +150,9 @@ public class Etage {
      * @return la salle suivante
      */
     public Salle next(Orientation direction){
+        //met a jour l'état de l'ancienne salle courante
+        tabSalles[xCourant][yCourant].setEtat(EtatSalle.VISITEE);
+
         if(direction == Orientation.DROITE){
             xCourant += 1;
         }else if(direction == Orientation.GAUCHE){
@@ -157,8 +163,34 @@ public class Etage {
         }else if(direction == Orientation.HAUT){
             yCourant += 1;
         }
+        //definit la nouvelle salle comme courante
+        tabSalles[xCourant][yCourant].setEtat(EtatSalle.EN_COURS_DE_VISITE);
+
         return tabSalles[xCourant][yCourant];
     }
+
+    /**
+     * Construit et retourne la minimap de l'étage
+     * @return un tableau d'etat de salle
+     */
+    public EtatSalle[][] getMinimap(){
+        EtatSalle[][] tmp = new EtatSalle[5][5];
+
+        for(int x = 0; x < 5; x++) {
+            if(xCourant-2+x >= 0 && xCourant-2+x < largeur){
+                for (int y = 0; y < 5; y++) {
+                    if(yCourant-2+y >= 0 && yCourant-2+y < hauteur){
+                        if(tabSalles[xCourant-2+x][yCourant-2+y] != null){
+                            tmp[x][y] = tabSalles[xCourant-2+x][yCourant-2+y].getEtat();
+                        }
+                    }
+                }
+            }
+        }
+
+        return tmp;
+    }
+
 
     @Override
     public String toString() {

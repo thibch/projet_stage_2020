@@ -29,6 +29,7 @@ public abstract class Salle {
     protected HashMap<Integer, Ennemi> ennemis;
     protected HashMap<Integer, ObjetsTousTypes> objets;
 
+    private EtatSalle etat;
     protected final GameWorld world;
 
     /**
@@ -49,6 +50,7 @@ public abstract class Salle {
         portes = new ArrayList<>();
         ennemis = new HashMap<>();
         objets = new HashMap<>();
+        etat = EtatSalle.NON_VISITE;
     }
 
     public void ajouterPorte(Orientation orientationPorte){
@@ -421,4 +423,20 @@ public abstract class Salle {
     }
 
     public abstract int getNumber();
+
+    /**
+     * Methode permettant de récupérer l'état d'une salle
+     * @return un Etat de salle
+     */
+    public EtatSalle getEtat() {
+        return etat;
+    }
+
+    /**
+     * Methode permettant de définir l'état d'une salle
+     * @param etat le nouvel état de la salle
+     */
+    public void setEtat(EtatSalle etat){
+        this.etat = etat;
+    }
 }

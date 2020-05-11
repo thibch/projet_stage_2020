@@ -13,6 +13,7 @@ import fr.projetstage.models.ui.UserInterface;
 public class GameOverScreen implements Menu{
 
     private Text gameOver;
+    private Stage stage;
 
     private MenuButton mainMenu;
     private UserInterface userInterface;
@@ -23,9 +24,10 @@ public class GameOverScreen implements Menu{
      * @param userInterface l'UserInterface pour la communication des boutons avec le jeu
      */
     public GameOverScreen(Stage stage, UserInterface userInterface){
+        this.stage =stage;
         this.userInterface = userInterface;
-        gameOver = new Text("Disappointing", 160, Color.RED,new Vector2((Gdx.graphics.getWidth())/2f,2*(Gdx.graphics.getHeight()/3f)),true);
-        mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(Gdx.graphics.getWidth()/10f),(Gdx.graphics.getHeight()/10f)),Gdx.graphics.getWidth()/4f,Gdx.graphics.getHeight()/6f,"Main Menu");
+        gameOver = new Text("Disappointing", (int)stage.getWidth()/8, Color.RED,new Vector2((stage.getWidth())/2f,3*(stage.getHeight()/4f)),true);
+        mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(stage.getWidth()/10f),(stage.getHeight()/10f)),stage.getWidth()/4f,stage.getHeight()/6f,"Main Menu");
         mainMenu.displayBtn(false);
     }
 
@@ -35,12 +37,12 @@ public class GameOverScreen implements Menu{
      */
     public void draw(Batch batch){
         mainMenu.displayBtn(userInterface.isGameOver());
-        batch.draw(TextureFactory.getInstance().getBackground(),5,5,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        batch.draw(TextureFactory.getInstance().getBackground(),5,5,stage.getWidth(),stage.getHeight());
         gameOver.draw(batch);
     }
 
     /**
-     * methode permettant de liberer la mémoire à la destruction.
+     * methode permettant de liberer la mémoire à la destruction.zzzzzzzzzzz
      */
     public void dispose() {
         gameOver.dispose();

@@ -7,6 +7,7 @@ import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.joueur.Joueur;
 import fr.projetstage.models.entites.ennemis.Ennemi;
+import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
 
 import java.util.Random;
@@ -233,5 +234,13 @@ public class GameWorld {
 
     public boolean estEnTransition() {
         return estEnTransition;
+    }
+
+    /**
+     * Permet de recuperer la minimap de l'étage dans l'UI
+     * @return un tableau de l'état des salles de l'étage
+     */
+    public EtatSalle[][] getMinimap() {
+        return etage.getMinimap();
     }
 }

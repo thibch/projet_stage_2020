@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.ui.menu.GameOverScreen;
 import fr.projetstage.models.ui.menu.PauseScreen;
 
@@ -91,7 +92,23 @@ public class UserInterface {
 
         batch.draw(TextureFactory.getInstance().getArrowUI(), -1-screenOffset, gameWorld.getHauteur()-5-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
 
-
+        //minimap
+        EtatSalle[][] tmp = gameWorld.getMinimap();
+        for(int x = 0; x < 5; x++){
+            for(int y = 0; y < 5 ; y++){
+                if(tmp[x][y] != null){
+                    if(tmp[x][y].equals(EtatSalle.EN_COURS_DE_VISITE)){
+                        batch.draw(TextureFactory.getInstance().getSalleCourante(),15+(x*0.5f),9+(y*0.5f),0.5f,0.5f);
+                    }
+                    else if(tmp[x][y].equals(EtatSalle.VISITEE)){
+                        batch.draw(TextureFactory.getInstance().getSalleVisitee(),15+(x*0.5f),9+(y*0.5f),0.5f,0.5f);
+                    }
+                    else if(tmp[x][y].equals(EtatSalle.NON_VISITE)){
+                        batch.draw(TextureFactory.getInstance().getSalleNonVisitee(),15+(x*0.5f),9+(y*0.5f),0.5f,0.5f);
+                    }
+                }
+            }
+        }
 
         batch.end();
 
