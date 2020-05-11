@@ -177,9 +177,9 @@ public class Etage {
         EtatSalle[][] tmp = new EtatSalle[5][5];
 
         for(int x = 0; x < 5; x++) {
-            if(xCourant-2+x > 0 && xCourant-2+x < largeur){
+            if(xCourant-2+x >= 0 && xCourant-2+x < largeur){
                 for (int y = 0; y < 5; y++) {
-                    if(yCourant-2+y > 0 && yCourant-2+y < hauteur){
+                    if(yCourant-2+y >= 0 && yCourant-2+y < hauteur){
                         if(tabSalles[xCourant-2+x][yCourant-2+y] != null){
                             tmp[x][y] = tabSalles[xCourant-2+x][yCourant-2+y].getEtat();
                         }
