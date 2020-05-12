@@ -48,12 +48,18 @@ public class GameScreen extends ScreenAdapter {
 
     /**
      * initialise une partie de jeu
-     * @param mainStage
+     * @param mainStage la fenetre de jeu
      */
     public GameScreen(ProjetStage mainStage){
         this(mainStage, "Bob", new Random().nextInt());
     }
 
+    /**
+     * Initialise une partie de jeu
+     * @param mainStage la fenetre de jeu
+     * @param name le nom du joueur
+     * @param seed la graine de generation du monde
+     */
     public GameScreen(ProjetStage mainStage, String name, int seed){
         this.mainStage = mainStage;
         currentTime = 0;

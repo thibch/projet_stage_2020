@@ -13,6 +13,11 @@ public class Item {
     private final Image image;
     private final TooltipItem tooltipItem;
 
+    /**
+     * Constructeur d'un Objet dans l'interface
+     * @param obj un objet du monde
+     * @param stage le stage dans lequel afficher l'objet
+     */
     public Item(ObjetsTousTypes obj, Stage stage){
         this.stage = stage;
 
@@ -48,10 +53,18 @@ public class Item {
 
     }
 
+    /**
+     * Permet de definir la position de l'objert dans le stage
+     * @param x la position x
+     * @param y la position y
+     */
     public void setPosition(float x, float y){
         image.setPosition(x,y);
     }
 
+    /**
+     * Permet de libérer la mémoire de l'objet
+     */
     public void dispose(){
         tooltipItem.dispose();
     }

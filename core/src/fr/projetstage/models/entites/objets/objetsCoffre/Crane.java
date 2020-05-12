@@ -7,6 +7,10 @@ import fr.projetstage.models.monde.GameWorld;
 
 public class Crane extends Equipement {
 
+    /**
+     * Constructeur de l'objet crane
+     * @param world le monde dans lequel existe l'objet
+     */
     public Crane(GameWorld world) {
         super(world);
         nom = "Hector";

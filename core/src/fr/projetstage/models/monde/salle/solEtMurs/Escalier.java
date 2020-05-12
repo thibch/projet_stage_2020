@@ -13,6 +13,11 @@ import fr.projetstage.models.monde.GameWorld;
 
 public class Escalier extends NonDestructible{
 
+    /**
+     * Methode permettant d'instancier un escalier qui permet de changer d'étage dans le monde.
+     * @param world le monde dans lequel se trouve l'escalier
+     * @param position la position de l'escalier dans le monde
+     */
     public Escalier(GameWorld world, Vector2 position) {
         super(world, position, 1f, 1f);
     }

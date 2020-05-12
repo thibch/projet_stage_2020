@@ -257,6 +257,10 @@ public class Joueur extends EntiteMouvante {
         return utiliseEpee;
     }
 
+    /**
+     * Permet de changer la position du joueur
+     * @param newPos la nouvelle position du joueur
+     */
     public void setPosition(Vector2 newPos) {
         position = newPos;
         body.setTransform(newPos, 0);
