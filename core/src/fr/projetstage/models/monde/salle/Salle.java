@@ -153,6 +153,10 @@ public abstract class Salle {
             listeAffImg.draw(tmpWallBorder, x + (1+i), y - 1,0,0, 1, 1,1,1,180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
         }
 
+        for(Entite porte : portes){
+            porte.draw(listeAffImg, x, y);
+        }
+
         // coin haut gauche
         listeAffImg.draw(tmpWallBorderCorner, x - 2, y + (hauteur+1), 1, 1);
         listeAffImg.draw(tmpWallBorder, x - 1, y + hauteur, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
@@ -177,9 +181,6 @@ public abstract class Salle {
         listeAffImg.draw(tmpWallBorder, x, y-1, 0, 0, 1, 1, 1, 1, 180, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
         listeAffImg.draw(tmpWallCorner, x, y-1, 0, 0, 1, 1, 1, 1, 90, 0, 0, tmpWallBorder.getWidth(), tmpWallBorder.getHeight(), false, false);
 
-        for(Entite porte : portes){
-            porte.draw(listeAffImg, x, y);
-        }
     }
 
     public void generateBodies(){

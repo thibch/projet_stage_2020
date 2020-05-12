@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -12,6 +13,7 @@ import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
 import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.ui.UserInterface;
 
@@ -95,8 +97,6 @@ public class GameScreen extends ScreenAdapter {
 
         gameWorld.getChargement().setCamera(cameraUI);
 
-        //transition = new Transition(cameraUI);
-
         userInterface.getStage().getViewport().update(width,height,true);
     }
 
@@ -126,6 +126,9 @@ public class GameScreen extends ScreenAdapter {
 
         // Affichage de l'interface
         userInterface.draw(listeAffUI);
+
+        gameWorld.getChargement().draw();
+
     }
 
     /**

@@ -66,7 +66,7 @@ public class GameWorld {
         salleCourante.draw(listeAffImg, 0, 0);
         if(estEnTransition){
             if(chargement.getDirectionTransition() == Orientation.NO_ORIENTATION){
-                chargement.draw(listeAffImg);
+                //chargement.draw(listeAffImg);
             }else{
                 salleSuivante.draw(listeAffImg, xSalleSuivante, ySalleSuivante);
             }
@@ -130,7 +130,6 @@ public class GameWorld {
 
 
     public void miTransition(){
-        System.out.println("miTransi");
         // Changement étage
         if(!aFaitlaMiTransi){
             etage = monde.getEtageSuivant();

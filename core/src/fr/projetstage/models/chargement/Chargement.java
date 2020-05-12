@@ -22,20 +22,20 @@ public class Chargement {
 
     public Chargement(GameWorld gameWorld){
         this.gameWorld = gameWorld;
+        directionTransition = null;
         currentTime = 0;
         transitionTime = 2f;
         xSalle = 0;
         ySalle = 0;
         transitionCamera = new Vector2(0, 0);
         transitionEntreSalles = false;
-        transitionEtage = new Transition();
+        transitionEtage = new Transition(gameWorld);
     }
 
 
     public void update() {
         if (gameWorld.estEnTransition()) {
             if(gameWorld.estEnTransition() && !transitionEntreSalles && !transitionEtage.estEnCours()){
-                System.out.println("Debut transi");
                 Vector2 transi = gameWorld.getTransition(); // On dit au monde de mettre à jour la salle suivante en fonction de l'orientation
                 if(directionTransition == Orientation.NO_ORIENTATION){
                     transitionEtage.startTransi();
@@ -86,11 +86,13 @@ public class Chargement {
         return transitionCamera;
     }
 
-    public void draw(SpriteBatch listeAffImg) {
-        transitionEtage.draw(listeAffImg);
+    public void draw() {
+        if(directionTransition == Orientation.NO_ORIENTATION){
+            transitionEtage.draw();
+        }
     }
 
-    public void setCamera(Camera cameraUI) {
-        transitionEtage.setCamera(cameraUI);
+    public void setCamera(Camera cam) {
+        transitionEtage.setCamera(cam);
     }
 }
