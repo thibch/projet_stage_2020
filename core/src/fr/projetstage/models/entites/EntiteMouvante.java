@@ -42,40 +42,80 @@ public abstract class EntiteMouvante implements Entite {
         this.position = position;
     }
 
+    /**
+     * Methode permettant d'obtenir les points de vie actuels de l'entite
+     * @return un entier des points des vie.
+     */
     public int getPointDeVie() {
         return pointDeVie;
     }
 
+    /**
+     * Methode permettant de changer le nombre de points de vie actuels de l'entite
+     * @param pointDeVie le nouveau nombre de points de vie.
+     */
     public void setPointDeVie(int pointDeVie) {
         this.pointDeVie = Math.min(pointDeVie, pointdeVieMax);
     }
 
+    /**
+     * Methode permettant de retourner le nombre maximum de points de vie d'une entite
+     * @return le nombre max de points de vie d'une entite
+     */
     public int getPointdeVieMax() {
         return pointdeVieMax;
     }
 
+    /**
+     * Methode permettant de modifier le nombre maximal de point de vie d'une entite
+     * @param pointdeVieMax le nouveau nombre de points de vie maximum de l'entite
+     */
     public void setPointdeVieMax(int pointdeVieMax) {
         this.pointdeVieMax = pointdeVieMax;
     }
 
+    /**
+     * methode permettant de retourner le nombre de degats que fait l'entite
+     * @return un entier des degats de l'entite
+     */
     public int getDegats() { return degats; }
 
+    /**
+     * methode permettant de changer les degats d'une entite
+     * @param degats un entier des degats de l'entite
+     */
     public void setDegats(int degats) {
         this.degats = degats;
     }
 
+    /**
+     * methode permettant de retourner la vitesse d'une entite
+     * @return un float de la vitesse de l'entite
+     */
     public float getSpeed() {
         return speed;
     }
 
+    /**
+     * methode permettant de definir la vitesse d'une entite
+     * @param speed un float de la nouvelle vitesse de l'entite
+     */
     public void setSpeed(float speed) {
         this.speed = speed;
     }
 
+    /**
+     * methode permettant de retourner le recul d'une entite
+     * @return un float du recul de l'entite
+     */
     public float getKnockback() {
         return knockback;
     }
 
+    /**
+     * methode permettant de definir le recul d'une entite
+     * @param knockback un float du recul de l'entite
+     */
     public void setKnockback(float knockback) {
         this.knockback = knockback;
     }
@@ -88,10 +128,18 @@ public abstract class EntiteMouvante implements Entite {
         return mort && mortAnimFinie;
     }
 
+    /**
+     * methode permettant de savoir si l'entite à toute sa vie
+     * @return un booleen vrai si l'entite à tout ses points de vie
+     */
     public boolean estMaxPointDeVie() {
         return pointDeVie == pointdeVieMax;
     }
 
+    /**
+     * methode permettant de faire des degats a une entite avec recul
+     * @param source la source des degats
+     */
     public void setTouche(Entite source) {
         if(currentTimeInvincible > coolDownTimeInvincible){
             currentTimeInvincible = 0f;
@@ -110,6 +158,12 @@ public abstract class EntiteMouvante implements Entite {
 
     }
 
+    /**
+     * Methode permettant de dessiner une entite
+     * @param batch le spriteBatch pour draw
+     * @param x Position de la salle en x
+     * @param y Position de la salle en y
+     */
     public void draw(SpriteBatch batch, float x, float y){
         //Animation de la mort
         if(mort && !mortAnimFinie){
@@ -117,6 +171,9 @@ public abstract class EntiteMouvante implements Entite {
         }
     }
 
+    /**
+     * Methode permettant de mettre à jour physiquement l'entite
+     */
     public void update(){
         currentTime += Gdx.graphics.getDeltaTime();
         currentTimeInvincible += Gdx.graphics.getDeltaTime();

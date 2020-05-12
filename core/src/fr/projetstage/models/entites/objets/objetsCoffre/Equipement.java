@@ -10,6 +10,10 @@ public abstract class Equipement extends ObjetsTousTypes {
     protected String nom;
     private int rarete;
 
+    /**
+     * Constructeur d'objets qu'on peut mettre dans l'inventaire du joueur
+     * @param world le monde physique ou se trouve l'objet
+     */
     public Equipement(GameWorld world){
         super(world, new Vector2(0,0), 0);
     }

@@ -186,7 +186,10 @@ public class GameWorld {
         return salleCourante.getEnnemi(id);
     }
 
-
+    /**
+     * Methode qui permet de faire des degats au joueur
+     * @param source la source des degats
+     */
     public void setJoueurTouche(Entite source){
         joueur.setTouche(source);
     }
@@ -202,7 +205,7 @@ public class GameWorld {
 
     /**
      * Lorsque le joueur touche une porte
-     * @param id
+     * @param id l'id de la porte
      */
     public void setPorteTouched(int id) {
         //TODO : se servir de l'id/Orientation
@@ -218,6 +221,10 @@ public class GameWorld {
         //this.debutTransition(Orientation.HAUT);
     }
 
+    /**
+     * booleen qui indique si le monde est en transition entre 2 salles
+     * @return vrai si le monde est en transition
+     */
     public boolean estEnTransition() {
         return estEnTransition;
     }

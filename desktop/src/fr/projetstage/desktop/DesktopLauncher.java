@@ -5,6 +5,11 @@ import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
 import fr.projetstage.ProjetStage;
 
 public class DesktopLauncher {
+
+	/**
+	 * Constructeur pour lancer le jeu en mode Desktop
+	 * @param arg inutiles.
+	 */
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.a = 8; // Met en place le canal alpha à 8 bits

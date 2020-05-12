@@ -16,7 +16,15 @@ public abstract class Consommable extends ObjetsTousTypes {
     private float largeur;
     private int id;
 
-
+    /**
+     * Objet qui est utilisé directement, ne va pas dans l'inventaire
+     * @param world le monde dans lequel est l'objet
+     * @param position la position de l'objet dans le monde
+     * @param posShape la position du sprite
+     * @param largeur la largeur de l'objet
+     * @param hauteur la hauteur de l'objet
+     * @param id l'id unique de l'objet
+     */
     public Consommable(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id){
         super(world, position, id);
         this.posShape = posShape;

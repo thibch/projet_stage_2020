@@ -34,6 +34,9 @@ public class Etage {
         tabSalles[xCourant][yCourant].setEtat(EtatSalle.EN_COURS_DE_VISITE);
     }
 
+    /**
+     * Methode qui genere l'étage en positionnant des salles
+     */
     public void generationEtage(){
         tabSalles[xCourant][yCourant] = new Salle1(world);
         //tabSalles[xCourant+1][yCourant] = new Salle2(world);
@@ -89,6 +92,10 @@ public class Etage {
         generationSalles();
     }
 
+    /**
+     * methode qui recupere une salle aléatoire dans l'asset
+     * @return une salle choisie aléatoirement
+     */
     public Salle getRandomSalle(){
         int rand = Math.abs(world.getNextRandom()%100);
         Salle newSalle;
@@ -109,6 +116,9 @@ public class Etage {
         return newSalle;
     }
 
+    /**
+     * Methode permettant de relier les salles entre elles dans l'étage
+     */
     public void generationPortes(){
         for (int x = 0; x < largeur; x++) {
             for (int y = 0; y < hauteur; y++) {
@@ -130,6 +140,9 @@ public class Etage {
         }
     }
 
+    /**
+     * Methode qui genere des salles dans l'étage
+     */
     public void generationSalles(){
         for (int x = 0; x < largeur; x++) {
             for (int y = 0; y < hauteur; y++) {
@@ -147,6 +160,7 @@ public class Etage {
 
     /**
      * Retourne la salle suivante
+     * @param direction la direction dans laquel le joueur va
      * @return la salle suivante
      */
     public Salle next(Orientation direction){
