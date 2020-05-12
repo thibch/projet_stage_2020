@@ -1,4 +1,4 @@
-package fr.projetstage.models.ui;
+package fr.projetstage.models.chargement;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
@@ -18,11 +18,8 @@ public class Transition {
 
     private boolean estEnCours;
 
-    public Transition(Camera camera) {
-        camera.update();
+    public Transition() {
         shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setProjectionMatrix(camera.combined);
-
         reset();
     }
 
@@ -32,8 +29,8 @@ public class Transition {
 
     public void update(){
         if(estEnCours){
-            transi.interpolate(end, 0.2f, Interpolation.smooth2);
-            if(transi.epsilonEquals(end, 0.01f)){
+            transi.interpolate(end, 0.2f, Interpolation.circleIn);
+            if(transi.epsilonEquals(end, 0.005f)){
                 transi = new Vector2(end);
                 end = new Vector2(start);
                 start = new Vector2(transi);
@@ -72,5 +69,9 @@ public class Transition {
         end = new Vector2(1, 1);
         milieuTransi = false;
         estEnCours = false;
+    }
+
+    public void setCamera(Camera camera){
+        shapeRenderer.setProjectionMatrix(camera.combined);
     }
 }

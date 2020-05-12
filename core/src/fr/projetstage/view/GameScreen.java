@@ -13,7 +13,6 @@ import fr.projetstage.controllers.KeyboardListener;
 import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.ui.Transition;
 import fr.projetstage.models.ui.UserInterface;
 
 import java.util.Random;
@@ -38,15 +37,13 @@ public class GameScreen extends ScreenAdapter {
 
     private final KeyboardListener keyboardListener;
 
-    private float xSalle;
-    private float ySalle;
     private float currentTime;
     private final float transitionTime = 2f;
     private boolean transitionEntreSalle;
     private float xTransition = 0f;
     private float yTransition = 0f;
 
-    private Transition transition;
+    //private Transition transition;
 
 
     /**
@@ -65,14 +62,10 @@ public class GameScreen extends ScreenAdapter {
 
         box2DDebugRenderer = new Box2DDebugRenderer();
 
-        gameWorld = new GameWorld(seed);
+        gameWorld = new GameWorld(seed, this);
         userInterface = new UserInterface(gameWorld);
 
         keyboardListener = new KeyboardListener();
-
-        xSalle = 0;
-        ySalle = 0;
-
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(keyboardListener);
@@ -94,7 +87,9 @@ public class GameScreen extends ScreenAdapter {
         cameraUI.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0); // -2 est le decalage pour les murs
         cameraUI.update();
 
-        transition = new Transition(cameraUI);
+        gameWorld.getChargement().setCamera(cameraUI);
+
+        //transition = new Transition(cameraUI);
 
         userInterface.getStage().getViewport().update(width,height,true);
     }
@@ -116,7 +111,7 @@ public class GameScreen extends ScreenAdapter {
         if(keyboardListener.isAfficheDebug()){
             box2DDebugRenderer.render(gameWorld.getWorld(), cameraEnv.combined); // On affiche le Debug si on a appuyé sur la touche du debug
         }else{
-            gameWorld.draw(listeAffEnv, xSalle, ySalle);
+            gameWorld.draw(listeAffEnv);
         }
 
         update(delta); //On met à jour la physique du monde
@@ -125,8 +120,6 @@ public class GameScreen extends ScreenAdapter {
 
         // Affichage de l'interface
         userInterface.draw(listeAffUI);
-
-        transition.draw(listeAffUI);
     }
 
     /**
@@ -134,65 +127,22 @@ public class GameScreen extends ScreenAdapter {
      * @param delta le temps d'actualisation de l'affichage
      */
     public void update(float delta){
-        if(gameWorld.estEnTransition() && !transition.isFinished() && !transitionEntreSalle){ // One time Boolean TODO: (A changer)
-            Vector2 transi = gameWorld.transition(); // On dit au monde de mettre à jour la salle suivante en fonction de l'orientation
-            if(transi.x == 0 && transi.y == 0){
-                transition.startTransi();
-            }else{
-                xSalle = transi.x; //Position à faire en fonction de l'orientation
-                ySalle = transi.y;
-                transitionEntreSalle = true;
-                currentTime = 0;
-            }
+        if(!gameWorld.estEnTransition() && !userInterface.isGameOver() && !userInterface.isPaused()){
+            Vector2 force = keyboardListener.getAcceleration();
+
+            gameWorld.getJoueur().move(force);
+            gameWorld.getWorld().step(delta,6,2);
+
+            gameWorld.getJoueur().update(keyboardListener.getDirection());
+            gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
+            gameWorld.update();
         }
 
-        if(transitionEntreSalle){ // Si on a décidé de changer
-            currentTime += delta; // On additionne le delta time
-
-            if(currentTime < transitionTime){ // Tant que la transition n'est pas terminée
-                xTransition += xSalle * (delta/transitionTime);
-                yTransition += ySalle * (delta/transitionTime);
-
-                // On bouge la caméra
-                cameraEnv.position.set(xTransition + gameWorld.getLargeur()/2f - 2, yTransition + gameWorld.getHauteur()/2f - 2,0);
-            }else{
-                xTransition = 0;
-                yTransition = 0;
-                transitionEntreSalle = false;
-                currentTime = 0;
-
-                gameWorld.finTransition(); // On prévient le monde qu'on a terminé la transition
-
-                //La caméra revient comme avant
-                cameraEnv.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0);
-            }
+        if(gameWorld.estEnTransition()){
+            gameWorld.update();
+            Vector2 transi = gameWorld.getChargement().getTransitionCamera();
+            cameraEnv.position.set(transi.x + gameWorld.getLargeur()/2f - 2, transi.y + gameWorld.getHauteur()/2f - 2,0);
             cameraEnv.update();
-        }else{
-
-            if(transition.isFinished()){
-                gameWorld.finTransition();
-                transition.reset();
-            }else if (transition.estEnCours()){
-                if(transition.estMilieuTransi()){
-                    gameWorld.miTransition();
-                }
-                transition.update();
-            }else{
-                if(!userInterface.isGameOver() && !userInterface.isPaused()){
-                    Vector2 force = keyboardListener.getAcceleration();
-
-                    gameWorld.getJoueur().move(force);
-                    gameWorld.getWorld().step(delta,6,2);
-
-                    gameWorld.getJoueur().update(keyboardListener.getDirection());
-                    gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
-                    gameWorld.update();
-                }
-            }
-        }
-
-        if(userInterface.goToMainMenu()){
-            mainStage.create();
         }
     }
 

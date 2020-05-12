@@ -142,6 +142,8 @@ public class Porte extends Obstacle {
         }else{
             batch.draw(TextureFactory.getInstance().getPorteFerme(), x + getPosition().x, y + getPosition().y, tailleX/2, tailleY/2, tailleX, tailleY, 1, 1, direction.getRotation(),0,0, TextureFactory.getInstance().getPorteOuverte().getWidth(), TextureFactory.getInstance().getPorteOuverte().getHeight(), false, false);
         }
+        System.out.println("x : " + (x + getPosition().x));
+        System.out.println("y : " + (y + getPosition().y));
     }
 
     public Orientation getOrientation() {
