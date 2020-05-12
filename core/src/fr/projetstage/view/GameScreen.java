@@ -153,6 +153,10 @@ public class GameScreen extends ScreenAdapter {
             cameraEnv.position.set(transi.x + gameWorld.getLargeur()/2f - 2, transi.y + gameWorld.getHauteur()/2f - 2,0);
             cameraEnv.update();
         }
+
+        if(userInterface.goToMainMenu()){
+            mainStage.create();
+        }
     }
 
     /**
