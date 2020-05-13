@@ -90,6 +90,10 @@ public class TextureFactory {
     // EyeBat
     private static TextureRegion eyeBatSpriteSheet;
 
+    // Goblins
+    private static TextureRegion goblinIdleSpriteSheet;
+    private static TextureRegion goblinRunSpriteSheet;
+
     // Décors
     private static TextureRegion torcheSpriteSheet;
     private static TextureRegion piegeSpriteSheet;
@@ -190,6 +194,10 @@ public class TextureFactory {
 
         // EyeBat
         eyeBatSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/flying creature/fly_anim_spritesheet.png")));
+
+        // Goblins
+        goblinIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/goblin/goblin_idle_spritesheet.png")));
+        goblinRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/goblin/goblin_run_spritesheet.png")));
 
         // Décors
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
@@ -683,6 +691,22 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour la sprite sheet du goblin inactif
+     * @return une TextureRegion Idle goblin spritesheet
+     */
+    public TextureRegion getGoblinIdleSpriteSheet(){
+        return goblinIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du goblin qui marche
+     * @return une TextureRegion running goblin spritesheet
+     */
+    public TextureRegion getGoblinRunSpriteSheet(){
+        return goblinRunSpriteSheet;
+    }
+
+    /**
      * Getter pour la sprite sheet de mort
      * @return une TextureRegion de spritesheet de mort
      */
@@ -727,6 +751,8 @@ public class TextureFactory {
                 slimeIdleSpriteSheet.getTexture(),
                 slimeRunSpriteSheet.getTexture(),
                 eyeBatSpriteSheet.getTexture(),
+                goblinIdleSpriteSheet.getTexture(),
+                goblinRunSpriteSheet.getTexture(),
                 deathSpriteSheet.getTexture(),
                 piegeSpriteSheet.getTexture(),
                 coffreSpriteSheet.getTexture()
