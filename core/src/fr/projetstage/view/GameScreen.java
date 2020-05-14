@@ -1,5 +1,6 @@
 package fr.projetstage.view;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
+import fr.projetstage.controllers.PhoneController;
 import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Orientation;
@@ -37,7 +39,8 @@ public class GameScreen extends ScreenAdapter {
     private final GameWorld gameWorld;
     private final UserInterface userInterface;
 
-    private final KeyboardListener keyboardListener;
+    private KeyboardListener keyboardListener;
+    private PhoneController phoneController;
 
     private float currentTime;
     private final float transitionTime = 2f;
@@ -73,11 +76,14 @@ public class GameScreen extends ScreenAdapter {
         gameWorld = new GameWorld(seed, this);
         userInterface = new UserInterface(gameWorld);
 
-        keyboardListener = new KeyboardListener();
+
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();
-        inputMultiplexer.addProcessor(keyboardListener);
         inputMultiplexer.addProcessor(userInterface.getStage());
+        keyboardListener = new KeyboardListener();
+        inputMultiplexer.addProcessor(keyboardListener);
+        phoneController = new PhoneController();
+        inputMultiplexer.addProcessor(phoneController.getStage());
         Gdx.input.setInputProcessor(inputMultiplexer);
     }
 
@@ -97,7 +103,10 @@ public class GameScreen extends ScreenAdapter {
 
         gameWorld.getChargement().setCamera(cameraUI);
 
-        userInterface.getStage().getViewport().update(width,height,true);
+        if(Gdx.app.getType() != Application.ApplicationType.Desktop)
+            phoneController.resize(width, height);
+
+        userInterface.getStage().getViewport().update(width, height,true);
     }
 
     /**
@@ -129,6 +138,8 @@ public class GameScreen extends ScreenAdapter {
 
         gameWorld.getChargement().draw();
 
+        if(Gdx.app.getType() != Application.ApplicationType.Desktop)
+            phoneController.draw();
     }
 
     /**
@@ -137,7 +148,12 @@ public class GameScreen extends ScreenAdapter {
      */
     public void update(float delta){
         if(!gameWorld.estEnTransition() && !userInterface.isGameOver() && !userInterface.isPaused()){
-            Vector2 force = keyboardListener.getAcceleration();
+            Vector2 force;
+            if(Gdx.app.getType() == Application.ApplicationType.Desktop){
+                force = keyboardListener.getAcceleration();
+            }else{
+                force = phoneController.getAcceleration();
+            }
 
             gameWorld.getJoueur().move(force);
             gameWorld.getWorld().step(delta,6,2);

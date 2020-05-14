@@ -67,6 +67,8 @@ public class TextureFactory {
     private static Texture salleCourante;
     private static Texture salleVisitee;
     private static Texture salleNonVisitee;
+    private static Texture backgroundPad;
+    private static Texture knobPad;
 
     // Armes
     private static Texture epee;
@@ -166,8 +168,8 @@ public class TextureFactory {
         salleCourante = new Texture(Gdx.files.internal("ui/GPS_salle_courante.png"));
         salleVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_visitee.png"));
         salleNonVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_non_visitee.png"));
-
-
+        backgroundPad = new Texture(Gdx.files.internal("ui/pad_background.png"));
+        knobPad = new Texture(Gdx.files.internal("ui/pad_knob.png"));
 
         // Armes
         epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
@@ -543,6 +545,22 @@ public class TextureFactory {
      */
     public Texture getArrowUI() {
         return arrowUI;
+    }
+
+    /**
+     * Getter pour l'image du background du pad tactile
+     * @return Getter pour l'image du background du pad tactile
+     */
+    public Texture getBackgroundPad() {
+        return backgroundPad;
+    }
+
+    /**
+     * Getter pour l'image du knob du pad tactile
+     * @return Getter pour l'image du knob du pad tactile
+     */
+    public Texture getKnobPad(){
+        return knobPad;
     }
 
     /**
