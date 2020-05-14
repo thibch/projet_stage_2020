@@ -26,7 +26,9 @@ public class Goblin extends Ennemi{
         setPointDeVie(4);
         setDegats(1);
         coolDownTime = 1f;
-        
+
+        setSpeed(1.5f);
+
         hauteur = (12f / 16f);
         largeur = (16f / 16f);
 

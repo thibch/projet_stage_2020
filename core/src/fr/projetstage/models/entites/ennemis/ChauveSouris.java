@@ -29,6 +29,8 @@ public class ChauveSouris extends Ennemi{
         setDegats(2);
         coolDownTime = 1f;
 
+        setSpeed(1.7f);
+
         hauteur = (9f / 16f);
         largeur = (13f / 16f);
 

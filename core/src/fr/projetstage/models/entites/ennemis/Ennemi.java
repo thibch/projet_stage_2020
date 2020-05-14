@@ -116,7 +116,8 @@ public abstract class Ennemi extends EntiteMouvante {
         super.update();
 
         comportement.update();
-        body.setLinearVelocity(new Vector2(0.8f * body.getLinearVelocity().x,0.8f * body.getLinearVelocity().y)); //TODO: a changer plus tard, juste pour pas qu'il glide à l'infini
+        comportement.setMaxLinearSpeed(getSpeed()*20);
+        body.setLinearDamping(3f);
         position = body.getPosition();
         if(mort){
             comportement.getBehavior().setEnabled(false);

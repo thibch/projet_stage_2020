@@ -17,7 +17,7 @@ public abstract class EntiteMouvante implements Entite {
     private int pointDeVie;
     private int pointdeVieMax;
 
-    private float speed = 2f;
+    private float speed = 1f;
 
     private int degats; //TODO : a definir par rapport a l'arme plus tard
     private float knockback = 3f;
