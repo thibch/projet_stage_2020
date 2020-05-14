@@ -78,7 +78,9 @@ public class Piege extends Ennemi {
         if(animation.getCurrentFrameCount() >= 7){
             for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
                 if(!target.getValue()){
-                    target.getKey().setTouche(this);
+                    if(!target.getKey().getClass().getSimpleName().equals("ChauveSouris")){
+                        target.getKey().setTouche(this);
+                    }
                     target.setValue(true);
                 }
             }
