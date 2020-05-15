@@ -67,8 +67,21 @@ public class TextureFactory {
     private static Texture salleCourante;
     private static Texture salleVisitee;
     private static Texture salleNonVisitee;
+
+    // Mobile
     private static Texture backgroundPad;
     private static Texture knobPad;
+    private static Texture keyUpMobile;
+    private static Texture keyUpMobilePressed;
+
+    private static Texture keyDownMobile;
+    private static Texture keyDownMobilePressed;
+
+    private static Texture keyRightMobile;
+    private static Texture keyRightMobilePressed;
+
+    private static Texture keyLeftMobile;
+    private static Texture keyLeftMobilePressed;
 
     // Armes
     private static Texture epee;
@@ -172,8 +185,23 @@ public class TextureFactory {
         salleCourante = new Texture(Gdx.files.internal("ui/GPS_salle_courante.png"));
         salleVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_visitee.png"));
         salleNonVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_non_visitee.png"));
-        backgroundPad = new Texture(Gdx.files.internal("ui/pad_background.png"));
-        knobPad = new Texture(Gdx.files.internal("ui/pad_knob.png"));
+
+        // Mobile
+        backgroundPad = new Texture(Gdx.files.internal("ui/mobile/pad_background.png"));
+        knobPad = new Texture(Gdx.files.internal("ui/mobile/pad_knob.png"));
+
+        keyUpMobile = new Texture(Gdx.files.internal("ui/mobile/key_up.png"));
+        keyUpMobilePressed = new Texture(Gdx.files.internal("ui/mobile/key_up_pressed.png"));
+
+        keyDownMobile = new Texture(Gdx.files.internal("ui/mobile/key_down.png"));
+        keyDownMobilePressed = new Texture(Gdx.files.internal("ui/mobile/key_down_pressed.png"));
+
+        keyRightMobile = new Texture(Gdx.files.internal("ui/mobile/key_right.png"));
+        keyRightMobilePressed = new Texture(Gdx.files.internal("ui/mobile/key_right_pressed.png"));
+
+        keyLeftMobile = new Texture(Gdx.files.internal("ui/mobile/key_left.png"));
+        keyLeftMobilePressed = new Texture(Gdx.files.internal("ui/mobile/key_left_pressed.png"));
+
 
         // Armes
         epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
@@ -569,6 +597,66 @@ public class TextureFactory {
      */
     public Texture getKnobPad(){
         return knobPad;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers le haut
+     * @return Getter pour l'image de la flèche vers le haut
+     */
+    public Texture getKeyUpMobile() {
+        return keyUpMobile;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers le haut appuyé
+     * @return Getter pour l'image de la flèche vers le haut appuyé
+     */
+    public Texture getKeyUpMobilePressed() {
+        return keyUpMobilePressed;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers le bas
+     * @return Getter pour l'image de la flèche bas le haut
+     */
+    public Texture getKeyDownMobile() {
+        return keyDownMobile;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers le bas appuyé
+     * @return Getter pour l'image de la flèche vers le bas appuyé
+     */
+    public Texture getKeyDownMobilePressed() {
+        return keyDownMobilePressed;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers la gauche appuyé
+     * @return Getter pour l'image de la flèche vers la gauche appuyé
+     */
+    public Texture getKeyRightMobile() {
+        return keyRightMobile;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers le bas appuyé
+     * @return Getter pour l'image de la flèche vers le bas appuyé
+     */
+    public Texture getKeyRightMobilePressed() {
+        return keyRightMobilePressed;
+    }
+
+    /**
+     * Getter pour l'image de la flèche vers la droite appuyé
+     * @return Getter pour l'image de la flèche vers la droite appuyé
+     */
+    public Texture getKeyLeftMobile() {
+        return keyLeftMobile;
+    }
+
+    public Texture getKeyLeftMobilePressed() {
+        return keyLeftMobilePressed;
     }
 
     /**

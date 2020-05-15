@@ -103,8 +103,7 @@ public class GameScreen extends ScreenAdapter {
 
         gameWorld.getChargement().setCamera(cameraUI);
 
-        if(Gdx.app.getType() != Application.ApplicationType.Desktop)
-            phoneController.resize(width, height);
+        phoneController.resize(width, height);
 
         userInterface.getStage().getViewport().update(width, height,true);
     }
@@ -138,7 +137,7 @@ public class GameScreen extends ScreenAdapter {
 
         gameWorld.getChargement().draw();
 
-        if(Gdx.app.getType() != Application.ApplicationType.Desktop)
+        if(Gdx.app.getType() != Application.ApplicationType.Desktop/* || keyboardListener.isAfficheDebug()*/)
             phoneController.draw();
     }
 
@@ -149,7 +148,7 @@ public class GameScreen extends ScreenAdapter {
     public void update(float delta){
         if(!gameWorld.estEnTransition() && !userInterface.isGameOver() && !userInterface.isPaused()){
             Vector2 force;
-            if(Gdx.app.getType() == Application.ApplicationType.Desktop){
+            if(Gdx.app.getType() == Application.ApplicationType.Desktop/* && !keyboardListener.isAfficheDebug()*/){
                 force = keyboardListener.getAcceleration();
             }else{
                 force = phoneController.getAcceleration();
@@ -157,8 +156,14 @@ public class GameScreen extends ScreenAdapter {
 
             gameWorld.getJoueur().move(force);
             gameWorld.getWorld().step(delta,6,2);
+            Orientation directionJoueur;
+            if(Gdx.app.getType() == Application.ApplicationType.Desktop/* && !keyboardListener.isAfficheDebug()*/)
+                directionJoueur = keyboardListener.getDirection();
+            else
+                directionJoueur = phoneController.getDirection();
 
-            gameWorld.getJoueur().update(keyboardListener.getDirection());
+
+            gameWorld.getJoueur().update(directionJoueur);
             gameWorld.getJoueur().setWeapon(keyboardListener.isSwitchWeapon());
             gameWorld.update();
         }
@@ -186,5 +191,6 @@ public class GameScreen extends ScreenAdapter {
         userInterface.dispose();
         TextureFactory.getInstance().dispose();
         SoundFactory.getInstance().dispose();
+        phoneController.dispose();
     }
 }

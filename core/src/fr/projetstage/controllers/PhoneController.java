@@ -3,15 +3,15 @@ package fr.projetstage.controllers;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
-import com.badlogic.gdx.utils.viewport.FillViewport;
+import com.badlogic.gdx.scenes.scene2d.*;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import fr.projetstage.dataFactories.TextureFactory;
+import fr.projetstage.models.Orientation;
 
 public class PhoneController{
 
@@ -24,6 +24,12 @@ public class PhoneController{
     private Touchpad.TouchpadStyle touchpadStyle;
     private Touchpad touchpad;
     private Skin touchpadSkin;
+
+    private Orientation directionChoisie;
+    private boolean keyUp;
+    private boolean keyDown;
+    private boolean keyLeft;
+    private boolean keyRight;
 
 
     public PhoneController(){
@@ -47,18 +53,123 @@ public class PhoneController{
         SpriteBatch batch = new SpriteBatch();
         stage = new Stage(viewport, batch);
 
+        int buttonSize = 65;
 
-        /*Gdx.input.setInputProcessor(stage);
+        keyUp = false;
+        keyDown = false;
+        keyLeft = false;
+        keyRight = false;
+        directionChoisie = Orientation.NO_ORIENTATION;
+
+
         table = new Table();
-        table.setPosition(0,0);
-        table.right().bottom();
+        table.setBounds(stage.getWidth() - 250,50, 200, 200);
+        table.left().top();
 
-        table.add(actor);
+        //---------------------
 
-        table.setBackground(new TextureRegionDrawable(TextureFactory.getInstance().getCoffreSpriteSheet()));
+        table.add().top().left();
+        ImageButton image = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getKeyUpMobile()), new TextureRegionDrawable(TextureFactory.getInstance().getKeyUpMobilePressed()));
+        image.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                keyUp = true;
+                updateKeys();
+                return true;
+            }
 
-        stage.addActor(table);*/
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                keyUp = false;
+                updateKeys();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        table.add(image).top().center().size(buttonSize);
+        table.add().top().right();
+
+        table.row();
+        //---------------------
+
+        image = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getKeyLeftMobile()), new TextureRegionDrawable(TextureFactory.getInstance().getKeyLeftMobilePressed()));
+
+        image.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                keyLeft = true;
+                updateKeys();
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                keyLeft = false;
+                updateKeys();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        table.add(image).left().size(buttonSize);
+        table.add().center();
+        image = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getKeyRightMobile()), new TextureRegionDrawable(TextureFactory.getInstance().getKeyRightMobilePressed()));
+
+        image.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                keyRight = true;
+                updateKeys();
+                return true;
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                keyRight = false;
+                updateKeys();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        table.add(image).right().size(buttonSize);
+
+        table.row();
+        //---------------------
+
+        table.add().bottom().left();
+        image = new ImageButton(new TextureRegionDrawable(TextureFactory.getInstance().getKeyDownMobile()), new TextureRegionDrawable(TextureFactory.getInstance().getKeyDownMobilePressed()));
+
+        image.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                keyDown = true;
+                updateKeys();
+                return true;//super.touchDown(event, x, y, pointer, button);
+            }
+
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                keyDown = false;
+                updateKeys();
+                super.touchUp(event, x, y, pointer, button);
+            }
+        });
+        table.add(image).bottom().center().size(buttonSize);
+        table.add().bottom().right();
+        //---------------------
+
         stage.addActor(touchpad);
+        stage.addActor(table);
+    }
+
+    public void updateKeys() {
+        if(keyLeft){
+            directionChoisie = Orientation.GAUCHE;
+        }else if(keyRight){
+            directionChoisie = Orientation.DROITE;
+        }else if(keyDown){
+            directionChoisie = Orientation.BAS;
+        }else if(keyUp){
+            directionChoisie = Orientation.HAUT;
+        }else{
+            directionChoisie = Orientation.NO_ORIENTATION;
+        }
     }
 
 
@@ -77,7 +188,15 @@ public class PhoneController{
     }
 
     public Vector2 getAcceleration() {
-        System.out.println("{" + touchpad.getKnobPercentX() + "" + touchpad.getKnobPercentY() + "}");
         return new Vector2(touchpad.getKnobPercentX(), touchpad.getKnobPercentY());
+    }
+
+    public void dispose(){
+        stage.dispose();
+
+    }
+
+    public Orientation getDirection() {
+        return directionChoisie;
     }
 }
