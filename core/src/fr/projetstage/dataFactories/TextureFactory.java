@@ -109,6 +109,14 @@ public class TextureFactory {
     private static TextureRegion goblinIdleSpriteSheet;
     private static TextureRegion goblinRunSpriteSheet;
 
+    // Skelets
+    private static TextureRegion skeletIdleSpriteSheet;
+    private static TextureRegion skeletRunSpriteSheet;
+
+    // Necromancers
+    private static TextureRegion necromancerIdleSpriteSheet;
+    private static TextureRegion necromancerRunSpriteSheet;
+
     // Décors
     private static TextureRegion torcheSpriteSheet;
     private static TextureRegion piegeSpriteSheet;
@@ -228,6 +236,14 @@ public class TextureFactory {
         // Goblins
         goblinIdleSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/goblin/goblin_idle_spritesheet.png")));
         goblinRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/goblin/goblin_run_spritesheet.png")));
+
+        // Skelets
+        skeletIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/skelet/skelet_idle_spritesheet.png")));
+        skeletRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/skelet/skelet_run_spritesheet.png")));
+
+        // Necromancers
+        necromancerIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/necromancer/necromancer_idle_spritesheet.png")));
+        necromancerRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/necromancer/necromancer_run_spritesheet.png")));
 
         // Décors
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
@@ -813,6 +829,38 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour la sprite sheet du skelet inactif
+     * @return une TextureRegion Idle skelet spritesheet
+     */
+    public TextureRegion getSkeletIdleSpriteSheet(){
+        return skeletIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du skelet qui marche
+     * @return une TextureRegion running skelet spritesheet
+     */
+    public TextureRegion getSkeletRunSpriteSheet(){
+        return skeletRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du necromancer inactif
+     * @return une TextureRegion Idle necromancer spritesheet
+     */
+    public TextureRegion getNecromancerIdleSpriteSheet(){
+        return necromancerIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du necromancer qui marche
+     * @return une TextureRegion running necromancer spritesheet
+     */
+    public TextureRegion getNecromancerRunSpriteSheet(){
+        return necromancerRunSpriteSheet;
+    }
+
+    /**
      * Getter pour la sprite sheet de mort
      * @return une TextureRegion de spritesheet de mort
      */
@@ -859,6 +907,10 @@ public class TextureFactory {
                 eyeBatSpriteSheet.getTexture(),
                 goblinIdleSpriteSheet.getTexture(),
                 goblinRunSpriteSheet.getTexture(),
+                skeletIdleSpriteSheet.getTexture(),
+                skeletRunSpriteSheet.getTexture(),
+                necromancerIdleSpriteSheet.getTexture(),
+                necromancerRunSpriteSheet.getTexture(),
                 deathSpriteSheet.getTexture(),
                 piegeSpriteSheet.getTexture(),
                 coffreSpriteSheet.getTexture()

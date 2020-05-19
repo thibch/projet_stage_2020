@@ -3,9 +3,7 @@ package fr.projetstage.models.monde.salle.patternSalle;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
-import fr.projetstage.models.entites.ennemis.ChauveSouris;
-import fr.projetstage.models.entites.ennemis.Goblin;
-import fr.projetstage.models.entites.ennemis.Slime;
+import fr.projetstage.models.entites.ennemis.*;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
@@ -25,11 +23,8 @@ public class Salle5 extends Salle {
     public void genererSalle() {
         genererSolsEtMurs();
 
-        meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));
-        meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
+        ennemis.put(nbEnnemis, new Necromancer(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++),this));
 
-        int nbEnnemis = 0;
-        ennemis.put(nbEnnemis, new Goblin(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
     }
 

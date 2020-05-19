@@ -21,7 +21,9 @@ public class Inventaire {
      * @param obj l'objet ajouté à l'inventaire
      */
     public void add(ObjetsTousTypes obj){
-        contenu.add(obj);
+        if(!obj.getClass().getSimpleName().equals("Coeur") && !obj.getClass().getSimpleName().equals("PotionVitesse")){
+            contenu.add(obj);
+        }
         obj.applyEffect();
     }
 

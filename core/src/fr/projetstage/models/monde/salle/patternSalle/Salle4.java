@@ -30,7 +30,6 @@ public class Salle4 extends Salle {
         meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
         meubles.add(new Biblio(world, new Vector2(4, hauteur-1)));
 
-        int nbEnnemis = 0;
         //piege
         ennemis.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbEnnemis++)));
 

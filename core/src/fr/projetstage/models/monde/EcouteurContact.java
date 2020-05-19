@@ -49,7 +49,12 @@ public class EcouteurContact implements ContactListener {
             if(fixtureJoueur != null) {
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if (fixtureEnnemi != null) {
-                    world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())).addTarget(world.getJoueur());
+                    try{
+                        world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())).addTarget(world.getJoueur());
+                    }
+                    catch(Exception e){
+                        System.out.println("Collision Error !"); //TODO : a voir pk ça fait ça
+                    }
                 }
                 Fixture fixturePickUp = check(fixtureA, fixtureB, TypeEntite.PICKUP);
                 if (fixturePickUp != null) {

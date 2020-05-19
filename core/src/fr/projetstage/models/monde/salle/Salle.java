@@ -6,7 +6,10 @@ import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
+import fr.projetstage.models.entites.ennemis.Necromancer;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
@@ -27,6 +30,8 @@ public abstract class Salle {
     protected ArrayList<Porte> portes;
 
     protected HashMap<Integer, Ennemi> ennemis;
+    protected HashMap<Integer, Ennemi> invocationWaitList;
+    protected int nbEnnemis;
     protected HashMap<Integer, ObjetsTousTypes> objets;
 
     private EtatSalle etat;
@@ -49,8 +54,10 @@ public abstract class Salle {
         meubles = new ArrayList<>();
         portes = new ArrayList<>();
         ennemis = new HashMap<>();
+        invocationWaitList = new HashMap<>();
         objets = new HashMap<>();
         etat = EtatSalle.NON_VISITE;
+        nbEnnemis = 0;
     }
 
     public void ajouterPorte(Orientation orientationPorte){
@@ -72,6 +79,11 @@ public abstract class Salle {
 
     public void update(){
         boolean isVictorious;
+
+        if(invocationWaitList.size() > 0){
+            ennemis.putAll(invocationWaitList);
+            invocationWaitList.clear();
+        }
 
         Iterator<Integer> it = ennemis.keySet().iterator();
         int courant;
@@ -439,5 +451,23 @@ public abstract class Salle {
      */
     public void setEtat(EtatSalle etat){
         this.etat = etat;
+    }
+
+    /**
+     * Methode permettant d'ajouter des monstres sur le tas
+     * @param ennemi le monstre à ajouter
+     */
+    public void ajouterMonstre(Ennemi ennemi){
+        invocationWaitList.put(nbEnnemis, ennemi);
+        invocationWaitList.get(nbEnnemis).generateBody();
+        nbEnnemis++;
+    }
+
+    /**
+     * Methode permettant de savoir ou en est le compteur
+     * @return un entier du nombre d'ennemis.
+     */
+    public int getNbEnnemis(){
+        return nbEnnemis;
     }
 }
