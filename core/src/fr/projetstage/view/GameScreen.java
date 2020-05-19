@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -93,12 +92,14 @@ public class GameScreen extends ScreenAdapter {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        cameraEnv = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
+        float ratio = Math.max((float) width / (float) height, (float) height / (float) width);
+
+        cameraEnv = new OrthographicCamera(gameWorld.getLargeur() * ratio/1.5f, gameWorld.getHauteur() * ratio/1.5f);
         cameraEnv.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0); // -2 est le decalage pour les murs
         cameraEnv.update();
 
-        cameraUI = new OrthographicCamera(gameWorld.getLargeur(), gameWorld.getHauteur());
-        cameraUI.position.set(gameWorld.getLargeur()/2f - 2, gameWorld.getHauteur()/2f - 2,0); // -2 est le decalage pour les murs
+        cameraUI = new OrthographicCamera(width, height);
+        cameraUI.position.set(width/2f, height/2f, 0f); // -2 est le decalage pour les murs
         cameraUI.update();
 
         gameWorld.getChargement().setCamera(cameraUI);
@@ -133,11 +134,11 @@ public class GameScreen extends ScreenAdapter {
         listeAffEnv.end();
 
         // Affichage de l'interface
-        userInterface.draw(listeAffUI);
+        userInterface.draw();
 
         gameWorld.getChargement().draw();
 
-        if(Gdx.app.getType() != Application.ApplicationType.Desktop/* || keyboardListener.isAfficheDebug()*/)
+        if(Gdx.app.getType() != Application.ApplicationType.Desktop || keyboardListener.isAfficheMobile())
             phoneController.draw();
     }
 
@@ -148,7 +149,7 @@ public class GameScreen extends ScreenAdapter {
     public void update(float delta){
         if(!gameWorld.estEnTransition() && !userInterface.isGameOver() && !userInterface.isPaused()){
             Vector2 force;
-            if(Gdx.app.getType() == Application.ApplicationType.Desktop/* && !keyboardListener.isAfficheDebug()*/){
+            if(Gdx.app.getType() == Application.ApplicationType.Desktop && !keyboardListener.isAfficheMobile()){
                 force = keyboardListener.getAcceleration();
             }else{
                 force = phoneController.getAcceleration();
@@ -157,7 +158,7 @@ public class GameScreen extends ScreenAdapter {
             gameWorld.getJoueur().move(force);
             gameWorld.getWorld().step(delta,6,2);
             Orientation directionJoueur;
-            if(Gdx.app.getType() == Application.ApplicationType.Desktop/* && !keyboardListener.isAfficheDebug()*/)
+            if(Gdx.app.getType() == Application.ApplicationType.Desktop && !keyboardListener.isAfficheMobile())
                 directionJoueur = keyboardListener.getDirection();
             else
                 directionJoueur = phoneController.getDirection();

@@ -1,6 +1,7 @@
 package fr.projetstage.controllers;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,8 +13,9 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Orientation;
+import sun.rmi.runtime.Log;
 
-public class PhoneController{
+public class PhoneController {
 
     private Viewport viewport;
     private Stage stage;
@@ -47,12 +49,10 @@ public class PhoneController{
         //Create new TouchPad with the created style
         touchpad = new Touchpad(0.1f, touchpadStyle);
         //setBounds(x,y,width,height)
-        touchpad.setBounds(50, 50, 200, 200);
-        cam = new OrthographicCamera();
-        viewport = new FitViewport(1024, 720, cam);
-        SpriteBatch batch = new SpriteBatch();
-        stage = new Stage(viewport, batch);
-
+        cam = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), cam);
+        stage = new Stage(viewport);
+        touchpad.setBounds(Gdx.graphics.getWidth()* 0.05f, Gdx.graphics.getHeight() * 0.07f, 200, 200);
         int buttonSize = 65;
 
         keyUp = false;
@@ -63,7 +63,7 @@ public class PhoneController{
 
 
         table = new Table();
-        table.setBounds(stage.getWidth() - 250,50, 200, 200);
+        table.setBounds(Gdx.graphics.getWidth() - 250,50, 200, 200);
         table.left().top();
 
         //---------------------
@@ -178,9 +178,11 @@ public class PhoneController{
         stage.draw();
     }
 
-
     public void resize(int width, int height){
-        viewport.update(width, height);
+        System.out.println("Resize");
+        System.out.println(width + " " + height);
+        //touchpad.setBounds(width* 0.05f, height * 0.07f, 200, 200);
+        stage.getViewport().update(width, height, true);
     }
 
     public Stage getStage() {

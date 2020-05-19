@@ -2,12 +2,11 @@ package fr.projetstage.models.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
-import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.ui.menu.GameOverScreen;
 import fr.projetstage.models.ui.menu.PauseScreen;
 
@@ -21,6 +20,10 @@ public class UserInterface {
     private Boolean isPaused = false;
     private PauseButton pauseBtn;
     private PauseScreen pauseScreen;
+    private ImageWeapon imageArme;
+    private BarreDeVie barreDeVie;
+    private Minimap minimap;
+
 
     private GameOverScreen gameOverScreen;
     private boolean isGameOver = false;
@@ -39,6 +42,19 @@ public class UserInterface {
         float scaleX = stage.getWidth()/gameWorld.getLargeur();
         float scaleY = stage.getHeight()/gameWorld.getHauteur();
         pauseBtn = new PauseButton(stage, new Vector2(scaleX*screenOffset,scaleY*(gameWorld.getHauteur()-2+screenOffset)),scaleX,scaleY,this);
+        imageArme = new ImageWeapon(stage, gameWorld, new Vector2(scaleX*(1-screenOffset),scaleY*(gameWorld.getHauteur()-3+screenOffset)),scaleX,scaleY, screenOffset);
+        barreDeVie = new BarreDeVie(stage, gameWorld, new Vector2(scaleX*(2+screenOffset),scaleY*(gameWorld.getHauteur()-2+screenOffset)), scaleX, scaleY);
+
+        // Image de la flèche
+        Image imageArrow = new Image(TextureFactory.getInstance().getArrowUI());
+        imageArrow.setBounds(scaleX*(1-screenOffset), scaleY*(gameWorld.getHauteur()-4+screenOffset), scaleX, scaleY);
+        imageArrow.setOrigin(scaleX/2f, scaleY/2f);
+        imageArrow.rotateBy(45);
+        stage.addActor(imageArrow);
+        //
+
+        minimap = new Minimap(stage, gameWorld, new Vector2(17*scaleX, 11.5f*scaleY), scaleX/2f, scaleY/2f);
+
 
         gameOverScreen = new GameOverScreen(stage,this);
         pauseScreen = new PauseScreen(stage, this, gameWorld);
@@ -47,9 +63,8 @@ public class UserInterface {
 
     /**
      * Indique ce qu'il faut dessiner dans le monde
-     * @param batch la liste d'affichage
      */
-    public void draw(SpriteBatch batch){
+    public void draw(){
         stage.act();
 
         //Affiche le texte
@@ -60,57 +75,6 @@ public class UserInterface {
         munitions.setTextContent("" + gameWorld.getJoueur().getMunition());
         munitions.draw(stage.getBatch());
         stage.getBatch().end();
-
-        batch.begin();
-        // Affiche l'arme selectionnée
-        if(gameWorld.getJoueur().isSwitchedWeapon()){ // Epee
-            batch.draw(TextureFactory.getInstance().getSwordUI(),-1-screenOffset,gameWorld.getHauteur()-4-screenOffset,1,1);
-        }
-        else{ // Arc
-            batch.draw(TextureFactory.getInstance().getBowUI(), -1-screenOffset, gameWorld.getHauteur()-4-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
-        }
-
-
-        // Affiche les PV du joueur
-        int cpt = 0;
-        //Coeurs plein
-        for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
-            batch.draw(TextureFactory.getInstance().getCoeurPlein(),i,gameWorld.getHauteur()-3-screenOffset,1,1);
-            cpt++;
-        }
-        //Coeur à moitié plein
-        if(gameWorld.getJoueur().getPointDeVie()%2 == 1){
-            batch.draw(TextureFactory.getInstance().getCoeurMoitie(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
-            cpt++;
-        }
-        //Coeurs vide
-        for(int i = 0; i < (gameWorld.getJoueur().getPointdeVieMax()-gameWorld.getJoueur().getPointDeVie())/2; i++){
-            batch.draw(TextureFactory.getInstance().getCoeurVide(),cpt,gameWorld.getHauteur()-3-screenOffset,1,1);
-            cpt++;
-        }
-
-
-        batch.draw(TextureFactory.getInstance().getArrowUI(), -1-screenOffset, gameWorld.getHauteur()-5-screenOffset, 1f/2f, 1f/2f, 1, 1, 1, 1, 45,0,0, TextureFactory.getInstance().getBowUI().getWidth(), TextureFactory.getInstance().getBowUI().getHeight(), false, false);
-
-        //minimap
-        EtatSalle[][] tmp = gameWorld.getMinimap();
-        for(int x = 0; x < 5; x++){
-            for(int y = 0; y < 5 ; y++){
-                if(tmp[x][y] != null){
-                    if(tmp[x][y].equals(EtatSalle.EN_COURS_DE_VISITE)){
-                        batch.draw(TextureFactory.getInstance().getSalleCourante(),15+(x*0.5f),9+(y*0.5f),0.5f,0.5f);
-                    }
-                    else if(tmp[x][y].equals(EtatSalle.VISITEE)){
-                        batch.draw(TextureFactory.getInstance().getSalleVisitee(),15+(x*0.5f),9+(y*0.5f),0.5f,0.5f);
-                    }
-                    else if(tmp[x][y].equals(EtatSalle.NON_VISITE)){
-                        batch.draw(TextureFactory.getInstance().getSalleNonVisitee(),15+(x*0.5f),9+(y*0.5f),0.5f,0.5f);
-                    }
-                }
-            }
-        }
-
-        batch.end();
 
         //Affiche les menus
         stage.getBatch().begin();

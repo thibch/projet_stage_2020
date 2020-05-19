@@ -9,11 +9,11 @@ import fr.projetstage.models.Orientation;
 
 public class KeyboardListener implements InputProcessor {
 
-    private boolean next = false;
     private boolean afficheDebug = false;
     private boolean switchWeapon = false;
     private Vector2 acceleration = new Vector2(0f, 0f);
     private Orientation direction;
+    private boolean afficheMobile;
 
     public KeyboardListener(){
         reset();
@@ -24,12 +24,12 @@ public class KeyboardListener implements InputProcessor {
         direction = Orientation.NO_ORIENTATION;
     }
 
-    public boolean isNext() {
-        return next;
-    }
-
     public boolean isAfficheDebug() {
         return afficheDebug;
+    }
+
+    public boolean isAfficheMobile() {
+        return afficheMobile;
     }
 
     public boolean isSwitchWeapon() {
@@ -51,7 +51,7 @@ public class KeyboardListener implements InputProcessor {
                 SoundFactory.getInstance().playsoundDeath(100);
                 break;
             case Input.Keys.ESCAPE:
-                next = true;
+                afficheMobile = true;
                 break;
             case Input.Keys.LEFT:
                 direction = Orientation.GAUCHE;
@@ -83,7 +83,6 @@ public class KeyboardListener implements InputProcessor {
 
     @Override
     public boolean keyUp(int keycode) {
-        next = keycode == Input.Keys.ESCAPE && !next;
 
         if (keycode == Input.Keys.J) {
             afficheDebug = !afficheDebug;
@@ -91,6 +90,10 @@ public class KeyboardListener implements InputProcessor {
         if(keycode == Input.Keys.CONTROL_LEFT){
             switchWeapon = !switchWeapon;
         }
+        if(keycode == Input.Keys.L){
+            afficheMobile = !afficheMobile;
+        }
+
 
         // Si des touches sont encore appuyés on ne les ignore pas
         // (Exemple quand on appuit sur gauche puis droite et qu'on lache droite)
