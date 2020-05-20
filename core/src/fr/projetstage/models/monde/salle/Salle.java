@@ -29,6 +29,7 @@ public abstract class Salle {
 
     protected ArrayList<Porte> portes;
 
+    protected HashMap<Integer, Ennemi> pieges;
     protected HashMap<Integer, Ennemi> ennemis;
     protected HashMap<Integer, Ennemi> invocationWaitList;
     protected int nbEnnemis;
@@ -53,6 +54,7 @@ public abstract class Salle {
         props = new ArrayList<>();
         meubles = new ArrayList<>();
         portes = new ArrayList<>();
+        pieges = new HashMap<>();
         ennemis = new HashMap<>();
         invocationWaitList = new HashMap<>();
         objets = new HashMap<>();
@@ -85,8 +87,16 @@ public abstract class Salle {
             invocationWaitList.clear();
         }
 
-        Iterator<Integer> it = ennemis.keySet().iterator();
+        Iterator<Integer> it = pieges.keySet().iterator();
         int courant;
+        while(it.hasNext()){
+            courant = it.next();
+
+            //update des pièges
+            pieges.get(courant).update();
+        }
+
+        it = ennemis.keySet().iterator();
         while(it.hasNext()){
             courant = it.next();
 
@@ -100,7 +110,7 @@ public abstract class Salle {
             }
         }
 
-        isVictorious = ennemis.size() <= 1; // TODO: ne pas compter les pièges
+        isVictorious = ennemis.size() <= 0;
 
         it = objets.keySet().iterator();
         while(it.hasNext()){
@@ -139,6 +149,10 @@ public abstract class Salle {
 
         for(Entite meuble : meubles){
             meuble.draw(listeAffImg, x, y);
+        }
+
+        for(Entite piege : pieges.values()){
+            piege.draw(listeAffImg, x, y);
         }
 
         for(Entite monstre : ennemis.values()){
@@ -208,6 +222,10 @@ public abstract class Salle {
             meuble.generateBody();
         }
 
+        for(Entite piege : pieges.values()){
+            piege.generateBody();
+        }
+
         for(Entite monstre : ennemis.values()){
             monstre.generateBody();
         }
@@ -233,6 +251,10 @@ public abstract class Salle {
 
         for (Entite meuble : meubles) {
             meuble.destroyBody();
+        }
+
+        for(Entite piege : pieges.values()){
+            piege.destroyBody();
         }
 
         for (Entite monstre : ennemis.values()) {

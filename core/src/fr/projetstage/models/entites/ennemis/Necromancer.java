@@ -27,6 +27,7 @@ public class Necromancer extends Ennemi {
      * @param world Le monde dans lequel se trouve le slime
      * @param position Sa position dans la salle
      * @param type Le type de monstre
+     * @param salle salle dans laquelle le necromancer ce trouve
      */
     public Necromancer(GameWorld world, Vector2 position, Type type, Salle salle) {
         super(world, position, type);
@@ -94,9 +95,9 @@ public class Necromancer extends Ennemi {
         //TODO : corriger ses mouvement pétés il shake
         //TODO : il fuit pas le joueur vers le haut ( bad maths )
         //deplacements
-        if((Math.sqrt(Math.pow((world.getJoueur().getPosition().x - body.getPosition().x), 2) + Math.pow((world.getJoueur().getPosition().y - body.getPosition().y), 2)) < 2) && ((salle.getLargeur()/2f) - body.getPosition().x < 3) && ((salle.getHauteur()/2f)- body.getPosition().y < 3)){
+        if((Math.sqrt(Math.pow((world.getJoueur().getPosition().x - body.getPosition().x), 2) + Math.pow((world.getJoueur().getPosition().y - body.getPosition().y), 2)) < 2) && ((salle.getLargeur()/2f) - body.getPosition().x < 3) && ((salle.getHauteur()/2f) - body.getPosition().y < 3)){
             //joueur a moins de 3 de distance et qu'il a moins de 3 blocs du centre
-            body.setLinearVelocity((body.getPosition().x - world.getJoueur().getPosition().x) * getSpeed(), (body.getPosition().y - world.getJoueur().getPosition().x)* getSpeed());
+            body.setLinearVelocity((body.getPosition().x - world.getJoueur().getPosition().x) * getSpeed(), (body.getPosition().y - world.getJoueur().getPosition().y)* getSpeed());
         }
         else if((Math.sqrt(Math.pow((world.getJoueur().getPosition().x - body.getPosition().x), 2) + Math.pow((world.getJoueur().getPosition().y - body.getPosition().y), 2)) > 1.5f)){ //retourne au centre
             body.setLinearVelocity(((salle.getLargeur()/2f) - body.getPosition().x) * getSpeed(), ((salle.getHauteur()/2f)- body.getPosition().y)* getSpeed());

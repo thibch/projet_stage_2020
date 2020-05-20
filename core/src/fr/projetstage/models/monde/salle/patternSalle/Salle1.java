@@ -39,8 +39,9 @@ public class Salle1 extends Salle {
         meubles.add(new PetiteTable(world, new Vector2(5, 3)));
         meubles.add(new GrandeTable(world, new Vector2(5, 5)));
 
+        int nbPieges = 0;
         //piege
-        ennemis.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbEnnemis++)));
+        pieges.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbPieges++)));
 
         //monstres
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
