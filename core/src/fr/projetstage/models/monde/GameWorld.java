@@ -34,6 +34,7 @@ public class GameWorld {
     /**
      * Classe qui s'occupe de l'affichage de l'environnement
      * @param seed le graine de génération du random
+     * @param gameScreen l'écran de jeu
      */
     public GameWorld(int seed, GameScreen gameScreen){
         estEnTransition = false;
@@ -128,7 +129,9 @@ public class GameWorld {
         }
     }
 
-
+    /**
+     * Methode s'occupant de la transition entre étages
+     */
     public void miTransition(){
         // Changement étage
         if(!aFaitlaMiTransi){
@@ -257,10 +260,19 @@ public class GameWorld {
         return etage.getMinimap();
     }
 
+    /**
+     * Retourne un booleen de l'état de jeu
+     * @return un booleen a vrai si le jeu est en chargement
+     */
     public Chargement getChargement() {
         return chargement;
     }
 
+    /**
+     * Methode permettant de récuperer un piege dans une salle
+     * @param id l'id du piege a récuperer
+     * @return un Ennemi de type piege
+     */
     public Ennemi getPiege(int id) {
         return salleCourante.getPiege(id);
     }

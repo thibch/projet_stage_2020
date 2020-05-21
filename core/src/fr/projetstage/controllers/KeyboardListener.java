@@ -15,31 +15,57 @@ public class KeyboardListener implements InputProcessor {
     private Orientation direction;
     private boolean afficheMobile;
 
+    /**
+     * Constructeur de l'écouteur de frappe
+     */
     public KeyboardListener(){
         reset();
     }
 
+    /**
+     * permet de réinitialiser la position et vitesse du joueur
+     */
     public void reset(){
         acceleration.set(0f, 0f);
         direction = Orientation.NO_ORIENTATION;
     }
 
+    /**
+     * Renvoie une booléen pour activer / desactiver cette l'affichage debug
+     * @return un booléen a vrai si la touche correspondante à été enfoncée
+     */
     public boolean isAfficheDebug() {
         return afficheDebug;
     }
 
+    /**
+     * Renvoie une booléen pour activer / desactiver cette l'affichage mobile
+     * @return un booléen a vrai si on est sur un mobile
+     */
     public boolean isAfficheMobile() {
         return afficheMobile;
     }
 
+    /**
+     * Renvoie une booléen pour changer d'arme
+     * @return un booléen a vrai si la touche correspondante à été enfoncée
+     */
     public boolean isSwitchWeapon() {
         return switchWeapon;
     }
 
+    /**
+     * Methode permettant de récuperer l'acceleration du joueur
+     * @return un Vector2 de l'acceleration du joueur
+     */
     public Vector2 getAcceleration() {
         return acceleration;
     }
 
+    /**
+     * Methode permettant de renvoyer l'orientation du joueur dans le monde
+     * @return un objet Orientation indiquant la direction dans laquelle regarde le joueur
+     */
     public Orientation getDirection(){
         return direction;
     }

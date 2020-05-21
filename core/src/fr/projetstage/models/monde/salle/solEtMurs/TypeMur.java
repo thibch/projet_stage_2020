@@ -14,6 +14,10 @@ public enum TypeMur {
         this.texture = mur;
     }
 
+    /**
+     * Methode retournant la texture d'un mur
+     * @return la texture d'un mur associé
+     */
     public Texture getTexture() {
         return texture;
     }

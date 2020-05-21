@@ -16,7 +16,11 @@ public abstract class Obstacle implements Entite {
     protected BodyDef bodyDef;
     protected FixtureDef fixtureDef;
 
-
+    /**
+     * Constructeur d'un obstacle
+     * @param world le monde dans lequel se trouve l'obstacle
+     * @param position la position de l'obstacle dans le monde
+     */
     public Obstacle(GameWorld world, Vector2 position){
         this.world = world;
         this.position = position;
@@ -48,5 +52,9 @@ public abstract class Obstacle implements Entite {
         return position;
     }
 
+    /**
+     * Renvoie une booleen qui permet de savoir si un obstacle est destructible ou non
+     * @return vrai si l'objet est indestructible
+     */
     public abstract boolean estNonDestructible();
 }

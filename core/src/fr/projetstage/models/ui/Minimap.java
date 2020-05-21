@@ -17,6 +17,14 @@ public class Minimap extends Actor {
     private float nbCaseLargeur;
     private float nbCaseHauteur;
 
+    /**
+     * Constructeur de la minimap 5x5 dans l'interface utilisateur
+     * @param stage le stage dans lequel afficher la minimap
+     * @param gameWorld le monde dans lequel se trouve les informations
+     * @param position la position de la minimap à l'écran
+     * @param widthCase la largeur d'une case de la minimap
+     * @param heightCase la hauteur d'une case de la minimap
+     */
     public Minimap(Stage stage, GameWorld gameWorld, Vector2 position, float widthCase, float heightCase) {
         super();
         this.gameWorld = gameWorld;

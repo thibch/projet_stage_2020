@@ -20,6 +20,10 @@ public class Chargement {
     private float xSalle;
     private float ySalle;
 
+    /**
+     * Classe qui s'occupe de la transition entre les salles / étages
+     * @param gameWorld le monde
+     */
     public Chargement(GameWorld gameWorld){
         this.gameWorld = gameWorld;
         directionTransition = null;
@@ -32,7 +36,9 @@ public class Chargement {
         transitionEtage = new Transition(gameWorld);
     }
 
-
+    /**
+     * Methode de mise à jour du chargement
+     */
     public void update() {
         if (gameWorld.estEnTransition()) {
             if(gameWorld.estEnTransition() && !transitionEntreSalles && !transitionEtage.estEnCours()){
@@ -74,24 +80,44 @@ public class Chargement {
         }
     }
 
+    /**
+     * Methode permettant de définir la direction de la transition à faire à l'écran
+     * @param directionTransition la direction de la transition
+     */
     public void setDirectionTransition(Orientation directionTransition){
         this.directionTransition = directionTransition;
     }
+
+    /**
+     * Methode retournant la direction actuelle de la transition
+     * @return l'Orientation de la transition
+     */
 //TODO Agrandir le chargement sur l'interface
     public Orientation getDirectionTransition(){
         return this.directionTransition;
     }
 
+    /**
+     * Methode qui retourne le vecteur de transition de la caméra
+     * @return un Vector2 de la transition
+     */
     public Vector2 getTransitionCamera(){
         return transitionCamera;
     }
 
+    /**
+     * Methode qui dessine la transition entre les étages
+     */
     public void draw() {
         if(directionTransition == Orientation.NO_ORIENTATION){
             transitionEtage.draw();
         }
     }
 
+    /**
+     * Methode permettant de définir la caméra sur lequel doit s'effectuer la transition
+     * @param cam la caméra
+     */
     public void setCamera(Camera cam) {
         transitionEtage.setCamera(cam);
     }

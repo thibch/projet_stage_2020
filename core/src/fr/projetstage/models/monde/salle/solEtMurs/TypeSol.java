@@ -17,6 +17,10 @@ public enum TypeSol {
         this.texture = sol;
     }
 
+    /**
+     * Methode retournant la texture d'un sol
+     * @return la texture d'un sol associé
+     */
     public Texture getTexture() {
         return texture;
     }

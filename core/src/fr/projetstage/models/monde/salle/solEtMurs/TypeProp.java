@@ -15,6 +15,10 @@ public enum TypeProp {
         this.texture = prop;
     }
 
+    /**
+     * Methode retournant la texture d'un prop
+     * @return la texture d'un prop associé
+     */
     public Texture getTexture() {
         return texture;
     }

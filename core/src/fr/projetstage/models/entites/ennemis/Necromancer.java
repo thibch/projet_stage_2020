@@ -19,7 +19,7 @@ public class Necromancer extends Ennemi {
     private Salle salle;
     private ArrayList<Skelet> invocations;
     private int nbInvocs;
-    private int invocationCoolDown = 999;
+    private int invocationCoolDown = 4;
     private long timelastInvocation;
 
     /**
@@ -92,7 +92,7 @@ public class Necromancer extends Ennemi {
 
             timelastInvocation = System.currentTimeMillis()+ (invocationCoolDown*1000);
         }
-        
+
         //deplacements
         if((Math.sqrt(Math.pow((world.getJoueur().getPosition().x - body.getPosition().x), 2) + Math.pow((world.getJoueur().getPosition().y - body.getPosition().y), 2)) < 2) && ((salle.getLargeur()/2f) - body.getPosition().x < 3) && ((salle.getHauteur()/2f) - body.getPosition().y < 3)){
             //joueur a moins de 3 de distance et qu'il a moins de 3 blocs du centre

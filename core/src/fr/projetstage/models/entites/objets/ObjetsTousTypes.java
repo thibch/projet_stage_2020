@@ -16,12 +16,21 @@ public abstract class ObjetsTousTypes implements Entite {
     private boolean touche;
     protected boolean detruit;
 
+    /**
+     * Constructeur d'un objet
+     * @param world le monde dans lequel se trouve l'objet
+     * @param position la position de l'objet dans le monde
+     * @param id l'id de l'objet permettant de l'identifier
+     */
     public ObjetsTousTypes(GameWorld world, Vector2 position, int id) {
         this.world = world;
         this.position = position;
         this.id = id;
     }
 
+    /**
+     * Methode permettant d'appliquer l'effet d'un objet si il est ramassé
+     */
     public void update(){
         if(getTouche()){
             applyEffect();
@@ -88,5 +97,9 @@ public abstract class ObjetsTousTypes implements Entite {
      */
     public abstract Texture getTexture();
 
+    /**
+     * Methode permettant d'obtenir la description d'un objet si il est ramassable
+     * @return un String de la description de l'objet
+     */
     public abstract String getDescription();
 }

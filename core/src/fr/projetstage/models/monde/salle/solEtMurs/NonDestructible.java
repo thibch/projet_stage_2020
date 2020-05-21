@@ -14,6 +14,13 @@ public abstract class NonDestructible extends Obstacle {
     protected float tailleX;
     protected float tailleY;
 
+    /**
+     * Constructeur d'un obstacle indestructible ( piege )
+     * @param world le monde dans lequel se trouve l'obstacle
+     * @param position la position de l'obstacle dans le monde
+     * @param tailleX la largeur de l'obstacle
+     * @param tailleY la hauteur de l'obstacle
+     */
     public NonDestructible(GameWorld world, Vector2 position, float tailleX, float tailleY){
         super(world, position);
 

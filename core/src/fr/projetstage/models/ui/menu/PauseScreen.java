@@ -30,7 +30,7 @@ public class PauseScreen implements Menu{
      * Conctructeur de l'écran de pause
      * @param stage le stage dans lequel les boutons sont acteurs
      * @param userInterface l'UserInterface pour la communication des boutons avec le jeu
-     * @param gameWorld
+     * @param gameWorld le monde dans lequel se trouve l'écran
      */
     public PauseScreen(Stage stage, UserInterface userInterface, GameWorld gameWorld){
         this.userInterface = userInterface;

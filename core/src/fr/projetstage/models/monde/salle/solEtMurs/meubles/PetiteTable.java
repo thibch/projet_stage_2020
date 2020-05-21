@@ -7,6 +7,12 @@ import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.solEtMurs.NonDestructible;
 
 public class PetiteTable extends NonDestructible {
+
+    /**
+     * Constructeur d'une petite table
+     * @param world le monde dans lequel afficher la petite table
+     * @param position la position de la petite table dans le monde
+     */
     public PetiteTable(GameWorld world, Vector2 position) {
         super(world, position, 1f, 1f);
     }

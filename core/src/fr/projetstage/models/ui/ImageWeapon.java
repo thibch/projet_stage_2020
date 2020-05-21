@@ -13,6 +13,15 @@ public class ImageWeapon extends Actor {
 
     private GameWorld world;
 
+    /**
+     * Constructeur de la classe permettant d'afficher une arme dans l'interface utilisateur
+     * @param stage le stage dans lequel afficher l'image
+     * @param world le monde du jeu
+     * @param position la position de l'image dans le stage
+     * @param width la largeur de l'image
+     * @param height la hauteur de l'image
+     * @param screenOffset l'offset d'écran
+     */
     public ImageWeapon(Stage stage, GameWorld world, Vector2 position, float width, float height, float screenOffset) {
         super();
         this.world = world;

@@ -8,6 +8,10 @@ public class Monde {
     private GameWorld world;
     private int courant;
 
+    /**
+     * Constructeur du monde du jeu.
+     * @param world le monde de jeu dans leuqel ajouter les étages / salles
+     */
     public Monde(GameWorld world){
         this.world = world;
         etages = new ArrayList<>();
@@ -21,6 +25,10 @@ public class Monde {
         etages.add(new Etage(world));
     }
 
+    /**
+     * Methode permettant de récuperer l'étage suivant du monde
+     * @return un Etage suivant
+     */
     public Etage getEtageSuivant(){
         if(courant >= etages.size()){
             return etages.get(etages.size()-1);

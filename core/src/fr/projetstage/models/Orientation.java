@@ -12,14 +12,27 @@ public enum Orientation {
         this.indice = indice;
     }
 
+    /**
+     * Permet de récuperer l'angle de rotation à faire pour une orientation donnée
+     * @return un angle en degré de l'orientation
+     */
     public int getRotation(){
         return rotation;
     }
 
+    /**
+     * Methode retournant l'indice d'une orientation
+     * @return un entier definissant l'indice de l'Orientation
+     */
     public int getIndice(){
         return indice;
     }
 
+    /**
+     * Methode permettant de recuperer le type d'orientation selon l'indice
+     * @param indice l'indice d'une orientation
+     * @return le type D'orientation selon l'indice
+     */
     public static Orientation getFromIndice(int indice){
         switch (indice){
             case 0:
