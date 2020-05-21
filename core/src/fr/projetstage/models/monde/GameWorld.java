@@ -260,4 +260,8 @@ public class GameWorld {
     public Chargement getChargement() {
         return chargement;
     }
+
+    public Ennemi getPiege(int id) {
+        return salleCourante.getPiege(id);
+    }
 }

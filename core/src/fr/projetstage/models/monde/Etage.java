@@ -39,7 +39,6 @@ public class Etage {
      */
     public void generationEtage(){
         tabSalles[xCourant][yCourant] = new Salle1(world);
-        //tabSalles[xCourant+1][yCourant] = new Salle2(world);
 
         LinkedList<Vector2> queuePosi = new LinkedList<>();
         queuePosi.add(new Vector2(xCourant, yCourant));
@@ -99,8 +98,11 @@ public class Etage {
     public Salle getRandomSalle(){
         int rand = Math.abs(world.getNextRandom()%100);
         Salle newSalle;
-        if(rand <= 50){
+        if(rand <= 20){
             newSalle = null;
+        }
+        else if(rand <= 30){
+            newSalle = new SalleVide(world);
         }
         else if(rand <= 60){
             newSalle = new Salle2(world);
@@ -122,17 +124,17 @@ public class Etage {
     public void generationPortes(){
         for (int x = 0; x < largeur; x++) {
             for (int y = 0; y < hauteur; y++) {
-                if(tabSalles[x][y] != null){
-                    if(x+1 < largeur && tabSalles[x+1][y] != null){
+                if(tabSalles[x][y] != null && tabSalles[x][y].getEtat() != EtatSalle.NO_SALLE){
+                    if(x+1 < largeur && tabSalles[x+1][y] != null && tabSalles[x+1][y].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.DROITE);
                     }
-                    if(x-1 >= 0 && tabSalles[x-1][y] != null){
+                    if(x-1 >= 0 && tabSalles[x-1][y] != null && tabSalles[x-1][y].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.GAUCHE);
                     }
-                    if(y+1 < hauteur && tabSalles[x][y+1] != null){
+                    if(y+1 < hauteur && tabSalles[x][y+1] != null && tabSalles[x][y+1].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.HAUT);
                     }
-                    if(y-1 >= 0 && tabSalles[x][y-1] != null){
+                    if(y-1 >= 0 && tabSalles[x][y-1] != null && tabSalles[x][y-1].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.BAS);
                     }
                 }
@@ -146,7 +148,7 @@ public class Etage {
     public void generationSalles(){
         for (int x = 0; x < largeur; x++) {
             for (int y = 0; y < hauteur; y++) {
-                if(tabSalles[x][y] != null) tabSalles[x][y].genererSalle();
+                if(tabSalles[x][y] != null && tabSalles[x][y].getEtat() != EtatSalle.NO_SALLE) tabSalles[x][y].genererSalle();
             }
         }
     }

@@ -35,15 +35,15 @@ public class Minimap extends Actor {
         EtatSalle[][] tmp = gameWorld.getMinimap();
         for(int x = 0; x < nbCaseLargeur; x++){
             for(int y = 0; y < nbCaseHauteur ; y++){
-                if(x < tmp.length && y < tmp[0].length && tmp[x][y] != null){
-                    if(tmp[x][y].equals(EtatSalle.EN_COURS_DE_VISITE)){
-                        batch.draw(TextureFactory.getInstance().getSalleCourante(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
-                    }
-                    else if(tmp[x][y].equals(EtatSalle.VISITEE)){
+                if(x < tmp.length && y < tmp[0].length && tmp[x][y] != null && !tmp[x][y].equals(EtatSalle.NO_SALLE)){
+                    if(tmp[x][y].equals(EtatSalle.VISITEE)){
                         batch.draw(TextureFactory.getInstance().getSalleVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
                     }
                     else if(tmp[x][y].equals(EtatSalle.NON_VISITE)){
                         batch.draw(TextureFactory.getInstance().getSalleNonVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                    }
+                    else if(tmp[x][y].equals(EtatSalle.EN_COURS_DE_VISITE)){
+                        batch.draw(TextureFactory.getInstance().getSalleCourante(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
                     }
                 }
             }

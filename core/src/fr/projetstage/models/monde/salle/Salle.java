@@ -35,7 +35,7 @@ public abstract class Salle {
     protected int nbEnnemis;
     protected HashMap<Integer, ObjetsTousTypes> objets;
 
-    private EtatSalle etat;
+    protected EtatSalle etat;
     protected final GameWorld world;
 
     /**
@@ -86,16 +86,8 @@ public abstract class Salle {
             ennemis.putAll(invocationWaitList);
             invocationWaitList.clear();
         }
-
-        Iterator<Integer> it = pieges.keySet().iterator();
+        Iterator<Integer> it;
         int courant;
-        while(it.hasNext()){
-            courant = it.next();
-
-            //update des pièges
-            pieges.get(courant).update();
-        }
-
         it = ennemis.keySet().iterator();
         while(it.hasNext()){
             courant = it.next();
@@ -109,6 +101,15 @@ public abstract class Salle {
                 ennemis.remove(courant);
             }
         }
+
+        it = pieges.keySet().iterator();
+        while(it.hasNext()){
+            courant = it.next();
+
+            //update des pièges
+            pieges.get(courant).update();
+        }
+
 
         isVictorious = ennemis.size() <= 0;
 
@@ -491,5 +492,9 @@ public abstract class Salle {
      */
     public int getNbEnnemis(){
         return nbEnnemis;
+    }
+
+    public Ennemi getPiege(int id) {
+        return pieges.get(id);
     }
 }

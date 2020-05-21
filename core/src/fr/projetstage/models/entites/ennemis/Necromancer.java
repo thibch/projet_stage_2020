@@ -92,8 +92,7 @@ public class Necromancer extends Ennemi {
 
             timelastInvocation = System.currentTimeMillis()+ (invocationCoolDown*1000);
         }
-        //TODO : corriger ses mouvement pétés il shake
-        //TODO : il fuit pas le joueur vers le haut ( bad maths )
+        
         //deplacements
         if((Math.sqrt(Math.pow((world.getJoueur().getPosition().x - body.getPosition().x), 2) + Math.pow((world.getJoueur().getPosition().y - body.getPosition().y), 2)) < 2) && ((salle.getLargeur()/2f) - body.getPosition().x < 3) && ((salle.getHauteur()/2f) - body.getPosition().y < 3)){
             //joueur a moins de 3 de distance et qu'il a moins de 3 blocs du centre

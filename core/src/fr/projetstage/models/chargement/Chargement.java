@@ -24,7 +24,7 @@ public class Chargement {
         this.gameWorld = gameWorld;
         directionTransition = null;
         currentTime = 0;
-        transitionTime = 2f;
+        transitionTime = 1f;
         xSalle = 0;
         ySalle = 0;
         transitionCamera = new Vector2(0, 0);
@@ -77,7 +77,7 @@ public class Chargement {
     public void setDirectionTransition(Orientation directionTransition){
         this.directionTransition = directionTransition;
     }
-
+//TODO Agrandir le chargement sur l'interface
     public Orientation getDirectionTransition(){
         return this.directionTransition;
     }

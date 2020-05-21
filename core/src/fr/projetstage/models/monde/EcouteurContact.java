@@ -72,13 +72,13 @@ public class EcouteurContact implements ContactListener {
 
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
-                    world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
+                    world.getPiege((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
                 }
 
                 fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
                 // Joueur
-                if(fixtureJoueur != null){
-                    world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getJoueur());
+                if(fixtureJoueur != null){//TODO: Corriger bug piège
+                    world.getPiege((((Type)fixturePiege.getBody().getUserData()).getId())).addTarget(world.getJoueur());
                 }
             }
         }else{
@@ -104,11 +104,11 @@ public class EcouteurContact implements ContactListener {
         Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
         if(fixturePiege != null) {
             if(fixtureJoueur != null){
-                world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getJoueur());
+                world.getPiege((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getJoueur());
             }
 
             if(fixtureEnnemi != null){
-                world.getEnnemi((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
+                world.getPiege((((Type)fixturePiege.getBody().getUserData()).getId())).removeTarget(world.getEnnemi((((Type)fixtureEnnemi.getBody().getUserData()).getId())));
             }
         }
 

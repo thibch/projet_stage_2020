@@ -64,7 +64,7 @@ public class Transition {
         shapeRenderer.setProjectionMatrix(camera.combined);
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.setColor(0, 0, 0, transi.y);
-        shapeRenderer.rect(-2, -2, gameWorld.getLargeur(), gameWorld.getLargeur());
+        shapeRenderer.rect(0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         shapeRenderer.end();
         Gdx.gl.glDisable(GL20.GL_BLEND);
     }
