@@ -90,8 +90,10 @@ public class TextureFactory {
     // Objets au sol
     private static Texture potionRouge;
     private static Texture potionJaune;
+    private static Texture potionVerte;
     private static Texture coffreOpen;
     private static Texture crane;
+    private static Texture sunglasses;
 
     // SpriteSheets
     // Joueur
@@ -218,8 +220,10 @@ public class TextureFactory {
         // Objets au sol
         potionRouge = new Texture(Gdx.files.internal("props_items/potion_red.png"));
         potionJaune = new Texture(Gdx.files.internal("props_items/potion_yellow.png"));
+        potionVerte = new Texture(Gdx.files.internal("props_items/potion_green.png"));
         coffreOpen = new Texture(Gdx.files.internal("props_items/chest_open.png"));
         crane = new Texture(Gdx.files.internal("props_items/skull.png"));
+        sunglasses = new Texture(Gdx.files.internal("props_items/sunglasses.png"));
 
         // SpriteSheets
         // Joueur
@@ -732,11 +736,27 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de la potion verte
+     * @return Getter pour l'image de la potion verte
+     */
+    public Texture getPotionVerte() {
+        return potionVerte;
+    }
+
+    /**
      * Getter pour l'image du crane
      * @return Getter pour l'image du crane
      */
     public Texture getCrane() {
         return crane;
+    }
+
+    /**
+     * Getter pour l'image des lunettes de soleil
+     * @return Getter pour l'image des lunettes de soleil
+     */
+    public Texture getSunglasses() {
+        return sunglasses;
     }
 
     /**
@@ -897,7 +917,7 @@ public class TextureFactory {
                 background, titleScreen, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 salleCourante, salleNonVisitee, salleVisitee,
                 epee, fleche,
-                potionRouge, potionJaune, crane, coffreOpen,
+                potionRouge, potionJaune, potionVerte, crane, sunglasses, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
                 joueurRunningSpriteSheet.getTexture(),
                 torcheSpriteSheet.getTexture(),

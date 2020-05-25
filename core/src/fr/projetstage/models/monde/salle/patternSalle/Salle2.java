@@ -9,7 +9,9 @@ import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.objetsCoffre.Coeur;
+import fr.projetstage.models.entites.objets.objetsCoffre.PotionAttaque;
 import fr.projetstage.models.entites.objets.objetsCoffre.PotionVitesse;
+import fr.projetstage.models.entites.objets.objetsCoffre.Sunglasses;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Biblio;
@@ -52,8 +54,8 @@ public class Salle2 extends Salle {
         objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(7,7), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new Coeur(world), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(12,3), new PotionVitesse(world), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(13,3), new PotionVitesse(world), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(14,3), new PotionVitesse(world), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(13,3), new PotionAttaque(world), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(14,3), new Sunglasses(world), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(15,3), new PotionVitesse(world), nbObjetAuSols++));
     }
 
