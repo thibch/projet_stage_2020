@@ -119,6 +119,38 @@ public class TextureFactory {
     private static TextureRegion necromancerIdleSpriteSheet;
     private static TextureRegion necromancerRunSpriteSheet;
 
+    // Big Ogre
+    private static TextureRegion bigOgreIdleSpriteSheet;
+    private static TextureRegion bigOgreRunSpriteSheet;
+
+    // Orc Masked
+    private static TextureRegion orcMaskedIdleSpriteSheet;
+    private static TextureRegion orcMaskedRunSpriteSheet;
+
+    // Orc Shaman
+    private static TextureRegion orcShamanIdleSpriteSheet;
+    private static TextureRegion orcShamanRunSpriteSheet;
+
+    // Orc Warrior
+    private static TextureRegion orcWarriorIdleSpriteSheet;
+    private static TextureRegion orcWarriorRunSpriteSheet;
+
+    // Big Demon
+    private static TextureRegion bigDemonIdleSpriteSheet;
+    private static TextureRegion bigDemonRunSpriteSheet;
+
+    // Imp
+    private static TextureRegion impIdleSpriteSheet;
+    private static TextureRegion impRunSpriteSheet;
+
+    // Chort
+    private static TextureRegion chortIdleSpriteSheet;
+    private static TextureRegion chortRunSpriteSheet;
+
+    // Wogol
+    private static TextureRegion wogolIdleSpriteSheet;
+    private static TextureRegion wogolRunSpriteSheet;
+
     // Décors
     private static TextureRegion torcheSpriteSheet;
     private static TextureRegion piegeSpriteSheet;
@@ -248,6 +280,38 @@ public class TextureFactory {
         // Necromancers
         necromancerIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/necromancer/necromancer_idle_spritesheet.png")));
         necromancerRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/necromancer/necromancer_run_spritesheet.png")));
+
+        // Big Ogre
+        bigOgreIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/big_ogre/big_ogre_idle_spritesheet.png")));
+        bigOgreRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/big_ogre/big_ogre_run_spritesheet.png")));
+
+        // Orc Masked
+        orcMaskedIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/orc/orc_masked_idle_spritesheet.png")));
+        orcMaskedRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/orc/orc_masked_run_spritesheet.png")));
+
+        // Orc Shaman
+        orcShamanIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/orc/orc_shaman_idle_spritesheet.png")));
+        orcShamanRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/orc/orc_shaman_run_spritesheet.png")));
+
+        // Orc Warrior
+        orcWarriorIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/orc/orc_warrior_idle_spritesheet.png")));
+        orcWarriorRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/orc/orc_warrior_run_spritesheet.png")));
+
+        // Big Demon
+        bigDemonIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/big_demon/big_demon_idle_spritesheet.png")));
+        bigDemonRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/boss/big_demon/big_demon_run_spritesheet.png")));
+
+        // Imp
+        impIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/imp/imp_idle_spritesheet.png")));
+        impRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/imp/imp_run_spritesheet.png")));
+
+        // Chort
+        chortIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/chort/chort_idle_spritesheet.png")));
+        chortRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/chort/chort_run_spritesheet.png")));
+
+        // Wogol
+        wogolIdleSpriteSheet= new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/wogol/wogol_idle_spritesheet.png")));
+        wogolRunSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("enemies/normal/wogol/wogol_run_spritesheet.png")));
 
         // Décors
         torcheSpriteSheet = new TextureRegion(new Texture(Gdx.files.internal("props_items/torch_spritesheet.png")));
@@ -881,6 +945,134 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour la sprite sheet du gros ogre inactif
+     * @return une TextureRegion Idle gros ogre spritesheet
+     */
+    public TextureRegion getBigOgreIdleSpriteSheet(){
+        return bigOgreIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du gros ogre qui marche
+     * @return une TextureRegion running gros ogre spritesheet
+     */
+    public TextureRegion getBigOgreRunSpriteSheet(){
+        return bigOgreRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'orc masqué inactif
+     * @return une TextureRegion Idle de l'orc masqué spritesheet
+     */
+    public TextureRegion getOrcMaskedIdleSpriteSheet(){
+        return orcMaskedIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'orc masqué qui marche
+     * @return une TextureRegion running de l'orc masqué spritesheet
+     */
+    public TextureRegion getOrcMaskedRunSpriteSheet(){
+        return orcMaskedRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'orc shaman inactif
+     * @return une TextureRegion Idle de l'orc shaman spritesheet
+     */
+    public TextureRegion getOrcShamanIdleSpriteSheet(){
+        return orcShamanIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'orc shaman qui marche
+     * @return une TextureRegion running de l'orc shaman spritesheet
+     */
+    public TextureRegion getOrcShamanRunSpriteSheet(){
+        return orcShamanRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'orc guerrier inactif
+     * @return une TextureRegion Idle de l'orc guerrier spritesheet
+     */
+    public TextureRegion getOrcWarriorIdleSpriteSheet(){
+        return orcWarriorIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de l'orc guerrier qui marche
+     * @return une TextureRegion running de l'orc guerrier spritesheet
+     */
+    public TextureRegion getOrcWarriorRunSpriteSheet(){
+        return orcWarriorRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du gros démon inactif
+     * @return une TextureRegion Idle gros démon spritesheet
+     */
+    public TextureRegion getBigDemonIdleSpriteSheet(){
+        return bigDemonIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du gros démon qui marche
+     * @return une TextureRegion running gros démon spritesheet
+     */
+    public TextureRegion getBigDemonRunSpriteSheet(){
+        return bigDemonRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du diablotin inactif
+     * @return une TextureRegion Idle du diablotin spritesheet
+     */
+    public TextureRegion getImpIdleSpriteSheet(){
+        return impIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet du diablotin qui marche
+     * @return une TextureRegion running du diablotin spritesheet
+     */
+    public TextureRegion getImpRunSpriteSheet(){
+        return impRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de démon inactif
+     * @return une TextureRegion Idle de démon spritesheet
+     */
+    public TextureRegion getChortIdleSpriteSheet(){
+        return chortIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de démon qui marche
+     * @return une TextureRegion running de démon spritesheet
+     */
+    public TextureRegion getChortRunSpriteSheet(){
+        return chortRunSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de wogol inactif
+     * @return une TextureRegion Idle de wogol spritesheet
+     */
+    public TextureRegion getWogolIdleSpriteSheet(){
+        return wogolIdleSpriteSheet;
+    }
+
+    /**
+     * Getter pour la sprite sheet de wogol qui marche
+     * @return une TextureRegion running de wogol spritesheet
+     */
+    public TextureRegion getWogolRunSpriteSheet(){
+        return wogolRunSpriteSheet;
+    }
+
+    /**
      * Getter pour la sprite sheet de mort
      * @return une TextureRegion de spritesheet de mort
      */
@@ -931,6 +1123,22 @@ public class TextureFactory {
                 skeletRunSpriteSheet.getTexture(),
                 necromancerIdleSpriteSheet.getTexture(),
                 necromancerRunSpriteSheet.getTexture(),
+                bigOgreIdleSpriteSheet.getTexture(),
+                bigOgreRunSpriteSheet.getTexture(),
+                orcMaskedIdleSpriteSheet.getTexture(),
+                orcMaskedRunSpriteSheet.getTexture(),
+                orcShamanIdleSpriteSheet.getTexture(),
+                orcShamanRunSpriteSheet.getTexture(),
+                orcWarriorIdleSpriteSheet.getTexture(),
+                orcWarriorRunSpriteSheet.getTexture(),
+                bigDemonIdleSpriteSheet.getTexture(),
+                bigDemonRunSpriteSheet.getTexture(),
+                chortIdleSpriteSheet.getTexture(),
+                chortRunSpriteSheet.getTexture(),
+                impIdleSpriteSheet.getTexture(),
+                impRunSpriteSheet.getTexture(),
+                wogolIdleSpriteSheet.getTexture(),
+                wogolRunSpriteSheet.getTexture(),
                 deathSpriteSheet.getTexture(),
                 piegeSpriteSheet.getTexture(),
                 coffreSpriteSheet.getTexture()

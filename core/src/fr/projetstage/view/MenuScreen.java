@@ -21,6 +21,7 @@ public class MenuScreen extends ScreenAdapter {
     private final KeyboardListener keyboardListener;
 
     private Animation slime;
+    private Animation goblin;
 
     /**
      * Constructeur de l'écran titre du jeu
@@ -39,6 +40,7 @@ public class MenuScreen extends ScreenAdapter {
         Gdx.input.setInputProcessor(inputMultiplexer);
 
         slime = new Animation(TextureFactory.getInstance().getSlimeIdleSpriteSheet(),6,0.8f);
+        goblin = new Animation(TextureFactory.getInstance().getGoblinIdleSpriteSheet(),6,0.8f);
     }
 
     /**
@@ -57,6 +59,10 @@ public class MenuScreen extends ScreenAdapter {
         slime.update();
         stage.getBatch().draw(slime.getFrame(false,false),6*(stage.getWidth()/20f),11*(stage.getHeight()/14f), stage.getWidth()/20f,stage.getHeight()/14f);
         stage.getBatch().draw(slime.getFrame(true,false),17*(stage.getWidth()/20f),7*(stage.getHeight()/14f), stage.getWidth()/20f,stage.getHeight()/14f);
+
+        goblin.update();
+        stage.getBatch().draw(goblin.getFrame(false,false),9*(stage.getWidth()/20f),11.5f*(stage.getHeight()/14f), stage.getWidth()/20f,stage.getHeight()/14f);
+        stage.getBatch().draw(goblin.getFrame(true,false),10*(stage.getWidth()/20f),11.5f*(stage.getHeight()/14f), stage.getWidth()/20f,stage.getHeight()/14f);
 
 
         mainMenuScreen.draw(stage.getBatch());
