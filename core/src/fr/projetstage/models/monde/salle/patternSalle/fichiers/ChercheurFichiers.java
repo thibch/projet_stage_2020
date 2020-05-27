@@ -39,6 +39,6 @@ public class ChercheurFichiers{
     }
 
     public FileHandle get(int id) {
-        return listeFichiers.get(id%listeFichiers.size());
+        return listeFichiers.get(Math.abs(id%listeFichiers.size()));
     }
 }
