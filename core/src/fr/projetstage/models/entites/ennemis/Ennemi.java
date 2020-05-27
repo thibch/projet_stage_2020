@@ -130,6 +130,7 @@ public abstract class Ennemi extends EntiteMouvante {
             currentTime = 0;
             onCoolDown = false;
         }
+
         //attaque CAC
         if(!onCoolDown){
             for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
