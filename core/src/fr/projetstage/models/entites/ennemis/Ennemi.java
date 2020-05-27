@@ -135,7 +135,7 @@ public abstract class Ennemi extends EntiteMouvante {
             for(Map.Entry<EntiteMouvante, Boolean> target : targets.entrySet()){
                 target.getKey().setTouche(this);
             }
-            onCoolDown = true;
+            onCoolDown = targets.entrySet().size() > 0;
         }
     }
 }

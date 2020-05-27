@@ -5,7 +5,9 @@ import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.patternSalle.*;
+import fr.projetstage.models.monde.salle.patternSalle.fichiers.GenerateurSalle;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 
 public class Etage {
@@ -22,14 +24,15 @@ public class Etage {
      * Etage du monde
      * @param world le gameworld
      */
-    public Etage(GameWorld world){
+    public Etage(GameWorld world, GenerateurSalle generateur){
         this.world = world;
         largeur = 5;
         hauteur = 5;
         tabSalles = new Salle[largeur][hauteur];
         xCourant = 2;
         yCourant = 3;
-        generationEtage();
+
+        generationEtage(generateur);
 
         tabSalles[xCourant][yCourant].setEtat(EtatSalle.EN_COURS_DE_VISITE);
     }
@@ -37,7 +40,7 @@ public class Etage {
     /**
      * Methode qui genere l'étage en positionnant des salles
      */
-    public void generationEtage(){
+    public void generationEtage(GenerateurSalle generateur){
         tabSalles[xCourant][yCourant] = new Salle1(world);
 
         LinkedList<Vector2> queuePosi = new LinkedList<>();
@@ -55,7 +58,7 @@ public class Etage {
             y = (int)positionCourante.y;
 
             if(x+1 < largeur && tabSalles[x+1][y] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(); // On génère une nouvelle salle
+                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
                 if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
                     tabSalles[x+1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                     queuePosi.add(new Vector2(x+1, y)); // On ajoute la position de la nouvelle salle
@@ -65,21 +68,21 @@ public class Etage {
             // Même chose pour les 3 autres directions
 
             if(x-1 >= 0 && tabSalles[x-1][y] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(); // On génère une nouvelle salle
+                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
                 if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
                     tabSalles[x-1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                     queuePosi.add(new Vector2(x-1, y)); // On ajoute la position de la nouvelle salle
                 }
             }
             if(y+1 < hauteur && tabSalles[x][y+1] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(); // On génère une nouvelle salle
+                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
                 if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
                     tabSalles[x][y+1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                     queuePosi.add(new Vector2(x, y+1)); // On ajoute la position de la nouvelle salle
                 }
             }
             if(y-1 >= 0 && tabSalles[x][y-1] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(); // On génère une nouvelle salle
+                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
                 if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
                     tabSalles[x][y-1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                     queuePosi.add(new Vector2(x, y-1)); // On ajoute la position de la nouvelle salle
@@ -95,12 +98,13 @@ public class Etage {
      * methode qui recupere une salle aléatoire dans l'asset
      * @return une salle choisie aléatoirement
      */
-    public Salle getRandomSalle(){
+    public Salle getRandomSalle(GenerateurSalle generateur){
         int rand = Math.abs(world.getNextRandom()%100);
         Salle newSalle;
         if(rand <= 20){
             newSalle = null;
-        }
+        } else newSalle = generateur.genererSalle(false);
+        /*
         else if(rand <= 30){
             newSalle = new SalleVide(world);
         }
@@ -114,7 +118,7 @@ public class Etage {
             newSalle = new Salle4(world);
         }else{
             newSalle = new Salle5(world);
-        }
+        }*/
         return newSalle;
     }
 
@@ -214,7 +218,7 @@ public class Etage {
         for (int y = hauteur - 1 ; y >= 0 ; y--) {
             for (int x = 0; x < largeur; x++) {
                 if(tabSalles[x][y] != null){
-                    str.append(tabSalles[x][y].getNumber() + " ");
+                    str.append(tabSalles[x][y].getNumber()).append(" ");
                 }else{
                     str.append("  ");
                 }

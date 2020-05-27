@@ -1,5 +1,7 @@
 package fr.projetstage.models.monde;
 
+import fr.projetstage.models.monde.salle.patternSalle.fichiers.GenerateurSalle;
+
 import java.util.ArrayList;
 
 public class Monde {
@@ -20,9 +22,10 @@ public class Monde {
     }
 
     private void generationMonde() {
-        etages.add(new Etage(world));
-        etages.add(new Etage(world));
-        etages.add(new Etage(world));
+        GenerateurSalle generateurSalle = new GenerateurSalle(world);
+        etages.add(new Etage(world, generateurSalle));
+        etages.add(new Etage(world, generateurSalle));
+        etages.add(new Etage(world, generateurSalle));
     }
 
     /**

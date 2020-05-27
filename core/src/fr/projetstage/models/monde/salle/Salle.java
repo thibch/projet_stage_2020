@@ -10,9 +10,14 @@ import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.ennemis.Necromancer;
+import fr.projetstage.models.entites.ennemis.Slime;
+import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
+import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
+import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
+import fr.projetstage.models.monde.salle.solEtMurs.meubles.Obstacle;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +33,9 @@ public abstract class Salle {
     protected ArrayList<Entite> meubles;
 
     protected ArrayList<Porte> portes;
+
+    protected int nbPieges = 0;
+    protected int nbObjetAuSols = 0;
 
     protected HashMap<Integer, Ennemi> pieges;
     protected HashMap<Integer, Ennemi> ennemis;
@@ -60,6 +68,30 @@ public abstract class Salle {
         objets = new HashMap<>();
         etat = EtatSalle.NON_VISITE;
         nbEnnemis = 0;
+    }
+
+    public void ajouterMeuble(Obstacle obstacle){
+        meubles.add(obstacle);
+    }
+
+    public void ajouterPièges(float x, float y){
+        pieges.put(nbPieges, new Piege(world, new Vector2(x, y), new Type(TypeEntite.PIEGE, nbPieges)));
+        nbPieges++;
+    }
+
+    public void ajouterNouvelEnnemi(float x, float y){
+        ennemis.put(nbEnnemis, new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis))/*Nouvel ennemis random*/);
+        nbEnnemis++;
+    }
+
+    public void ajouterNouveauConsommable(float x, float y){
+        objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols)); // Consommable aléatoire
+        nbObjetAuSols++;
+    }
+
+    public void ajouterNouveauCoffre(float x, float y){
+        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(x,y), new Crane(world), nbObjetAuSols++)); // Coffre aléatoire
+        nbObjetAuSols++;
     }
 
     public void ajouterPorte(Orientation orientationPorte){
@@ -496,5 +528,25 @@ public abstract class Salle {
 
     public Ennemi getPiege(int id) {
         return pieges.get(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Salle{" +
+                "largeur=" + largeur +
+                ", hauteur=" + hauteur +
+                ", tileMap=" + tileMap +
+                ", props=" + props +
+                ", meubles=" + meubles +
+                ", portes=" + portes +
+                ", nbPieges=" + nbPieges +
+                ", nbObjetAuSols=" + nbObjetAuSols +
+                ", pieges=" + pieges +
+                ", ennemis=" + ennemis +
+                ", invocationWaitList=" + invocationWaitList +
+                ", nbEnnemis=" + nbEnnemis +
+                ", objets=" + objets +
+                ", etat=" + etat +
+                '}';
     }
 }

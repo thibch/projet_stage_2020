@@ -171,6 +171,8 @@ public class TextureFactory {
     private TextureFactory(){
         instance = this;
 
+
+
         // Textures
         // Murs d'une salle
         mur1 = new Texture(Gdx.files.internal("tiles/level1/wall/wall_1.png"));

@@ -24,8 +24,6 @@ public class Salle5 extends Salle {
         genererSolsEtMurs();
 
         ennemis.put(nbEnnemis, new Necromancer(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++),this));
-
-
     }
 
 
