@@ -51,28 +51,8 @@ public class Fleche extends Projectile{
      */
     @Override
     public void launch(Orientation direction, float speed, int id){
+        super.launch(direction, speed, id);
         generateBody();
-
-        Vector2 vecteurDirection;
-
-        switch (direction){
-            case BAS:
-                vecteurDirection = new Vector2(0,-speed);
-                break;
-            case DROITE:
-                vecteurDirection = new Vector2(speed,0);
-                break;
-            case HAUT:
-                vecteurDirection = new Vector2(0,speed);
-                break;
-            default:
-                vecteurDirection = new Vector2(-speed,0);
-                break;
-        }
-
-        body.setLinearVelocity(vecteurDirection);
-        body.setUserData(new Type(TypeEntite.DISTANCE, id));
-
         estLancee = true;
     }
 

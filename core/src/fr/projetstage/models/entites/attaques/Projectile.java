@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.Orientation;
+import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
 
 public abstract class Projectile extends EntiteMouvante {
@@ -31,7 +33,27 @@ public abstract class Projectile extends EntiteMouvante {
     }
 
     public void launch(Orientation direction, float speed, int id){
+        if(body != null){
+            Vector2 vecteurDirection;
 
+            switch (direction){
+                case BAS:
+                    vecteurDirection = new Vector2(0,-speed);
+                    break;
+                case DROITE:
+                    vecteurDirection = new Vector2(speed,0);
+                    break;
+                case HAUT:
+                    vecteurDirection = new Vector2(0,speed);
+                    break;
+                default:
+                    vecteurDirection = new Vector2(-speed,0);
+                    break;
+            }
+
+            body.setLinearVelocity(vecteurDirection);
+            body.setUserData(new Type(TypeEntite.DISTANCE, id));
+        }
     }
 
     public boolean isLaunched(){
