@@ -1,13 +1,16 @@
 package fr.projetstage.models.monde;
 
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.reflect.ArrayReflection;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.patternSalle.*;
 import fr.projetstage.models.monde.salle.patternSalle.fichiers.GenerateurSalle;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.LinkedList;
 
 public class Etage {
@@ -19,6 +22,7 @@ public class Etage {
     private int hauteur;
     private int xCourant;
     private int yCourant;
+    private int nbSalleTotal;
 
     /**
      * Etage du monde
@@ -29,8 +33,10 @@ public class Etage {
         largeur = 5;
         hauteur = 5;
         tabSalles = new Salle[largeur][hauteur];
-        xCourant = 2;
-        yCourant = 3;
+        xCourant = Math.abs(world.getNextRandom()%(largeur-2)) +1;
+        yCourant = Math.abs(world.getNextRandom()%(hauteur-2)) +1;
+
+        nbSalleTotal = 0;
 
         generationEtage(generateur);
 
@@ -46,52 +52,162 @@ public class Etage {
         LinkedList<Vector2> queuePosi = new LinkedList<>();
         queuePosi.add(new Vector2(xCourant, yCourant));
 
+        LinkedList<ArrayList<Orientation>> queueOrientation = new LinkedList<>();
+        ArrayList<Orientation> arrayOrientation = new ArrayList<>(4);
+        arrayOrientation.add(Orientation.HAUT);
+        arrayOrientation.add(Orientation.BAS);
+        arrayOrientation.add(Orientation.GAUCHE);
+        arrayOrientation.add(Orientation.DROITE);
+        queueOrientation.add(arrayOrientation);
+
+        //Emplacement boss (sur le bout d'une branche)
+        Orientation emplacementboss = arrayOrientation.get(Math.abs(world.getNextRandom()%arrayOrientation.size()));
+        boolean salleDeBossPosee = false;
+
         Salle nouvelleSalle;
         Vector2 positionCourante;
         int x;
         int y;
-        while(!queuePosi.isEmpty()){ // Tant que la queue n'est pas vide
+        while(!queuePosi.isEmpty() && !queueOrientation.isEmpty() && nbSalleTotal < 15){ // Tant que la queue n'est pas vide
 
             positionCourante = queuePosi.poll(); // On récupère la position de la première salle générée
 
             x = (int)positionCourante.x;
             y = (int)positionCourante.y;
 
-            if(x+1 < largeur && tabSalles[x+1][y] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
-                if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
-                    tabSalles[x+1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
-                    queuePosi.add(new Vector2(x+1, y)); // On ajoute la position de la nouvelle salle
-                }
-            }
 
-            // Même chose pour les 3 autres directions
+            arrayOrientation = queueOrientation.poll();
+            System.out.println(emplacementboss); //TODO: faire attention à l'écrasement de la salle de boss
+            System.out.println(salleDeBossPosee);
 
-            if(x-1 >= 0 && tabSalles[x-1][y] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
-                if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
-                    tabSalles[x-1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
-                    queuePosi.add(new Vector2(x-1, y)); // On ajoute la position de la nouvelle salle
-                }
-            }
-            if(y+1 < hauteur && tabSalles[x][y+1] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
-                if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
-                    tabSalles[x][y+1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
-                    queuePosi.add(new Vector2(x, y+1)); // On ajoute la position de la nouvelle salle
-                }
-            }
-            if(y-1 >= 0 && tabSalles[x][y-1] == null){ // Si on est dans les bornes
-                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
-                if(nouvelleSalle != null){ // Si la nouvelle salle n'est pas null
-                    tabSalles[x][y-1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
-                    queuePosi.add(new Vector2(x, y-1)); // On ajoute la position de la nouvelle salle
+            for (Orientation dir : arrayOrientation) {
+                switch(dir){
+                    case BAS:
+                        if(y-1 >= 0){ // Si on est dans les bornes
+                            if(tabSalles[x][y-1] == null){
+                                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
+                                if(nouvelleSalle != null && nouvelleSalle.getEtat() != EtatSalle.NO_SALLE){ // Si la nouvelle salle n'est pas null
+                                    tabSalles[x][y-1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
+                                    queuePosi.add(new Vector2(x, y-1)); // On ajoute la position de la nouvelle salle
+                                    queueOrientation.add(getRandomSplit(Orientation.BAS, Orientation.GAUCHE, Orientation.DROITE));
+                                    nbSalleTotal++;
+                                }
+                            }
+                        }else{
+                            if(!salleDeBossPosee && emplacementboss == Orientation.BAS){
+                                if(x+1 >= largeur || x-1 < 0){
+                                    tabSalles[x][y] = new Salle5(world);
+                                    salleDeBossPosee = true;
+                                }else{
+                                    if(tabSalles[x+1][y] == null && tabSalles[x-1][y] == null){
+                                        tabSalles[x][y] = new Salle5(world);
+                                        salleDeBossPosee = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case HAUT:
+                        if(y+1 < hauteur){ // Si on est dans les bornes
+                            if(tabSalles[x][y+1] == null){
+                                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
+                                if(nouvelleSalle != null && nouvelleSalle.getEtat() != EtatSalle.NO_SALLE){ // Si la nouvelle salle n'est pas null
+                                    tabSalles[x][y+1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
+                                    queuePosi.add(new Vector2(x, y+1)); // On ajoute la position de la nouvelle salle
+                                    queueOrientation.add(getRandomSplit(Orientation.HAUT, Orientation.DROITE, Orientation.GAUCHE));
+                                    nbSalleTotal++;
+                                }
+                            }
+                        }else{
+                            if(!salleDeBossPosee && emplacementboss == Orientation.HAUT){
+                                if(x+1 >= largeur || x-1 < 0){
+                                    tabSalles[x][y] = new Salle5(world);
+                                    salleDeBossPosee = true;
+                                }else{
+                                    if(tabSalles[x+1][y] == null || tabSalles[x-1][y] == null){
+                                        tabSalles[x][y] = new Salle5(world);
+                                        salleDeBossPosee = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case GAUCHE:
+                        if(x-1 >= 0){ // Si on est dans les bornes
+                            if(tabSalles[x-1][y] == null){
+                                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
+                                if(nouvelleSalle != null && nouvelleSalle.getEtat() != EtatSalle.NO_SALLE){ // Si la nouvelle salle n'est pas null
+                                    tabSalles[x-1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
+                                    queuePosi.add(new Vector2(x-1, y)); // On ajoute la position de la nouvelle salle
+                                    queueOrientation.add(getRandomSplit(Orientation.GAUCHE, Orientation.HAUT, Orientation.BAS));
+                                    nbSalleTotal++;
+                                }
+                            }
+                        }else{
+                            if(!salleDeBossPosee && emplacementboss == Orientation.GAUCHE){
+                                if(y+1 >= hauteur || y-1 < 0){
+                                    tabSalles[x][y] = new Salle5(world);
+                                    salleDeBossPosee = true;
+                                }else{
+                                    if(tabSalles[x][y+1] == null && tabSalles[x][y-1] == null){
+                                        tabSalles[x][y] = new Salle5(world);
+                                        salleDeBossPosee = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    case DROITE:
+                        if(x+1 < largeur){ // Si on est dans les bornes
+                            if(tabSalles[x+1][y] == null){
+                                nouvelleSalle = getRandomSalle(generateur); // On génère une nouvelle salle
+                                if(nouvelleSalle != null && nouvelleSalle.getEtat() != EtatSalle.NO_SALLE){ // Si la nouvelle salle n'est pas null
+                                    tabSalles[x+1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
+                                    queuePosi.add(new Vector2(x+1, y)); // On ajoute la position de la nouvelle salle
+                                    queueOrientation.add(getRandomSplit(Orientation.DROITE, Orientation.BAS, Orientation.HAUT));
+                                    nbSalleTotal++;
+                                }
+                            }
+                        }else{
+                            if(!salleDeBossPosee && emplacementboss == Orientation.DROITE){
+                                if(y+1 >= hauteur || y-1 < 0){
+                                    tabSalles[x][y] = new Salle5(world);
+                                    salleDeBossPosee = true;
+                                }else{
+                                    if(tabSalles[x][y+1] == null && tabSalles[x][y-1] == null){
+                                        tabSalles[x][y] = new Salle5(world);
+                                        salleDeBossPosee = true;
+                                    }
+                                }
+                            }
+                        }
+                        break;
+                    default:
+                        break;
                 }
             }
         }
-
         generationPortes();
         generationSalles();
+    }
+
+    private ArrayList<Orientation> getRandomSplit(Orientation mainOrientation, Orientation possibleOrientation, Orientation otherPossibleOrientation){
+        ArrayList<Orientation> orientations = new ArrayList<>();
+        int rand = Math.abs(world.getNextRandom()%100);
+        if(rand <= 70){
+            orientations.add(mainOrientation);
+        }else if(rand <= 80){
+            orientations.add(mainOrientation);
+            orientations.add(possibleOrientation);
+        }else if (rand <= 90) {
+            orientations.add(mainOrientation);
+            orientations.add(otherPossibleOrientation);
+        }else{
+            orientations.add(mainOrientation);
+            orientations.add(possibleOrientation);
+            orientations.add(otherPossibleOrientation);
+        }
+        return orientations;
     }
 
     /**
@@ -99,27 +215,7 @@ public class Etage {
      * @return une salle choisie aléatoirement
      */
     public Salle getRandomSalle(GenerateurSalle generateur){
-        int rand = Math.abs(world.getNextRandom()%100);
-        Salle newSalle;
-        if(rand <= 20){
-            newSalle = null;
-        } else newSalle = generateur.genererSalle(false);
-        /*
-        else if(rand <= 30){
-            newSalle = new SalleVide(world);
-        }
-        else if(rand <= 60){
-            newSalle = new Salle2(world);
-        }
-        else if(rand <= 70){
-            newSalle = new Salle3(world);
-        }
-        else if(rand <= 80){
-            newSalle = new Salle4(world);
-        }else{
-            newSalle = new Salle5(world);
-        }*/
-        return newSalle;
+        return generateur.genererSalle(false);
     }
 
     /**
@@ -177,8 +273,7 @@ public class Etage {
             xCourant += 1;
         }else if(direction == Orientation.GAUCHE){
             xCourant -= 1;
-        }
-        if(direction == Orientation.BAS){
+        }else if(direction == Orientation.BAS){
             yCourant -= 1;
         }else if(direction == Orientation.HAUT){
             yCourant += 1;
