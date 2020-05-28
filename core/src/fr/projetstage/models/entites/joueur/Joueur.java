@@ -9,9 +9,7 @@ import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
-import fr.projetstage.models.entites.attaques.AttaqueDistance;
-import fr.projetstage.models.entites.attaques.CorpsACorps;
-import fr.projetstage.models.entites.attaques.Fleche;
+import fr.projetstage.models.entites.attaques.*;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -28,7 +26,7 @@ public class Joueur extends EntiteMouvante {
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
 
-    private ArrayList<Fleche> projectiles;
+    private ArrayList<Projectile> projectiles;
 
     private boolean utiliseEpee;
     private boolean attaqueMaintenant;
@@ -59,7 +57,7 @@ public class Joueur extends EntiteMouvante {
 
         generateBody();
         // On met en place l'attaque à distance
-        attaqueDistance = new AttaqueDistance(world, 12f/16f, 5f/16f, 1f);
+        attaqueDistance = new AttaqueDistance(world, new FlecheFactory(world,12f/16f, 5f/16f), 1f);
         projectiles = new ArrayList<>();
 
         // On met en place l'attaque au corps à corps
@@ -156,7 +154,7 @@ public class Joueur extends EntiteMouvante {
         }
 
         // On affiche toute les flèches
-        for(Fleche fleche: projectiles){
+        for(Projectile fleche: projectiles){
             fleche.draw(listeAffImg, x, y);
         }
 

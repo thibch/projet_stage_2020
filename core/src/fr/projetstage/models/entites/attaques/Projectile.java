@@ -26,6 +26,18 @@ public abstract class Projectile extends EntiteMouvante {
 
     }
 
+    public void update(Vector2 position, Orientation direction) {
+
+    }
+
+    public void launch(Orientation direction, float speed, int id){
+
+    }
+
+    public boolean isLaunched(){
+        return false;
+    }
+
     @Override
     public Vector2 getPosition(){
         if(body != null) return body.getPosition();

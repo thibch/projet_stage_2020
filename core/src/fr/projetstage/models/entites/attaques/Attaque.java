@@ -19,15 +19,16 @@ public abstract class Attaque implements Entite {
     }
 
     /**
-     * Lorsque l'on attaque à distance
+     * Lorsque l'on attaque à distance, retourne le projectile lancé
      * @param positionLanceur La position du lanceur d'attaque
      * @param direction La direction du lanceur d'attaque
      * @param id l'id du projectile qui sera lancé
      * @return le projectile lancé
      */
-    public Fleche attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
+    public Projectile attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
         return null;
     }
+
     @Override
     public void generateBody(){
     }

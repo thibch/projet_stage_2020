@@ -140,7 +140,7 @@ public class PhoneController {
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 keyDown = true;
                 updateKeys();
-                return true;//super.touchDown(event, x, y, pointer, button);
+                return true;
             }
 
             @Override
@@ -179,9 +179,6 @@ public class PhoneController {
     }
 
     public void resize(int width, int height){
-        System.out.println("Resize");
-        System.out.println(width + " " + height);
-        //touchpad.setBounds(width* 0.05f, height * 0.07f, 200, 200);
         stage.getViewport().update(width, height, true);
     }
 

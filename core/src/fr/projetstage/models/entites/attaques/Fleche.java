@@ -46,11 +46,29 @@ public class Fleche extends Projectile{
 
     /**
      * On lance la flèche
-     * @param vecteurDirection direction voulu
+     * @param direction direction voulu
      * @param id l'id de la flèche
      */
-    public void lancee(Vector2 vecteurDirection, int id){
+    @Override
+    public void launch(Orientation direction, float speed, int id){
         generateBody();
+
+        Vector2 vecteurDirection;
+
+        switch (direction){
+            case BAS:
+                vecteurDirection = new Vector2(0,-speed);
+                break;
+            case DROITE:
+                vecteurDirection = new Vector2(speed,0);
+                break;
+            case HAUT:
+                vecteurDirection = new Vector2(0,speed);
+                break;
+            default:
+                vecteurDirection = new Vector2(-speed,0);
+                break;
+        }
 
         body.setLinearVelocity(vecteurDirection);
         body.setUserData(new Type(TypeEntite.DISTANCE, id));
@@ -68,7 +86,8 @@ public class Fleche extends Projectile{
      * Getter si la flèche est lancée dans le monde ou non
      * @return vrai si la flèche est lancée
      */
-    public boolean estLancee() {
+    @Override
+    public boolean isLaunched() {
         return estLancee;
     }
 

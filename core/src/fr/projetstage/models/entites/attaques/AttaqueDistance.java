@@ -16,26 +16,23 @@ public class AttaqueDistance extends Attaque {
     private Orientation direction;
     private final Animation animation;
 
-    private final float largeurFleche;
-    private final float hauteurFleche;
     private final float speed;
 
     private boolean isCharging;
 
-    private Fleche fleche;
+    private Projectile flecheActuelle;
+    private ProjectileFactory flecheFactory;
 
     private int munition;
 
     /**
      * @param world le gameWorld
-     * @param largeurFleche la largeur de la flèche
-     * @param hauteurFleche la hauteur de la flèche
+     * @param flecheFactory l'élément qui produit des flèches
      * @param tempsCharge le temps de charge de l'attaque à distance
      */
-    public AttaqueDistance(GameWorld world, float largeurFleche, float hauteurFleche, float tempsCharge){
+    public AttaqueDistance(GameWorld world, ProjectileFactory flecheFactory, float tempsCharge){
         this.world = world;
-        this.largeurFleche = largeurFleche;
-        this.hauteurFleche = hauteurFleche;
+        this.flecheFactory = flecheFactory;
         this.speed = 10f;
         animation = new Animation(TextureFactory.getInstance().getArcCharging(), 3, tempsCharge);
         isCharging = false;
@@ -43,28 +40,15 @@ public class AttaqueDistance extends Attaque {
     }
 
     @Override
-    public Fleche attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
+    public Projectile attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
         // Spawn de body
-        switch (direction){
-            case BAS:
-                fleche.lancee(new Vector2(0,-speed), id);
-                break;
-            case DROITE:
-                fleche.lancee(new Vector2(speed,0), id);
-                break;
-            case HAUT:
-                fleche.lancee(new Vector2(0,speed), id);
-                break;
-            default:
-                fleche.lancee(new Vector2(-speed,0), id);
-                break;
-        }
+        flecheActuelle.launch(direction, speed, id);
 
         munition -= 1;
 
         animation.reset();
         isCharging = false;
-        return fleche;
+        return flecheActuelle;
     }
 
     /**
@@ -100,10 +84,10 @@ public class AttaqueDistance extends Attaque {
         this.position = position;
         this.direction = direction;
         isCharging = true;
-        if(fleche == null || fleche.estLancee()){
-            fleche = new Fleche(world, position, largeurFleche, hauteurFleche, direction);
+        if(flecheActuelle == null || flecheActuelle.isLaunched()){
+            flecheActuelle = flecheFactory.getNewProjectile(position, direction);
         }else{
-            fleche.update(position, direction);
+            flecheActuelle.update(position, direction);
         }
         animation.updateLast();
     }
@@ -117,7 +101,7 @@ public class AttaqueDistance extends Attaque {
     public void draw(SpriteBatch batch, float x, float y){
         TextureRegion text = animation.getFrame(false, direction == Orientation.HAUT || direction == Orientation.DROITE);
         batch.draw(text, x + position.x, y + position.y, 0.5f,0.5f,text.getRegionWidth()/16f, text.getRegionHeight()/16f, 1,1,direction.getRotation() + 90);
-        fleche.draw(batch, x, y);
+        flecheActuelle.draw(batch, x, y);
     }
 
 }

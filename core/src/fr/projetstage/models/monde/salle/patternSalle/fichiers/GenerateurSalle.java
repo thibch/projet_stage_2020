@@ -29,7 +29,6 @@ public class GenerateurSalle {
     }
 
     public void carac(Salle salle, Character character){
-        System.out.println("x = " + x + " y = " + y);
         switch (character){
             case 'V':
             case 'S':
