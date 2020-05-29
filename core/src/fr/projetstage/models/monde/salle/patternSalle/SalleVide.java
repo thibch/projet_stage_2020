@@ -1,6 +1,7 @@
 package fr.projetstage.models.monde.salle.patternSalle;
 
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
 
@@ -31,7 +32,7 @@ public class SalleVide extends Salle {
     }
 
     @Override
-    public int getNumber() {
-        return 0;
+    public TypeSalle getType() {
+        return TypeSalle.NO_TYPE;
     }
 }

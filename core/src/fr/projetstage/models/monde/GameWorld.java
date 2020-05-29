@@ -256,7 +256,7 @@ public class GameWorld {
      * Permet de recuperer la minimap de l'étage dans l'UI
      * @return un tableau de l'état des salles de l'étage
      */
-    public EtatSalle[][] getMinimap() {
+    public Salle[][] getMinimap() {
         return etage.getMinimap();
     }
 

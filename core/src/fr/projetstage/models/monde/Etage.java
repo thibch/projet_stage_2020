@@ -22,7 +22,6 @@ public class Etage {
     private int hauteur;
     private int xCourant;
     private int yCourant;
-    private int nbSalleTotal;
 
     /**
      * Etage du monde
@@ -36,9 +35,11 @@ public class Etage {
         xCourant = Math.abs(world.getNextRandom()%(largeur-2)) +1;
         yCourant = Math.abs(world.getNextRandom()%(hauteur-2)) +1;
 
-        nbSalleTotal = 0;
+        int nbSalleTotal = 15;
 
-        generationEtage(generateur);
+        int nbSalleCoffre = 1;
+
+        generationEtage(generateur, nbSalleTotal, nbSalleCoffre);
 
         tabSalles[xCourant][yCourant].setEtat(EtatSalle.EN_COURS_DE_VISITE);
     }
@@ -46,7 +47,8 @@ public class Etage {
     /**
      * Methode qui genere l'étage en positionnant des salles
      */
-    public void generationEtage(GenerateurSalle generateur){
+    public void generationEtage(GenerateurSalle generateur, int nbSalleTotal, int nbSalleCoffre){
+        assert (nbSalleCoffre > nbSalleTotal-2):"Erreur, il ne pas peut avoir plus de salle avec Coffre que de Salle au total";
         tabSalles[xCourant][yCourant] = new Salle1(world);
 
         LinkedList<Vector2> queuePosi = new LinkedList<>();
@@ -62,13 +64,13 @@ public class Etage {
 
         //Emplacement boss (sur le bout d'une branche)
         Orientation emplacementboss = arrayOrientation.get(Math.abs(world.getNextRandom()%arrayOrientation.size()));
-        boolean salleDeBossPosee = false;
 
         Salle nouvelleSalle;
         Vector2 positionCourante;
         int x;
         int y;
-        while(!queuePosi.isEmpty() && !queueOrientation.isEmpty() && nbSalleTotal < 15){ // Tant que la queue n'est pas vide
+        int nbSalle = 0;
+        while(!queuePosi.isEmpty() && !queueOrientation.isEmpty() && nbSalle < nbSalleTotal-1){ // Tant que la queue n'est pas vide
 
             positionCourante = queuePosi.poll(); // On récupère la position de la première salle générée
 
@@ -77,8 +79,6 @@ public class Etage {
 
 
             arrayOrientation = queueOrientation.poll();
-            System.out.println(emplacementboss); //TODO: faire attention à l'écrasement de la salle de boss
-            System.out.println(salleDeBossPosee);
 
             for (Orientation dir : arrayOrientation) {
                 switch(dir){
@@ -90,19 +90,7 @@ public class Etage {
                                     tabSalles[x][y-1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                                     queuePosi.add(new Vector2(x, y-1)); // On ajoute la position de la nouvelle salle
                                     queueOrientation.add(getRandomSplit(Orientation.BAS, Orientation.GAUCHE, Orientation.DROITE));
-                                    nbSalleTotal++;
-                                }
-                            }
-                        }else{
-                            if(!salleDeBossPosee && emplacementboss == Orientation.BAS){
-                                if(x+1 >= largeur || x-1 < 0){
-                                    tabSalles[x][y] = new Salle5(world);
-                                    salleDeBossPosee = true;
-                                }else{
-                                    if(tabSalles[x+1][y] == null && tabSalles[x-1][y] == null){
-                                        tabSalles[x][y] = new Salle5(world);
-                                        salleDeBossPosee = true;
-                                    }
+                                    nbSalle++;
                                 }
                             }
                         }
@@ -115,19 +103,7 @@ public class Etage {
                                     tabSalles[x][y+1] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                                     queuePosi.add(new Vector2(x, y+1)); // On ajoute la position de la nouvelle salle
                                     queueOrientation.add(getRandomSplit(Orientation.HAUT, Orientation.DROITE, Orientation.GAUCHE));
-                                    nbSalleTotal++;
-                                }
-                            }
-                        }else{
-                            if(!salleDeBossPosee && emplacementboss == Orientation.HAUT){
-                                if(x+1 >= largeur || x-1 < 0){
-                                    tabSalles[x][y] = new Salle5(world);
-                                    salleDeBossPosee = true;
-                                }else{
-                                    if(tabSalles[x+1][y] == null || tabSalles[x-1][y] == null){
-                                        tabSalles[x][y] = new Salle5(world);
-                                        salleDeBossPosee = true;
-                                    }
+                                    nbSalle++;
                                 }
                             }
                         }
@@ -140,19 +116,7 @@ public class Etage {
                                     tabSalles[x-1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                                     queuePosi.add(new Vector2(x-1, y)); // On ajoute la position de la nouvelle salle
                                     queueOrientation.add(getRandomSplit(Orientation.GAUCHE, Orientation.HAUT, Orientation.BAS));
-                                    nbSalleTotal++;
-                                }
-                            }
-                        }else{
-                            if(!salleDeBossPosee && emplacementboss == Orientation.GAUCHE){
-                                if(y+1 >= hauteur || y-1 < 0){
-                                    tabSalles[x][y] = new Salle5(world);
-                                    salleDeBossPosee = true;
-                                }else{
-                                    if(tabSalles[x][y+1] == null && tabSalles[x][y-1] == null){
-                                        tabSalles[x][y] = new Salle5(world);
-                                        salleDeBossPosee = true;
-                                    }
+                                    nbSalle++;
                                 }
                             }
                         }
@@ -165,19 +129,7 @@ public class Etage {
                                     tabSalles[x+1][y] = nouvelleSalle; // On ajoute la nouvelle salle au tableau
                                     queuePosi.add(new Vector2(x+1, y)); // On ajoute la position de la nouvelle salle
                                     queueOrientation.add(getRandomSplit(Orientation.DROITE, Orientation.BAS, Orientation.HAUT));
-                                    nbSalleTotal++;
-                                }
-                            }
-                        }else{
-                            if(!salleDeBossPosee && emplacementboss == Orientation.DROITE){
-                                if(y+1 >= hauteur || y-1 < 0){
-                                    tabSalles[x][y] = new Salle5(world);
-                                    salleDeBossPosee = true;
-                                }else{
-                                    if(tabSalles[x][y+1] == null && tabSalles[x][y-1] == null){
-                                        tabSalles[x][y] = new Salle5(world);
-                                        salleDeBossPosee = true;
-                                    }
+                                    nbSalle++;
                                 }
                             }
                         }
@@ -187,6 +139,59 @@ public class Etage {
                 }
             }
         }
+
+        boolean salleBossPlacee = false;
+
+        int xBoss;
+        int yBoss;
+        switch (emplacementboss){
+            case DROITE:
+            case GAUCHE:
+                xBoss = emplacementboss==Orientation.DROITE?largeur-1:0;
+                yBoss = 0;
+                while (yBoss < hauteur && !salleBossPlacee) {
+                    if(tabSalles[xBoss][yBoss] != null){
+                        tabSalles[xBoss][yBoss] = new Salle5(world);
+                        salleBossPlacee = true;
+                    }
+                    yBoss++;
+                }
+                break;
+            case HAUT:
+            case BAS:
+                yBoss = emplacementboss==Orientation.HAUT?hauteur-1:0;
+                xBoss = 0;
+                while (xBoss < hauteur && !salleBossPlacee) {
+                    if(tabSalles[xBoss][yBoss] != null){
+                        tabSalles[xBoss][yBoss] = new Salle5(world);
+                        salleBossPlacee = true;
+                    }
+                    xBoss++;
+                }
+                break;
+        }
+        int xSalle;
+        int ySalle;
+        xSalle = Math.abs(world.getNextRandom()%largeur);
+        ySalle = Math.abs(world.getNextRandom()%hauteur);
+        if(!salleBossPlacee){
+            while(tabSalles[xSalle][ySalle] == null || tabSalles[xSalle][ySalle] != null && tabSalles[xSalle][ySalle].getType() != TypeSalle.NO_TYPE){
+                xSalle = Math.abs(world.getNextRandom()%largeur);
+                ySalle = Math.abs(world.getNextRandom()%hauteur);
+            }
+            tabSalles[xSalle][ySalle] = new Salle5(world);
+            salleBossPlacee = true;
+        }
+
+        for (int i = 0; i < nbSalleCoffre; i++) {
+            while(tabSalles[xSalle][ySalle] == null || tabSalles[xSalle][ySalle] != null && tabSalles[xSalle][ySalle].getType() != TypeSalle.NO_TYPE){
+                xSalle = Math.abs(world.getNextRandom()%largeur);
+                ySalle = Math.abs(world.getNextRandom()%hauteur);
+            }
+
+            tabSalles[xSalle][ySalle] = generateur.genererSalle(true);
+        }
+
         generationPortes();
         generationSalles();
     }
@@ -288,15 +293,15 @@ public class Etage {
      * Construit et retourne la minimap de l'étage
      * @return un tableau d'etat de salle
      */
-    public EtatSalle[][] getMinimap(){
-        EtatSalle[][] tmp = new EtatSalle[5][5];
+    public Salle[][] getMinimap(){
+        Salle[][] tmp = new Salle[largeur][hauteur];
 
         for(int x = 0; x < 5; x++) {
             if(xCourant-2+x >= 0 && xCourant-2+x < largeur){
                 for (int y = 0; y < 5; y++) {
                     if(yCourant-2+y >= 0 && yCourant-2+y < hauteur){
                         if(tabSalles[xCourant-2+x][yCourant-2+y] != null){
-                            tmp[x][y] = tabSalles[xCourant-2+x][yCourant-2+y].getEtat();
+                            tmp[x][y] = tabSalles[xCourant-2+x][yCourant-2+y];
                         }
                     }
                 }
@@ -313,7 +318,7 @@ public class Etage {
         for (int y = hauteur - 1 ; y >= 0 ; y--) {
             for (int x = 0; x < largeur; x++) {
                 if(tabSalles[x][y] != null){
-                    str.append(tabSalles[x][y].getNumber()).append(" ");
+                    str.append(tabSalles[x][y].getType().getId()).append(" ");
                 }else{
                     str.append("  ");
                 }

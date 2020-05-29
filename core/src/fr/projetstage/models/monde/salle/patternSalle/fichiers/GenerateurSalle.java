@@ -3,6 +3,7 @@ package fr.projetstage.models.monde.salle.patternSalle.fichiers;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Biblio;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.GrandeTable;
@@ -81,24 +82,39 @@ public class GenerateurSalle {
         FileHandle fichier;
         if(salleAvecCoffre){
             fichier = chercheurAvecCoffre.get(world.getNextRandom());
+            return new Salle(world, 16, 10) {
+                @Override
+                public void genererSalle() {
+                    x = 0;
+                    y = 0;
+                    lecteur.explorerFichier(this, fichier);
+                    this.genererSolsEtMurs();
+                }
+
+                @Override
+                public TypeSalle getType() {
+                    return TypeSalle.SALLE_COFFRE;
+                }
+            };
         }else{
             fichier = chercheurSansCoffre.get(world.getNextRandom());
+            return new Salle(world, 16, 10) {
+                @Override
+                public void genererSalle() {
+                    x = 0;
+                    y = 0;
+                    lecteur.explorerFichier(this, fichier);
+                    this.genererSolsEtMurs();
+                }
+
+                @Override
+                public TypeSalle getType() {
+                    return TypeSalle.NO_TYPE;
+                }
+            };
         }
 
-        return new Salle(world, 16, 10) {
-            @Override
-            public void genererSalle() {
-                x = 0;
-                y = 0;
-                this.genererSolsEtMurs();
-                lecteur.explorerFichier(this, fichier);
-            }
 
-            @Override
-            public int getNumber() {
-                return 9;
-            }
-        };
     }
 
 }

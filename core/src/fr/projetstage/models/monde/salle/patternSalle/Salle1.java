@@ -11,6 +11,7 @@ import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Biblio;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.GrandeTable;
@@ -54,7 +55,7 @@ public class Salle1 extends Salle {
     }
 
     @Override
-    public int getNumber() {
-        return 1;
+    public TypeSalle getType() {
+        return TypeSalle.SPAWN;
     }
 }

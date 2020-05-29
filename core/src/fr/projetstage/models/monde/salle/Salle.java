@@ -8,14 +8,15 @@ import fr.projetstage.models.Entite;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
-import fr.projetstage.models.entites.ennemis.Ennemi;
-import fr.projetstage.models.entites.ennemis.Necromancer;
-import fr.projetstage.models.entites.ennemis.Slime;
+import fr.projetstage.models.entites.ennemis.*;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.ObjetsTousTypes;
+import fr.projetstage.models.entites.objets.objetsAuSol.Consommable;
+import fr.projetstage.models.entites.objets.objetsAuSol.PackDeFleches;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
-import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
+import fr.projetstage.models.entites.objets.objetsCoffre.*;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Obstacle;
 
@@ -80,18 +81,59 @@ public abstract class Salle {
     }
 
     public void ajouterNouvelEnnemi(float x, float y){
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis))/*Nouvel ennemis random*/);
+        ennemis.put(nbEnnemis, getRandomEnnemi(x, y));
         nbEnnemis++;
     }
 
+    private Ennemi getRandomEnnemi(float x, float y){
+        int rand = Math.abs(world.getNextRandom()%100);
+        if(rand <= 20){
+            return new ChauveSouris(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+        }else if(rand <= 40){
+            return new Goblin(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+        }else if (rand <= 60){
+            return new Skelet(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+        }else{
+            return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+        }
+    }
+
     public void ajouterNouveauConsommable(float x, float y){
-        objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols)); // Consommable aléatoire
+        objets.put(nbObjetAuSols, getRandomConsommable(x, y));
         nbObjetAuSols++;
     }
 
+    private Consommable getRandomConsommable(float x, float y){
+        int rand = Math.abs(world.getNextRandom()%100);
+        if(rand <= 20){
+            return new PackDeFleches(world, new Vector2(x, y), nbObjetAuSols);
+        }else if(rand <= 40){
+            return new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols);
+        }else if (rand <= 60){
+            return new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols);
+        }else{
+            return new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols);
+        }
+    }
+
     public void ajouterNouveauCoffre(float x, float y){
-        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(x,y), new Crane(world), nbObjetAuSols++)); // Coffre aléatoire
+        objets.put(nbObjetAuSols, getRandomCoffre(x, y));
         nbObjetAuSols++;
+    }
+
+    private Coffre getRandomCoffre(float x, float y){
+        int rand = Math.abs(world.getNextRandom()%100);
+        if(rand <= 20){
+            return new Coffre(world, new Vector2(x,y), new Coeur(world), nbObjetAuSols);
+        }else if(rand <= 40){
+            return new Coffre(world, new Vector2(x,y), new Crane(world), nbObjetAuSols);
+        }else if (rand <= 60){
+            return new Coffre(world, new Vector2(x,y), new PotionAttaque(world), nbObjetAuSols);
+        }else if(rand <= 80) {
+            return new Coffre(world, new Vector2(x,y), new Sunglasses(world), nbObjetAuSols);
+        }else{
+            return new Coffre(world, new Vector2(x,y), new PotionVitesse(world), nbObjetAuSols);
+        }
     }
 
     public void ajouterPorte(Orientation orientationPorte){
@@ -490,8 +532,6 @@ public abstract class Salle {
         }
     }
 
-    public abstract int getNumber();
-
     /**
      * Methode permettant de récupérer l'état d'une salle
      * @return un Etat de salle
@@ -499,6 +539,8 @@ public abstract class Salle {
     public EtatSalle getEtat() {
         return etat;
     }
+
+    public abstract TypeSalle getType();
 
     /**
      * Methode permettant de définir l'état d'une salle

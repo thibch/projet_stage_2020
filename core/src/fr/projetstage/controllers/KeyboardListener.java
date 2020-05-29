@@ -14,6 +14,7 @@ public class KeyboardListener implements InputProcessor {
     private Vector2 acceleration = new Vector2(0f, 0f);
     private Orientation direction;
     private boolean afficheMobile;
+    private boolean pause;
 
     /**
      * Constructeur de l'écouteur de frappe
@@ -31,7 +32,15 @@ public class KeyboardListener implements InputProcessor {
     }
 
     /**
-     * Renvoie une booléen pour activer / desactiver cette l'affichage debug
+     * Renvoie une booléen pour activer / desactiver l'affichage de pause
+     * @return un booléen a vrai si la touche correspondante à été enfoncée
+     */
+    public boolean isPause() {
+        return pause;
+    }
+
+    /**
+     * Renvoie une booléen pour activer / desactiver l'affichage debug
      * @return un booléen a vrai si la touche correspondante à été enfoncée
      */
     public boolean isAfficheDebug() {
@@ -39,7 +48,7 @@ public class KeyboardListener implements InputProcessor {
     }
 
     /**
-     * Renvoie une booléen pour activer / desactiver cette l'affichage mobile
+     * Renvoie une booléen pour activer / desactiver l'affichage mobile
      * @return un booléen a vrai si on est sur un mobile
      */
     public boolean isAfficheMobile() {
@@ -77,7 +86,7 @@ public class KeyboardListener implements InputProcessor {
                 SoundFactory.getInstance().playsoundDeath(100);
                 break;
             case Input.Keys.ESCAPE:
-                afficheMobile = true;
+                pause = true;
                 break;
             case Input.Keys.LEFT:
                 direction = Orientation.GAUCHE;

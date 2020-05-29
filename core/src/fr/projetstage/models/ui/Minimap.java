@@ -6,7 +6,9 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.EtatSalle;
+import fr.projetstage.models.monde.salle.Salle;
 
 public class Minimap extends Actor {
 
@@ -40,22 +42,29 @@ public class Minimap extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        EtatSalle[][] tmp = gameWorld.getMinimap();
+        Salle[][] tmp = gameWorld.getMinimap();
         for(int x = 0; x < nbCaseLargeur; x++){
             for(int y = 0; y < nbCaseHauteur ; y++){
-                if(x < tmp.length && y < tmp[0].length && tmp[x][y] != null && !tmp[x][y].equals(EtatSalle.NO_SALLE)){
-                    if(tmp[x][y].equals(EtatSalle.VISITEE)){
-                        batch.draw(TextureFactory.getInstance().getSalleVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                if(x < tmp.length && y < tmp[0].length && tmp[x][y] != null && !tmp[x][y].getEtat().equals(EtatSalle.NO_SALLE)){
+                    if(tmp[x][y].getEtat().equals(EtatSalle.VISITEE)){
+                        if(tmp[x][y].getType().equals(TypeSalle.NO_TYPE) || tmp[x][y].getType().equals(TypeSalle.SPAWN) ){
+                            batch.draw(TextureFactory.getInstance().getSalleVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        }
+                        else if(tmp[x][y].getType().equals(TypeSalle.SALLE_COFFRE)){
+                            batch.draw(TextureFactory.getInstance().getSalleCoffre(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        }
+                        else if(tmp[x][y].getType().equals(TypeSalle.BOSS)){
+                            batch.draw(TextureFactory.getInstance().getSalleBoss(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        }
                     }
-                    else if(tmp[x][y].equals(EtatSalle.NON_VISITE)){
+                    else if(tmp[x][y].getEtat().equals(EtatSalle.NON_VISITE)){
                         batch.draw(TextureFactory.getInstance().getSalleNonVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
                     }
-                    else if(tmp[x][y].equals(EtatSalle.EN_COURS_DE_VISITE)){
+                    else if(tmp[x][y].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE)){
                         batch.draw(TextureFactory.getInstance().getSalleCourante(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
                     }
                 }
             }
         }
     }
-
 }
