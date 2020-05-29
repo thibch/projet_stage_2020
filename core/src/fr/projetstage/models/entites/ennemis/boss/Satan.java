@@ -18,7 +18,6 @@ import java.util.Random;
 
 public class Satan extends Ennemi {
 
-    private boolean hidden;
     private int healCoolDown = 5;
     private long timeLastHeal;
 
@@ -74,7 +73,7 @@ public class Satan extends Ennemi {
 
     @Override
     public void draw(SpriteBatch batch, float x, float y) {
-        if(!mort && !hidden){
+        if(!mort){
             if(body == null || !body.getLinearVelocity().isZero(0.1f)){
                 runningAnimation.update();
                 batch.draw(runningAnimation.getFrame(world.getJoueur().getPosition().x < getPosition().x, false), x-0.5f + getPosition().x, y + getPosition().y, 2, 2);
