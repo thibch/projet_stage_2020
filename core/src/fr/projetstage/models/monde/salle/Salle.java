@@ -87,12 +87,10 @@ public abstract class Salle {
 
     private Ennemi getRandomEnnemi(float x, float y){
         int rand = Math.abs(world.getNextRandom()%100);
-        if(rand <= 20){
+        if(rand <= 33){
             return new ChauveSouris(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
-        }else if(rand <= 40){
+        }else if(rand <= 66){
             return new Goblin(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
-        }else if (rand <= 60){
-            return new Skelet(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
         }else{
             return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
         }
