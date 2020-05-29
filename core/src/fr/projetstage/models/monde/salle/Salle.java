@@ -153,6 +153,27 @@ public abstract class Salle {
         }
     }
 
+    public void ajouterTorchesAuxPortes(Orientation orientationTorches) {
+        switch (orientationTorches){
+            case BAS:
+                props.add(0, new Torche(new Vector2((float)(largeur/2)-2, -1), Orientation.BAS));
+                props.add(0, new Torche(new Vector2((float)(largeur/2)+1, -1), Orientation.BAS));
+                break;
+            case HAUT:
+                props.add(0, new Torche(new Vector2((float)(largeur/2)-2, hauteur), Orientation.HAUT));
+                props.add(0, new Torche(new Vector2((float)(largeur/2)+1, hauteur), Orientation.HAUT));
+                break;
+            case GAUCHE:
+                props.add(0, new Torche(new Vector2(-1, (float)(hauteur/2)-2), Orientation.GAUCHE));
+                props.add(0, new Torche(new Vector2(-1, (float)(hauteur/2)+1), Orientation.GAUCHE));
+                break;
+            case DROITE:
+                props.add(0, new Torche(new Vector2(largeur, (float)(hauteur/2)-2), Orientation.DROITE));
+                props.add(0, new Torche(new Vector2(largeur, (float)(hauteur/2)+1), Orientation.DROITE));
+                break;
+        }
+    }
+
     public void update(){
         boolean isVictorious;
 
@@ -198,6 +219,10 @@ public abstract class Salle {
                 it.remove();
                 objets.remove(courant);
             }
+        }
+
+        for(Prop prop : props){
+            prop.update();
         }
 
         if(isVictorious){

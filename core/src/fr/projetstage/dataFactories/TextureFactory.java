@@ -69,6 +69,7 @@ public class TextureFactory {
     private static Texture salleNonVisitee;
     private static Texture salleCoffre;
     private static Texture salleBoss;
+    private static Texture salleBossNonVisitee;
 
     // Mobile
     private static Texture backgroundPad;
@@ -233,6 +234,7 @@ public class TextureFactory {
         salleNonVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_non_visitee.png"));
         salleCoffre = new Texture(Gdx.files.internal("ui/GPS_salle_visitee_coffre.png"));
         salleBoss = new Texture(Gdx.files.internal("ui/GPS_salle_visitee_boss.png"));
+        salleBossNonVisitee = new Texture(Gdx.files.internal("ui/GPS_salle_non_visitee_boss.png"));
 
         // Mobile
         backgroundPad = new Texture(Gdx.files.internal("ui/mobile/pad_background.png"));
@@ -787,6 +789,14 @@ public class TextureFactory {
      */
     public Texture getSalleCoffre() {
         return salleCoffre;
+    }
+
+    /**
+     * Getter pour l'image de la salle non visitee du boss pour UI minimap
+     * @return Getter pour l'image de la salle non visitee du boss pour UI minimap
+     */
+    public Texture getSalleNonVisiteeBoss() {
+        return salleBossNonVisitee;
     }
 
     /**

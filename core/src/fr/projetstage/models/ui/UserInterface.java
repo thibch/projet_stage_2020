@@ -9,6 +9,7 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.ui.menu.GameOverScreen;
 import fr.projetstage.models.ui.menu.PauseScreen;
+import fr.projetstage.models.ui.menu.VictoryScreen;
 
 public class UserInterface {
 
@@ -26,6 +27,7 @@ public class UserInterface {
 
 
     private GameOverScreen gameOverScreen;
+    private VictoryScreen victoryScreen;
     private boolean isGameOver = false;
 
     private boolean goToMainMenu = false;
@@ -57,8 +59,9 @@ public class UserInterface {
 
 
         gameOverScreen = new GameOverScreen(stage,this);
+        victoryScreen = new VictoryScreen(stage,this);
         pauseScreen = new PauseScreen(stage, this, gameWorld);
-        munitions = new Text("", 65, Color.WHITE, new Vector2(1.4f*(Gdx.graphics.getWidth())/16f,13*(Gdx.graphics.getHeight()/16f)), true);
+        munitions = new Text("", 65, Color.WHITE, new Vector2(1.4f*(Gdx.graphics.getWidth())/16f,scaleY*(gameWorld.getHauteur()-3)), true);
     }
 
     /**
@@ -69,9 +72,6 @@ public class UserInterface {
 
         //Affiche le texte
         stage.getBatch().begin();
-        if(gameWorld.getJoueur().getPointDeVie() <= 0){
-            gameOverScreen.draw(stage.getBatch());
-        }
         munitions.setTextContent("" + gameWorld.getJoueur().getMunition());
         munitions.draw(stage.getBatch());
         stage.getBatch().end();
@@ -81,8 +81,9 @@ public class UserInterface {
         isGameOver = gameWorld.getJoueur().getPointDeVie() <= 0;
         if(isGameOver){
             gameOverScreen.draw(stage.getBatch());
-        }
-        else{
+        }else if(gameWorld.estFinDuMonde()){
+            victoryScreen.draw(stage.getBatch());
+        }else{
             pauseScreen.draw(stage.getBatch());
         }
 

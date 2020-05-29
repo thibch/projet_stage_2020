@@ -6,9 +6,10 @@ import java.util.ArrayList;
 
 public class Monde {
 
-    private ArrayList<Etage> etages;
-    private GameWorld world;
+    private final ArrayList<Etage> etages;
+    private final GameWorld world;
     private int courant;
+    private boolean finMonde;
 
     /**
      * Constructeur du monde du jeu.
@@ -18,6 +19,7 @@ public class Monde {
         this.world = world;
         etages = new ArrayList<>();
         courant = 0;
+        finMonde = false;
         generationMonde();
     }
 
@@ -28,13 +30,18 @@ public class Monde {
         etages.add(new Etage(world, generateurSalle));
     }
 
+    public boolean estFinMonde(){
+        return finMonde;
+    }
+
     /**
      * Methode permettant de récuperer l'étage suivant du monde
      * @return un Etage suivant
      */
     public Etage getEtageSuivant(){
         if(courant >= etages.size()){
-            return etages.get(etages.size()-1);
+            courant--;
+            finMonde = true;
         }
         return etages.get(courant++);
     }

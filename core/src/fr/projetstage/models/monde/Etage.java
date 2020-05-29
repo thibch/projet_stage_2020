@@ -232,15 +232,27 @@ public class Etage {
                 if(tabSalles[x][y] != null && tabSalles[x][y].getEtat() != EtatSalle.NO_SALLE){
                     if(x+1 < largeur && tabSalles[x+1][y] != null && tabSalles[x+1][y].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.DROITE);
+                        if(tabSalles[x+1][y].getType().equals(TypeSalle.BOSS)){
+                            tabSalles[x][y].ajouterTorchesAuxPortes(Orientation.DROITE);
+                        }
                     }
                     if(x-1 >= 0 && tabSalles[x-1][y] != null && tabSalles[x-1][y].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.GAUCHE);
+                        if(tabSalles[x-1][y].getType().equals(TypeSalle.BOSS)){
+                            tabSalles[x][y].ajouterTorchesAuxPortes(Orientation.GAUCHE);
+                        }
                     }
                     if(y+1 < hauteur && tabSalles[x][y+1] != null && tabSalles[x][y+1].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.HAUT);
+                        if(tabSalles[x][y+1].getType().equals(TypeSalle.BOSS)){
+                            tabSalles[x][y].ajouterTorchesAuxPortes(Orientation.HAUT);
+                        }
                     }
                     if(y-1 >= 0 && tabSalles[x][y-1] != null && tabSalles[x][y-1].getEtat() != EtatSalle.NO_SALLE){
                         tabSalles[x][y].ajouterPorte(Orientation.BAS);
+                        if(tabSalles[x][y-1].getType().equals(TypeSalle.BOSS)){
+                            tabSalles[x][y].ajouterTorchesAuxPortes(Orientation.BAS);
+                        }
                     }
                 }
             }

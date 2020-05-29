@@ -1,6 +1,5 @@
 package fr.projetstage.models.ui.menu;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
@@ -10,7 +9,7 @@ import fr.projetstage.models.ui.MenuButton;
 import fr.projetstage.models.ui.Text;
 import fr.projetstage.models.ui.UserInterface;
 
-public class GameOverScreen implements Menu{
+public class VictoryScreen implements Menu{
 
     private Text gameOver;
     private Stage stage;
@@ -23,10 +22,10 @@ public class GameOverScreen implements Menu{
      * @param stage le stage dans lequel afficher le gameover et ajouter ses boutons
      * @param userInterface l'UserInterface pour la communication des boutons avec le jeu
      */
-    public GameOverScreen(Stage stage, UserInterface userInterface){
-        this.stage =stage;
+    public VictoryScreen(Stage stage, UserInterface userInterface){
+        this.stage = stage;
         this.userInterface = userInterface;
-        gameOver = new Text("Disappointing", (int)stage.getWidth()/8, Color.RED,new Vector2((stage.getWidth())/2f,3*(stage.getHeight()/4f)),true);
+        gameOver = new Text("Good Job ! ", (int)stage.getWidth()/8, Color.GREEN,new Vector2((stage.getWidth())/2f,3*(stage.getHeight()/4f)),true);
         mainMenu = new MenuButton(stage,this, new Vector2(3.75f*(stage.getWidth()/10f),(stage.getHeight()/10f)),stage.getWidth()/4f,stage.getHeight()/6f,"Main Menu");
         mainMenu.displayBtn(false);
     }
@@ -36,7 +35,7 @@ public class GameOverScreen implements Menu{
      * @param batch un Batch dans lequel afficher les elements
      */
     public void draw(Batch batch){
-        mainMenu.displayBtn(userInterface.isGameOver());
+        mainMenu.displayBtn(true);
         batch.draw(TextureFactory.getInstance().getBackground(),0,0,stage.getWidth(),stage.getHeight());
         gameOver.draw(batch);
     }

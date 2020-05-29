@@ -20,6 +20,7 @@ public class GameWorld {
     private Salle salleSuivante; // temporaire definit une salle statique
     private Salle salleCourante; // temporaire definit une salle statique
     private Etage etage;
+    private Etage etageSuivant;
     private Monde monde;
     private final Joueur joueur;
     private final Random random;
@@ -135,7 +136,7 @@ public class GameWorld {
     public void miTransition(){
         // Changement étage
         if(!aFaitlaMiTransi){
-            etage = monde.getEtageSuivant();
+            etage = etageSuivant;
             System.out.println(etage.toString());
             salleCourante.destroyBodies();
             salleCourante = etage.start();
@@ -192,7 +193,9 @@ public class GameWorld {
         if(estEnTransition){
             chargement.update();
         }else{
-            salleCourante.update();
+            if(!this.estFinDuMonde()){
+                salleCourante.update();
+            }
         }
     }
 
@@ -230,17 +233,26 @@ public class GameWorld {
         salleCourante.setPickUpTaken(id);
     }
 
+    public boolean estFinDuMonde(){
+        return monde.estFinMonde();
+    }
 
     /**
      * Lorsque le joueur touche une porte
      * @param id l'id de la porte
      */
     public void setPorteTouched(int id) {
-        estEnTransition = true;
         Orientation directionTransition = Orientation.getFromIndice(id);
-        chargement.setDirectionTransition(directionTransition);
         if(directionTransition != Orientation.NO_ORIENTATION){
+            estEnTransition = true;
+            chargement.setDirectionTransition(directionTransition);
             salleSuivante = etage.next(directionTransition);
+        }else{
+            etageSuivant = monde.getEtageSuivant();
+            if(!monde.estFinMonde()){
+                estEnTransition = true;
+                chargement.setDirectionTransition(directionTransition);
+            }
         }
     }
 

@@ -58,10 +58,20 @@ public class Minimap extends Actor {
                         }
                     }
                     else if(tmp[x][y].getEtat().equals(EtatSalle.NON_VISITE)){
-                        batch.draw(TextureFactory.getInstance().getSalleNonVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        if(tmp[x][y].getType().equals(TypeSalle.BOSS) && ((x+1 < nbCaseLargeur && tmp[x+1][y] != null && (tmp[x+1][y].getEtat().equals(EtatSalle.VISITEE) || tmp[x+1][y].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))) || (x-1 >= 0 && tmp[x-1][y] != null && (tmp[x-1][y].getEtat().equals(EtatSalle.VISITEE) || tmp[x-1][y].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))) ||
+                                (y-1 >= 0 && tmp[x][y-1] != null && (tmp[x][y-1].getEtat().equals(EtatSalle.VISITEE) || tmp[x][y-1].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))) || (y+1 < nbCaseHauteur && tmp[x][y+1] != null && (tmp[x][y+1].getEtat().equals(EtatSalle.VISITEE) || tmp[x][y+1].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))))){
+                            batch.draw(TextureFactory.getInstance().getSalleNonVisiteeBoss(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        }else{
+                            batch.draw(TextureFactory.getInstance().getSalleNonVisitee(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        }
                     }
                     else if(tmp[x][y].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE)){
-                        batch.draw(TextureFactory.getInstance().getSalleCourante(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        if(tmp[x][y].getType().equals(TypeSalle.BOSS) && ((x+1 < nbCaseLargeur && tmp[x+1][y] != null && (tmp[x+1][y].getEtat().equals(EtatSalle.VISITEE) || tmp[x+1][y].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))) || (x-1 >= 0 && tmp[x-1][y] != null && (tmp[x-1][y].getEtat().equals(EtatSalle.VISITEE) || tmp[x-1][y].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))) ||
+                                (y-1 >= 0 && tmp[x][y-1] != null && (tmp[x][y-1].getEtat().equals(EtatSalle.VISITEE) || tmp[x][y-1].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))) || (y+1 < nbCaseHauteur && tmp[x][y+1] != null && (tmp[x][y+1].getEtat().equals(EtatSalle.VISITEE) || tmp[x][y+1].getEtat().equals(EtatSalle.EN_COURS_DE_VISITE))))){
+                            batch.draw(TextureFactory.getInstance().getSalleNonVisiteeBoss(),getX()+(x*widthCase),getY()+(y*heightCase), widthCase, heightCase);
+                        }else {
+                            batch.draw(TextureFactory.getInstance().getSalleCourante(), getX() + (x * widthCase), getY() + (y * heightCase), widthCase, heightCase);
+                        }
                     }
                 }
             }

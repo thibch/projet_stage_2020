@@ -14,12 +14,16 @@ public class Prop implements Entite{
 
     public Prop(Vector2 position, Orientation orientationMur, TypeProp wallNumberTexture){
         this.orientation = orientationMur;
-        numProp = wallNumberTexture;
+        this.numProp = wallNumberTexture;
         this.position = position;
     }
 
     public void draw(SpriteBatch batch, float x, float y){
         batch.draw(numProp.getTexture(), x + position.x, y + position.y, 1f/2f, 1f/2f, 1, 1, 1, 1, orientation.getRotation(),0,0, numProp.getTexture().getWidth(), numProp.getTexture().getHeight(), false, false);
+    }
+
+    public Orientation getOrientation() {
+        return orientation;
     }
 
     @Override
@@ -33,5 +37,8 @@ public class Prop implements Entite{
     @Override
     public Vector2 getPosition() {
         return position;
+    }
+
+    public void update() {
     }
 }
