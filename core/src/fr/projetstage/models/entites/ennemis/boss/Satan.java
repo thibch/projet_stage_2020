@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.ennemis;
+package fr.projetstage.models.entites.ennemis.boss;
 
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -8,6 +8,8 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.ennemis.Comportement;
+import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
@@ -16,9 +18,12 @@ import java.util.Random;
 
 public class Satan extends Ennemi {
 
-    private boolean hidden;
     private int healCoolDown = 5;
     private long timeLastHeal;
+
+    private int chargeCoolDown = 3;
+    private long timeLastCharge;
+    private long timeLastStun;
 
     private Salle salle;
 
@@ -37,6 +42,10 @@ public class Satan extends Ennemi {
         coolDownTime = 1f;
         setSpeed(3f);
 
+        timeLastHeal = System.currentTimeMillis();
+        timeLastCharge = System.currentTimeMillis();
+        timeLastStun = System.currentTimeMillis();
+
         this.salle = salle;
 
         hauteur = (12f / 8f);
@@ -44,8 +53,8 @@ public class Satan extends Ennemi {
 
         this.position = position;
 
-        idleAnimation = new Animation(TextureFactory.getInstance().getBigOgreIdleSpriteSheet(),4,0.5f);
-        runningAnimation = new Animation(TextureFactory.getInstance().getBigOgreRunSpriteSheet(),4,0.5f);
+        idleAnimation = new Animation(TextureFactory.getInstance().getBigDemonIdleSpriteSheet(),4,0.5f);
+        runningAnimation = new Animation(TextureFactory.getInstance().getBigDemonRunSpriteSheet(),4,0.5f);
 
     }
 
@@ -64,7 +73,7 @@ public class Satan extends Ennemi {
 
     @Override
     public void draw(SpriteBatch batch, float x, float y) {
-        if(!mort && !hidden){
+        if(!mort){
             if(body == null || !body.getLinearVelocity().isZero(0.1f)){
                 runningAnimation.update();
                 batch.draw(runningAnimation.getFrame(world.getJoueur().getPosition().x < getPosition().x, false), x-0.5f + getPosition().x, y + getPosition().y, 2, 2);
@@ -89,6 +98,15 @@ public class Satan extends Ennemi {
             setPointDeVie(getPointDeVie()+getDegats());
             timeLastHeal = System.currentTimeMillis()+ (healCoolDown*1000);
         }
+
+        //charge
+        if(System.currentTimeMillis() > timeLastCharge){
+            body.setLinearVelocity(body.getLinearVelocity().x*10f,body.getLinearVelocity().y*10f);
+            timeLastCharge = System.currentTimeMillis()+ (chargeCoolDown*1000);
+            timeLastStun = System.currentTimeMillis()+1500;
+        }
+
+        comportement.getBehavior().setEnabled(System.currentTimeMillis() > timeLastStun);
 
     }
 }
