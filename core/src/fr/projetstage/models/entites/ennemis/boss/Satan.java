@@ -22,6 +22,10 @@ public class Satan extends Ennemi {
     private int healCoolDown = 5;
     private long timeLastHeal;
 
+    private int chargeCoolDown = 3;
+    private long timeLastCharge;
+    private long timeLastStun;
+
     private Salle salle;
 
     /**
@@ -39,6 +43,10 @@ public class Satan extends Ennemi {
         coolDownTime = 1f;
         setSpeed(3f);
 
+        timeLastHeal = System.currentTimeMillis();
+        timeLastCharge = System.currentTimeMillis();
+        timeLastStun = System.currentTimeMillis();
+
         this.salle = salle;
 
         hauteur = (12f / 8f);
@@ -46,8 +54,8 @@ public class Satan extends Ennemi {
 
         this.position = position;
 
-        idleAnimation = new Animation(TextureFactory.getInstance().getBigOgreIdleSpriteSheet(),4,0.5f);
-        runningAnimation = new Animation(TextureFactory.getInstance().getBigOgreRunSpriteSheet(),4,0.5f);
+        idleAnimation = new Animation(TextureFactory.getInstance().getBigDemonIdleSpriteSheet(),4,0.5f);
+        runningAnimation = new Animation(TextureFactory.getInstance().getBigDemonRunSpriteSheet(),4,0.5f);
 
     }
 
@@ -91,6 +99,15 @@ public class Satan extends Ennemi {
             setPointDeVie(getPointDeVie()+getDegats());
             timeLastHeal = System.currentTimeMillis()+ (healCoolDown*1000);
         }
+
+        //charge
+        if(System.currentTimeMillis() > timeLastCharge){
+            body.setLinearVelocity(body.getLinearVelocity().x*10f,body.getLinearVelocity().y*10f);
+            timeLastCharge = System.currentTimeMillis()+ (chargeCoolDown*1000);
+            timeLastStun = System.currentTimeMillis()+1500;
+        }
+
+        comportement.getBehavior().setEnabled(System.currentTimeMillis() > timeLastStun);
 
     }
 }
