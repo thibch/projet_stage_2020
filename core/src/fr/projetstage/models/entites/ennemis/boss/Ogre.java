@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.ennemis;
+package fr.projetstage.models.entites.ennemis.boss;
 
 import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -9,6 +9,8 @@ import fr.projetstage.models.Animation;
 import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
+import fr.projetstage.models.entites.ennemis.Comportement;
+import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
