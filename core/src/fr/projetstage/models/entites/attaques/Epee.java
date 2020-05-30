@@ -58,8 +58,12 @@ public class Epee extends Projectile{
     }
 
     @Override
+    public void update(Vector2 position, Orientation direction) {
+
+    }
+
+    @Override
     public void generateBody() {
-        super.generateBody();
         // Création de la shape pour l'epée
         Vector2 posShape = new Vector2(0, 0); // La position du shape est en fonction de la position du body
         Vector2[] vertices = new Vector2[4];

@@ -52,8 +52,6 @@ public class Fleche extends Projectile{
     @Override
     public void launch(Orientation direction, float speed, int id){
         super.launch(direction, speed, id);
-        generateBody();
-        estLancee = true;
     }
 
     @Override
@@ -61,15 +59,6 @@ public class Fleche extends Projectile{
         spriteBatch.draw(TextureFactory.getInstance().getFleche(), x + body.getPosition().x, y + body.getPosition().y, 1/2f, 1/2f, 1, 1,
                 1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
    }
-
-    /**
-     * Getter si la flèche est lancée dans le monde ou non
-     * @return vrai si la flèche est lancée
-     */
-    @Override
-    public boolean isLaunched() {
-        return estLancee;
-    }
 
     /**
      * Met à jour la position de la flèche

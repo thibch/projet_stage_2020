@@ -13,26 +13,16 @@ public abstract class Projectile extends EntiteMouvante {
 
     private double dureeVie; // A détermnier en fonction de la portée et vitesse d'attaque (Classe Attaque)
     protected Body body;
+    protected boolean estLancee;
 
     public Projectile(GameWorld world, Vector2 position) {
         super(world, position);
     }
 
-
-    @Override
-    public void draw(SpriteBatch batch, float x, float y) {
-
-    }
-
-    public void update(Orientation direction) {
-
-    }
-
-    public void update(Vector2 position, Orientation direction) {
-
-    }
+    public abstract void update(Vector2 position, Orientation direction);
 
     public void launch(Orientation direction, float speed, int id){
+        generateBody();
         if(body != null){
             Vector2 vecteurDirection;
 
@@ -50,24 +40,25 @@ public abstract class Projectile extends EntiteMouvante {
                     vecteurDirection = new Vector2(-speed,0);
                     break;
             }
+            estLancee = true;
 
             body.setLinearVelocity(vecteurDirection);
             body.setUserData(new Type(TypeEntite.DISTANCE, id));
         }
     }
 
+    /**
+     * Getter si la flèche est lancée dans le monde ou non
+     * @return vrai si la flèche est lancée
+     */
     public boolean isLaunched(){
-        return false;
+        return estLancee;
     }
 
     @Override
     public Vector2 getPosition(){
         if(body != null) return body.getPosition();
         return position;
-    }
-
-    @Override
-    public void generateBody(){
     }
 
     @Override

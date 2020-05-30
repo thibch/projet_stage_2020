@@ -114,9 +114,11 @@ public abstract class Salle {
         }
     }
 
-    public void ajouterNouveauCoffre(float x, float y){
-        objets.put(nbObjetAuSols, getRandomCoffre(x, y));
+    public Coffre ajouterNouveauCoffre(float x, float y){
+        Coffre coffre = getRandomCoffre(x, y);
+        objets.put(nbObjetAuSols, coffre);
         nbObjetAuSols++;
+        return coffre;
     }
 
     private Coffre getRandomCoffre(float x, float y){

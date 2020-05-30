@@ -33,49 +33,62 @@ public class GenerateurSalle {
         switch (character){
             case 'V':
             case 'S':
+            case 'R':
+            case 'r':
+            case 'v':
+            case 's':
                 if(waitForT){
-                    salle.ajouterMeuble(new GrandeTable(world, new Vector2(x, y)));
+                    salle.ajouterMeuble(new GrandeTable(world, new Vector2(x-1, salle.getHauteur() - y-1)));
                     waitForT = false;
                 }
+                break;
+            case 'B':
+            case 'b':
+                salle.ajouterMeuble(new Biblio(world, new Vector2(x, salle.getHauteur() - y-1)));
+                waitForT = false;
+                break;
+            case 'T':
+            case 't':
+                if(waitForT){
+                    salle.ajouterMeuble(new GrandeTable(world, new Vector2(x-1, salle.getHauteur() - y-1)));
+                    waitForT = false;
+                }else{
+                    salle.ajouterMeuble(new PetiteTable(world, new Vector2(x, salle.getHauteur() - y-1)));
+                }
+                break;
+            case 'G':
+            case 'g':
+                waitForT = true;
+                break;
+            case 'E':
+            case 'e':
+                salle.ajouterNouvelEnnemi(x, salle.getHauteur() - y-1);
+                waitForT = false;
+                break;
+            case 'O':
+            case 'o':
+                salle.ajouterNouveauConsommable(x, salle.getHauteur() - y-1);
+                waitForT = false;
+                break;
+            case 'P':
+            case 'p':
+                salle.ajouterPièges(x, salle.getHauteur() - y-1);
+                waitForT = false;
+                break;
+            case 'C':
+            case 'c':
+                salle.ajouterNouveauCoffre(x,salle.getHauteur() - y-1);
+                waitForT = false;
                 break;
             case '\n':
                 x = -1;
                 y++;
-                break;
-            case 'B':
-                salle.ajouterMeuble(new Biblio(world, new Vector2(x, y)));
-                break;
-            case 'T':
-                if(waitForT){
-                    salle.ajouterMeuble(new GrandeTable(world, new Vector2(x, y)));
-                    waitForT = false;
-                }else{
-                    salle.ajouterMeuble(new PetiteTable(world, new Vector2(x, y)));
-                }
-                break;
-            case 'G':
-                waitForT = true;
-                break;
-            case 'E':
-                salle.ajouterNouvelEnnemi(x, y);
-                break;
-            case 'O':
-                salle.ajouterNouveauConsommable(x, y);
-                break;
-            case 'P':
-                salle.ajouterPièges(x, y);
-                break;
-            case 'C':
-                salle.ajouterNouveauCoffre(x, y);
                 break;
             default:
                 x--;
                 break;
         }
         x++;
-        if(waitForT){
-            waitForT = false;
-        }
     }
 
     public Salle genererSalle(boolean salleAvecCoffre){
