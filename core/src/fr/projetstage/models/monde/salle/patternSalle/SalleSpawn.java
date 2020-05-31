@@ -1,8 +1,6 @@
 package fr.projetstage.models.monde.salle.patternSalle;
 
 import com.badlogic.gdx.math.Vector2;
-import fr.projetstage.models.Entite;
-import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.ChauveSouris;
@@ -19,17 +17,15 @@ import fr.projetstage.models.monde.salle.solEtMurs.meubles.GrandeTable;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.PetiteTable;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
 
-import java.util.ArrayList;
-
-public class Salle1 extends Salle {
+public class SalleSpawn extends Salle {
     /**
      * Salle généré avec un body Static et des portes pour sortir
      * Les salles sont forcement rectangulaire
      *
      * @param world   le monde dans lequel la salle est générée
      */
-    public Salle1(GameWorld world) {
-        super(world, 16, 10);
+    public SalleSpawn(GameWorld world) {
+        super(world, 0, 16, 10);
     }
 
     @Override

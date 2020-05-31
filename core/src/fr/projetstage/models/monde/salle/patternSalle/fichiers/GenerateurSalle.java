@@ -91,11 +91,11 @@ public class GenerateurSalle {
         x++;
     }
 
-    public Salle genererSalle(boolean salleAvecCoffre){
+    public Salle genererSalle(int idEtage, boolean salleAvecCoffre){
         FileHandle fichier;
         if(salleAvecCoffre){
             fichier = chercheurAvecCoffre.get(world.getNextRandom());
-            return new Salle(world, 16, 10) {
+            return new Salle(world, idEtage, 16, 10) {
                 @Override
                 public void genererSalle() {
                     x = 0;
@@ -111,7 +111,7 @@ public class GenerateurSalle {
             };
         }else{
             fichier = chercheurSansCoffre.get(world.getNextRandom());
-            return new Salle(world, 16, 10) {
+            return new Salle(world, idEtage, 16, 10) {
                 @Override
                 public void genererSalle() {
                     x = 0;

@@ -1,7 +1,6 @@
 package fr.projetstage.models.monde;
 
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.reflect.ArrayReflection;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
@@ -9,14 +8,13 @@ import fr.projetstage.models.monde.salle.patternSalle.*;
 import fr.projetstage.models.monde.salle.patternSalle.fichiers.GenerateurSalle;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 
 public class Etage {
 
     private final GameWorld world;
     private Salle[][] tabSalles;
+    private int idEtage;
 
     private int largeur;
     private int hauteur;
@@ -27,13 +25,14 @@ public class Etage {
      * Etage du monde
      * @param world le gameworld
      */
-    public Etage(GameWorld world, GenerateurSalle generateur){
+    public Etage(GameWorld world, int idEtage, GenerateurSalle generateur){
         this.world = world;
         largeur = 5;
         hauteur = 5;
         tabSalles = new Salle[largeur][hauteur];
         xCourant = Math.abs(world.getNextRandom()%(largeur-2)) +1;
         yCourant = Math.abs(world.getNextRandom()%(hauteur-2)) +1;
+        this.idEtage = idEtage;
 
         int nbSalleTotal = 15;
 
@@ -49,7 +48,7 @@ public class Etage {
      */
     public void generationEtage(GenerateurSalle generateur, int nbSalleTotal, int nbSalleCoffre){
         assert (nbSalleCoffre > nbSalleTotal-2):"Erreur, il ne pas peut avoir plus de salle avec Coffre que de Salle au total";
-        tabSalles[xCourant][yCourant] = new Salle1(world);
+        tabSalles[xCourant][yCourant] = new SalleSpawn(world);
 
         LinkedList<Vector2> queuePosi = new LinkedList<>();
         queuePosi.add(new Vector2(xCourant, yCourant));
@@ -151,7 +150,7 @@ public class Etage {
                 yBoss = 0;
                 while (yBoss < hauteur && !salleBossPlacee) {
                     if(tabSalles[xBoss][yBoss] != null){
-                        tabSalles[xBoss][yBoss] = new Salle5(world);
+                        tabSalles[xBoss][yBoss] = new SalleBoss(world, idEtage);
                         salleBossPlacee = true;
                     }
                     yBoss++;
@@ -163,7 +162,7 @@ public class Etage {
                 xBoss = 0;
                 while (xBoss < hauteur && !salleBossPlacee) {
                     if(tabSalles[xBoss][yBoss] != null){
-                        tabSalles[xBoss][yBoss] = new Salle5(world);
+                        tabSalles[xBoss][yBoss] = new SalleBoss(world, idEtage);
                         salleBossPlacee = true;
                     }
                     xBoss++;
@@ -179,7 +178,7 @@ public class Etage {
                 xSalle = Math.abs(world.getNextRandom()%largeur);
                 ySalle = Math.abs(world.getNextRandom()%hauteur);
             }
-            tabSalles[xSalle][ySalle] = new Salle5(world);
+        tabSalles[xSalle][ySalle] = new SalleBoss(world, idEtage);
             salleBossPlacee = true;
         }
 
@@ -189,7 +188,7 @@ public class Etage {
                 ySalle = Math.abs(world.getNextRandom()%hauteur);
             }
 
-            tabSalles[xSalle][ySalle] = generateur.genererSalle(true);
+            tabSalles[xSalle][ySalle] = generateur.genererSalle(idEtage,true);
         }
 
         generationPortes();
@@ -220,7 +219,7 @@ public class Etage {
      * @return une salle choisie aléatoirement
      */
     public Salle getRandomSalle(GenerateurSalle generateur){
-        return generateur.genererSalle(false);
+        return generateur.genererSalle(idEtage, false);
     }
 
     /**

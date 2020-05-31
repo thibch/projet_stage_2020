@@ -13,7 +13,7 @@ public class SalleVide extends Salle {
      * @param world   le monde dans lequel la salle est générée
      */
     public SalleVide(GameWorld world) {
-        super(world, 0, 0);
+        super(world, 0, 0, 0);
 
         tileMap = null;
         props = null;

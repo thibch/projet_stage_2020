@@ -25,9 +25,9 @@ public class Monde {
 
     private void generationMonde() {
         GenerateurSalle generateurSalle = new GenerateurSalle(world);
-        etages.add(new Etage(world, generateurSalle));
-        etages.add(new Etage(world, generateurSalle));
-        etages.add(new Etage(world, generateurSalle));
+        etages.add(new Etage(world, 0, generateurSalle));
+        etages.add(new Etage(world, 1, generateurSalle));
+        etages.add(new Etage(world, 2, generateurSalle));
     }
 
     public boolean estFinMonde(){

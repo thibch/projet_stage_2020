@@ -4,7 +4,6 @@ import com.badlogic.gdx.files.FileHandle;
 import fr.projetstage.models.monde.salle.Salle;
 
 import java.io.*;
-import java.util.ArrayList;
 
 /**
  * Lecteur de fichier

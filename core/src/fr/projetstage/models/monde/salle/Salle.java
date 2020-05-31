@@ -28,6 +28,7 @@ public abstract class Salle {
 
     protected final int largeur;
     protected final int hauteur;
+    protected final int idEtage;
 
     protected ArrayList<Entite> tileMap;
     protected ArrayList<Prop> props;
@@ -51,13 +52,15 @@ public abstract class Salle {
      * Salle généré avec un body Static et des portes pour sortir
      * Les salles sont forcement rectangulaire
      * @param world le monde dans lequel la salle est générée
+     * @param idEtage
      * @param largeur largeur en nombre de case de la salle
      * @param hauteur hauteur en nombre de case de la salle
      */
-    public Salle(GameWorld world, int largeur, int hauteur){
+    public Salle(GameWorld world, int idEtage, int largeur, int hauteur){
         this.hauteur = hauteur;
         this.largeur = largeur;
         this.world = world;
+        this.idEtage = idEtage;
 
         tileMap = new ArrayList<>();
         props = new ArrayList<>();
@@ -87,12 +90,31 @@ public abstract class Salle {
 
     private Ennemi getRandomEnnemi(float x, float y){
         int rand = Math.abs(world.getNextRandom()%100);
-        if(rand <= 33){
-            return new ChauveSouris(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
-        }else if(rand <= 66){
-            return new Goblin(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+        if(idEtage == 0){
+            if(rand <= 33){
+                return new ChauveSouris(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }else if(rand <= 66){
+                return new Goblin(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }else{
+                return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }
+        }else if (idEtage == 1){
+            if(rand <= 33){
+                return new OrcGuerrier(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }else if(rand <= 66){
+                return new OrcMasque(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }else{
+                return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }
         }else{
-            return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            if(rand <= 33){
+                return new Chort(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }else if(rand <= 66){
+                return new Wogol(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }else{
+                return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+            }
+
         }
     }
 
@@ -106,7 +128,7 @@ public abstract class Salle {
         if(rand <= 20){
             return new PackDeFleches(world, new Vector2(x, y), nbObjetAuSols);
         }else if(rand <= 40){
-            return new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols);
+            return new PackDeFleches(world, new Vector2(x, y), nbObjetAuSols);
         }else if (rand <= 60){
             return new PotionVieRouge(world, new Vector2(x, y), nbObjetAuSols);
         }else{

@@ -20,6 +20,7 @@ public class PackDeFleches extends Consommable {
     @Override
     public void applyEffect() {
         world.getJoueur().addMunition(1);
+        detruit = true;
     }
 
     @Override

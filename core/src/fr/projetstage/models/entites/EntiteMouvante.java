@@ -17,6 +17,7 @@ public abstract class EntiteMouvante implements Entite {
     private int pointDeVie;
     private int pointdeVieMax;
 
+    private float maxSpeed = 3f;
     private float speed = 1f;
 
     private int degats; //TODO : a definir par rapport a l'arme plus tard
@@ -101,7 +102,11 @@ public abstract class EntiteMouvante implements Entite {
      * @param speed un float de la nouvelle vitesse de l'entite
      */
     public void setSpeed(float speed) {
-        this.speed = speed;
+        if(speed > maxSpeed){
+            this.speed = maxSpeed;
+        }else{
+            this.speed = speed;
+        }
     }
 
     /**

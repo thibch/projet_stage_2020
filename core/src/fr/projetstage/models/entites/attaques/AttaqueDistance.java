@@ -84,7 +84,6 @@ public class AttaqueDistance extends Attaque {
         this.position = position;
         this.direction = direction;
         isCharging = true;
-        System.out.println(flecheActuelle == null?0 + " ":flecheActuelle.isLaunched() + " ");
         if(flecheActuelle == null || flecheActuelle.isLaunched()){
             flecheActuelle = flecheFactory.getNewProjectile(position, direction);
         }else{
