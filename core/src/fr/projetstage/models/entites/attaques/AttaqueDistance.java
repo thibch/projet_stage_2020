@@ -16,7 +16,7 @@ public class AttaqueDistance extends Attaque {
     private Orientation direction;
     private final Animation animation;
 
-    private final float speed;
+    private float speed;
 
     private boolean isCharging;
 
@@ -45,6 +45,14 @@ public class AttaqueDistance extends Attaque {
         flecheActuelle.launch(direction, speed, id);
 
         munition -= 1;
+
+        animation.reset();
+        isCharging = false;
+        return flecheActuelle;
+    }
+
+    public Projectile attaqueDistanceJoueur(Vector2 positionLanceur, int id){
+        flecheActuelle.launch(world.getJoueur().getPosition().sub(positionLanceur),speed,id);
 
         animation.reset();
         isCharging = false;
@@ -104,4 +112,7 @@ public class AttaqueDistance extends Attaque {
         flecheActuelle.draw(batch, x, y);
     }
 
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
 }

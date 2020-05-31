@@ -25,7 +25,7 @@ public class ChercheurFichiers{
      * @param dossier dossier où se trouve les fichiers
      */
     public void trouverFichiersDansDossier(String dossier){
-        FileHandle repertoire = Gdx.files.local("android/assets/" + dossier);
+        FileHandle repertoire = Gdx.files.local( dossier);
         if(repertoire.isDirectory()){
             //On récupère le contenu du répertoire
             FileHandle[] contenuRep = repertoire.list();

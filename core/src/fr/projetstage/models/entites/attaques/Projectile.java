@@ -47,6 +47,15 @@ public abstract class Projectile extends EntiteMouvante {
         }
     }
 
+    public void launch(Vector2 direction, float speed, int id){
+        generateBody();
+        if(body != null){
+            estLancee = true;
+            body.setLinearVelocity(new Vector2((float) ((direction.x/(Math.pow(direction.x,2)+Math.pow(direction.y,2)))*speed),(float) ((direction.y/(Math.pow(direction.x,2)+Math.pow(direction.y,2)))*speed)));
+            body.setUserData(new Type(TypeEntite.DISTANCE_EN, id));
+        }
+    }
+
     /**
      * Getter si la flèche est lancée dans le monde ou non
      * @return vrai si la flèche est lancée

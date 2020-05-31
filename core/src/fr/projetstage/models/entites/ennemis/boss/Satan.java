@@ -7,13 +7,19 @@ import com.badlogic.gdx.physics.box2d.Filter;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.CollisionFilter;
+import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
+import fr.projetstage.models.entites.attaques.AttaqueDistance;
+import fr.projetstage.models.entites.attaques.DagueFactory;
+import fr.projetstage.models.entites.attaques.Projectile;
+import fr.projetstage.models.entites.attaques.TridentFactory;
 import fr.projetstage.models.entites.ennemis.Comportement;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Satan extends Ennemi {
@@ -26,6 +32,9 @@ public class Satan extends Ennemi {
     private long timeLastStun;
 
     private Salle salle;
+
+    private AttaqueDistance attaqueDistance;
+    private ArrayList<Projectile> projectiles;
 
     /**
      * Constructeur d'un Satan ( boss )
@@ -56,6 +65,9 @@ public class Satan extends Ennemi {
         idleAnimation = new Animation(TextureFactory.getInstance().getBigDemonIdleSpriteSheet(),4,0.5f);
         runningAnimation = new Animation(TextureFactory.getInstance().getBigDemonRunSpriteSheet(),4,0.5f);
 
+        attaqueDistance = new AttaqueDistance(world, new TridentFactory(world,5f/16f, 5f/16f), 1f);
+        attaqueDistance.setSpeed(100f);
+        projectiles = new ArrayList<>();
     }
 
     @Override
@@ -87,6 +99,10 @@ public class Satan extends Ennemi {
 
         }
 
+        for(Projectile proj : projectiles){
+            proj.draw(batch, x, y);
+        }
+
         super.draw(batch, x, y);
     }
 
@@ -104,6 +120,13 @@ public class Satan extends Ennemi {
             body.setLinearVelocity(body.getLinearVelocity().x*10f,body.getLinearVelocity().y*10f);
             timeLastCharge = System.currentTimeMillis()+ (chargeCoolDown*1000);
             timeLastStun = System.currentTimeMillis()+1500;
+        }
+
+        if(currentTime < 3f){
+            attaqueDistance.charge(getPosition(), Orientation.DROITE);
+        }else{
+            projectiles.add(attaqueDistance.attaqueDistanceJoueur(new Vector2(getPosition().x, getPosition().y), projectiles.size()));
+            currentTime = 0;
         }
 
         comportement.getBehavior().setEnabled(System.currentTimeMillis() > timeLastStun);

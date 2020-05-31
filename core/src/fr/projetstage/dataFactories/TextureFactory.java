@@ -89,6 +89,10 @@ public class TextureFactory {
     // Armes
     private static Texture epee;
     private static Texture fleche;
+    private static Texture dague;
+    private static Texture fireBall;
+    private static Texture batonMagique;
+    private static Texture trident;
 
     // Objets au sol
     private static Texture potionRouge;
@@ -256,6 +260,11 @@ public class TextureFactory {
         // Armes
         epee = new Texture(Gdx.files.internal("weapons/weapon_sword.png"));
         fleche = new Texture(Gdx.files.internal("weapons/arrow.png"));
+        dague = new Texture(Gdx.files.internal("enemies/normal/goblin/goblin_knife.png"));
+        fireBall = new Texture(Gdx.files.internal("weapons/fireball.png"));
+        batonMagique = new Texture(Gdx.files.internal("weapons/weapon_red_magic_staff.png"));
+        trident = new Texture(Gdx.files.internal("weapons/trident.png"));
+
 
         // Objets au sol
         potionRouge = new Texture(Gdx.files.internal("props_items/potion_red.png"));
@@ -816,6 +825,38 @@ public class TextureFactory {
     }
 
     /**
+     * Getter pour l'image de la dague
+     * @return Getter pour l'image de la dague
+     */
+    public Texture getDague() {
+        return dague;
+    }
+
+    /**
+     * Getter pour l'image du trident
+     * @return Getter pour l'image du trident
+     */
+    public Texture getTrident() {
+        return trident;
+    }
+
+    /**
+     * Getter pour l'image du baton magique
+     * @return Getter pour l'image du baton magique
+     */
+    public Texture getBatonMagique() {
+        return batonMagique;
+    }
+
+    /**
+     * Getter pour l'image de la boule de feu
+     * @return Getter pour l'image de la boule de feu
+     */
+    public Texture getFireBall() {
+        return fireBall;
+    }
+
+    /**
      * Getter pour l'image de la potion rouge
      * @return Getter pour l'image de la potion rouge
      */
@@ -1140,7 +1181,7 @@ public class TextureFactory {
                 drapeauVert, drapeauRouge, prisoner,
                 background, titleScreen, pauseBtn, pauseBtnPressed, btn, btnPressed, inputText, textCursor, textSelect, coeurPlein, coeurMoitie, coeurVide, bowUI, swordUI,
                 salleCourante, salleNonVisitee, salleVisitee,
-                epee, fleche,
+                epee, fleche, dague, fireBall, batonMagique, trident,
                 potionRouge, potionJaune, potionVerte, crane, sunglasses, coffreOpen,
                 joueurIdleSpriteSheet.getTexture(),
                 joueurRunningSpriteSheet.getTexture(),

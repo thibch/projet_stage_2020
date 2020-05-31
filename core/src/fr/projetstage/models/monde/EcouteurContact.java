@@ -1,8 +1,10 @@
 package fr.projetstage.models.monde;
 
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
+import fr.projetstage.models.entites.ennemis.Goblin;
 
 
 public class EcouteurContact implements ContactListener {
@@ -40,6 +42,16 @@ public class EcouteurContact implements ContactListener {
                 Fixture fixtureEnnemi = check(fixtureA, fixtureB, TypeEntite.ENNEMI);
                 if(fixtureEnnemi != null){
                     world.setEnnemiTouche(((Type)fixtureEnnemi.getBody().getUserData()).getId(), world.getJoueur());
+                    // Destroy fixtureFleche
+                }
+            }
+
+            Fixture fixtureDague = check(fixtureA, fixtureB, TypeEntite.DISTANCE_EN);
+
+            if(fixtureDague != null){
+                Fixture fixtureJoueur = check(fixtureA, fixtureB, TypeEntite.JOUEUR);
+                if(fixtureJoueur != null){
+                    world.getJoueur().setPointDeVie(world.getJoueur().getPointDeVie()-1);
                     // Destroy fixtureFleche
                 }
             }

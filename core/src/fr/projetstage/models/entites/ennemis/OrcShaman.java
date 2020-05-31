@@ -1,34 +1,28 @@
 package fr.projetstage.models.entites.ennemis;
 
-import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Filter;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.CollisionFilter;
-import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.attaques.AttaqueDistance;
-import fr.projetstage.models.entites.attaques.DagueFactory;
-import fr.projetstage.models.entites.attaques.FlecheFactory;
-import fr.projetstage.models.entites.attaques.Projectile;
-import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.salle.Salle;
 
-import java.util.ArrayList;
 
-public class Goblin extends Ennemi {
+public class OrcShaman extends Ennemi {
 
-    private AttaqueDistance attaqueDistance;
-    private ArrayList<Projectile> projectiles;
+    private Salle salle;
+    private int healCoolDown = 3;
+    private long cooldown;
 
     /**
      * @param world    le gameworld
      * @param position la position de l'ennemi
      * @param type     le type de l'ennemi
      */
-    public Goblin(GameWorld world, Vector2 position, Type type) {
+    public OrcShaman(GameWorld world, Vector2 position, Type type, Salle salle) {
         super(world, position, type);
         // Stats
         setPointdeVieMax(3);
@@ -40,15 +34,12 @@ public class Goblin extends Ennemi {
         hauteur = (12f / 16f);
         largeur = (10f / 16f);
 
+        this.salle = salle;
         this.position = position;
+        cooldown = System.currentTimeMillis();
 
-        idleAnimation = new Animation(TextureFactory.getInstance().getGoblinIdleSpriteSheet(),6,0.5f);
-        runningAnimation = new Animation(TextureFactory.getInstance().getGoblinRunSpriteSheet(),6,0.5f);
-
-
-        attaqueDistance = new AttaqueDistance(world, new DagueFactory(world,5f/16f, 5f/16f), 1f);
-        attaqueDistance.setSpeed(100f);
-        projectiles = new ArrayList<>();
+        idleAnimation = new Animation(TextureFactory.getInstance().getOrcShamanIdleSpriteSheet(),4,0.5f);
+        runningAnimation = new Animation(TextureFactory.getInstance().getOrcShamanRunSpriteSheet(),4,0.5f);
 
     }
 
@@ -56,8 +47,6 @@ public class Goblin extends Ennemi {
     public void generateBody() {
         super.generateBody();
 
-        this.comportement = new Comportement(body, 0f);
-        comportement.setBehavior(new Arrive<>(comportement, new LocationJoueur(world)));
         Filter tmp = new Filter();
         tmp.categoryBits = CollisionFilter.MONSTRESOL.getCategory();
         tmp.maskBits =(short) (CollisionFilter.JOUEUR.getCategory() | CollisionFilter.DECOR.getCategory());
@@ -79,8 +68,9 @@ public class Goblin extends Ennemi {
             }
         }
 
-        for(Projectile proj : projectiles){
-            proj.draw(batch, x, y);
+        //baton
+        if(System.currentTimeMillis() < cooldown - 2000){
+            batch.draw(TextureFactory.getInstance().getBatonMagique(), x-0.2f + getPosition().x, y + getPosition().y, 0.4f, 1.3f);
         }
 
         super.draw(batch, x, y);
@@ -90,11 +80,15 @@ public class Goblin extends Ennemi {
     public void update() {
         super.update();
 
-        if(currentTime < 3f){
-            attaqueDistance.charge(getPosition(), Orientation.DROITE);
-        }else{
-            projectiles.add(attaqueDistance.attaqueDistanceJoueur(new Vector2(getPosition().x, getPosition().y), projectiles.size()));
-            currentTime = 0;
+        if(System.currentTimeMillis() > cooldown){
+            int nbEnnemis = salle.getNbEnnemis();
+            for(int i = 0; i < nbEnnemis; i++){
+                try{
+                    salle.getEnnemi(i).setPointDeVie(salle.getEnnemi(i).getPointDeVie()+1);
+                }catch (Exception e){/*ennemi mort en cours d'update*/}
+            }
+            cooldown = System.currentTimeMillis() + healCoolDown*1000;
         }
+
     }
 }
