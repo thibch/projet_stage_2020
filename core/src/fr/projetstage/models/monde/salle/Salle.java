@@ -104,7 +104,7 @@ public abstract class Salle {
             }else if(rand <= 66){
                 return new OrcMasque(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
             }else{
-                return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+                return new OrcShaman(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis), this);
             }
         }else{
             if(rand <= 33){
@@ -112,7 +112,7 @@ public abstract class Salle {
             }else if(rand <= 66){
                 return new Wogol(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
             }else{
-                return new Slime(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis));
+                return new Imp(world, new Vector2(x, y), new Type(TypeEntite.ENNEMI, nbEnnemis), this);
             }
 
         }
