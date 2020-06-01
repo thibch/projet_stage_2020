@@ -15,6 +15,7 @@ public class Etage {
     private final GameWorld world;
     private Salle[][] tabSalles;
     private int idEtage;
+    private Monde monde;
 
     private int largeur;
     private int hauteur;
@@ -24,9 +25,11 @@ public class Etage {
     /**
      * Etage du monde
      * @param world le gameworld
+     * @param monde
      */
-    public Etage(GameWorld world, int idEtage, GenerateurSalle generateur){
+    public Etage(GameWorld world, Monde monde, int idEtage, GenerateurSalle generateur){
         this.world = world;
+        this.monde = monde;
         largeur = 5;
         hauteur = 5;
         tabSalles = new Salle[largeur][hauteur];
@@ -48,7 +51,7 @@ public class Etage {
      */
     public void generationEtage(GenerateurSalle generateur, int nbSalleTotal, int nbSalleCoffre){
         assert (nbSalleCoffre > nbSalleTotal-2):"Erreur, il ne pas peut avoir plus de salle avec Coffre que de Salle au total";
-        tabSalles[xCourant][yCourant] = new SalleSpawn(world);
+        tabSalles[xCourant][yCourant] = new SalleSpawn(world, monde);
 
         LinkedList<Vector2> queuePosi = new LinkedList<>();
         queuePosi.add(new Vector2(xCourant, yCourant));
@@ -150,7 +153,7 @@ public class Etage {
                 yBoss = 0;
                 while (yBoss < hauteur && !salleBossPlacee) {
                     if(tabSalles[xBoss][yBoss] != null){
-                        tabSalles[xBoss][yBoss] = new SalleBoss(world, idEtage);
+                        tabSalles[xBoss][yBoss] = new SalleBoss(world, monde, idEtage);
                         salleBossPlacee = true;
                     }
                     yBoss++;
@@ -162,7 +165,7 @@ public class Etage {
                 xBoss = 0;
                 while (xBoss < hauteur && !salleBossPlacee) {
                     if(tabSalles[xBoss][yBoss] != null){
-                        tabSalles[xBoss][yBoss] = new SalleBoss(world, idEtage);
+                        tabSalles[xBoss][yBoss] = new SalleBoss(world, monde, idEtage);
                         salleBossPlacee = true;
                     }
                     xBoss++;
@@ -178,7 +181,7 @@ public class Etage {
                 xSalle = Math.abs(world.getNextRandom()%largeur);
                 ySalle = Math.abs(world.getNextRandom()%hauteur);
             }
-        tabSalles[xSalle][ySalle] = new SalleBoss(world, idEtage);
+        tabSalles[xSalle][ySalle] = new SalleBoss(world, monde, idEtage);
             salleBossPlacee = true;
         }
 
@@ -188,7 +191,7 @@ public class Etage {
                 ySalle = Math.abs(world.getNextRandom()%hauteur);
             }
 
-            tabSalles[xSalle][ySalle] = generateur.genererSalle(idEtage,true);
+            tabSalles[xSalle][ySalle] = generateur.genererSalle(idEtage, monde,true);
         }
 
         generationPortes();
@@ -219,7 +222,7 @@ public class Etage {
      * @return une salle choisie aléatoirement
      */
     public Salle getRandomSalle(GenerateurSalle generateur){
-        return generateur.genererSalle(idEtage, false);
+        return generateur.genererSalle(idEtage, monde,false);
     }
 
     /**

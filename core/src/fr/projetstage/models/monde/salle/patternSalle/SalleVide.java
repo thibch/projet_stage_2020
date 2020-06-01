@@ -1,6 +1,7 @@
 package fr.projetstage.models.monde.salle.patternSalle;
 
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.Monde;
 import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.EtatSalle;
 import fr.projetstage.models.monde.salle.Salle;
@@ -12,8 +13,8 @@ public class SalleVide extends Salle {
      *
      * @param world   le monde dans lequel la salle est générée
      */
-    public SalleVide(GameWorld world) {
-        super(world, 0, 0, 0);
+    public SalleVide(GameWorld world, Monde monde) {
+        super(world, monde, 0, 0, 0);
 
         tileMap = null;
         props = null;

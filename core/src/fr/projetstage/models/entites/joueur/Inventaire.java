@@ -36,6 +36,10 @@ public class Inventaire {
         obj.reverseEffect();
     }
 
+    public boolean checkIfExist(ObjetsTousTypes obj){
+        return contenu.contains(obj);
+    }
+
     /**
      * Permet de recuperer le contenu de l'inventaire pour l'afficher
      * @return l'arraylist de l'inventaire

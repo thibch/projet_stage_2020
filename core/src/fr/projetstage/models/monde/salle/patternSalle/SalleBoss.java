@@ -8,6 +8,7 @@ import fr.projetstage.models.entites.ennemis.boss.Ogre;
 import fr.projetstage.models.entites.ennemis.boss.Satan;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.Monde;
 import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.solEtMurs.Escalier;
@@ -16,8 +17,8 @@ public class SalleBoss extends Salle {
 
     private boolean added = false;
 
-    public SalleBoss(GameWorld world, int idEtage) {
-        super(world, idEtage, 16, 10);
+    public SalleBoss(GameWorld world, Monde monde, int idEtage) {
+        super(world, monde, idEtage, 16, 10);
     }
 
     @Override

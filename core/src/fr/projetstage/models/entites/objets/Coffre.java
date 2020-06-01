@@ -36,7 +36,7 @@ public class Coffre extends ObjetsTousTypes {
      * @param id l'id du piedestal dans la salle
      */
     public Coffre(GameWorld world, Vector2 position, Equipement objet, int id){
-        super(world, position, id);
+        super(world, position, id, "Coffre");
         this.world = world;
         this.objet = objet;
         open = false;

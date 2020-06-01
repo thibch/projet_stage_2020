@@ -6,6 +6,8 @@ import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.models.Entite;
 import fr.projetstage.models.monde.GameWorld;
 
+import java.util.Objects;
+
 public abstract class ObjetsTousTypes implements Entite {
 
     protected GameWorld world;
@@ -15,17 +17,20 @@ public abstract class ObjetsTousTypes implements Entite {
 
     private boolean touche;
     protected boolean detruit;
+    private String nom;
 
     /**
      * Constructeur d'un objet
      * @param world le monde dans lequel se trouve l'objet
      * @param position la position de l'objet dans le monde
      * @param id l'id de l'objet permettant de l'identifier
+     * @param nom nom de l'objet
      */
-    public ObjetsTousTypes(GameWorld world, Vector2 position, int id) {
+    public ObjetsTousTypes(GameWorld world, Vector2 position, int id, String nom) {
         this.world = world;
         this.position = position;
         this.id = id;
+        this.nom = nom;
     }
 
     /**
@@ -102,4 +107,16 @@ public abstract class ObjetsTousTypes implements Entite {
      * @return un String de la description de l'objet
      */
     public abstract String getDescription();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ObjetsTousTypes that = (ObjetsTousTypes) o;
+        return nom.equals(that.nom);
+    }
+
+    public String getNom() {
+        return nom;
+    }
 }

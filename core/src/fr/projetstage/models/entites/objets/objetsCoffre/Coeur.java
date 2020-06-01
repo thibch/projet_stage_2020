@@ -12,8 +12,7 @@ public class Coeur extends Equipement {
      * @param world le monde dans lequel existe l'objet
      */
     public Coeur(GameWorld world) {
-        super(world);
-        nom = "Coeur";
+        super(world, "Coeur");
     }
 
     @Override

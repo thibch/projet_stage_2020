@@ -12,8 +12,7 @@ public class Sunglasses extends Equipement {
      * @param world le monde dans lequel existe l'objet
      */
     public Sunglasses(GameWorld world) {
-        super(world);
-        nom = "Sunglasses";
+        super(world, "Sunglasses");
     }
 
     @Override

@@ -12,8 +12,7 @@ public class PotionAttaque extends Equipement {
      * @param world le monde dans lequel existe l'objet
      */
     public PotionAttaque(GameWorld world) {
-        super(world);
-        nom = "Strange Brewing";
+        super(world, "Strange Brewing");
     }
 
     @Override

@@ -3,6 +3,7 @@ package fr.projetstage.models.monde.salle.patternSalle.fichiers;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.Monde;
 import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Biblio;
@@ -91,11 +92,11 @@ public class GenerateurSalle {
         x++;
     }
 
-    public Salle genererSalle(int idEtage, boolean salleAvecCoffre){
+    public Salle genererSalle(int idEtage, Monde monde, boolean salleAvecCoffre){
         FileHandle fichier;
         if(salleAvecCoffre){
             fichier = chercheurAvecCoffre.get(world.getNextRandom());
-            return new Salle(world, idEtage, 16, 10) {
+            return new Salle(world, monde,idEtage, 16, 10) {
                 @Override
                 public void genererSalle() {
                     x = 0;
@@ -111,7 +112,7 @@ public class GenerateurSalle {
             };
         }else{
             fichier = chercheurSansCoffre.get(world.getNextRandom());
-            return new Salle(world, idEtage, 16, 10) {
+            return new Salle(world, monde, idEtage, 16, 10) {
                 @Override
                 public void genererSalle() {
                     x = 0;

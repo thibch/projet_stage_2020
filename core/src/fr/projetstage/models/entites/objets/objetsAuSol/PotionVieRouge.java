@@ -9,7 +9,7 @@ import fr.projetstage.models.monde.GameWorld;
 public class PotionVieRouge extends Consommable {
 
     public PotionVieRouge(GameWorld world, Vector2 position, int id) {
-        super(world, position, new Vector2(4f/16f,4f/16f), 7f/16f, 10f/16f, id);
+        super(world, position, new Vector2(4f/16f,4f/16f), 7f/16f, 10f/16f, id, "PotionVieRouge");
     }
 
     @Override

@@ -16,6 +16,7 @@ import fr.projetstage.models.entites.objets.objetsAuSol.PackDeFleches;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.objetsCoffre.*;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.Monde;
 import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.solEtMurs.*;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Obstacle;
@@ -29,6 +30,7 @@ public abstract class Salle {
     protected final int largeur;
     protected final int hauteur;
     protected final int idEtage;
+    private final Monde monde;
 
     protected ArrayList<Entite> tileMap;
     protected ArrayList<Prop> props;
@@ -52,15 +54,17 @@ public abstract class Salle {
      * Salle généré avec un body Static et des portes pour sortir
      * Les salles sont forcement rectangulaire
      * @param world le monde dans lequel la salle est générée
-     * @param idEtage
+     * @param monde Monde dans lequel se trouve la salle
+     * @param idEtage id de l'étage
      * @param largeur largeur en nombre de case de la salle
      * @param hauteur hauteur en nombre de case de la salle
      */
-    public Salle(GameWorld world, int idEtage, int largeur, int hauteur){
+    public Salle(GameWorld world, Monde monde, int idEtage, int largeur, int hauteur){
         this.hauteur = hauteur;
         this.largeur = largeur;
         this.world = world;
         this.idEtage = idEtage;
+        this.monde = monde;
 
         tileMap = new ArrayList<>();
         props = new ArrayList<>();
@@ -144,17 +148,37 @@ public abstract class Salle {
     }
 
     private Coffre getRandomCoffre(float x, float y){
-        int rand = Math.abs(world.getNextRandom()%100);
-        if(rand <= 20){
-            return new Coffre(world, new Vector2(x,y), new Coeur(world), nbObjetAuSols);
-        }else if(rand <= 40){
-            return new Coffre(world, new Vector2(x,y), new Crane(world), nbObjetAuSols);
-        }else if (rand <= 60){
-            return new Coffre(world, new Vector2(x,y), new PotionAttaque(world), nbObjetAuSols);
-        }else if(rand <= 80) {
-            return new Coffre(world, new Vector2(x,y), new Sunglasses(world), nbObjetAuSols);
-        }else{
-            return new Coffre(world, new Vector2(x,y), new PotionVitesse(world), nbObjetAuSols);
+        Equipement obj;
+        int rand;
+        while(true){
+            rand = Math.abs(world.getNextRandom()%100);
+            if(rand <= 25){
+                obj = new Coeur(world);
+                monde.addObject(obj);
+                return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
+            }else if (rand <= 50){
+                obj = new PotionAttaque(world);
+                monde.addObject(obj);
+                return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
+            }else if(rand <= 75) {
+                obj = new PotionVitesse(world);
+                monde.addObject(obj);
+                return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
+            }else{
+                if(rand <= 87){
+                    obj = new Crane(world);
+                    if(!monde.checkIfExists(obj)){
+                        monde.addObject(obj);
+                        return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
+                    }
+                }else{
+                    obj = new Sunglasses(world);
+                    if(!monde.checkIfExists(obj)){
+                        monde.addObject(obj);
+                        return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
+                    }
+                }
+            }
         }
     }
 

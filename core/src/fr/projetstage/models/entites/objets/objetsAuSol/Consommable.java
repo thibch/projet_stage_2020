@@ -25,8 +25,8 @@ public abstract class Consommable extends ObjetsTousTypes {
      * @param hauteur la hauteur de l'objet
      * @param id l'id unique de l'objet
      */
-    public Consommable(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id){
-        super(world, position, id);
+    public Consommable(GameWorld world, Vector2 position, Vector2 posShape, float largeur, float hauteur, int id, String nom){
+        super(world, position, id, nom);
         this.posShape = posShape;
         this.largeur = largeur;
         this.hauteur = hauteur;

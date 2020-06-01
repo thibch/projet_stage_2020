@@ -9,6 +9,7 @@ import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
 import fr.projetstage.models.monde.GameWorld;
+import fr.projetstage.models.monde.Monde;
 import fr.projetstage.models.monde.TypeSalle;
 import fr.projetstage.models.monde.salle.Salle;
 import fr.projetstage.models.monde.salle.solEtMurs.meubles.Biblio;
@@ -23,8 +24,8 @@ public class SalleSpawn extends Salle {
      *
      * @param world   le monde dans lequel la salle est générée
      */
-    public SalleSpawn(GameWorld world) {
-        super(world, 0, 16, 10);
+    public SalleSpawn(GameWorld world, Monde monde) {
+        super(world, monde, 0, 16, 10);
     }
 
     @Override

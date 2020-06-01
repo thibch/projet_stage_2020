@@ -12,8 +12,7 @@ public class Crane extends Equipement {
      * @param world le monde dans lequel existe l'objet
      */
     public Crane(GameWorld world) {
-        super(world);
-        nom = "Hector";
+        super(world, "Crane");
     }
 
     @Override

@@ -8,8 +8,7 @@ import fr.projetstage.models.monde.GameWorld;
 public class PotionVitesse extends Equipement {
 
     public PotionVitesse(GameWorld world) {
-        super(world);
-        nom = "Potion Jaune";
+        super(world, "Potion Jaune");
     }
 
     @Override
