@@ -35,17 +35,17 @@ public class BarreDeVie extends Actor {
         // Affiche les PV du joueur
         int cpt = 0;
         //Coeurs plein
-        for(int i = 0; i < gameWorld.getJoueur().getPointDeVie()/2; i++){
+        for(int i = 0; i < (int)(gameWorld.getJoueur().getPointDeVie())/2; i++){
             batch.draw(TextureFactory.getInstance().getCoeurPlein(), i*getWidth() + getX(),getY(), getWidth(), getHeight());
             cpt++;
         }
         //Coeur à moitié plein
-        if(gameWorld.getJoueur().getPointDeVie()%2 == 1){
+        if((int)(gameWorld.getJoueur().getPointDeVie())%2 == 1){
             batch.draw(TextureFactory.getInstance().getCoeurMoitie(), cpt*getWidth() + getX(),getY(), getWidth(), getHeight());
             cpt++;
         }
         //Coeurs vide
-        for(int i = 0; i < (gameWorld.getJoueur().getPointdeVieMax()-gameWorld.getJoueur().getPointDeVie())/2; i++){
+        for(int i = 0; i < ((int)(gameWorld.getJoueur().getPointdeVieMax())-(int)(gameWorld.getJoueur().getPointDeVie()))/2; i++){
             batch.draw(TextureFactory.getInstance().getCoeurVide(), cpt*getWidth() + getX(),getY(), getWidth(), getHeight());
             cpt++;
         }

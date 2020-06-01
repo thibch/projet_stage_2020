@@ -167,16 +167,12 @@ public abstract class Salle {
             }else{
                 if(rand <= 87){
                     obj = new Crane(world);
-                    if(!monde.checkIfExists(obj)){
-                        monde.addObject(obj);
-                        return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
-                    }
                 }else{
                     obj = new Sunglasses(world);
-                    if(!monde.checkIfExists(obj)){
-                        monde.addObject(obj);
-                        return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
-                    }
+                }
+                if(!monde.checkIfExists(obj)){
+                    monde.addObject(obj);
+                    return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
                 }
             }
         }
