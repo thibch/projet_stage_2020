@@ -35,10 +35,10 @@ public class Goblin extends Ennemi {
         setPointDeVie(3);
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(1.4f);
+        setSpeed(0.5f);
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.position = position;
 
@@ -47,7 +47,7 @@ public class Goblin extends Ennemi {
 
 
         attaqueDistance = new AttaqueDistance(world, new DagueFactory(world,5f/16f, 5f/16f), 1f);
-        attaqueDistance.setSpeed(100f);
+        attaqueDistance.setSpeed(50f);
         projectiles = new ArrayList<>();
 
     }
