@@ -29,8 +29,8 @@ public class Slime extends Ennemi {
         setDegats(1);
         coolDownTime = 1f;
 
-        hauteur = (12f / 16f);
-        largeur = (16f / 16f);
+        hauteur = (10f / 16f);
+        largeur = (12f / 16f);
 
         this.position = position;
 

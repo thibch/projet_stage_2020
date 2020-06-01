@@ -21,7 +21,7 @@ public class Necromancer extends Ennemi {
     private Salle salle;
     private ArrayList<Skelet> invocations;
     private int nbInvocs;
-    private int invocationCoolDown = 4;
+    private int invocationCoolDown = 8;
     private long timelastInvocation;
 
     /**
@@ -39,12 +39,12 @@ public class Necromancer extends Ennemi {
         // Stats
         setPointdeVieMax(10);
         setPointDeVie(10);
-        setDegats(2);
+        setDegats(1);
         coolDownTime = 1f;
         timelastInvocation = System.currentTimeMillis();
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.position = position;
 
