@@ -639,6 +639,15 @@ public abstract class Salle {
         return pieges.get(id);
     }
 
+    public boolean isMeuble(Vector2 position){
+        for(Entite meuble : meubles){
+            if(meuble.getPosition().equals(position)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     @Override
     public String toString() {
         return "Salle{" +

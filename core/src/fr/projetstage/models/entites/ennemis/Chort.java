@@ -25,16 +25,16 @@ public class Chort extends Ennemi {
     public Chort(GameWorld world, Vector2 position, Type type) {
         super(world, position, type);
         // Stats
-        setPointdeVieMax(3);
-        setPointDeVie(3);
+        setPointdeVieMax(6);
+        setPointDeVie(6);
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(1.4f);
+        setSpeed(0.6f);
 
         timeLastCharge = System.currentTimeMillis();
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.position = position;
 

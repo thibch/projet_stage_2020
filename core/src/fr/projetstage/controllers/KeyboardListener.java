@@ -40,6 +40,14 @@ public class KeyboardListener implements InputProcessor {
     }
 
     /**
+     * Renvoie une booléen pour activer / desactiver l'affichage de pause
+     * @param pause le status du jeu
+     */
+    public void setPause(boolean pause) {
+        this.pause = pause;
+    }
+
+    /**
      * Renvoie une booléen pour activer / desactiver l'affichage debug
      * @return un booléen a vrai si la touche correspondante à été enfoncée
      */

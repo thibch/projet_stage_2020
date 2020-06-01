@@ -147,6 +147,11 @@ public class GameScreen extends ScreenAdapter {
      * @param delta le temps d'actualisation de l'affichage
      */
     public void update(float delta){
+        if(keyboardListener.isPause()){
+            userInterface.setPause(!userInterface.isPaused());
+            keyboardListener.setPause(false);
+        }
+
         if(!gameWorld.estEnTransition() && !userInterface.isGameOver() && !userInterface.isPaused()){
             Vector2 force;
             if(Gdx.app.getType() == Application.ApplicationType.Desktop && !keyboardListener.isAfficheMobile()){

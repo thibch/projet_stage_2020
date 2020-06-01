@@ -22,14 +22,14 @@ public class Wogol extends Ennemi {
     public Wogol(GameWorld world, Vector2 position, Type type) {
         super(world, position, type);
         // Stats
-        setPointdeVieMax(6);
-        setPointDeVie(3);
+        setPointdeVieMax(7);
+        setPointDeVie(5);
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(1.4f);
+        setSpeed(0.6f);
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.position = position;
 
@@ -70,8 +70,6 @@ public class Wogol extends Ennemi {
     @Override
     public void update() {
         super.update();
-
-        System.out.println(getPointDeVie());
 
         if(onCoolDown && currentTime > coolDownTime){ // a frappé le joueur regenere ce qu'il tape en pv
             setPointDeVie(getPointDeVie()+getDegats());

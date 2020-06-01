@@ -30,17 +30,17 @@ public class OrcMasque extends Ennemi {
     public OrcMasque(GameWorld world, Vector2 position, Type type) {
         super(world, position, type);
         // Stats
-        setPointdeVieMax(3);
-        setPointDeVie(3);
+        setPointdeVieMax(5);
+        setPointDeVie(5);
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(1.2f);
+        setSpeed(0.7f);
 
         hidden = true;
         timeLastFlee = System.currentTimeMillis();
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.position = position;
 

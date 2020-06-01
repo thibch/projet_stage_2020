@@ -46,7 +46,7 @@ public class Satan extends Ennemi {
         super(world, position, type);
         // Stats
         setPointdeVieMax(20);
-        setPointDeVie(10);
+        setPointDeVie(12);
         setDegats(1);
         coolDownTime = 1f;
         setSpeed(3f);
@@ -57,7 +57,7 @@ public class Satan extends Ennemi {
 
         this.salle = salle;
 
-        hauteur = (12f / 8f);
+        hauteur = (8f / 8f);
         largeur = (10f / 8f);
 
         this.position = position;

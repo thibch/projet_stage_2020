@@ -31,8 +31,8 @@ public class OrcShaman extends Ennemi {
         coolDownTime = 1f;
         setSpeed(1.4f);
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.salle = salle;
         this.position = position;

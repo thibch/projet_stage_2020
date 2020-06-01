@@ -35,7 +35,7 @@ public class Transition {
     public void update(){
         if(estEnCours){
             transi.interpolate(end, 0.02f, Interpolation.linear);
-            if(transi.epsilonEquals(end, 0.005f)){
+            if(transi.epsilonEquals(end, 0.05f)){
                 transi = new Vector2(end);
                 end = new Vector2(start);
                 start = new Vector2(transi);

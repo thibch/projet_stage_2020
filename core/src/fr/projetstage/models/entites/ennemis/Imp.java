@@ -38,8 +38,8 @@ public class Imp extends Ennemi {
     public Imp(GameWorld world, Vector2 position, Type type, Salle salle) {
         super(world, position, type);
         // Stats
-        setPointdeVieMax(3);
-        setPointDeVie(3);
+        setPointdeVieMax(4);
+        setPointDeVie(4);
         setDegats(1);
         coolDownTime = 1f;
         setSpeed(1.4f);
@@ -111,7 +111,11 @@ public class Imp extends Ennemi {
             if(System.currentTimeMillis() > coolDown){
                 Random rand = new Random();
                 if(rand.nextInt(3) == 1){
-                    body.setTransform(rand.nextInt(salle.getLargeur() - 1), rand.nextInt(salle.getHauteur() - 1), 0);
+                    Vector2 newPos = new Vector2(rand.nextInt(salle.getLargeur() - 1),rand.nextInt(salle.getHauteur() - 1));
+                    while(salle.isMeuble(newPos)){
+                        newPos = new Vector2(rand.nextInt(salle.getLargeur() - 1),rand.nextInt(salle.getHauteur() - 1));
+                    }
+                    body.setTransform(newPos.x, newPos.y, 0);
                 }
                 coolDown = System.currentTimeMillis()+ teleportCoolDown*1000;
             }

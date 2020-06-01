@@ -39,8 +39,8 @@ public class Ogre extends Ennemi {
     public Ogre(GameWorld world, Vector2 position, Type type, Salle salle) {
         super(world, position, type);
         // Stats
-        setPointdeVieMax(10);
-        setPointDeVie(10);
+        setPointdeVieMax(12);
+        setPointDeVie(12);
         currentHP = 10;
         setDegats(1);
         coolDownTime = 1f;
@@ -51,7 +51,7 @@ public class Ogre extends Ennemi {
         timeLastCharge = System.currentTimeMillis();
         this.salle = salle;
 
-        hauteur = (12f / 8f);
+        hauteur = (8f / 8f);
         largeur = (10f / 8f);
 
         this.position = position;
