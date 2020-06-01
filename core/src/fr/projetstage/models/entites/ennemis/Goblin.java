@@ -47,7 +47,7 @@ public class Goblin extends Ennemi {
 
 
         attaqueDistance = new AttaqueDistance(world, new DagueFactory(world,5f/16f, 5f/16f), 1f);
-        attaqueDistance.setSpeed(50f);
+        attaqueDistance.setSpeed(30f);
         projectiles = new ArrayList<>();
 
     }

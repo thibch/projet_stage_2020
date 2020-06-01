@@ -26,10 +26,10 @@ public class Skelet extends Ennemi {
         setPointDeVie(3);
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(1.4f);
+        setSpeed(0.6f);
 
-        hauteur = (12f / 16f);
-        largeur = (10f / 16f);
+        hauteur = (6f / 16f);
+        largeur = (8f / 16f);
 
         this.position = position;
 
