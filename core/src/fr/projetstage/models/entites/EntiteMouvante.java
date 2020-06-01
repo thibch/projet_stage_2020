@@ -14,13 +14,13 @@ public abstract class EntiteMouvante implements Entite {
     protected Body body;
     protected GameWorld world;
 
-    private int pointDeVie;
+    private float pointDeVie;
     private int pointdeVieMax;
 
     private float maxSpeed = 3f;
     private float speed = 1f;
 
-    private int degats; //TODO : a definir par rapport a l'arme plus tard
+    private float degats;
     private float knockback = 3f;
     protected float coolDownTime; //temps entre 2 attaques
     protected float coolDownTimeInvincible = 0.5f; //temps entre 2 attaques reçues
@@ -47,7 +47,7 @@ public abstract class EntiteMouvante implements Entite {
      * Methode permettant d'obtenir les points de vie actuels de l'entite
      * @return un entier des points des vie.
      */
-    public int getPointDeVie() {
+    public float getPointDeVie() {
         return pointDeVie;
     }
 
@@ -55,7 +55,7 @@ public abstract class EntiteMouvante implements Entite {
      * Methode permettant de changer le nombre de points de vie actuels de l'entite
      * @param pointDeVie le nouveau nombre de points de vie.
      */
-    public void setPointDeVie(int pointDeVie) {
+    public void setPointDeVie(float pointDeVie) {
         this.pointDeVie = Math.min(pointDeVie, pointdeVieMax);
     }
 
@@ -79,13 +79,13 @@ public abstract class EntiteMouvante implements Entite {
      * methode permettant de retourner le nombre de degats que fait l'entite
      * @return un entier des degats de l'entite
      */
-    public int getDegats() { return degats; }
+    public float getDegats() { return degats; }
 
     /**
      * methode permettant de changer les degats d'une entite
      * @param degats un entier des degats de l'entite
      */
-    public void setDegats(int degats) {
+    public void setDegats(float degats) {
         this.degats = degats;
     }
 
@@ -149,7 +149,7 @@ public abstract class EntiteMouvante implements Entite {
         if(currentTimeInvincible > coolDownTimeInvincible){
             currentTimeInvincible = 0f;
             EntiteMouvante sourceDmg = (EntiteMouvante)source;
-            setPointDeVie(getPointDeVie()- sourceDmg.getDegats());
+            setPointDeVie(getPointDeVie() - sourceDmg.getDegats());
 
             //knockback
             if(!mort && !((EntiteMouvante) source).mort) {

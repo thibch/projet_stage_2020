@@ -114,7 +114,7 @@ public class Ogre extends Ennemi {
             //se téléporte aléatoirement
             Random rand = new Random();
             body.setTransform(rand.nextInt(salle.getLargeur()-1),rand.nextInt(salle.getHauteur()-1),0);
-            currentHP = getPointDeVie();
+            currentHP = (int)getPointDeVie();
         }
 
         //charge

@@ -4,6 +4,7 @@ import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.ChauveSouris;
+import fr.projetstage.models.entites.ennemis.Goblin;
 import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.Coffre;
@@ -41,9 +42,12 @@ public class SalleSpawn extends Salle {
         pieges.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbPieges++)));
 
         //monstres
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        /*ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
         ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        ennemis.put(nbEnnemis, new ChauveSouris(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        ennemis.put(nbEnnemis, new ChauveSouris(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));*/
+
+        ennemis.put(nbEnnemis, new Goblin(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
+        ennemis.put(nbEnnemis, new Goblin(world, new Vector2(14, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
 
         objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(7,7), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new Crane(world), nbObjetAuSols++));

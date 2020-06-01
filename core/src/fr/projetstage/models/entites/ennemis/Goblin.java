@@ -13,6 +13,7 @@ import fr.projetstage.models.entites.attaques.AttaqueDistance;
 import fr.projetstage.models.entites.attaques.DagueFactory;
 import fr.projetstage.models.entites.attaques.FlecheFactory;
 import fr.projetstage.models.entites.attaques.Projectile;
+import fr.projetstage.models.entites.joueur.Joueur;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.monde.GameWorld;
 

@@ -157,7 +157,7 @@ public abstract class Salle {
                 monde.addObject(obj);
                 return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
             }else if (rand <= 50){
-                obj = new PotionAttaque(world);
+                obj = new PotionForce(world);
                 monde.addObject(obj);
                 return new Coffre(world, new Vector2(x,y), obj, nbObjetAuSols);
             }else if(rand <= 75) {

@@ -52,7 +52,7 @@ public class AttaqueDistance extends Attaque {
     }
 
     public Projectile attaqueDistanceJoueur(Vector2 positionLanceur, int id){
-        flecheActuelle.launch(world.getJoueur().getPosition().sub(positionLanceur),speed,id);
+        flecheActuelle.launch(new Vector2(world.getJoueur().getPosition()).sub(positionLanceur),speed,id);
 
         animation.reset();
         isCharging = false;

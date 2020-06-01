@@ -5,13 +5,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.monde.GameWorld;
 
-public class PotionAttaque extends Equipement {
+public class PotionForce extends Equipement {
 
     /**
      * Constructeur de l'objet potion d'attaque
      * @param world le monde dans lequel existe l'objet
      */
-    public PotionAttaque(GameWorld world) {
+    public PotionForce(GameWorld world) {
         super(world, "Strange Brewing");
     }
 
@@ -22,17 +22,17 @@ public class PotionAttaque extends Equipement {
 
     @Override
     public void applyEffect() {
-        world.getJoueur().setDegats(world.getJoueur().getDegats()+1);
+        world.getJoueur().setDegats(world.getJoueur().getDegats()+0.5f);
     }
 
     @Override
     public void reverseEffect() {
-        world.getJoueur().setDegats(world.getJoueur().getDegats()-1);
+        world.getJoueur().setDegats(world.getJoueur().getDegats()-0.5f);
     }
 
     @Override
     public String getDescription() {
-        return "Strange Brewing\nYou don't know what it is but you feel stronger.\n+1 attack";
+        return "Strange Brewing\nYou don't know what it is but you feel stronger.\n+0.5 attack";
     }
 
     @Override
