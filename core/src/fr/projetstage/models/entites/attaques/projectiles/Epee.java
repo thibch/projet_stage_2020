@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.attaques;
+package fr.projetstage.models.entites.attaques.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;

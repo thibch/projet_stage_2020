@@ -10,6 +10,8 @@ import fr.projetstage.models.entites.EntiteMouvante;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.attaques.*;
+import fr.projetstage.models.entites.attaques.projectiles.factory.FlecheFactory;
+import fr.projetstage.models.entites.attaques.projectiles.Projectile;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -26,7 +28,7 @@ public class Joueur extends EntiteMouvante {
     private CorpsACorps attaqueCaC;
     private AttaqueDistance attaqueDistance;
 
-    private ArrayList<Projectile> projectiles;
+    private ArrayList<fr.projetstage.models.entites.attaques.projectiles.Projectile> projectiles;
 
     private boolean utiliseEpee;
     private boolean attaqueMaintenant;

@@ -10,10 +10,8 @@ import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
-import fr.projetstage.models.entites.attaques.DagueFactory;
-import fr.projetstage.models.entites.attaques.FlecheFactory;
-import fr.projetstage.models.entites.attaques.Projectile;
-import fr.projetstage.models.entites.joueur.Joueur;
+import fr.projetstage.models.entites.attaques.projectiles.factory.DagueFactory;
+import fr.projetstage.models.entites.attaques.projectiles.Projectile;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
 import fr.projetstage.models.monde.GameWorld;
 
@@ -48,7 +46,7 @@ public class Goblin extends Ennemi {
 
 
         attaqueDistance = new AttaqueDistance(world, new DagueFactory(world,5f/16f, 5f/16f), 1f);
-        attaqueDistance.setSpeed(30f);
+        attaqueDistance.setSpeed(10f);
         projectiles = new ArrayList<>();
 
     }

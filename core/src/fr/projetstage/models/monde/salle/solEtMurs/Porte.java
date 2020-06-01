@@ -21,6 +21,15 @@ public class Porte extends Obstacle {
     private BodyDef bodyDefBloquant;
     private Body bodyBloquant;
 
+    private BodyDef bodyDefLeft;
+    private Body bodyLeft;
+    private BodyDef bodyDefRight;
+    private Body bodyRight;
+
+
+    private float tailleXCotes;
+    private float tailleYCotes;
+
 
     private boolean estOuverte;
 
@@ -37,6 +46,37 @@ public class Porte extends Obstacle {
         bodyDefBloquant = new BodyDef();
         bodyDefBloquant.type = BodyDef.BodyType.StaticBody;
         bodyDefBloquant.position.set(position);
+
+        Vector2 positionRight = new Vector2();
+        Vector2 positionLeft = new Vector2();
+
+        if(direction == Orientation.HAUT || direction == Orientation.BAS){
+            tailleXCotes = 6f/16f;
+            tailleYCotes = 1f;
+            if(direction == Orientation.BAS){
+                positionRight.y = 1f;
+                positionLeft.y = 1f;
+            }
+        }else {
+            tailleXCotes = 1f;
+            tailleYCotes = 6f / 16f;
+            if (direction == Orientation.DROITE) {
+                positionRight.y = 2f - 6f/16f;
+                positionRight.x = -1f;
+            }else{
+                positionLeft.x = 1f;
+                positionLeft.y = 2f - 6f/16f;
+            }
+        }
+
+
+        bodyDefLeft = new BodyDef();
+        bodyDefLeft.type = BodyDef.BodyType.StaticBody;
+        bodyDefLeft.position.set(new Vector2(position.x + positionLeft.x, position.y + positionLeft.y));
+
+        bodyDefRight = new BodyDef();
+        bodyDefRight.type = BodyDef.BodyType.StaticBody;
+        bodyDefRight.position.set(new Vector2(position.x + tailleX - tailleXCotes + positionRight.x, position.y + positionRight.y));
 
         estOuverte = false;
     }
@@ -80,9 +120,54 @@ public class Porte extends Obstacle {
             rectangle.dispose();
         }
 
+        bodyLeft = world.getWorld().createBody(bodyDefLeft);
+
+        Vector2 posShapeBloquant = new Vector2(0, 0); // La position du shape est en fonction de la position du body
+        vertices[0] = posShapeBloquant;
+        vertices[1] = new Vector2(posShapeBloquant.x + tailleXCotes, posShapeBloquant.y);
+        vertices[2] = new Vector2(posShapeBloquant.x + tailleXCotes, posShapeBloquant.y + tailleYCotes);
+        vertices[3] = new Vector2(posShapeBloquant.x, posShapeBloquant.y + tailleYCotes);
+        vertices[4] = posShapeBloquant;
+
+        rectangle = new ChainShape();
+        rectangle.createChain(vertices);
+
+        FixtureDef fixtureDefBloquant = new FixtureDef();
+        fixtureDefBloquant.shape = rectangle;
+        fixtureDefBloquant.density = 1f;
+        fixtureDefBloquant.restitution = 0f;
+        fixtureDefBloquant.friction = 0f;
+
+        bodyLeft.createFixture(fixtureDefBloquant);
+
+        rectangle.dispose();
+
+
+
+        bodyRight = world.getWorld().createBody(bodyDefRight);
+
+        posShapeBloquant = new Vector2(0, 0); // La position du shape est en fonction de la position du body
+        vertices[0] = posShapeBloquant;
+        vertices[1] = new Vector2(posShapeBloquant.x + tailleXCotes, posShapeBloquant.y);
+        vertices[2] = new Vector2(posShapeBloquant.x + tailleXCotes, posShapeBloquant.y + tailleYCotes);
+        vertices[3] = new Vector2(posShapeBloquant.x, posShapeBloquant.y + tailleYCotes);
+        vertices[4] = posShapeBloquant;
+
+        rectangle = new ChainShape();
+        rectangle.createChain(vertices);
+
+        fixtureDefBloquant = new FixtureDef();
+        fixtureDefBloquant.shape = rectangle;
+        fixtureDefBloquant.density = 1f;
+        fixtureDefBloquant.restitution = 0f;
+        fixtureDefBloquant.friction = 0f;
+        bodyRight.createFixture(fixtureDefBloquant);
+
+        rectangle.dispose();
+
+
 
         // Body pour la transition
-
         body = world.getWorld().createBody(bodyDef);
 
         body.setUserData(new Type(TypeEntite.PORTE, direction.getIndice()));
@@ -123,6 +208,8 @@ public class Porte extends Obstacle {
     @Override
     public void destroyBody(){
         world.getWorld().destroyBody(body);
+        world.getWorld().destroyBody(bodyLeft);
+        world.getWorld().destroyBody(bodyRight);
         if(!estOuverte){
             world.getWorld().destroyBody(bodyBloquant);
         }

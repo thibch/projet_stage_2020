@@ -14,7 +14,7 @@ public class PackDeFleches extends Consommable {
      * @param id l'id de l'objet
      */
     public PackDeFleches(GameWorld world, Vector2 position, int id) {
-        super(world, position, new Vector2(0,0), 5f/16f, 5f/16f, id, "PackDeFleches");
+        super(world, position, new Vector2(2f/16f,5f/16f), 12f/16f, 5f/16f, id, "PackDeFleches");
     }
 
     @Override

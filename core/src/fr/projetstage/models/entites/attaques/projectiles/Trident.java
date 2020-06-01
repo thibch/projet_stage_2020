@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.attaques;
+package fr.projetstage.models.entites.attaques.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -9,7 +9,7 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.monde.GameWorld;
 
-public class FireBall extends Projectile{
+public class Trident extends Projectile{
 
     private final float largeur;
     private final float hauteur;
@@ -25,7 +25,7 @@ public class FireBall extends Projectile{
      * @param hauteur la hauteur de la flèche
      * @param direction la direction de la flèche
      */
-    public FireBall(GameWorld world, Vector2 position, float largeur, float hauteur, Orientation direction){
+    public Trident(GameWorld world, Vector2 position, float largeur, float hauteur, Orientation direction){
         super(world, position);
         this.direction = direction;
         this.largeur = largeur;
@@ -56,7 +56,7 @@ public class FireBall extends Projectile{
 
     @Override
     public void draw(SpriteBatch spriteBatch, float x, float y) {
-        spriteBatch.draw(TextureFactory.getInstance().getFireBall(), x + body.getPosition().x, y + body.getPosition().y, 1/2f, 1/2f, 1, 1,
+        spriteBatch.draw(TextureFactory.getInstance().getTrident(), x + body.getPosition().x, y + body.getPosition().y, 1/2f, 1/2f, 1, 1,
                 1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
    }
 

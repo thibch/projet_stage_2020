@@ -1,11 +1,9 @@
-package fr.projetstage.models.entites.attaques;
+package fr.projetstage.models.entites.attaques.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import fr.projetstage.dataFactories.TextureFactory;
-import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 

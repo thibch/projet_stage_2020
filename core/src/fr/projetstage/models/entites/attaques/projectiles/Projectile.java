@@ -1,4 +1,4 @@
-package fr.projetstage.models.entites.attaques;
+package fr.projetstage.models.entites.attaques.projectiles;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -51,7 +51,7 @@ public abstract class Projectile extends EntiteMouvante {
         generateBody();
         if(body != null){
             estLancee = true;
-            body.setLinearVelocity(new Vector2((float) ((direction.x/(Math.pow(direction.x,2)+Math.pow(direction.y,2)))*speed),(float) ((direction.y/(Math.pow(direction.x,2)+Math.pow(direction.y,2)))*speed)));
+            body.setLinearVelocity(new Vector2((float) ((direction.x/Math.sqrt((Math.pow(direction.x,2)+Math.pow(direction.y,2))))*speed),(float) ((direction.y/Math.sqrt((Math.pow(direction.x,2)+Math.pow(direction.y,2))))*speed)));
             body.setUserData(new Type(TypeEntite.DISTANCE_EN, id));
         }
     }

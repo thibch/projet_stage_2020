@@ -5,6 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.entites.attaques.projectiles.factory.ProjectileFactory;
+import fr.projetstage.models.entites.attaques.projectiles.Projectile;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -20,8 +22,8 @@ public class AttaqueDistance extends Attaque {
 
     private boolean isCharging;
 
-    private Projectile flecheActuelle;
-    private ProjectileFactory flecheFactory;
+    private fr.projetstage.models.entites.attaques.projectiles.Projectile flecheActuelle;
+    private fr.projetstage.models.entites.attaques.projectiles.factory.ProjectileFactory flecheFactory;
 
     private int munition;
 
@@ -40,7 +42,7 @@ public class AttaqueDistance extends Attaque {
     }
 
     @Override
-    public Projectile attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
+    public fr.projetstage.models.entites.attaques.projectiles.Projectile attaqueDistance(Vector2 positionLanceur, Orientation direction, int id) {
         // Spawn de body
         flecheActuelle.launch(direction, speed, id);
 

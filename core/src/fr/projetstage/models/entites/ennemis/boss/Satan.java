@@ -10,9 +10,8 @@ import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
-import fr.projetstage.models.entites.attaques.DagueFactory;
-import fr.projetstage.models.entites.attaques.Projectile;
-import fr.projetstage.models.entites.attaques.TridentFactory;
+import fr.projetstage.models.entites.attaques.projectiles.Projectile;
+import fr.projetstage.models.entites.attaques.projectiles.factory.TridentFactory;
 import fr.projetstage.models.entites.ennemis.Comportement;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
@@ -20,7 +19,6 @@ import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Satan extends Ennemi {
 

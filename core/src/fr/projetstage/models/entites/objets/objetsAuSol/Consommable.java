@@ -45,14 +45,19 @@ public abstract class Consommable extends ObjetsTousTypes {
         // Récupération du body dans le world
         body = world.getWorld().createBody(bodyDef);
 
-        CircleShape circleShape = new CircleShape();
-        Vector2 posShapeCircle = new Vector2(posShape.x + largeur/2f, posShape.y + hauteur/2f);
-        circleShape.setPosition(posShapeCircle);
-        circleShape.setRadius(largeur/2f);
+
+        Vector2[] vertices = new Vector2[4];
+        vertices[0] = posShape;
+        vertices[1] = new Vector2(posShape.x + largeur, posShape.y);
+        vertices[2] = new Vector2(posShape.x + largeur, posShape.y + hauteur);
+        vertices[3] = new Vector2(posShape.x, posShape.y + hauteur);
+
+        PolygonShape rectangle = new PolygonShape();
+        rectangle.set(vertices);
 
         // FixtureDef
         FixtureDef fixtureDef1 = new FixtureDef();
-        fixtureDef1.shape = circleShape;
+        fixtureDef1.shape = rectangle;
         fixtureDef1.isSensor = false;
         fixtureDef1.density = 0;
         fixtureDef1.restitution = 0f;
@@ -67,7 +72,7 @@ public abstract class Consommable extends ObjetsTousTypes {
 
         body.setUserData(new Type(TypeEntite.PICKUP, id));
 
-        circleShape.dispose();
+        rectangle.dispose();
     }
 
     @Override

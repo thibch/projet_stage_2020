@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
+import fr.projetstage.models.entites.attaques.projectiles.Epee;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.Orientation;
 
@@ -27,7 +28,7 @@ public class CorpsACorps extends Attaque{
 
     private boolean isRunning = false;
 
-    private Epee epee;
+    private fr.projetstage.models.entites.attaques.projectiles.Epee epee;
 
     /**
      * @param world le gameworld

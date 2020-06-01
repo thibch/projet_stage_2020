@@ -1,7 +1,8 @@
-package fr.projetstage.models.entites.attaques;
+package fr.projetstage.models.entites.attaques.projectiles.factory;
 
 import com.badlogic.gdx.math.Vector2;
 import fr.projetstage.models.Orientation;
+import fr.projetstage.models.entites.attaques.projectiles.Projectile;
 import fr.projetstage.models.monde.GameWorld;
 
 public abstract class ProjectileFactory {

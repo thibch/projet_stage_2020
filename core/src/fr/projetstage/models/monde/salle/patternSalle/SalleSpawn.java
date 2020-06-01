@@ -6,6 +6,7 @@ import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.ChauveSouris;
 import fr.projetstage.models.entites.ennemis.Goblin;
 import fr.projetstage.models.entites.ennemis.Slime;
+import fr.projetstage.models.entites.objets.objetsAuSol.PackDeFleches;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
@@ -51,6 +52,7 @@ public class SalleSpawn extends Salle {
 
         objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(7,7), nbObjetAuSols++));
         objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new Crane(world), nbObjetAuSols++));
+        objets.put(nbObjetAuSols, new PackDeFleches(world, new Vector2(12,3), nbObjetAuSols++));
 
         meubles.add(new Escalier(world, new Vector2(largeur-1, 0)));
     }

@@ -1,6 +1,5 @@
 package fr.projetstage.models.entites.ennemis;
 
-import com.badlogic.gdx.ai.steer.behaviors.Arrive;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Filter;
@@ -10,10 +9,8 @@ import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.Orientation;
 import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.attaques.AttaqueDistance;
-import fr.projetstage.models.entites.attaques.DagueFactory;
-import fr.projetstage.models.entites.attaques.FireBallFactory;
-import fr.projetstage.models.entites.attaques.Projectile;
-import fr.projetstage.models.entites.joueur.LocationJoueur;
+import fr.projetstage.models.entites.attaques.projectiles.factory.FireBallFactory;
+import fr.projetstage.models.entites.attaques.projectiles.Projectile;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.salle.Salle;
 
@@ -56,7 +53,7 @@ public class Imp extends Ennemi {
 
 
         attaqueDistance = new AttaqueDistance(world, new FireBallFactory(world,5f/16f, 5f/16f), 1f);
-        attaqueDistance.setSpeed(100f);
+        attaqueDistance.setSpeed(15f);
         projectiles = new ArrayList<>();
     }
 
