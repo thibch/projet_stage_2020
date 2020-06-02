@@ -45,7 +45,7 @@ public class BarreDeVie extends Actor {
             cpt++;
         }
         //Coeurs vide
-        for(int i = 0; i < ((int)(gameWorld.getJoueur().getPointdeVieMax())-(int)(gameWorld.getJoueur().getPointDeVie()))/2; i++){
+        for(int i = 0; i < ((gameWorld.getJoueur().getPointDeVieMax())-(int)(gameWorld.getJoueur().getPointDeVie()))/2; i++){
             batch.draw(TextureFactory.getInstance().getCoeurVide(), cpt*getWidth() + getX(),getY(), getWidth(), getHeight());
             cpt++;
         }

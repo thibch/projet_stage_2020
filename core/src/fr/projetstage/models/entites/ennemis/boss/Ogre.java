@@ -8,7 +8,6 @@ import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.CollisionFilter;
 import fr.projetstage.models.entites.Type;
-import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.Comportement;
 import fr.projetstage.models.entites.ennemis.Ennemi;
 import fr.projetstage.models.entites.joueur.LocationJoueur;
@@ -23,7 +22,7 @@ public class Ogre extends Ennemi {
     private Animation animationHide;
     private int fleeCoolDown = 1;
     private long timeLastFlee;
-    private int currentHP;
+    private float currentHP;
 
     private int chargeCoolDown = 3;
     private long timeLastCharge;
@@ -109,12 +108,13 @@ public class Ogre extends Ennemi {
             animationHide.reset();
         }
 
-        if(onCoolDown || getPointDeVie() != currentHP){ // a frappé le joueur ou a pris un coup
+        float epsilon = 0.1f;
+        if(onCoolDown || !((getPointDeVie() + epsilon) >= currentHP && (getPointDeVie() - epsilon) <= currentHP)){ // a frappé le joueur ou a pris un coup
             timeLastFlee = System.currentTimeMillis()+ (fleeCoolDown*1000); //fuis
             //se téléporte aléatoirement
             Random rand = new Random();
             body.setTransform(rand.nextInt(salle.getLargeur()-1),rand.nextInt(salle.getHauteur()-1),0);
-            currentHP = (int)getPointDeVie();
+            currentHP = getPointDeVie();
         }
 
         //charge

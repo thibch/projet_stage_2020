@@ -22,7 +22,7 @@ public class Coeur extends Equipement {
 
     @Override
     public void applyEffect() {
-        world.getJoueur().setPointdeVieMax(world.getJoueur().getPointdeVieMax()+2);
+        world.getJoueur().setPointdeVieMax(world.getJoueur().getPointDeVieMax()+2);
     }
 
     @Override

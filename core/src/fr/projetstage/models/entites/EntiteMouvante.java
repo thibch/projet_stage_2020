@@ -63,7 +63,7 @@ public abstract class EntiteMouvante implements Entite {
      * Methode permettant de retourner le nombre maximum de points de vie d'une entite
      * @return le nombre max de points de vie d'une entite
      */
-    public int getPointdeVieMax() {
+    public int getPointDeVieMax() {
         return pointdeVieMax;
     }
 

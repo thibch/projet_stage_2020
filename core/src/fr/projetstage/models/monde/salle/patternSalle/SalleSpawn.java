@@ -11,6 +11,7 @@ import fr.projetstage.models.entites.objets.objetsAuSol.PackDeFleches;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;
 import fr.projetstage.models.entites.objets.Coffre;
 import fr.projetstage.models.entites.objets.objetsCoffre.Crane;
+import fr.projetstage.models.entites.objets.objetsCoffre.PotionForce;
 import fr.projetstage.models.monde.GameWorld;
 import fr.projetstage.models.monde.Monde;
 import fr.projetstage.models.monde.TypeSalle;
@@ -40,6 +41,11 @@ public class SalleSpawn extends Salle {
             meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
             meubles.add(new PetiteTable(world, new Vector2(5, 3)));
             meubles.add(new GrandeTable(world, new Vector2(5, 5)));
+/*
+            meubles.add(new Escalier(world, new Vector2(4, 5)));
+            objets.put(nbObjetAuSols, new Coffre(world, new Vector2(3, 5), new PotionForce(world), nbObjetAuSols));
+            nbObjetAuSols++;
+*/
         }else if (idEtage == 1){
             meubles.add(new Biblio(world, new Vector2(12, 5)));
             meubles.add(new PetiteTable(world, new Vector2(5, 3)));
