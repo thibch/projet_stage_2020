@@ -39,22 +39,8 @@ public class SalleSpawn extends Salle {
         meubles.add(new PetiteTable(world, new Vector2(5, 3)));
         meubles.add(new GrandeTable(world, new Vector2(5, 5)));
 
-        //piege
-        pieges.put(nbEnnemis,new Piege(world,new Vector2(7,3),new Type(TypeEntite.PIEGE, nbPieges++)));
-
         //monstres
-        /*ennemis.put(nbEnnemis, new Slime(world, new Vector2(7, 7), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        ennemis.put(nbEnnemis, new Slime(world, new Vector2(10, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        ennemis.put(nbEnnemis, new ChauveSouris(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));*/
-
-        ennemis.put(nbEnnemis, new Goblin(world, new Vector2(13, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-        ennemis.put(nbEnnemis, new Goblin(world, new Vector2(14, 9), new Type(TypeEntite.ENNEMI, nbEnnemis++)));
-
         objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(7,7), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new Coffre(world, new Vector2(11,3), new Crane(world), nbObjetAuSols++));
-        objets.put(nbObjetAuSols, new PackDeFleches(world, new Vector2(12,3), nbObjetAuSols++));
-
-        meubles.add(new Escalier(world, new Vector2(largeur-1, 0)));
     }
 
     @Override
