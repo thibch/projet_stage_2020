@@ -51,7 +51,7 @@ public class Etage {
      */
     public void generationEtage(GenerateurSalle generateur, int nbSalleTotal, int nbSalleCoffre){
         assert (nbSalleCoffre > nbSalleTotal-2):"Erreur, il ne pas peut avoir plus de salle avec Coffre que de Salle au total";
-        tabSalles[xCourant][yCourant] = new SalleSpawn(world, monde);
+        tabSalles[xCourant][yCourant] = new SalleSpawn(world, idEtage, monde);
 
         LinkedList<Vector2> queuePosi = new LinkedList<>();
         queuePosi.add(new Vector2(xCourant, yCourant));

@@ -12,6 +12,7 @@ public class SoundFactory {
 
     private static SoundFactory instance;
     private static Sound soundDeath;
+    private static Sound music;
 
     /**
      * Met en place les sons dans la banque de sons
@@ -19,6 +20,7 @@ public class SoundFactory {
     private SoundFactory() {
         instance = this;
         soundDeath = Gdx.audio.newSound(Gdx.files.internal("sounds/death.mp3"));
+        music = Gdx.audio.newSound(Gdx.files.internal("sounds/manbehind.mp3"));
     }
 
     /**
@@ -38,6 +40,14 @@ public class SoundFactory {
      */
     public void playsoundDeath(float volume) {
         soundDeath.play(volume);
+    }
+
+    /**
+     * Joue la musique de fond avec le volume donné
+     * @param volume la musique de fond
+     */
+    public void loopMusic(float volume) {
+        music.loop(volume);
     }
 
     /**

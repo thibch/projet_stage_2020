@@ -26,18 +26,28 @@ public class SalleSpawn extends Salle {
      *
      * @param world   le monde dans lequel la salle est générée
      */
-    public SalleSpawn(GameWorld world, Monde monde) {
-        super(world, monde, 0, 16, 10);
+    public SalleSpawn(GameWorld world, int idEtage, Monde monde) {
+        super(world, monde, idEtage, 16, 10);
     }
 
     @Override
     public void genererSalle() {
         genererSolsEtMurs();
 
-        meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));
-        meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
-        meubles.add(new PetiteTable(world, new Vector2(5, 3)));
-        meubles.add(new GrandeTable(world, new Vector2(5, 5)));
+        if(idEtage == 0){
+            meubles.add(new Biblio(world, new Vector2(2, hauteur-1)));
+            meubles.add(new Biblio(world, new Vector2(3, hauteur-1)));
+            meubles.add(new PetiteTable(world, new Vector2(5, 3)));
+            meubles.add(new GrandeTable(world, new Vector2(5, 5)));
+        }else if (idEtage == 1){
+            meubles.add(new Biblio(world, new Vector2(12, 5)));
+            meubles.add(new PetiteTable(world, new Vector2(5, 3)));
+            meubles.add(new GrandeTable(world, new Vector2(10, 5)));
+        }else{
+            meubles.add(new Biblio(world, new Vector2(6, hauteur-2)));
+            meubles.add(new Biblio(world, new Vector2(7, hauteur-2)));
+            meubles.add(new Biblio(world, new Vector2(8, hauteur-2)));
+        }
 
         //monstres
         objets.put(nbObjetAuSols, new PotionVieRouge(world, new Vector2(7,7), nbObjetAuSols++));

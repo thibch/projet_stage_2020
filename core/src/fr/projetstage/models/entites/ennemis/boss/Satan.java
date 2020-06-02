@@ -64,7 +64,7 @@ public class Satan extends Ennemi {
         runningAnimation = new Animation(TextureFactory.getInstance().getBigDemonRunSpriteSheet(),4,0.5f);
 
         attaqueDistance = new AttaqueDistance(world, new TridentFactory(world,5f/16f, 5f/16f), 1f);
-        attaqueDistance.setSpeed(100f);
+        attaqueDistance.setSpeed(15f);
         projectiles = new ArrayList<>();
     }
 

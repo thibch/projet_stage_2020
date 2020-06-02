@@ -75,6 +75,8 @@ public class GameScreen extends ScreenAdapter {
         gameWorld = new GameWorld(seed, this);
         userInterface = new UserInterface(gameWorld);
 
+        SoundFactory.getInstance().loopMusic(0.1f);
+
 
 
         InputMultiplexer inputMultiplexer = new InputMultiplexer();

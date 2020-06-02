@@ -57,7 +57,7 @@ public class Trident extends Projectile{
     @Override
     public void draw(SpriteBatch spriteBatch, float x, float y) {
         spriteBatch.draw(TextureFactory.getInstance().getTrident(), x + body.getPosition().x, y + body.getPosition().y, 1/2f, 1/2f, 1, 1,
-                1, 1, 90 + direction.getRotation(),0,0, TextureFactory.getInstance().getFleche().getWidth(), TextureFactory.getInstance().getFleche().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
+                1, 1, 90,0,0, TextureFactory.getInstance().getTrident().getWidth(), TextureFactory.getInstance().getTrident().getHeight(), false, direction == Orientation.BAS || direction == Orientation.GAUCHE);
    }
 
     /**
