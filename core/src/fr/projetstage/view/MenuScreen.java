@@ -15,7 +15,7 @@ import fr.projetstage.models.ui.menu.MainMenuScreen;
 public class MenuScreen extends ScreenAdapter {
 
     private ProjetStage mainStage;
-    private boolean musicLaunched = false;
+    private static boolean musicLaunched = false;
 
     private Stage stage;
     private MainMenuScreen mainMenuScreen;
