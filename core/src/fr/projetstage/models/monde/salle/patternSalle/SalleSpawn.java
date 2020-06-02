@@ -5,6 +5,7 @@ import fr.projetstage.models.entites.Type;
 import fr.projetstage.models.entites.TypeEntite;
 import fr.projetstage.models.entites.ennemis.ChauveSouris;
 import fr.projetstage.models.entites.ennemis.Goblin;
+import fr.projetstage.models.entites.ennemis.OrcShaman;
 import fr.projetstage.models.entites.ennemis.Slime;
 import fr.projetstage.models.entites.objets.objetsAuSol.PackDeFleches;
 import fr.projetstage.models.entites.objets.objetsAuSol.PotionVieRouge;

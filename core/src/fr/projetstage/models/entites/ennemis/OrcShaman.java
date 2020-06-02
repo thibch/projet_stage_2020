@@ -29,7 +29,7 @@ public class OrcShaman extends Ennemi {
         setPointDeVie(3);
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(1.4f);
+        setSpeed(0.4f);
 
         hauteur = (6f / 16f);
         largeur = (8f / 16f);
@@ -79,6 +79,7 @@ public class OrcShaman extends Ennemi {
     @Override
     public void update() {
         super.update();
+        body.setLinearDamping(10f);
 
         if(System.currentTimeMillis() > cooldown){
             int nbEnnemis = salle.getNbEnnemis();

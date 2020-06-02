@@ -55,7 +55,7 @@ public class PauseScreen implements Menu{
     public void draw(Batch batch){
         if(userInterface.isPaused()) {
             updateInventoryUI();
-            batch.draw(TextureFactory.getInstance().getBackground(), 5, 5, stage.getWidth(), stage.getHeight());
+            batch.draw(TextureFactory.getInstance().getBackground(), 0, 0, stage.getWidth(), stage.getHeight());
             pause.draw(batch);
             inventaire.draw(batch);
         }

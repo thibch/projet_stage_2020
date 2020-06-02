@@ -44,7 +44,7 @@ public class Ogre extends Ennemi {
         currentHP = 10;
         setDegats(1);
         coolDownTime = 1f;
-        setSpeed(3f);
+        setSpeed(1f);
 
         hidden = true;
         timeLastFlee = System.currentTimeMillis();

@@ -25,9 +25,9 @@ public class GenerateurSalle {
         this.world = world;
         lecteur = new Lecteur(this);
         chercheurAvecCoffre = new ChercheurFichiers();
-        chercheurAvecCoffre.trouverFichiersDansDossier("paternesDeSalles/avecCoffre");
+        chercheurAvecCoffre.trouverFichiersDansDossier("avecCoffre");
         chercheurSansCoffre = new ChercheurFichiers();
-        chercheurSansCoffre.trouverFichiersDansDossier("paternesDeSalles/sansCoffre");
+        chercheurSansCoffre.trouverFichiersDansDossier("sansCoffre");
     }
 
     public void carac(Salle salle, Character character){

@@ -1,0 +1,6 @@
+Contôles:
+ZQSD pour se mouvoir.
+les flèches directionnelles pour taper/ tirer dans la direction voulue.
+ECHAP pour mettre pause
+L-CTRL pour changer d'arme
+ESPACE pour faire Oof

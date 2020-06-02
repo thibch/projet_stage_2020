@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import fr.projetstage.ProjetStage;
 import fr.projetstage.controllers.KeyboardListener;
+import fr.projetstage.dataFactories.SoundFactory;
 import fr.projetstage.dataFactories.TextureFactory;
 import fr.projetstage.models.Animation;
 import fr.projetstage.models.ui.menu.MainMenuScreen;
@@ -14,6 +15,7 @@ import fr.projetstage.models.ui.menu.MainMenuScreen;
 public class MenuScreen extends ScreenAdapter {
 
     private ProjetStage mainStage;
+    private boolean musicLaunched = false;
 
     private Stage stage;
     private MainMenuScreen mainMenuScreen;
@@ -38,6 +40,11 @@ public class MenuScreen extends ScreenAdapter {
         inputMultiplexer.addProcessor(stage);
         inputMultiplexer.addProcessor(keyboardListener);
         Gdx.input.setInputProcessor(inputMultiplexer);
+
+        if(!musicLaunched){
+            SoundFactory.getInstance().loopMusic(0.1f);
+            musicLaunched = true;
+        }
 
         slime = new Animation(TextureFactory.getInstance().getSlimeIdleSpriteSheet(),6,0.8f);
         goblin = new Animation(TextureFactory.getInstance().getGoblinIdleSpriteSheet(),6,0.8f);
